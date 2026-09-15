@@ -1,0 +1,497 @@
+<mujoco model="thali_dinner_table">
+  <compiler angle="radian" meshdir="so101/assets/"/>
+
+  <option integrator="implicitfast" noslip_iterations="3"/>
+
+  <size nkey="1"/>
+
+  <default>
+    <default class="arm_a_main">
+      <default class="arm_a_so101_new_calib">
+        <joint armature="0.005" damping="1" frictionloss="0.1"/>
+        <general biastype="affine" gainprm="50" biasprm="0 -50"/>
+        <default class="arm_a_visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="arm_a_collision">
+          <geom group="3"/>
+        </default>
+      </default>
+      <default class="arm_a_sts3215">
+        <joint armature="0.028" damping="0.6" frictionloss="0.052"/>
+        <geom contype="0" conaffinity="0"/>
+        <general forcerange="-2.94 2.94" biastype="affine" gainprm="998.22" biasprm="0 -998.22 -2.731"/>
+      </default>
+      <default class="arm_a_backlash">
+        <joint range="-0.00872665 0.00872665" armature="0.01" damping="0.01" limited="true"/>
+      </default>
+    </default>
+    <default class="arm_b_main">
+      <default class="arm_b_so101_new_calib">
+        <joint armature="0.005" damping="1" frictionloss="0.1"/>
+        <general biastype="affine" gainprm="50" biasprm="0 -50"/>
+        <default class="arm_b_visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="arm_b_collision">
+          <geom group="3"/>
+        </default>
+      </default>
+      <default class="arm_b_sts3215">
+        <joint armature="0.028" damping="0.6" frictionloss="0.052"/>
+        <geom contype="0" conaffinity="0"/>
+        <general forcerange="-2.94 2.94" biastype="affine" gainprm="998.22" biasprm="0 -998.22 -2.731"/>
+      </default>
+      <default class="arm_b_backlash">
+        <joint range="-0.00872665 0.00872665" armature="0.01" damping="0.01" limited="true"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <texture type="2d" colorspace="auto" name="tex_wood_light" builtin="flat" rgb1="0.78 0.62 0.42" rgb2="0.78 0.62 0.42" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_wood_dark" builtin="flat" rgb1="0.42 0.28 0.16" rgb2="0.42 0.28 0.16" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_checker_grey" builtin="checker" rgb1="0.55 0.55 0.55" rgb2="0.35 0.35 0.35" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_checker_blue" builtin="checker" rgb1="0.35 0.45 0.65" rgb2="0.2 0.25 0.4" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_cloth_white" builtin="flat" rgb1="0.92 0.92 0.9" rgb2="0.92 0.92 0.9" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_cloth_red" builtin="checker" rgb1="0.75 0.2 0.18" rgb2="0.85 0.8 0.75" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_marble" builtin="gradient" rgb1="0.85 0.85 0.88" rgb2="0.6 0.6 0.66" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_slate" builtin="gradient" rgb1="0.25 0.27 0.3" rgb2="0.12 0.13 0.15" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_test_green" builtin="checker" rgb1="0.3 0.55 0.3" rgb2="0.2 0.35 0.2" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_test_orange" builtin="gradient" rgb1="0.9 0.55 0.2" rgb2="0.6 0.3 0.1" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_room_grey" builtin="gradient" rgb1="0.55 0.58 0.62" rgb2="0.3 0.32 0.36" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_room_warm" builtin="gradient" rgb1="0.8 0.7 0.6" rgb2="0.45 0.38 0.3" width="256" height="256"/>
+    <texture type="2d" colorspace="auto" name="tex_room_dark" builtin="flat" rgb1="0.15 0.15 0.18" rgb2="0.15 0.15 0.18" width="256" height="256"/>
+    <material name="mat_wood_light" texture="tex_wood_light" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_wood_dark" texture="tex_wood_dark" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_checker_grey" texture="tex_checker_grey" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_checker_blue" texture="tex_checker_blue" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_cloth_white" texture="tex_cloth_white" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_cloth_red" texture="tex_cloth_red" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_marble" texture="tex_marble" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_slate" texture="tex_slate" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_test_green" texture="tex_test_green" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_test_orange" texture="tex_test_orange" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_room_grey" texture="tex_room_grey" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_room_warm" texture="tex_room_warm" texrepeat="4 4" reflectance="0.05"/>
+    <material name="mat_room_dark" texture="tex_room_dark" texrepeat="4 4" reflectance="0.05"/>
+    <material name="arm_a_base_motor_holder_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_base_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_sts3215_03a_v1_material" rgba="0.1 0.1 0.1 1"/>
+    <material name="arm_a_waveshare_mounting_plate_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_motor_holder_so101_base_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_rotation_pitch_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_upper_arm_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_under_arm_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_motor_holder_so101_wrist_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_sts3215_03a_no_horn_v1_material" rgba="0.1 0.1 0.1 1"/>
+    <material name="arm_a_wrist_roll_pitch_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_wrist_roll_follower_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_a_moving_jaw_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_base_motor_holder_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_base_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_sts3215_03a_v1_material" rgba="0.1 0.1 0.1 1"/>
+    <material name="arm_b_waveshare_mounting_plate_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_motor_holder_so101_base_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_rotation_pitch_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_upper_arm_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_under_arm_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_motor_holder_so101_wrist_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_sts3215_03a_no_horn_v1_material" rgba="0.1 0.1 0.1 1"/>
+    <material name="arm_b_wrist_roll_pitch_so101_v2_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_wrist_roll_follower_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <material name="arm_b_moving_jaw_so101_v1_material" rgba="1 0.82 0.12 1"/>
+    <mesh name="arm_a_waveshare_mounting_plate_so101_v2" file="waveshare_mounting_plate_so101_v2.stl"/>
+    <mesh name="arm_a_sts3215_03a_v1" file="sts3215_03a_v1.stl"/>
+    <mesh name="arm_a_motor_holder_so101_base_v1" file="motor_holder_so101_base_v1.stl"/>
+    <mesh name="arm_a_wrist_roll_follower_so101_v1" file="wrist_roll_follower_so101_v1.stl"/>
+    <mesh name="arm_a_moving_jaw_so101_v1" file="moving_jaw_so101_v1.stl"/>
+    <mesh name="arm_a_base_motor_holder_so101_v1" file="base_motor_holder_so101_v1.stl"/>
+    <mesh name="arm_a_upper_arm_so101_v1" file="upper_arm_so101_v1.stl"/>
+    <mesh name="arm_a_wrist_roll_pitch_so101_v2" file="wrist_roll_pitch_so101_v2.stl"/>
+    <mesh name="arm_a_under_arm_so101_v1" file="under_arm_so101_v1.stl"/>
+    <mesh name="arm_a_rotation_pitch_so101_v1" file="rotation_pitch_so101_v1.stl"/>
+    <mesh name="arm_a_motor_holder_so101_wrist_v1" file="motor_holder_so101_wrist_v1.stl"/>
+    <mesh name="arm_a_sts3215_03a_no_horn_v1" file="sts3215_03a_no_horn_v1.stl"/>
+    <mesh name="arm_a_base_so101_v2" file="base_so101_v2.stl"/>
+    <mesh name="arm_b_waveshare_mounting_plate_so101_v2" file="waveshare_mounting_plate_so101_v2.stl"/>
+    <mesh name="arm_b_sts3215_03a_v1" file="sts3215_03a_v1.stl"/>
+    <mesh name="arm_b_motor_holder_so101_base_v1" file="motor_holder_so101_base_v1.stl"/>
+    <mesh name="arm_b_wrist_roll_follower_so101_v1" file="wrist_roll_follower_so101_v1.stl"/>
+    <mesh name="arm_b_moving_jaw_so101_v1" file="moving_jaw_so101_v1.stl"/>
+    <mesh name="arm_b_base_motor_holder_so101_v1" file="base_motor_holder_so101_v1.stl"/>
+    <mesh name="arm_b_upper_arm_so101_v1" file="upper_arm_so101_v1.stl"/>
+    <mesh name="arm_b_wrist_roll_pitch_so101_v2" file="wrist_roll_pitch_so101_v2.stl"/>
+    <mesh name="arm_b_under_arm_so101_v1" file="under_arm_so101_v1.stl"/>
+    <mesh name="arm_b_rotation_pitch_so101_v1" file="rotation_pitch_so101_v1.stl"/>
+    <mesh name="arm_b_motor_holder_so101_wrist_v1" file="motor_holder_so101_wrist_v1.stl"/>
+    <mesh name="arm_b_sts3215_03a_no_horn_v1" file="sts3215_03a_no_horn_v1.stl"/>
+    <mesh name="arm_b_base_so101_v2" file="base_so101_v2.stl"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="3 3 0.05" pos="0 0 -0.75" type="plane" contype="3" conaffinity="3" rgba="0.3 0.3 0.32 1"/>
+    <geom name="backdrop" size="3 0.02 1.5" pos="0 1.6 0.75" type="box" contype="0" conaffinity="0" material="mat_room_grey"/>
+    <camera name="overhead" pos="0 -0.05 0.95" fovy="52"/>
+    <camera name="front" quat="0.86553 0.500857 0 0" pos="0 -1.1 0.6"/>
+    <light name="key" pos="0.3 -0.4 1.4" dir="-0.188144 0.282216 -0.940721"/>
+    <light name="fill" pos="-0.5 0.5 1.2" dir="0.276172 -0.276172 -0.920575" diffuse="0.35 0.35 0.35"/>
+    <body name="table">
+      <geom name="table_top" size="0.45 0.36 0.02" pos="0 0 -0.02" type="box" contype="3" conaffinity="3" friction="0.9 0.01 0.001" material="mat_wood_light"/>
+      <geom size="0.02 0.02 0.395" pos="-0.4 -0.3 -0.395" type="box" contype="0" conaffinity="0" rgba="0.3 0.24 0.18 1"/>
+      <geom size="0.02 0.02 0.395" pos="0.4 -0.3 -0.395" type="box" contype="0" conaffinity="0" rgba="0.3 0.24 0.18 1"/>
+      <geom size="0.02 0.02 0.395" pos="-0.4 0.3 -0.395" type="box" contype="0" conaffinity="0" rgba="0.3 0.24 0.18 1"/>
+      <geom size="0.02 0.02 0.395" pos="0.4 0.3 -0.395" type="box" contype="0" conaffinity="0" rgba="0.3 0.24 0.18 1"/>
+    </body>
+    <body name="arm_a_base" childclass="arm_a_so101_new_calib" pos="-0.24 0 0">
+      <inertial pos="0.0137179 -5.19711e-05 0.0334843" quat="0.420519 0.558762 0.57198 0.428704" mass="0.147" diaginertia="0.000136127 0.000131807 0.000113233"/>
+      <geom class="arm_a_visual" pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.5 0.5 0.5 0.5" material="arm_a_base_motor_holder_so101_v1_material" mesh="arm_a_base_motor_holder_so101_v1"/>
+      <geom class="arm_a_visual" pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.5 0.5 0.5 0.5" material="arm_a_base_so101_v2_material" mesh="arm_a_base_so101_v2"/>
+      <geom class="arm_a_visual" pos="0.0263353 -8.97657e-09 0.0437" quat="1 0 0 0" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+      <geom class="arm_a_visual" pos="-0.0309827 -0.000199441 0.0474" quat="0.5 0.5 0.5 0.5" material="arm_a_waveshare_mounting_plate_so101_v2_material" mesh="arm_a_waveshare_mounting_plate_so101_v2"/>
+      <site name="arm_a_baseframe" quat="1 0 0 0" group="3"/>
+      <body name="arm_a_shoulder" pos="0.0388353 -8.97657e-09 0.0624" quat="0 0 -1 0">
+        <inertial pos="-0.0307604 -1.66727e-05 -0.0252713" quat="0.999865 0.00149563 0.0097084 0.0132043" mass="0.100006" diaginertia="8.37836e-05 8.10388e-05 2.39552e-05"/>
+        <joint name="arm_a_shoulder_pan" class="arm_a_sts3215" range="-1.91986 1.91986"/>
+        <geom class="arm_a_visual" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+        <geom class="arm_a_collision" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+        <geom class="arm_a_visual" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" material="arm_a_motor_holder_so101_base_v1_material" mesh="arm_a_motor_holder_so101_base_v1"/>
+        <geom class="arm_a_collision" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" type="mesh" contype="3" conaffinity="3" material="arm_a_motor_holder_so101_base_v1_material" mesh="arm_a_motor_holder_so101_base_v1"/>
+        <geom class="arm_a_visual" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" material="arm_a_rotation_pitch_so101_v1_material" mesh="arm_a_rotation_pitch_so101_v1"/>
+        <geom class="arm_a_collision" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" type="mesh" contype="3" conaffinity="3" material="arm_a_rotation_pitch_so101_v1_material" mesh="arm_a_rotation_pitch_so101_v1"/>
+        <body name="arm_a_upper_arm" pos="-0.0303992 -0.0182778 -0.0542" quat="0.5 -0.5 -0.5 -0.5">
+          <inertial pos="-0.0898471 -0.00838224 0.0184089" quat="0.453195 0.454063 0.541891 0.542951" mass="0.103" diaginertia="0.000150873 0.000142487 3.72451e-05"/>
+          <joint name="arm_a_shoulder_lift" class="arm_a_sts3215" range="-1.74533 1.74533"/>
+          <geom class="arm_a_visual" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+          <geom class="arm_a_collision" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" type="mesh" contype="3" conaffinity="3" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+          <geom class="arm_a_visual" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" material="arm_a_upper_arm_so101_v1_material" mesh="arm_a_upper_arm_so101_v1"/>
+          <geom class="arm_a_collision" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_a_upper_arm_so101_v1_material" mesh="arm_a_upper_arm_so101_v1"/>
+          <body name="arm_a_lower_arm" pos="-0.11257 -0.028 0" quat="0.707107 0 0 0.707107">
+            <inertial pos="-0.0980701 0.00324376 0.0182831" quat="0.510729 0.517006 0.487966 0.483477" mass="0.104" diaginertia="0.000160262 0.000145304 2.83125e-05"/>
+            <joint name="arm_a_elbow_flex" class="arm_a_sts3215" range="-1.69 1.69"/>
+            <geom class="arm_a_visual" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" material="arm_a_under_arm_so101_v1_material" mesh="arm_a_under_arm_so101_v1"/>
+            <geom class="arm_a_collision" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_a_under_arm_so101_v1_material" mesh="arm_a_under_arm_so101_v1"/>
+            <geom class="arm_a_visual" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" material="arm_a_motor_holder_so101_wrist_v1_material" mesh="arm_a_motor_holder_so101_wrist_v1"/>
+            <geom class="arm_a_collision" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_a_motor_holder_so101_wrist_v1_material" mesh="arm_a_motor_holder_so101_wrist_v1"/>
+            <geom class="arm_a_visual" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+            <geom class="arm_a_collision" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" type="mesh" contype="3" conaffinity="3" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+            <body name="arm_a_wrist" pos="-0.1349 0.0052 0" quat="0.707107 0 0 -0.707107">
+              <inertial pos="-0.000103312 -0.0386143 0.0281156" quat="0.967143 0.254226 0.00162226 -0.000146307" mass="0.079" diaginertia="3.68265e-05 2.74474e-05 1.89434e-05"/>
+              <joint name="arm_a_wrist_flex" class="arm_a_sts3215" range="-1.65806 1.65806"/>
+              <geom class="arm_a_visual" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" material="arm_a_sts3215_03a_no_horn_v1_material" mesh="arm_a_sts3215_03a_no_horn_v1"/>
+              <geom class="arm_a_collision" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_a_sts3215_03a_no_horn_v1_material" mesh="arm_a_sts3215_03a_no_horn_v1"/>
+              <geom class="arm_a_visual" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" material="arm_a_wrist_roll_pitch_so101_v2_material" mesh="arm_a_wrist_roll_pitch_so101_v2"/>
+              <geom class="arm_a_collision" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_a_wrist_roll_pitch_so101_v2_material" mesh="arm_a_wrist_roll_pitch_so101_v2"/>
+              <body name="arm_a_gripper" pos="0 -0.0611 0.0181" quat="0.0172091 -0.0172091 0.706897 0.706897">
+                <inertial pos="0.000213627 0.000245138 -0.025187" quat="0.600717 0.355993 0.35863 0.61951" mass="0.087" diaginertia="4.33735e-05 3.77229e-05 2.42839e-05"/>
+                <joint name="arm_a_wrist_roll" class="arm_a_sts3215" range="-2.74385 2.84121"/>
+                <geom class="arm_a_visual" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+                <geom class="arm_a_collision" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" type="mesh" material="arm_a_sts3215_03a_v1_material" mesh="arm_a_sts3215_03a_v1"/>
+                <geom class="arm_a_visual" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" material="arm_a_wrist_roll_follower_so101_v1_material" mesh="arm_a_wrist_roll_follower_so101_v1"/>
+                <geom class="arm_a_collision" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" type="mesh" material="arm_a_wrist_roll_follower_so101_v1_material" mesh="arm_a_wrist_roll_follower_so101_v1"/>
+                <geom name="arm_a_gripper_pad" size="0.00492074 0.00572329 0.00075" pos="-0.00865 -0.000212623 -0.099346" quat="0.707107 0 0.707107 0" type="box" contype="3" conaffinity="3" condim="4" group="3" friction="1.5 0.02 0.001" density="0"/>
+                <site name="arm_a_gripperframe" pos="-0.0079 -0.000218121 -0.0981274" quat="0.707107 0 0.707107 0" group="3"/>
+                <camera name="wrist_a" pos="0 -0.04 -0.02" fovy="70"/>
+                <body name="arm_a_moving_jaw_so101_v1" pos="0.0202 0.0188 -0.0234" quat="0.707107 0.707107 -1.85362e-08 1.85362e-08">
+                  <inertial pos="-0.00157495 -0.0300244 0.0192755" quat="0.695265 0.717965 -0.0245618 -0.0230097" mass="0.012" diaginertia="6.63582e-06 5.29092e-06 1.86523e-06"/>
+                  <joint name="arm_a_gripper" class="arm_a_sts3215" range="-0.174533 1.74533"/>
+                  <geom class="arm_a_visual" pos="0 0 0.0189" quat="1 0 0 0" material="arm_a_moving_jaw_so101_v1_material" mesh="arm_a_moving_jaw_so101_v1"/>
+                  <geom class="arm_a_collision" pos="0 0 0.0189" quat="1 0 0 0" type="mesh" material="arm_a_moving_jaw_so101_v1_material" mesh="arm_a_moving_jaw_so101_v1"/>
+                  <geom name="arm_a_moving_jaw_so101_v1_pad" size="0.00492526 0.00567187 0.00075" pos="-0.01155 -0.0769253 0.0189057" quat="-0.5 0.5 -0.5 0.5" type="box" contype="3" conaffinity="3" condim="4" group="3" friction="1.5 0.02 0.001" density="0"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="arm_b_base" childclass="arm_b_so101_new_calib" pos="0.24 0 0" quat="0 0 0 1">
+      <inertial pos="0.0137179 -5.19711e-05 0.0334843" quat="0.420519 0.558762 0.57198 0.428704" mass="0.147" diaginertia="0.000136127 0.000131807 0.000113233"/>
+      <geom class="arm_b_visual" pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.5 0.5 0.5 0.5" material="arm_b_base_motor_holder_so101_v1_material" mesh="arm_b_base_motor_holder_so101_v1"/>
+      <geom class="arm_b_visual" pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.5 0.5 0.5 0.5" material="arm_b_base_so101_v2_material" mesh="arm_b_base_so101_v2"/>
+      <geom class="arm_b_visual" pos="0.0263353 -8.97657e-09 0.0437" quat="1 0 0 0" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+      <geom class="arm_b_visual" pos="-0.0309827 -0.000199441 0.0474" quat="0.5 0.5 0.5 0.5" material="arm_b_waveshare_mounting_plate_so101_v2_material" mesh="arm_b_waveshare_mounting_plate_so101_v2"/>
+      <site name="arm_b_baseframe" quat="1 0 0 0" group="3"/>
+      <body name="arm_b_shoulder" pos="0.0388353 -8.97657e-09 0.0624" quat="0 0 -1 0">
+        <inertial pos="-0.0307604 -1.66727e-05 -0.0252713" quat="0.999865 0.00149563 0.0097084 0.0132043" mass="0.100006" diaginertia="8.37836e-05 8.10388e-05 2.39552e-05"/>
+        <joint name="arm_b_shoulder_pan" class="arm_b_sts3215" range="-1.91986 1.91986"/>
+        <geom class="arm_b_visual" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+        <geom class="arm_b_collision" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+        <geom class="arm_b_visual" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" material="arm_b_motor_holder_so101_base_v1_material" mesh="arm_b_motor_holder_so101_base_v1"/>
+        <geom class="arm_b_collision" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" type="mesh" contype="3" conaffinity="3" material="arm_b_motor_holder_so101_base_v1_material" mesh="arm_b_motor_holder_so101_base_v1"/>
+        <geom class="arm_b_visual" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" material="arm_b_rotation_pitch_so101_v1_material" mesh="arm_b_rotation_pitch_so101_v1"/>
+        <geom class="arm_b_collision" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" type="mesh" contype="3" conaffinity="3" material="arm_b_rotation_pitch_so101_v1_material" mesh="arm_b_rotation_pitch_so101_v1"/>
+        <body name="arm_b_upper_arm" pos="-0.0303992 -0.0182778 -0.0542" quat="0.5 -0.5 -0.5 -0.5">
+          <inertial pos="-0.0898471 -0.00838224 0.0184089" quat="0.453195 0.454063 0.541891 0.542951" mass="0.103" diaginertia="0.000150873 0.000142487 3.72451e-05"/>
+          <joint name="arm_b_shoulder_lift" class="arm_b_sts3215" range="-1.74533 1.74533"/>
+          <geom class="arm_b_visual" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+          <geom class="arm_b_collision" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" type="mesh" contype="3" conaffinity="3" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+          <geom class="arm_b_visual" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" material="arm_b_upper_arm_so101_v1_material" mesh="arm_b_upper_arm_so101_v1"/>
+          <geom class="arm_b_collision" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_b_upper_arm_so101_v1_material" mesh="arm_b_upper_arm_so101_v1"/>
+          <body name="arm_b_lower_arm" pos="-0.11257 -0.028 0" quat="0.707107 0 0 0.707107">
+            <inertial pos="-0.0980701 0.00324376 0.0182831" quat="0.510729 0.517006 0.487966 0.483477" mass="0.104" diaginertia="0.000160262 0.000145304 2.83125e-05"/>
+            <joint name="arm_b_elbow_flex" class="arm_b_sts3215" range="-1.69 1.69"/>
+            <geom class="arm_b_visual" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" material="arm_b_under_arm_so101_v1_material" mesh="arm_b_under_arm_so101_v1"/>
+            <geom class="arm_b_collision" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_b_under_arm_so101_v1_material" mesh="arm_b_under_arm_so101_v1"/>
+            <geom class="arm_b_visual" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" material="arm_b_motor_holder_so101_wrist_v1_material" mesh="arm_b_motor_holder_so101_wrist_v1"/>
+            <geom class="arm_b_collision" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" type="mesh" contype="3" conaffinity="3" material="arm_b_motor_holder_so101_wrist_v1_material" mesh="arm_b_motor_holder_so101_wrist_v1"/>
+            <geom class="arm_b_visual" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+            <geom class="arm_b_collision" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" type="mesh" contype="3" conaffinity="3" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+            <body name="arm_b_wrist" pos="-0.1349 0.0052 0" quat="0.707107 0 0 -0.707107">
+              <inertial pos="-0.000103312 -0.0386143 0.0281156" quat="0.967143 0.254226 0.00162226 -0.000146307" mass="0.079" diaginertia="3.68265e-05 2.74474e-05 1.89434e-05"/>
+              <joint name="arm_b_wrist_flex" class="arm_b_sts3215" range="-1.65806 1.65806"/>
+              <geom class="arm_b_visual" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" material="arm_b_sts3215_03a_no_horn_v1_material" mesh="arm_b_sts3215_03a_no_horn_v1"/>
+              <geom class="arm_b_collision" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_b_sts3215_03a_no_horn_v1_material" mesh="arm_b_sts3215_03a_no_horn_v1"/>
+              <geom class="arm_b_visual" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" material="arm_b_wrist_roll_pitch_so101_v2_material" mesh="arm_b_wrist_roll_pitch_so101_v2"/>
+              <geom class="arm_b_collision" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" type="mesh" contype="3" conaffinity="3" material="arm_b_wrist_roll_pitch_so101_v2_material" mesh="arm_b_wrist_roll_pitch_so101_v2"/>
+              <body name="arm_b_gripper" pos="0 -0.0611 0.0181" quat="0.0172091 -0.0172091 0.706897 0.706897">
+                <inertial pos="0.000213627 0.000245138 -0.025187" quat="0.600717 0.355993 0.35863 0.61951" mass="0.087" diaginertia="4.33735e-05 3.77229e-05 2.42839e-05"/>
+                <joint name="arm_b_wrist_roll" class="arm_b_sts3215" range="-2.74385 2.84121"/>
+                <geom class="arm_b_visual" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+                <geom class="arm_b_collision" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" type="mesh" material="arm_b_sts3215_03a_v1_material" mesh="arm_b_sts3215_03a_v1"/>
+                <geom class="arm_b_visual" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" material="arm_b_wrist_roll_follower_so101_v1_material" mesh="arm_b_wrist_roll_follower_so101_v1"/>
+                <geom class="arm_b_collision" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" type="mesh" material="arm_b_wrist_roll_follower_so101_v1_material" mesh="arm_b_wrist_roll_follower_so101_v1"/>
+                <geom name="arm_b_gripper_pad" size="0.00492074 0.00572329 0.00075" pos="-0.00865 -0.000212623 -0.099346" quat="0.707107 0 0.707107 0" type="box" contype="3" conaffinity="3" condim="4" group="3" friction="1.5 0.02 0.001" density="0"/>
+                <site name="arm_b_gripperframe" pos="-0.0079 -0.000218121 -0.0981274" quat="0.707107 0 0.707107 0" group="3"/>
+                <camera name="wrist_b" pos="0 -0.04 -0.02" fovy="70"/>
+                <body name="arm_b_moving_jaw_so101_v1" pos="0.0202 0.0188 -0.0234" quat="0.707107 0.707107 -1.85362e-08 1.85362e-08">
+                  <inertial pos="-0.00157495 -0.0300244 0.0192755" quat="0.695265 0.717965 -0.0245618 -0.0230097" mass="0.012" diaginertia="6.63582e-06 5.29092e-06 1.86523e-06"/>
+                  <joint name="arm_b_gripper" class="arm_b_sts3215" range="-0.174533 1.74533"/>
+                  <geom class="arm_b_visual" pos="0 0 0.0189" quat="1 0 0 0" material="arm_b_moving_jaw_so101_v1_material" mesh="arm_b_moving_jaw_so101_v1"/>
+                  <geom class="arm_b_collision" pos="0 0 0.0189" quat="1 0 0 0" type="mesh" material="arm_b_moving_jaw_so101_v1_material" mesh="arm_b_moving_jaw_so101_v1"/>
+                  <geom name="arm_b_moving_jaw_so101_v1_pad" size="0.00492526 0.00567187 0.00075" pos="-0.01155 -0.0769253 0.0189057" quat="0.5 -0.5 0.5 -0.5" type="box" contype="3" conaffinity="3" condim="4" group="3" friction="1.5 0.02 0.001" density="0"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="cabinet" pos="-0.1 0.31 0">
+      <geom name="cabinet_back" size="0.128 0.005 0.03" pos="0 0.078 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
+      <geom name="cabinet_left" size="0.005 0.08 0.03" pos="-0.123 0 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
+      <geom name="cabinet_right" size="0.005 0.08 0.03" pos="0.123 0 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
+      <geom name="cabinet_top" size="0.128 0.083 0.0025" pos="0 0 0.0655" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
+      <body name="drawer">
+        <joint name="drawer_slide" type="slide" range="0 0.12" damping="2" frictionloss="0.3" axis="0 -1 0"/>
+        <geom name="drawer_floor" size="0.11 0.07 0.002" pos="0 0 0.006" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.15"/>
+        <geom name="drawer_wall_back" size="0.11 0.002 0.011" pos="0 0.068 0.017" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.02"/>
+        <geom name="drawer_wall_left" size="0.002 0.07 0.011" pos="-0.108 0 0.017" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.02"/>
+        <geom name="drawer_wall_right" size="0.002 0.07 0.011" pos="0.108 0 0.017" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.02"/>
+        <geom name="drawer_front" size="0.112 0.004 0.027" pos="0 -0.074 0.032" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.05"/>
+        <geom name="drawer_handle_post0" size="0.003 0.011" pos="-0.02 -0.089 0.035" quat="0.707107 -0.707107 0 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.8 0.8 0.8 1" mass="0.005"/>
+        <geom name="drawer_handle_post1" size="0.003 0.011" pos="0.02 -0.089 0.035" quat="0.707107 -0.707107 0 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.8 0.8 0.8 1" mass="0.005"/>
+        <geom name="drawer_handle" size="0.005 0.025" pos="0 -0.1 0.035" quat="0.707107 0 -0.707107 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.85 0.85 0.85 1" mass="0.01"/>
+        <site name="drawer_handle_site" size="0.004" pos="0 -0.1 0.035"/>
+      </body>
+    </body>
+    <body name="fork_1" pos="-0.1675 0.3 0.008" quat="0.707107 0 0 0.707107">
+      <joint name="fork_1_free" type="free"/>
+      <geom name="fork_1_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+      <geom name="fork_1_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
+      <geom name="fork_1_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="fork_1_base" size="0.005 0.01 0.004" pos="0.015 0 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="fork_1_tine0" size="0.007 0.0022 0.003" pos="0.027 -0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_1_tine1" size="0.007 0.0022 0.003" pos="0.027 -0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_1_tine2" size="0.007 0.0022 0.003" pos="0.027 0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_1_tine3" size="0.007 0.0022 0.003" pos="0.027 0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+    </body>
+    <body name="fork_2" pos="-0.1225 0.3 0.008" quat="0.707107 0 0 0.707107">
+      <joint name="fork_2_free" type="free"/>
+      <geom name="fork_2_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+      <geom name="fork_2_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
+      <geom name="fork_2_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="fork_2_base" size="0.005 0.01 0.004" pos="0.015 0 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="fork_2_tine0" size="0.007 0.0022 0.003" pos="0.027 -0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_2_tine1" size="0.007 0.0022 0.003" pos="0.027 -0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_2_tine2" size="0.007 0.0022 0.003" pos="0.027 0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+      <geom name="fork_2_tine3" size="0.007 0.0022 0.003" pos="0.027 0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
+    </body>
+    <body name="spoon_1" pos="-0.0775 0.3 0.008" quat="0.707107 0 0 0.707107">
+      <joint name="spoon_1_free" type="free"/>
+      <geom name="spoon_1_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+      <geom name="spoon_1_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
+      <geom name="spoon_1_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="spoon_1_bowl" size="0.01 0.011 0.004" pos="0.023 0 0.004" type="ellipsoid" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+    </body>
+    <body name="spoon_2" pos="-0.0325 0.3 0.008" quat="0.707107 0 0 0.707107">
+      <joint name="spoon_2_free" type="free"/>
+      <geom name="spoon_2_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+      <geom name="spoon_2_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
+      <geom name="spoon_2_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
+      <geom name="spoon_2_bowl" size="0.01 0.011 0.004" pos="0.023 0 0.004" type="ellipsoid" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
+    </body>
+    <body name="plate" pos="-0.12 -0.22 0.004">
+      <joint name="plate_free" type="free"/>
+      <geom name="plate_disc" size="0.055 0.003" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.06"/>
+      <geom name="plate_rim_wall0" size="0.0015 0.0154741 0.009" pos="0.0535 0 0.012" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall1" size="0.0015 0.0154741 0.009" pos="0.0463324 0.02675 0.012" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall2" size="0.0015 0.0154741 0.009" pos="0.02675 0.0463324 0.012" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall3" size="0.0015 0.0154741 0.009" pos="0 0.0535 0.012" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall4" size="0.0015 0.0154741 0.009" pos="-0.02675 0.0463324 0.012" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall5" size="0.0015 0.0154741 0.009" pos="-0.0463324 0.02675 0.012" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall6" size="0.0015 0.0154741 0.009" pos="-0.0535 0 0.012" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall7" size="0.0015 0.0154741 0.009" pos="-0.0463324 -0.02675 0.012" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall8" size="0.0015 0.0154741 0.009" pos="-0.02675 -0.0463324 0.012" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall9" size="0.0015 0.0154741 0.009" pos="0 -0.0535 0.012" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall10" size="0.0015 0.0154741 0.009" pos="0.02675 -0.0463324 0.012" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall11" size="0.0015 0.0154741 0.009" pos="0.0463324 -0.02675 0.012" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+    </body>
+    <body name="mug" pos="0.14 -0.2 0.003">
+      <joint name="mug_free" type="free"/>
+      <geom name="mug_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.02"/>
+      <geom name="mug_body_wall0" size="0.0015 0.00506424 0.032" pos="0.0165 0 0.0345" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall1" size="0.0015 0.00506424 0.032" pos="0.0142894 0.00825 0.0345" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall2" size="0.0015 0.00506424 0.032" pos="0.00825 0.0142894 0.0345" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall3" size="0.0015 0.00506424 0.032" pos="0 0.0165 0.0345" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall4" size="0.0015 0.00506424 0.032" pos="-0.00825 0.0142894 0.0345" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall5" size="0.0015 0.00506424 0.032" pos="-0.0142894 0.00825 0.0345" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall6" size="0.0015 0.00506424 0.032" pos="-0.0165 0 0.0345" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall7" size="0.0015 0.00506424 0.032" pos="-0.0142894 -0.00825 0.0345" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall8" size="0.0015 0.00506424 0.032" pos="-0.00825 -0.0142894 0.0345" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall9" size="0.0015 0.00506424 0.032" pos="0 -0.0165 0.0345" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall10" size="0.0015 0.00506424 0.032" pos="0.00825 -0.0142894 0.0345" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall11" size="0.0015 0.00506424 0.032" pos="0.0142894 -0.00825 0.0345" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_handle0" size="0.0035 0.006" pos="0 0.024 0.05" quat="0.707107 0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <geom name="mug_handle1" size="0.0035 0.015" pos="0 0.03 0.035" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <geom name="mug_handle2" size="0.0035 0.006" pos="0 0.024 0.02" quat="0.707107 -0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <site name="mug_inside" size="0.015 0.032" pos="0 0 0.035" type="cylinder" rgba="0 0 0 0"/>
+    </body>
+    <body name="bottle" pos="-0.05 0.1 0.003">
+      <joint name="bottle_free" type="free"/>
+      <geom name="bottle_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.02"/>
+      <geom name="bottle_body_wall0" size="0.0015 0.00506424 0.035" pos="0.0165 0 0.0375" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall1" size="0.0015 0.00506424 0.035" pos="0.0142894 0.00825 0.0375" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall2" size="0.0015 0.00506424 0.035" pos="0.00825 0.0142894 0.0375" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall3" size="0.0015 0.00506424 0.035" pos="0 0.0165 0.0375" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall4" size="0.0015 0.00506424 0.035" pos="-0.00825 0.0142894 0.0375" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall5" size="0.0015 0.00506424 0.035" pos="-0.0142894 0.00825 0.0375" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall6" size="0.0015 0.00506424 0.035" pos="-0.0165 0 0.0375" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall7" size="0.0015 0.00506424 0.035" pos="-0.0142894 -0.00825 0.0375" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall8" size="0.0015 0.00506424 0.035" pos="-0.00825 -0.0142894 0.0375" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall9" size="0.0015 0.00506424 0.035" pos="0 -0.0165 0.0375" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall10" size="0.0015 0.00506424 0.035" pos="0.00825 -0.0142894 0.0375" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_body_wall11" size="0.0015 0.00506424 0.035" pos="0.0142894 -0.00825 0.0375" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
+      <geom name="bottle_neck_wall0" size="0.0015 0.00365751 0.01" pos="0.0115 0 0.0825" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall1" size="0.0015 0.00365751 0.01" pos="0.00995929 0.00575 0.0825" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall2" size="0.0015 0.00365751 0.01" pos="0.00575 0.00995929 0.0825" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall3" size="0.0015 0.00365751 0.01" pos="0 0.0115 0.0825" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall4" size="0.0015 0.00365751 0.01" pos="-0.00575 0.00995929 0.0825" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall5" size="0.0015 0.00365751 0.01" pos="-0.00995929 0.00575 0.0825" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall6" size="0.0015 0.00365751 0.01" pos="-0.0115 0 0.0825" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall7" size="0.0015 0.00365751 0.01" pos="-0.00995929 -0.00575 0.0825" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall8" size="0.0015 0.00365751 0.01" pos="-0.00575 -0.00995929 0.0825" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall9" size="0.0015 0.00365751 0.01" pos="0 -0.0115 0.0825" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall10" size="0.0015 0.00365751 0.01" pos="0.00575 -0.00995929 0.0825" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_neck_wall11" size="0.0015 0.00365751 0.01" pos="0.00995929 -0.00575 0.0825" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
+      <geom name="bottle_shoulder0" size="0.004 0.0085 0.0015" pos="0.0135 0 0.0725" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder1" size="0.004 0.0085 0.0015" pos="0.00954594 0.00954594 0.0725" quat="0.92388 0 0 0.382683" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder2" size="0.004 0.0085 0.0015" pos="0 0.0135 0.0725" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder3" size="0.004 0.0085 0.0015" pos="-0.00954594 0.00954594 0.0725" quat="0.382683 0 0 0.92388" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder4" size="0.004 0.0085 0.0015" pos="-0.0135 0 0.0725" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder5" size="0.004 0.0085 0.0015" pos="-0.00954594 -0.00954594 0.0725" quat="-0.382683 0 0 0.92388" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder6" size="0.004 0.0085 0.0015" pos="0 -0.0135 0.0725" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_shoulder7" size="0.004 0.0085 0.0015" pos="0.00954594 -0.00954594 0.0725" quat="-0.92388 0 0 0.382683" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <site name="bottle_spout" pos="0 0 0.0925" rgba="0 0 0 0"/>
+    </body>
+    <body name="water_0" pos="-0.043 0.1 0.012">
+      <joint name="water_0_free" type="free"/>
+      <geom name="water_0_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_1" pos="-0.0535 0.106062 0.012">
+      <joint name="water_1_free" type="free"/>
+      <geom name="water_1_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_2" pos="-0.0535 0.0939378 0.012">
+      <joint name="water_2_free" type="free"/>
+      <geom name="water_2_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_3" pos="-0.0446461 0.10451 0.0195">
+      <joint name="water_3_free" type="free"/>
+      <geom name="water_3_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_4" pos="-0.0565823 0.102382 0.0195">
+      <joint name="water_4_free" type="free"/>
+      <geom name="water_4_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_5" pos="-0.0487716 0.0931086 0.0195">
+      <joint name="water_5_free" type="free"/>
+      <geom name="water_5_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_6" pos="-0.0488102 0.106898 0.027">
+      <joint name="water_6_free" type="free"/>
+      <geom name="water_6_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_7" pos="-0.0565689 0.0975813 0.027">
+      <joint name="water_7_free" type="free"/>
+      <geom name="water_7_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_8" pos="-0.0446209 0.0955206 0.027">
+      <joint name="water_8_free" type="free"/>
+      <geom name="water_8_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_9" pos="-0.0535339 0.106042 0.0345">
+      <joint name="water_9_free" type="free"/>
+      <geom name="water_9_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_10" pos="-0.053466 0.0939183 0.0345">
+      <joint name="water_10_free" type="free"/>
+      <geom name="water_10_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_11" pos="-0.0430001 0.100039 0.0345">
+      <joint name="water_11_free" type="free"/>
+      <geom name="water_11_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_12" pos="-0.0565956 0.102345 0.042">
+      <joint name="water_12_free" type="free"/>
+      <geom name="water_12_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_13" pos="-0.048733 0.0931156 0.042">
+      <joint name="water_13_free" type="free"/>
+      <geom name="water_13_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_14" pos="-0.0446715 0.104539 0.042">
+      <joint name="water_14_free" type="free"/>
+      <geom name="water_14_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_15" pos="-0.0565552 0.0975445 0.0495">
+      <joint name="water_15_free" type="free"/>
+      <geom name="water_15_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_16" pos="-0.0445959 0.0955508 0.0495">
+      <joint name="water_16_free" type="free"/>
+      <geom name="water_16_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_17" pos="-0.0488489 0.106905 0.0495">
+      <joint name="water_17_free" type="free"/>
+      <geom name="water_17_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_18" pos="-0.0534318 0.093899 0.057">
+      <joint name="water_18_free" type="free"/>
+      <geom name="water_18_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+    <body name="water_19" pos="-0.0430004 0.100078 0.057">
+      <joint name="water_19_free" type="free"/>
+      <geom name="water_19_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="arm_a_shoulder_pan" class="arm_a_sts3215" joint="arm_a_shoulder_pan" ctrlrange="-1.91986 1.91986" forcerange="-3.35 3.35"/>
+    <general name="arm_a_shoulder_lift" class="arm_a_sts3215" joint="arm_a_shoulder_lift" ctrlrange="-1.74533 1.74533" forcerange="-3.35 3.35"/>
+    <general name="arm_a_elbow_flex" class="arm_a_sts3215" joint="arm_a_elbow_flex" ctrlrange="-1.69 1.69" forcerange="-3.35 3.35"/>
+    <general name="arm_a_wrist_flex" class="arm_a_sts3215" joint="arm_a_wrist_flex" ctrlrange="-1.65806 1.65806" forcerange="-3.35 3.35"/>
+    <general name="arm_a_wrist_roll" class="arm_a_sts3215" joint="arm_a_wrist_roll" ctrlrange="-2.74385 2.84121" forcerange="-3.35 3.35"/>
+    <general name="arm_a_gripper" class="arm_a_sts3215" joint="arm_a_gripper" ctrlrange="-3.35 3.35" ctrllimited="true" forcerange="-3.35 3.35" biastype="none" gainprm="1" biasprm="0 0 0"/>
+    <general name="arm_b_shoulder_pan" class="arm_b_sts3215" joint="arm_b_shoulder_pan" ctrlrange="-1.91986 1.91986" forcerange="-3.35 3.35"/>
+    <general name="arm_b_shoulder_lift" class="arm_b_sts3215" joint="arm_b_shoulder_lift" ctrlrange="-1.74533 1.74533" forcerange="-3.35 3.35"/>
+    <general name="arm_b_elbow_flex" class="arm_b_sts3215" joint="arm_b_elbow_flex" ctrlrange="-1.69 1.69" forcerange="-3.35 3.35"/>
+    <general name="arm_b_wrist_flex" class="arm_b_sts3215" joint="arm_b_wrist_flex" ctrlrange="-1.65806 1.65806" forcerange="-3.35 3.35"/>
+    <general name="arm_b_wrist_roll" class="arm_b_sts3215" joint="arm_b_wrist_roll" ctrlrange="-2.74385 2.84121" forcerange="-3.35 3.35"/>
+    <general name="arm_b_gripper" class="arm_b_sts3215" joint="arm_b_gripper" ctrlrange="-3.35 3.35" ctrllimited="true" forcerange="-3.35 3.35" biastype="none" gainprm="1" biasprm="0 0 0"/>
+  </actuator>
+
+  <keyframe>
+    <key name="home" qpos="0 -1.2 0.8 1.2 0 1.6 0 -1.2 0.8 1.2 0 1.6 0 -0.1675 0.3 0.008 0.707107 0 0 0.707107 -0.1225 0.3 0.008 0.707107 0 0 0.707107 -0.0775 0.3 0.008 0.707107 0 0 0.707107 -0.0325 0.3 0.008 0.707107 0 0 0.707107 -0.12 -0.22 0.004 1 0 0 0 0.14 -0.2 0.003 1 0 0 0 -0.05 0.1 0.003 1 0 0 0 -0.043 0.1 0.012 1 0 0 0 -0.0535 0.106062 0.012 1 0 0 0 -0.0535 0.0939378 0.012 1 0 0 0 -0.0446461 0.10451 0.0195 1 0 0 0 -0.0565823 0.102382 0.0195 1 0 0 0 -0.0487716 0.0931086 0.0195 1 0 0 0 -0.0488102 0.106898 0.027 1 0 0 0 -0.0565689 0.0975813 0.027 1 0 0 0 -0.0446209 0.0955206 0.027 1 0 0 0 -0.0535339 0.106042 0.0345 1 0 0 0 -0.053466 0.0939183 0.0345 1 0 0 0 -0.0430001 0.100039 0.0345 1 0 0 0 -0.0565956 0.102345 0.042 1 0 0 0 -0.048733 0.0931156 0.042 1 0 0 0 -0.0446715 0.104539 0.042 1 0 0 0 -0.0565552 0.0975445 0.0495 1 0 0 0 -0.0445959 0.0955508 0.0495 1 0 0 0 -0.0488489 0.106905 0.0495 1 0 0 0 -0.0534318 0.093899 0.057 1 0 0 0 -0.0430004 0.100078 0.057 1 0 0 0" ctrl="0 -1.2 0.8 1.2 0 1 0 -1.2 0.8 1.2 0 1"/>
+  </keyframe>
+</mujoco>

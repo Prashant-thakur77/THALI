@@ -1,0 +1,4 @@
+normal.wav	open the top drawer, pick up the plate with arm A, place it on the table
+tired.wav	open the top drawer, pick up the plate with arm A, place it on the table
+hindi.wav	top drawer kholo, plate ko arm A se uthao, aur table pe rakh do
+noisy.wav	open the top drawer, pick up the plate with arm A, place it on the table

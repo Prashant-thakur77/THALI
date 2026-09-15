@@ -2,8 +2,9 @@
 SEEDS  ?= 10
 DEVICE ?= CPU
 PY     ?= .venv/bin/python
+export MUJOCO_GL ?= glfw   # EGL is broken on this box, see docs/BLOCKERS.md
 
-.PHONY: demos train eval bench demo verify-log
+.PHONY: demos train eval bench demo verify-log test scene
 
 demos:        ## Phase 2 — scripted-expert demos -> LeRobotDataset
 	@echo "demos: not implemented"
@@ -22,3 +23,10 @@ demo:         ## Phase 7 — voice -> planner -> verifier -> arms
 
 verify-log:   ## Phase 5 — recompute the hash chain of the audit log
 	@echo "verify-log: not implemented"
+
+test:         ## run the pytest suite
+	$(PY) -m pytest -q
+
+scene:        ## Phase 1 — rebuild assets/dinner_table.xml and the reach envelope
+	$(PY) -m souschef_env.build_scene
+	$(PY) -m souschef_env.reach

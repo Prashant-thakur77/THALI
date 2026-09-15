@@ -7,13 +7,13 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] Verify `import mujoco, gymnasium, mink, openvino` and `so_arm100.xml` loads
 
 ## Phase 1 — Environment
-- [ ] 1.1 Fork gym-aloha → `souschef_env`; `<include>` `so_arm100.xml` twice at `pos="-0.35 0 0"` / `pos="0.35 0 0"`, prefix joints/actuators `arm_a_`/`arm_b_` (optionally true SO-101 geometry from ashish-doing / inzuppato)
-- [ ] 1.2 `dinner_table.xml`: table, drawer (prismatic joint + handle site, from SentinelEdge `simulation/scene.xml`), 2 spoons + 2 forks in drawer, plate, mug, bottle with ~20 free-joint spheres; cameras `overhead`, `wrist_a`, `wrist_b`
-- [ ] 1.3 Gripper first: collision hull vs finger geometry, tool-site offset, force/torque-limited gripper; measure both reach envelopes; compute handoff overlap region; hard-code handoff pose; via-table handover default
-- [ ] 1.4 `randomize.py` seeded from `reset(seed=)`: placement xy+yaw · mass ×U(0.7,1.5) · friction ×U(0.6,1.4) · shape (3 variants + scale ×U(0.85,1.15)) · lighting · background (8 textures + 3 skyboxes); `train_ranges` / `test_ranges` (±1.5×, +2 unseen textures, +1 unseen mug)
-- [ ] 1.5 `oracles.py`: drawer qpos > 0.08; object-in-zone; mug-held (jaw-pad/mug contact); poured (sphere count); full task = all sub-goals
-- [ ] 1.6 `scene_description.py`: object names/poses/held-state as text for the planner
-- [ ] 1.7 Register env in LeRobot (`configs.py` + `factory.py`) so `lerobot-eval --env.type=souschef` works
+- [x] 1.1 (done with **true SO-101 geometry** via `MjSpec.attach`, arms at **±0.24 m** not ±0.35 m — 0.35 m leaves no shared workspace, see `results/reach_envelope.json`) Fork gym-aloha → `souschef_env`; `<include>` `so_arm100.xml` twice at `pos="-0.35 0 0"` / `pos="0.35 0 0"`, prefix joints/actuators `arm_a_`/`arm_b_` (optionally true SO-101 geometry from ashish-doing / inzuppato)
+- [x] 1.2 (skyboxes implemented as 3 backdrop-wall materials: MuJoCo has a single skybox texture) `dinner_table.xml`: table, drawer (prismatic joint + handle site, from SentinelEdge `simulation/scene.xml`), 2 spoons + 2 forks in drawer, plate, mug, bottle with ~20 free-joint spheres; cameras `overhead`, `wrist_a`, `wrist_b`
+- [x] 1.3 (jaw pads measured 15.8 mm/0.23°, torque jaws, handoff overlap 330 cells → `results/reach_envelope.json`) Gripper first: collision hull vs finger geometry, tool-site offset, force/torque-limited gripper; measure both reach envelopes; compute handoff overlap region; hard-code handoff pose; via-table handover default
+- [x] 1.4 `randomize.py` seeded from `reset(seed=)`: placement xy+yaw · mass ×U(0.7,1.5) · friction ×U(0.6,1.4) · shape (3 variants + scale ×U(0.85,1.15)) · lighting · background (8 textures + 3 skyboxes); `train_ranges` / `test_ranges` (±1.5×, +2 unseen textures, +1 unseen mug)
+- [x] 1.5 `oracles.py`: drawer qpos > 0.08; object-in-zone; mug-held (jaw-pad/mug contact); poured (sphere count); full task = all sub-goals
+- [x] 1.6 `scene_description.py`: object names/poses/held-state as text for the planner
+- [x] 1.7 (via LeRobot's plugin hook `--env.discover_packages_path=souschef_env`, no site-packages edits) Register env in LeRobot (`configs.py` + `factory.py`) so `lerobot-eval --env.type=souschef` works
 
 ## Phase 2 — Scripted expert + demos
 - [ ] 2.1 mink primitives: `open_drawer`, `pick_place`, `handoff`, `hold_mug`, `pour` (position weight high, orientation low; start from inzuppato `primitives/`, VectorForge `control/primitives.py`)

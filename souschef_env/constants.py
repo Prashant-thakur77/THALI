@@ -1,163 +1,79 @@
+"""Fixed constants for the Thali dinner-table environment.
+
+Shape follows gym-aloha's constants.py (DT/FPS, joint and action name lists,
+ASSETS_DIR) but the arms are two SO-101s, so every value is ours.
+
+World frame: the table top is the plane z = 0, so every object height reads
+directly as height above the table.  Arm A sits at -x facing +x, arm B at +x
+facing -x.  +y is "away from the diner" (the cabinet side).
+"""
+
+from __future__ import annotations
+
 from pathlib import Path
 
-### Simulation envs fixed constants
-DT = 0.02  # 0.02 ms -> 1/0.2 = 50 hz
+DT = 0.02  # control period, s  (50 Hz, matches LeRobot/ALOHA convention)
 FPS = 50
+PHYSICS_TIMESTEP = 0.002  # MuJoCo integrator step; DT / PHYSICS_TIMESTEP substeps per control step
+N_SUBSTEPS = int(round(DT / PHYSICS_TIMESTEP))
 
+ASSETS_DIR = Path(__file__).parent.resolve() / "assets"
+SO101_XML = ASSETS_DIR / "so101" / "so101_new_calib.xml"
+SCENE_XML = ASSETS_DIR / "dinner_table.xml"
+ARMS_XML = ASSETS_DIR / "arms_only.xml"  # IK model: the two arms alone, same mounts
 
-JOINTS = [
-    # absolute joint position
-    "left_arm_waist",
-    "left_arm_shoulder",
-    "left_arm_elbow",
-    "left_arm_forearm_roll",
-    "left_arm_wrist_angle",
-    "left_arm_wrist_rotate",
-    # normalized gripper position 0: close, 1: open
-    "left_arm_gripper",
-    # absolute joint position
-    "right_arm_waist",
-    "right_arm_shoulder",
-    "right_arm_elbow",
-    "right_arm_forearm_roll",
-    "right_arm_wrist_angle",
-    "right_arm_wrist_rotate",
-    # normalized gripper position 0: close, 1: open
-    "right_arm_gripper",
-]
+ARMS = ("a", "b")
+ARM_PREFIX = {"a": "arm_a_", "b": "arm_b_"}
+# Base positions on the table top.  0.24 m each side of centre: the SO-101's
+# usable top-down reach is ~0.25-0.30 m, so 0.35 m (the plan's first guess)
+# leaves no shared workspace at all -- measured in reach.py, see results/reach_envelope.json.
+ARM_BASE_POS = {"a": (-0.24, 0.0, 0.0), "b": (0.24, 0.0, 0.0)}
+ARM_BASE_YAW = {"a": 0.0, "b": 3.141592653589793}
 
-ACTIONS = [
-    # position and quaternion for end effector
-    "left_arm_waist",
-    "left_arm_shoulder",
-    "left_arm_elbow",
-    "left_arm_forearm_roll",
-    "left_arm_wrist_angle",
-    "left_arm_wrist_rotate",
-    # normalized gripper position (0: close, 1: open)
-    "left_arm_gripper",
-    "right_arm_waist",
-    "right_arm_shoulder",
-    "right_arm_elbow",
-    "right_arm_forearm_roll",
-    "right_arm_wrist_angle",
-    "right_arm_wrist_rotate",
-    # normalized gripper position (0: close, 1: open)
-    "right_arm_gripper",
-]
+# The five pose joints of one SO-101, in kinematic order, then the jaw.
+ARM_JOINTS = ("shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll")
+GRIPPER_JOINT = "gripper"
+JOINTS_PER_ARM = len(ARM_JOINTS) + 1  # 6
 
+# Observation "agent_pos" and action layout: [arm_a 5 joints, arm_a gripper, arm_b 5 joints, arm_b gripper].
+# Gripper entries are normalised: 0 = closed / squeezing, 1 = fully open.
+JOINTS = tuple(f"{ARM_PREFIX[a]}{j}" for a in ARMS for j in (*ARM_JOINTS, GRIPPER_JOINT))
+ACTIONS = JOINTS
+N_ACTIONS = len(ACTIONS)  # 12
 
-START_ARM_POSE = [
-    0,
-    -0.96,
-    1.16,
-    0,
-    -0.3,
-    0,
-    0.02239,
-    -0.02239,
-    0,
-    -0.96,
-    1.16,
-    0,
-    -0.3,
-    0,
-    0.02239,
-    -0.02239,
-]
+# Ready pose: both arms raised over their own half of the table, jaws open.
+# (shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll) per arm.
+HOME_QPOS_ARM = (0.0, -1.2, 0.8, 1.2, 0.0)  # site 0.20 m ahead of base, 0.12 m up, approach 45 deg down (FK scan, Phase 1)
+GRIPPER_OPEN_Q = 1.6   # rad, near the joint's upper stop (range -0.17..1.745)
+GRIPPER_CLOSED_Q = -0.1
 
-ASSETS_DIR = Path(__file__).parent.resolve() / "assets"  # note: absolute path
+CAMERAS = ("overhead", "wrist_a", "wrist_b")
+IMAGE_HEIGHT = 240
+IMAGE_WIDTH = 320
 
-# Left finger position limits (qpos[7]), right_finger = -1 * left_finger
-MASTER_GRIPPER_POSITION_OPEN = 0.02417
-MASTER_GRIPPER_POSITION_CLOSE = 0.01244
-PUPPET_GRIPPER_POSITION_OPEN = 0.05800
-PUPPET_GRIPPER_POSITION_CLOSE = 0.01844
+# ---- table + fixtures ------------------------------------------------------
+TABLE_HALF = (0.45, 0.36, 0.02)  # half-extents of the table-top box
+TABLE_Z = 0.0                     # top surface
+FLOOR_Z = -0.75
 
-# Gripper joint limits (qpos[6])
-MASTER_GRIPPER_JOINT_OPEN = 0.3083
-MASTER_GRIPPER_JOINT_CLOSE = -0.6842
-PUPPET_GRIPPER_JOINT_OPEN = 1.4910
-PUPPET_GRIPPER_JOINT_CLOSE = -0.6213
+# Cabinet at the far (+y) edge; the drawer slides toward -y (toward the arms).
+CABINET_POS = (-0.10, 0.31, 0.0)
+DRAWER_TRAVEL = 0.12
+DRAWER_OPEN_QPOS = 0.08          # oracle threshold, from the plan (drawer qpos > 0.08)
 
-MASTER_GRIPPER_JOINT_MID = (MASTER_GRIPPER_JOINT_OPEN + MASTER_GRIPPER_JOINT_CLOSE) / 2
+# ---- manipulable objects ---------------------------------------------------
+# Every object the planner can name.  Cutlery lives in the drawer at reset.
+OBJECTS = ("plate", "mug", "bottle", "fork_1", "fork_2", "spoon_1", "spoon_2")
+CUTLERY = ("fork_1", "fork_2", "spoon_1", "spoon_2")
+N_WATER = 20                    # free spheres inside the bottle
+POURED_MIN_SPHERES = 6          # "poured" = at least this many spheres inside the mug
 
-############################ Helper functions ############################
-
-
-def normalize_master_gripper_position(x):
-    return (x - MASTER_GRIPPER_POSITION_CLOSE) / (
-        MASTER_GRIPPER_POSITION_OPEN - MASTER_GRIPPER_POSITION_CLOSE
-    )
-
-
-def normalize_puppet_gripper_position(x):
-    return (x - PUPPET_GRIPPER_POSITION_CLOSE) / (
-        PUPPET_GRIPPER_POSITION_OPEN - PUPPET_GRIPPER_POSITION_CLOSE
-    )
-
-
-def unnormalize_master_gripper_position(x):
-    return x * (MASTER_GRIPPER_POSITION_OPEN - MASTER_GRIPPER_POSITION_CLOSE) + MASTER_GRIPPER_POSITION_CLOSE
-
-
-def unnormalize_puppet_gripper_position(x):
-    return x * (PUPPET_GRIPPER_POSITION_OPEN - PUPPET_GRIPPER_POSITION_CLOSE) + PUPPET_GRIPPER_POSITION_CLOSE
-
-
-def convert_position_from_master_to_puppet(x):
-    return unnormalize_puppet_gripper_position(normalize_master_gripper_position(x))
-
-
-def normalizer_master_gripper_joint(x):
-    return (x - MASTER_GRIPPER_JOINT_CLOSE) / (MASTER_GRIPPER_JOINT_OPEN - MASTER_GRIPPER_JOINT_CLOSE)
-
-
-def normalize_puppet_gripper_joint(x):
-    return (x - PUPPET_GRIPPER_JOINT_CLOSE) / (PUPPET_GRIPPER_JOINT_OPEN - PUPPET_GRIPPER_JOINT_CLOSE)
-
-
-def unnormalize_master_gripper_joint(x):
-    return x * (MASTER_GRIPPER_JOINT_OPEN - MASTER_GRIPPER_JOINT_CLOSE) + MASTER_GRIPPER_JOINT_CLOSE
-
-
-def unnormalize_puppet_gripper_joint(x):
-    return x * (PUPPET_GRIPPER_JOINT_OPEN - PUPPET_GRIPPER_JOINT_CLOSE) + PUPPET_GRIPPER_JOINT_CLOSE
-
-
-def convert_join_from_master_to_puppet(x):
-    return unnormalize_puppet_gripper_joint(normalizer_master_gripper_joint(x))
-
-
-def normalize_master_gripper_velocity(x):
-    return x / (MASTER_GRIPPER_POSITION_OPEN - MASTER_GRIPPER_POSITION_CLOSE)
-
-
-def normalize_puppet_gripper_velocity(x):
-    return x / (PUPPET_GRIPPER_POSITION_OPEN - PUPPET_GRIPPER_POSITION_CLOSE)
-
-
-def convert_master_from_position_to_joint(x):
-    return (
-        normalize_master_gripper_position(x) * (MASTER_GRIPPER_JOINT_OPEN - MASTER_GRIPPER_JOINT_CLOSE)
-        + MASTER_GRIPPER_JOINT_CLOSE
-    )
-
-
-def convert_master_from_joint_to_position(x):
-    return unnormalize_master_gripper_position(
-        (x - MASTER_GRIPPER_JOINT_CLOSE) / (MASTER_GRIPPER_JOINT_OPEN - MASTER_GRIPPER_JOINT_CLOSE)
-    )
-
-
-def convert_puppet_from_position_to_join(x):
-    return (
-        normalize_puppet_gripper_position(x) * (PUPPET_GRIPPER_JOINT_OPEN - PUPPET_GRIPPER_JOINT_CLOSE)
-        + PUPPET_GRIPPER_JOINT_CLOSE
-    )
-
-
-def convert_puppet_from_joint_to_position(x):
-    return unnormalize_puppet_gripper_position(
-        (x - PUPPET_GRIPPER_JOINT_CLOSE) / (PUPPET_GRIPPER_JOINT_OPEN - PUPPET_GRIPPER_JOINT_CLOSE)
-    )
+# Place-setting target zones on the table top (x, y) and acceptance radius (m).
+ZONES = {
+    "plate": ((0.00, -0.10), 0.05),
+    "fork": ((-0.11, -0.10), 0.04),
+    "spoon": ((0.11, -0.10), 0.04),
+    "mug": ((0.10, 0.05), 0.04),
+}
+# Where the mug is held while the other arm pours (x, y, z of the mug base).
+POUR_POSE = (0.0, 0.0, 0.06)

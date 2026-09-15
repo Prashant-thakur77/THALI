@@ -1,0 +1,15 @@
+[project]
+name = "thali"
+version = "0.1.0"
+description = "Voice-controlled two-arm robot that sets a table and pours drinks (Intel Bimanual VLA hackathon)"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools]
+packages = ["souschef_env", "expert", "policies", "planner", "verifier", "voice", "runtime", "bench", "eval"]
+
+[tool.setuptools.package-data]
+souschef_env = ["assets/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
