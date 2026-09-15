@@ -1,0 +1,17 @@
+# secrets
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+# large artefacts (checkpoints, IR, datasets) — published to HF Hub, not git
+outputs/
+planner/qwen2vl_int4/
+*.xml.bin
+*.bin
+*.safetensors
+data/
+# scratch
+*.mp4

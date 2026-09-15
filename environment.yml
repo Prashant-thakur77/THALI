@@ -1,0 +1,11 @@
+# conda env for Thali. Everything is pip-installed from requirements.txt so the
+# pins live in exactly one place. Without conda: `uv venv .venv --python 3.11 &&
+# uv pip install -r requirements.txt` gives the identical environment.
+name: thali
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - -r requirements.txt
