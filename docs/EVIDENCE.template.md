@@ -15,6 +15,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | Per-skill ACT policy-only (60 ep) | {{ skill_row("act_60ep") }} | `python -m eval.skill_eval --act-root outputs_60ep --tag act_60ep` | `results/skill_eval_act_60ep.json` |
 | Per-skill ACT policy-only (1050 ep) | {{ skill_row("act_1050ep") }} | `python -m eval.skill_eval --tag act_1050ep` | `results/skill_eval_act_1050ep.json` |
 | Table-state anomaly check | {{ anomaly_row() }} | `python -m anomaly.make_data; .venv-anomalib/bin/python -m anomaly.train_patchcore; python -m anomaly.check --score` | `results/anomaly.json` |
+| Both arms at once vs sequential | {{ concurrency_row() }} | `python -m eval.concurrency` | `results/concurrency.json` |
 | Mid-task perturbation recovery | {{ load("recovery.json")["recovered"] }}/{{ load("recovery.json")["total"] }} recovered ({{ load("recovery.json")["detected"] }} detected) | `python -m eval.recovery` | `results/recovery.json` |
 | Instruction swap | {{ load("instruction_swap.json")["correct"] }}/{{ load("instruction_swap.json")["total"] }} | `eval/instruction_swap.py` | results/instruction_swap.json |
 | Camera vs oracle | {{ ", ".join(f"{k} {pct(v['agreement'])}" for k, v in load("camera_vs_oracle.json")["backends"].items()) }} | `eval/camera_vs_oracle.py` | results/camera_vs_oracle.json |

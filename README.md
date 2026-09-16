@@ -32,6 +32,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | pending | `results/skill_eval_act_60ep.json` |
 | **Per-skill ACT, policy only — retrained on 1050 episodes** | pending | `results/skill_eval_act_1050ep.json` |
 | **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | pending | `results/anomaly.json` |
+| **Both arms at once** (independent steps driven through the expert's step barrier; same seeds, same commands) | pending | `results/concurrency.json` |
 | **Mid-task perturbation recovery** (plate knocked 10 cm off its zone after its step passed; final-state check must notice and redo it) | 4/4 detected · 4/4 recovered | `results/recovery.json` |
 | **Instruction swap** (arm / object / order) | 7/10 encoded correctly | `results/instruction_swap.json` |
 | **Camera state check vs sim oracle** | 84% agreement (pixels) · 38% (2B VLM) | `results/camera_vs_oracle.json` |
@@ -169,7 +170,7 @@ python -m docs.render_readme    # regenerate this page and docs/ from results/
 - Pouring is the hardest skill (expert 70% on the held-out split): water is 20 free spheres and the spout must tip past ~92°.
 - The per-skill ACT baselines do not transfer beyond `open_drawer`; the multi-task SmolVLA is the intended policy and its rows fill in when the Kaggle run lands.
 - The 2B planner needs the verifier and rule fallback for about half of the commands.
-- One skill executes at a time; the queues schedule the arms, they do not move them simultaneously.
+- Both arms move at once only for independent single-arm steps whose objects and targets are ≥ 15 cm apart and outside the shared handoff/pour zone (`ArmQueues.ready_pair`); handoff, hold and pour are still one skill at a time, and the learned-policy executors run sequentially.
 - Measured on a Raptor Lake laptop: no NPU rows, VLM on CPU.
 
 ## License

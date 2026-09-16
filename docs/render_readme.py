@@ -40,6 +40,18 @@ def anomaly_row() -> str:
     return f"image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms · IR p50 {lat}"
 
 
+def concurrency_row() -> str:
+    d = load("concurrency.json")
+    if not d:
+        return "pending"
+    parts = []
+    for name, c in d["commands"].items():
+        s_ = c["summary"]
+        parts.append(f"{name}: sequential {s_['sequential']['successes']}/{s_['sequential']['total']} in {s_['sequential']['mean_sim_steps']:.0f} sim steps → "
+                     f"concurrent **{s_['concurrent']['successes']}/{s_['concurrent']['total']} in {s_['concurrent']['mean_sim_steps']:.0f}** ({100 * s_['sim_step_reduction']:.0f}% fewer)")
+    return " · ".join(parts)
+
+
 def pct(x: float | None) -> str:
     return "pending" if x is None else f"{100 * x:.0f}%"
 
@@ -107,7 +119,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "json": json,
 }
 
 
