@@ -43,9 +43,13 @@ def knock_plate(env) -> dict:
             "plate_in_zone_after_knock": oracles.object_in_zone(m, d, "plate", "plate")}
 
 
-def run_seed(seed: int, split: str, planner: str) -> dict:
+def run_seed(seed: int, split: str, planner: str, anomaly: bool = False) -> dict:
     env = gym.make("souschef_env/Thali-v0", disable_env_checker=True).unwrapped
-    rt = Runtime(env, Planner(backend=planner), Verifier(), audit_path=ROOT / "results" / "audit_recovery.jsonl")
+    chk = None
+    if anomaly:
+        from anomaly.check import TableAnomalyCheck
+        chk = TableAnomalyCheck("CPU")
+    rt = Runtime(env, Planner(backend=planner), Verifier(), audit_path=ROOT / "results" / "audit_recovery.jsonl", anomaly_check=chk)
     knock: dict = {}
 
     def after_check(idx: int, step: dict) -> None:
@@ -60,7 +64,11 @@ def run_seed(seed: int, split: str, planner: str) -> dict:
             "final_checks": log.final_checks, "replans": log.replans, "state": rt.state,
             "plate_placed_final": bool(sg["plate_placed"]), "fork_placed_final": bool(sg["fork_placed"]), "drawer_open_final": bool(sg["drawer_open"]),
             "recovered": bool(knock) and bool(log.final_checks) and bool(sg["plate_placed"]) and bool(sg["fork_placed"]),
-            "steps": [{"skill": s.step["skill"], "arm": s.arm, "oracle_ok": bool(s.oracle_ok)} for s in log.steps], "wall_s": round(time.time() - t0, 1)}
+            "steps": [{"skill": s.step["skill"], "arm": s.arm, "oracle_ok": bool(s.oracle_ok), "table_ok": s.table_ok, "table_score": s.table_score} for s in log.steps],
+            # the learned table check sees the knocked plate at the *next* step's check (the fork), before the final-state verification
+            "anomaly_flagged_after_knock": (any(s.table_ok is False for s in log.steps[knock["after_step"] + 1:]) if (knock and chk is not None) else None),
+            "anomaly_false_alarm_before_knock": (any(s.table_ok is False for s in log.steps[:knock["after_step"] + 1]) if (knock and chk is not None) else None),
+            "wall_s": round(time.time() - t0, 1)}
 
 
 def main() -> None:
@@ -69,12 +77,15 @@ def main() -> None:
     ap.add_argument("--split", default="test")
     ap.add_argument("--planner", default="rules")
     ap.add_argument("--out", type=Path, default=ROOT / "results" / "recovery.json")
+    ap.add_argument("--anomaly", action="store_true", help="also run the PatchCore table check after every step")
     a = ap.parse_args()
-    rows = [run_seed(s, a.split, a.planner) for s in a.seeds]
+    rows = [run_seed(s, a.split, a.planner, a.anomaly) for s in a.seeds]
     out = {"command": COMMAND, "perturbation": f"plate teleported to {KNOCK_TO} after its step passed its check",
            "seeds": a.seeds, "split": a.split, "planner": a.planner,
            "knocked": sum(bool(r["knock"]) for r in rows), "detected": sum(r["detected"] for r in rows),
-           "recovered": sum(r["recovered"] for r in rows), "total": len(rows), "rows": rows}
+           "recovered": sum(r["recovered"] for r in rows), "total": len(rows),
+           "anomaly_check": a.anomaly, "anomaly_flagged_after_knock": sum(bool(r.get("anomaly_flagged_after_knock")) for r in rows) if a.anomaly else None,
+           "anomaly_false_alarms_before_knock": sum(bool(r.get("anomaly_false_alarm_before_knock")) for r in rows) if a.anomaly else None, "rows": rows}
     a.out.parent.mkdir(exist_ok=True)
     a.out.write_text(json.dumps(out, indent=1))
     print(f"knocked {out['knocked']}/{out['total']}  detected {out['detected']}/{out['total']}  recovered {out['recovered']}/{out['total']}")

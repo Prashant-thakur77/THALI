@@ -33,15 +33,16 @@ def skill_row(tag: str) -> str:
 
 def anomaly_row() -> str:
     """Headline = the difference-image variant; the full-frame and crop variants are the ablation that motivated it."""
-    d = load("anomaly_diff.json")
+    d = load("anomaly_diffreal.json") or load("anomaly_diff.json")
     parts = []
     if d:
         lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
         op = d["at_10pct_fpr"]
         per = ", ".join(f"{k.replace('_', ' ')} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
-        parts.append(f"abs(frame − reset reference) crop, resnet18: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
+        src = "nominal set from real expert runs (post-skill states)" if d.get("variant") == "diffreal" else "synthetic nominal set"
+        parts.append(f"abs(frame − reset reference) crop, resnet18, {src}: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
                      f"{d['false_positives']}/{d['test_good']} false alarms ({per}) · at 10% false alarms {op['detected']}/{d['test_bad_total']} · IR p50 {lat}")
-    for name, label in (("anomaly.json", "full frame, wide_resnet50"), ("anomaly_crop.json", "table crop, resnet18")):
+    for name, label in (("anomaly.json", "full frame, wide_resnet50"), ("anomaly_crop.json", "table crop, resnet18"), ("anomaly_diff.json", "diff on the synthetic nominal set")):
         a = load(name)
         if a:
             parts.append(f"ablation {label}: AUROC {a['image_auroc']}, {a['false_positives']}/{a['test_good']} false alarms")

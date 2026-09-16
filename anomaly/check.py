@@ -57,6 +57,14 @@ class TableAnomalyCheck:
         # anomalib 2.x exports the post-processor inside the graph: pred_score is min-max normalised so that the
         # learned image threshold maps to 0.5, and pred_label is the thresholded decision.
         self.threshold = float(self.meta.get("image_threshold", 0.5))
+        # operating point: the score that lets through 90% of held-out nominal frames (results/anomaly_<variant>.json,
+        # written by --score) -- the exported 0.5 is tuned on the training split and fires on ~1 in 5 clean live frames
+        res = ROOT / "results" / (f"anomaly_{Path(model_dir).name.removeprefix('model_')}.json" if Path(model_dir).name != "model" else "anomaly.json")
+        if res.exists():
+            try:
+                self.threshold = float(json.loads(res.read_text())["at_10pct_fpr"]["threshold"])
+            except (KeyError, ValueError):
+                pass
         self.out_score = next((o for o in self.compiled.outputs if "pred_score" in o.get_any_name()), self.compiled.outputs[0])
         self.device = device
         self.crop = str(model_dir).endswith("model_crop")   # trained on table crops: crop live frames the same way

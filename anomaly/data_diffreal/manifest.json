@@ -1,0 +1,17 @@
+{
+ "train_good": 225,
+ "test_good": 57,
+ "test_bad": {
+  "spill": 15,
+  "tipped_mug": 15,
+  "knocked_plate": 15,
+  "fallen_bottle": 15,
+  "dropped_cutlery": 15
+ },
+ "image_size": [
+  240,
+  320
+ ],
+ "camera": "overhead",
+ "variant": "diffreal"
+}

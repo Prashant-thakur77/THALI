@@ -1,0 +1,68 @@
+{
+ "model": "PatchCore (Anomalib) \u2192 OpenVINO IR",
+ "variant": "diffreal",
+ "crop": false,
+ "diff": true,
+ "threshold": 0.5,
+ "input_hw": [
+  240,
+  320
+ ],
+ "test_good": 57,
+ "false_positives": 13,
+ "image_auroc": 0.943,
+ "detected": 72,
+ "test_bad_total": 75,
+ "per_type": {
+  "spill": {
+   "n": 15,
+   "detected": 13,
+   "auroc_vs_good": 0.815,
+   "median_score": 0.5701
+  },
+  "tipped_mug": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.998,
+   "median_score": 0.9887
+  },
+  "knocked_plate": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.992,
+   "median_score": 0.825
+  },
+  "fallen_bottle": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 1.0,
+   "median_score": 0.8654
+  },
+  "dropped_cutlery": {
+   "n": 15,
+   "detected": 14,
+   "auroc_vs_good": 0.91,
+   "median_score": 0.7032
+  }
+ },
+ "at_10pct_fpr": {
+  "threshold": 0.6058,
+  "detected": 61,
+  "per_type": {
+   "spill": 5,
+   "tipped_mug": 15,
+   "knocked_plate": 15,
+   "fallen_bottle": 15,
+   "dropped_cutlery": 11
+  }
+ },
+ "latency_ms": {
+  "CPU": {
+   "p50": 70.23,
+   "mean": 70.16
+  },
+  "GPU": {
+   "error": "RuntimeError: Exception from src/inference/src/cpp/core.cpp:117:\nException from src/inference/src/dev/plugin.cpp:54:\nCheck 'false' fai"
+  }
+ }
+}
