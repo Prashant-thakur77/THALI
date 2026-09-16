@@ -107,7 +107,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "json": json,
 }
 
 
