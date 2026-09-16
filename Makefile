@@ -27,8 +27,10 @@ eval:         ## Phase 9 — 10-seed eval on test_ranges (SEEDS=$(SEEDS))
 bench:        ## Phase 8 — OpenVINO bench (DEVICE=$(DEVICE); CPU|GPU only, no NPU on this box)
 	@echo "bench: not implemented"
 
-demo:         ## Phase 7 — voice -> planner -> verifier -> arms
-	@echo "demo: not implemented"
+SEED ?= 3
+VOICE ?= voice/test_samples/normal.wav
+demo:         ## Phase 7 — voice (VOICE=$(VOICE)) -> local VLM planner -> verifier -> arm queues -> skills -> checks; SEED=$(SEED)
+	$(PY) -m runtime.demo --seed $(SEED) --split test --planner auto --voice $(VOICE) --tts
 
 LOG ?= results/verifier_injection_audit.jsonl
 verify-log:   ## Phase 5 — recompute the hash chain of an audit log (LOG=$(LOG)); exit 1 if tampered

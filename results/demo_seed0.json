@@ -1,0 +1,223 @@
+{
+  "seed": 0,
+  "split": "train",
+  "command": "set the table",
+  "plan_source": "rules",
+  "verdicts": [
+    "ALLOW"
+  ],
+  "steps": [
+    {
+      "idx": 0,
+      "step": {
+        "skill": "open_drawer",
+        "arm": "a"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "arm": "a",
+        "drawer_qpos": 0.10977254034363568
+      },
+      "oracle_ok": true,
+      "camera_ok": false,
+      "camera_backend": "pixels",
+      "t_start": 1789523058.2715,
+      "t_end": 1789523075.8755486,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 1,
+      "step": {
+        "skill": "pick_place",
+        "arm": "a",
+        "obj": "fork_1",
+        "zone": "fork"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "obj": "fork_1",
+        "arm": "a",
+        "zone": "fork",
+        "retried": false,
+        "attempts": 1,
+        "place_err": 0.004444233006343062
+      },
+      "oracle_ok": true,
+      "camera_ok": false,
+      "camera_backend": "pixels",
+      "t_start": 1789523075.8842506,
+      "t_end": 1789523094.2394316,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 2,
+      "step": {
+        "skill": "handoff",
+        "arm": "a",
+        "obj": "spoon_1",
+        "to_arm": "b",
+        "zone": "spoon"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "obj": "spoon_1",
+        "from": "a",
+        "to": "b",
+        "zone": "spoon",
+        "place_err": 0.008535854000507364
+      },
+      "oracle_ok": true,
+      "camera_ok": false,
+      "camera_backend": "pixels",
+      "t_start": 1789523094.2501628,
+      "t_end": 1789523127.5377,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 4,
+      "step": {
+        "skill": "hold_mug",
+        "arm": "b"
+      },
+      "arm": "b",
+      "result": {
+        "ok": true,
+        "arm": "b",
+        "mug_pos": [
+          -0.0021042637095094563,
+          0.0011571854821448618,
+          0.027328819911475104
+        ]
+      },
+      "oracle_ok": true,
+      "camera_ok": null,
+      "camera_backend": null,
+      "t_start": 1789523127.5472472,
+      "t_end": 1789523141.308165,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 3,
+      "step": {
+        "skill": "pick_place",
+        "arm": "a",
+        "obj": "plate",
+        "zone": "plate"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "obj": "plate",
+        "arm": "a",
+        "zone": "plate",
+        "retried": false,
+        "attempts": 1,
+        "place_err": 0.000290538265591829
+      },
+      "oracle_ok": true,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523141.3100219,
+      "t_end": 1789523158.8304827,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 5,
+      "step": {
+        "skill": "pour",
+        "arm": "a",
+        "amount": "normal"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "arm": "a",
+        "spheres_before": 0,
+        "spheres_after": 10,
+        "phi": 2.303834612632515,
+        "aborted": false
+      },
+      "oracle_ok": true,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523158.8466718,
+      "t_end": 1789523205.365855,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 6,
+      "step": {
+        "skill": "place_mug",
+        "arm": "b"
+      },
+      "arm": "b",
+      "result": {
+        "ok": true,
+        "obj": "mug",
+        "arm": "b",
+        "err": 0.005251226366789336
+      },
+      "oracle_ok": true,
+      "camera_ok": false,
+      "camera_backend": "pixels",
+      "t_start": 1789523205.3799806,
+      "t_end": 1789523215.7397506,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    }
+  ],
+  "replans": 0,
+  "barge_ins": [],
+  "latency": {
+    "speech_end_to_plan_ready_s": 0.757,
+    "plan_s": 0.197,
+    "plan_ready_to_arm_moves_s": 0.0,
+    "speech_end_to_arm_moves_s": 0.757
+  },
+  "subgoals": {
+    "drawer_open": true,
+    "plate_placed": true,
+    "fork_placed": true,
+    "spoon_placed": true,
+    "mug_placed": true,
+    "poured": true
+  },
+  "success": true,
+  "state": "DONE",
+  "ignored_speakers": [],
+  "sim_steps": 4553,
+  "wall_s": 158.2,
+  "voice": null,
+  "tts": [
+    {
+      "t": 1789523058.2714431,
+      "text": "Okay. open drawer with arm A, then pick place with arm A, then handoff with arm A, then pick place with arm A, then hold mug with arm B, then pour with arm A, then place mug with arm B"
+    },
+    {
+      "t": 1789523158.846662,
+      "text": "Pouring now. Say stop anytime."
+    },
+    {
+      "t": 1789523215.7583857,
+      "text": "The table is set. Enjoy your meal."
+    }
+  ],
+  "planner_backend": "rules",
+  "device": "CPU"
+}

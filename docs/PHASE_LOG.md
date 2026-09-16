@@ -172,3 +172,35 @@ Barge-in and the plan-ready → arm-moves latency are wired in Phase 7 (they nee
 
 **Tests:** 8 (`tests/test_voice.py`) — offline parser cases (English, ASR noise, Hinglish, Devanagari, barge-in,
 speaker focus) and the results file.
+
+---
+
+## Phase 7 — Runtime
+
+**Built** (`runtime/`): `state_machine.py` — `Runtime.run_command`: IDLE → PLANNING (VLM/rules) → VERIFYING →
+EXECUTING → CHECKING (sim oracle + camera-based yes/no) → next / REPLANNING (`Planner.replan` on the remaining
+steps, re-verified) → DONE | BLOCKED, with PAUSED on a barge-in; every transition, plan, verdict and skill result
+appended to the hash-chained audit log; latency chain speech-end → plan-ready → arm-moves recorded per command.
+`arm_queues.py` — per-arm queues with dependencies (drawer before cutlery, hold before pour, receiver free
+before a handoff), dispatching the idle arm's runnable step first. `demo.py` — `python -m runtime.demo --seed 3
+--voice <wav>` (Speechmatics + speaker focus), `--command`, `--barge-in "stop@4"` / `"other arm@4"`, `--tts`.
+`expert/primitives.py` gained an `interrupt` predicate polled every control step (`Interrupted`) and
+`hold_still` for the paused state; a resumed step re-runs from the current world state.
+
+**Measured:**
+- `results/demo_seed3.json`: noisy.wav → operator S1, podcast speaker S2 ignored → parsed "open the top drawer,
+  put the plate on the table with arm A" → VLM plan (CPU) ALLOWed → both skills succeed (oracle and camera agree)
+  → **speech-end → plan-ready 7.5 s (VLM 6.0 s), plan-ready → arm-moves 3.0 s (first TTS synthesis), total 10.4 s**.
+- `results/demo_bargein_stop.json`: injected "stop" partial 3 s into step 0 pauses the arm within one control
+  step, "continue" resumes and the step completes; a failing pour triggers two replans before BLOCKED with the
+  reason in the log.
+- `results/demo_seed0.json`: "set the table" → 7-step plan → DONE, 6/6 sub-goals, 0.76 s speech-end → arm-moves
+  with the rule planner.
+- `results/audit.jsonl` verifies intact across all runs (`make verify-log LOG=results/audit.jsonl`).
+
+**Plan deviations:** the two arms execute one skill at a time (the queues decide *which* arm goes next; they do
+not move simultaneously). The pixel-heuristic camera check is used when no VLM is loaded; its agreement with the
+oracle is measured in Phase 9. Latency numbers include TTS synthesis when `--tts` is on (cached afterwards).
+
+**Tests:** 7 (`tests/test_runtime.py`): queue dependencies/dispatch, a full short command, barge-in with speaker
+focus (S2's "stop" ignored, S1's honoured, resume), audit chain of the runs, demo result files.

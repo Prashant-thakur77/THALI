@@ -1,0 +1,155 @@
+{
+  "seed": 3,
+  "split": "test",
+  "command": "open the top drawer, put the plate on the table with arm A",
+  "plan_source": "vlm",
+  "verdicts": [
+    "ALLOW"
+  ],
+  "steps": [
+    {
+      "idx": 0,
+      "step": {
+        "skill": "open_drawer",
+        "arm": "a"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "arm": "a",
+        "drawer_qpos": 0.10975784391151053
+      },
+      "oracle_ok": true,
+      "camera_ok": true,
+      "camera_backend": "vlm",
+      "t_start": 1789523444.0252156,
+      "t_end": 1789523462.06055,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 1,
+      "step": {
+        "skill": "pick_place",
+        "arm": "a",
+        "obj": "plate",
+        "zone": "plate"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "obj": "plate",
+        "arm": "a",
+        "zone": "plate",
+        "retried": false,
+        "attempts": 1,
+        "place_err": 0.0001880727090930726
+      },
+      "oracle_ok": true,
+      "camera_ok": true,
+      "camera_backend": "vlm",
+      "t_start": 1789523464.4370303,
+      "t_end": 1789523482.4165225,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    }
+  ],
+  "replans": 0,
+  "barge_ins": [],
+  "latency": {
+    "speech_end_to_plan_ready_s": 7.478,
+    "plan_s": 5.952,
+    "plan_ready_to_arm_moves_s": 2.969,
+    "speech_end_to_arm_moves_s": 10.447
+  },
+  "subgoals": {
+    "drawer_open": true,
+    "plate_placed": true,
+    "fork_placed": false,
+    "spoon_placed": false,
+    "mug_placed": false,
+    "poured": false
+  },
+  "success": true,
+  "state": "DONE",
+  "ignored_speakers": [],
+  "sim_steps": 1005,
+  "wall_s": 52.4,
+  "voice": {
+    "file": "voice/test_samples/noisy.wav",
+    "operator": "S1",
+    "utterances": [
+      {
+        "text": "Real estate that we have. Open the top drawer. Pick up the plate with arm A. Place it on the table",
+        "speaker": "S1",
+        "is_operator": true,
+        "t_speech_end_audio": 8.2,
+        "t_ready_wall": 1789523433.5783298,
+        "t_first_partial_wall": 1789523432.4843757,
+        "partials": 21,
+        "parse": {
+          "intents": [
+            {
+              "kind": "open_drawer",
+              "phrase": "open the top drawer"
+            },
+            {
+              "kind": "pick_place",
+              "obj": "plate",
+              "arm": "a",
+              "phrase": "pick up the plate with arm a"
+            }
+          ],
+          "diagnostics": [
+            "could not interpret: 'real estate that we have'"
+          ],
+          "normalized": "real estate that we have ; open the top drawer ; pick up the plate with arm a ; place it on the table",
+          "barge_in": null
+        }
+      },
+      {
+        "text": "And try things and listen to podcasts and books and",
+        "speaker": "S2",
+        "is_operator": false,
+        "t_speech_end_audio": -1.0,
+        "t_ready_wall": 1789523434.5042233,
+        "t_first_partial_wall": 1789523433.7385683,
+        "partials": 7,
+        "parse": {
+          "intents": [],
+          "diagnostics": [
+            "could not interpret: 'and try things and listen to podcasts and books and'"
+          ],
+          "normalized": "and try things and listen to podcasts and books and",
+          "barge_in": null
+        }
+      }
+    ],
+    "ignored": [
+      {
+        "speaker": "S2",
+        "text": "And try things and listen to podcasts and books and."
+      }
+    ]
+  },
+  "tts": [
+    {
+      "t": 1789523441.0562644,
+      "text": "Okay. open drawer with arm A, then pick place with arm A",
+      "bytes": 122924,
+      "latency_s": 2.9671128199988743,
+      "cached": false
+    },
+    {
+      "t": 1789523484.7663162,
+      "text": "The table is set. Enjoy your meal.",
+      "bytes": 67628,
+      "latency_s": 2.1555256490028114,
+      "cached": false
+    }
+  ],
+  "planner_backend": "vlm",
+  "device": "CPU"
+}

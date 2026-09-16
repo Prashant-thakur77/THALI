@@ -62,6 +62,10 @@ class SkillResult:
     detail: dict = field(default_factory=dict)
 
 
+class Interrupted(RuntimeError):
+    """Raised from Expert.step when the runtime's barge-in predicate fires (voice "stop" / "other arm")."""
+
+
 class Workspace:
     """Reservation of the shared zone between the arms (plan 2.2)."""
 
@@ -90,6 +94,7 @@ class Expert:
         self.m, self.d = env.model, env.data
         self.ik = ArmIK()
         self.on_step = on_step
+        self.interrupt: Callable[[], bool] | None = None  # polled every control step; True -> Interrupted
         self.workspace = Workspace()
         self.q = {a: np.array(C.HOME_QPOS_ARM, dtype=float) for a in C.ARMS}
         self.jaw = {a: 1.0 for a in C.ARMS}
@@ -112,12 +117,20 @@ class Expert:
 
     def step(self, n: int = 1) -> None:
         for _ in range(n):
+            if self.interrupt is not None and self.interrupt():
+                raise Interrupted()
             act = self.action()
             obs, _, _, _, info = self.env.step(act)
             self.last_obs = obs
             self.steps += 1
             if self.on_step:
                 self.on_step(act, obs)
+
+    def hold_still(self, n: int = 1) -> None:
+        """Step the sim with the current targets and the interrupt check disabled (used while paused)."""
+        for _ in range(n):
+            self.env.step(self.action())
+            self.steps += 1
 
     def site(self, arm: str) -> tuple[np.ndarray, np.ndarray]:
         sid = self.m.site(C.ARM_PREFIX[arm] + "gripperframe").id

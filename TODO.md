@@ -44,7 +44,7 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] 6.6 (first-partial→parse-ready per utterance in `results/voice_test.json`; plan-ready→arm-moves added by the runtime in Phase 7) Log speech-end → plan-ready → arm-moves latency; write to `results/`
 
 ## Phase 7 — Runtime
-- [ ] 7.1 `runtime/state_machine.py`: voice → planner → verifier → per-arm queues (`arm_queues.py`) → skill → camera check + oracle → next/replan; `python -m souschef.runtime.demo --seed 3 --voice`
+- [x] 7.1 (one skill executes at a time; queues schedule across arms with dependencies — simultaneous two-arm motion not implemented, stated) `runtime/state_machine.py`: voice → planner → verifier → per-arm queues (`arm_queues.py`) → skill → camera check + oracle → next/replan; `python -m souschef.runtime.demo --seed 3 --voice`
 
 ## Phase 8 — OpenVINO bench
 - [ ] 8.1 `bench/export_ir.py`: SmolVLA vision encoder + action expert, ACT → IR FP32/FP16; `bench/quantize.py` NNCF INT8 with 300 calib frames

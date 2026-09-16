@@ -1,0 +1,212 @@
+{
+  "seed": 0,
+  "split": "train",
+  "command": "put the plate on the table and pour water",
+  "plan_source": "rules",
+  "verdicts": [
+    "ALLOW",
+    "ALLOW",
+    "ALLOW"
+  ],
+  "steps": [
+    {
+      "idx": 0,
+      "step": {
+        "skill": "pick_place",
+        "arm": "a",
+        "obj": "plate",
+        "zone": "plate"
+      },
+      "arm": "a",
+      "result": {
+        "ok": true,
+        "obj": "plate",
+        "arm": "a",
+        "zone": "plate",
+        "retried": false,
+        "attempts": 1,
+        "place_err": 0.00022835010120681812
+      },
+      "oracle_ok": true,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523228.621849,
+      "t_end": 1789523249.3290699,
+      "executor": "expert",
+      "interrupted": true,
+      "replan_round": 0
+    },
+    {
+      "idx": 1,
+      "step": {
+        "skill": "hold_mug",
+        "arm": "b"
+      },
+      "arm": "b",
+      "result": {
+        "ok": true,
+        "arm": "b",
+        "mug_pos": [
+          -0.002108450762627478,
+          0.0011755527561725882,
+          0.027333229792298516
+        ]
+      },
+      "oracle_ok": true,
+      "camera_ok": null,
+      "camera_backend": null,
+      "t_start": 1789523249.3419223,
+      "t_end": 1789523263.103698,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 2,
+      "step": {
+        "skill": "pour",
+        "arm": "a",
+        "amount": "normal"
+      },
+      "arm": "a",
+      "result": {
+        "ok": false,
+        "arm": "a",
+        "spheres_before": 0,
+        "spheres_after": 5,
+        "phi": 2.303834612632515,
+        "aborted": false
+      },
+      "oracle_ok": false,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523263.105469,
+      "t_end": 1789523312.7577314,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 0
+    },
+    {
+      "idx": 0,
+      "step": {
+        "skill": "pour",
+        "arm": "a",
+        "amount": "normal"
+      },
+      "arm": "a",
+      "result": {
+        "ok": false,
+        "arm": "a",
+        "spheres_before": 5,
+        "spheres_after": 5,
+        "phi": 2.303834612632515,
+        "aborted": false
+      },
+      "oracle_ok": false,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523312.7860544,
+      "t_end": 1789523361.337408,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 1
+    },
+    {
+      "idx": 0,
+      "step": {
+        "skill": "pour",
+        "arm": "a",
+        "amount": "normal"
+      },
+      "arm": "a",
+      "result": {
+        "ok": false,
+        "arm": "a",
+        "spheres_before": 5,
+        "spheres_after": 5,
+        "phi": 2.303834612632515,
+        "aborted": false
+      },
+      "oracle_ok": false,
+      "camera_ok": true,
+      "camera_backend": "pixels",
+      "t_start": 1789523361.3643243,
+      "t_end": 1789523410.218763,
+      "executor": "expert",
+      "interrupted": false,
+      "replan_round": 2
+    }
+  ],
+  "replans": 2,
+  "barge_ins": [
+    {
+      "t": 1789523231.650881,
+      "kind": "stop",
+      "step": 0,
+      "skill": "pick_place"
+    }
+  ],
+  "latency": {
+    "speech_end_to_plan_ready_s": 0.789,
+    "plan_s": 0.186,
+    "plan_ready_to_arm_moves_s": 0.0,
+    "speech_end_to_arm_moves_s": 0.789
+  },
+  "subgoals": {
+    "drawer_open": false,
+    "plate_placed": true,
+    "fork_placed": false,
+    "spoon_placed": false,
+    "mug_placed": false,
+    "poured": false
+  },
+  "success": false,
+  "state": "BLOCKED",
+  "ignored_speakers": [
+    {
+      "t": 1789523231.6399865,
+      "speaker": null,
+      "text": "stop",
+      "kind": "stop",
+      "ignored": false
+    },
+    {
+      "t": 1789523233.6413133,
+      "speaker": null,
+      "text": "continue",
+      "kind": "resume",
+      "ignored": false
+    }
+  ],
+  "sim_steps": 5307,
+  "wall_s": 182.4,
+  "voice": null,
+  "tts": [
+    {
+      "t": 1789523228.6218007,
+      "text": "Okay. pick place with arm A, then hold mug with arm B, then pour with arm A, then place mug with arm B"
+    },
+    {
+      "t": 1789523231.6508849,
+      "text": "Stopped."
+    },
+    {
+      "t": 1789523233.786698,
+      "text": "Continuing."
+    },
+    {
+      "t": 1789523263.105457,
+      "text": "Pouring now. Say stop anytime."
+    },
+    {
+      "t": 1789523312.786046,
+      "text": "Pouring now. Say stop anytime."
+    },
+    {
+      "t": 1789523361.3643143,
+      "text": "Pouring now. Say stop anytime."
+    }
+  ],
+  "planner_backend": "rules",
+  "device": "CPU"
+}
