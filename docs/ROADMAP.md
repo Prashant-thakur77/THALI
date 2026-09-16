@@ -18,7 +18,7 @@ How a new skill enters the system (the same five files every time):
 | **Clear the table** | reverse task: cutlery back to the drawer, mug to the cabinet, close the drawer | 3 primitives (put-in-drawer, close_drawer, place-in-cabinet), oracles, 3×150 demos | "clear the table" N/10 held-out |
 | **Two place settings** | second plate/fork/spoon set; zones per seat; the planner must count | assets + zones, planner prompt with seats, workspace rule for the far seat (handoff needed) | 2-seat task N/10 |
 | **Glass + jug / bottle cap** | pour into a glass, one arm holds the bottle while the other unscrews the cap (true bimanual, not handoff) | cap joint on the bottle, twist primitive with torque limit | cap-off N/10, pour-into-glass N/10 |
-| **Target-volume pour** | "half a cup", "a little" → stop the roll at a sphere count, closed loop on `water_in_mug` | amount → target spheres map, pour loop with early stop | volume error in spheres over 20 pours |
+| **Target-volume pour** — *done 17 Sep* | "a little" / normal / "fill it up" → 3 / 6 / 12 spheres; the roll stops per control step when the oracle counts target − 1 | done: `results/pour_amount.json` — normal within ±2 on 4/5, little 2/5 (overshoot: water leaves in bursts), full 2/5 (two layouts saturate at 6 spheres) | next: slower final roll chunk near the exit angle; bottle neck geometry for "full" |
 | **Tray carry (two-arm lift)** | both arms lift one object (tray with the mug on it) and carry it together | coordinated two-arm IK legs through the step barrier (now possible), tray asset | tray delivered without spill N/10 |
 
 ## Tier 2 — interaction (days)
@@ -58,7 +58,7 @@ How a new skill enters the system (the same five files every time):
 
 ## Suggested order for the next two weeks
 1. ~~Difference-image anomaly retrain~~ done (AUROC 0.94); optional: spill sensitivity.
-2. Clear-the-table + target-volume pour (3 days) — doubles the task list, reuses everything.
+2. Clear-the-table (2 days) — doubles the task list, reuses everything. (target-volume pour: done, needs finer control for 'little')
 3. Follow-ups/corrections + ask-when-ambiguous (2 days) — the strongest voice-track story.
 4. 3 000-episode recording in the background throughout; SmolVLA retrain at the end (1 week wall, mostly unattended).
 5. Two-arm tray carry (3 days) — the first skill that only two arms can do.
