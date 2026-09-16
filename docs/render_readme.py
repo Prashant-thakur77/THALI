@@ -19,6 +19,27 @@ def load(name: str) -> dict | None:
     return json.loads(p.read_text()) if p.exists() else None
 
 
+def skill_row(tag: str) -> str:
+    """Per-skill policy-only success from results/skill_eval_<tag>.json, or 'pending'."""
+    d = load(f"skill_eval_{tag}.json")
+    if not d:
+        return "pending"
+    parts = []
+    for k, v in d["skills"].items():
+        cm = f" (median {v['median_zone_error_cm']} cm from zone)" if v.get("median_zone_error_cm") is not None else ""
+        parts.append(f"{k} **{v['successes']}/{v['total']}**{cm}")
+    return " · ".join(parts)
+
+
+def anomaly_row() -> str:
+    d = load("anomaly.json")
+    if not d:
+        return "pending"
+    per = ", ".join(f"{k} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
+    lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
+    return f"image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms · IR p50 {lat}"
+
+
 def pct(x: float | None) -> str:
     return "pending" if x is None else f"{100 * x:.0f}%"
 

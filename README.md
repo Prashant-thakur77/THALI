@@ -29,6 +29,9 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Full task, multi-task SmolVLA** | training on Kaggle — pending | `results/seeds.json` |
 | **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 50% | `results/heatmap_expert.json` |
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
+| **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | ⚠️ NameError("name 'skill_row' is not defined") | `results/skill_eval_act_60ep.json` |
+| **Per-skill ACT, policy only — retrained on 1050 episodes** | ⚠️ NameError("name 'skill_row' is not defined") | `results/skill_eval_act_1050ep.json` |
+| **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | ⚠️ NameError("name 'anomaly_row' is not defined") | `results/anomaly.json` |
 | **Mid-task perturbation recovery** (plate knocked 10 cm off its zone after its step passed; final-state check must notice and redo it) | 4/4 detected · 4/4 recovered | `results/recovery.json` |
 | **Instruction swap** (arm / object / order) | 7/10 encoded correctly | `results/instruction_swap.json` |
 | **Camera state check vs sim oracle** | 84% agreement (pixels) · 38% (2B VLM) | `results/camera_vs_oracle.json` |

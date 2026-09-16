@@ -24,3 +24,7 @@ video/
 hosting/static/*\n!hosting/static/index.html
 hosting/static/*
 !hosting/static/index.html
+anomaly/data/
+anomaly/model/
+.venv-anomalib/
+outputs_60ep/
