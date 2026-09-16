@@ -71,6 +71,13 @@ def skill_done(ex: Expert, step: dict) -> bool:
     return False
 
 
+# smolvla_base was pretrained with generic camera keys; the Kaggle fine-tune trains with this same --rename_map, so
+# inference must feed the cameras under the renamed keys (ACT checkpoints are trained on the dataset's own names).
+SMOLVLA_RENAME = {"observation.images.overhead": "observation.images.camera1",
+                  "observation.images.wrist_a": "observation.images.camera2",
+                  "observation.images.wrist_b": "observation.images.camera3"}
+
+
 class LoadedPolicy:
     def __init__(self, path: Path, device: str = "cuda"):
         cfg = PreTrainedConfig.from_pretrained(str(path))
@@ -82,6 +89,8 @@ class LoadedPolicy:
                                                        preprocessor_overrides={"device_processor": {"device": str(cfg.device)}})
         self.device = cfg.device
         self.type = cfg.type
+        expected = set(getattr(cfg, "input_features", {}) or {})
+        self.rename = SMOLVLA_RENAME if any(k in expected for k in SMOLVLA_RENAME.values()) else {}
 
     @staticmethod
     def _load(cfg, path):
@@ -95,6 +104,9 @@ class LoadedPolicy:
     @torch.no_grad()
     def act(self, obs: dict, task: str) -> np.ndarray:
         o = preprocess_observation({"pixels": obs["pixels"], "agent_pos": obs["agent_pos"]})
+        for src, dst in self.rename.items():
+            if src in o:
+                o[dst] = o.pop(src)
         o["task"] = [task]
         o = self.pre(o)
         a = self.policy.select_action(o)
