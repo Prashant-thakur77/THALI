@@ -295,3 +295,17 @@ montage, `docs/PITCH.md` (pitch, scale slide, shot list).
 
 **Pending on the user:** HF token (dataset + checkpoints + IR push), Kaggle SmolVLA run, Space deployment, the
 video recording itself, and the lablab submission (docs/KAGGLE_TODO.md).
+
+## Post-deadline programme (started 16 Sep 2026, 23:00 IST)
+Submission is in (video 4:23, deck, HF Space). The user asked to keep improving to beat the field; competitor READMEs
+(TableMind, duet, so101-AI-Infra, AuraManip, PegBit, intel-bimanual-vla, ai-packing-assistant) were reviewed. Gaps they
+lead on: NPU/Core Ultra numbers (hardware we do not have), per-skill learned-policy success (PegBit 19/20 mug within
+1.5 cm), concurrent two-arm execution (duet), headline success on short scripted tasks. None uses Anomalib.
+
+Done tonight: mid-task perturbation recovery (`eval/recovery.py`, 4/4), final-state verification in the runtime,
+`eval/skill_eval.py` (per-skill policy-only, 20 held-out seeds, zone error in cm), Anomalib PatchCore table-state check
+(`anomaly/`: dataset generator, trainer/OpenVINO export in `.venv-anomalib`, OpenVINO-only checker wired into the runtime
+as `--anomaly`), README/EVIDENCE rows that render "pending" until each results file exists.
+Running unattended: ACT retrain on 1050 episodes (12k steps/skill) → per-skill eval → full-task ACT evals → bench;
+PatchCore train → score → results/anomaly.json.
+Next: Qwen3-VL-4B planner comparison, SmolVLA on Kaggle (user), heatmap for ACT, HF pushes of new checkpoints/IR.

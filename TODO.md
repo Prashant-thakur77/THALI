@@ -66,3 +66,14 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [ ] 10.3 Datasets + checkpoints + IR on HF Hub (`Prashant-77`)
 - [ ] 10.4 Submit a draft early; update until deadline
 - [ ] 10.5 Business slide: hospitality/kitchen automation, assistive dining, why local inference
+
+## Post-deadline (beat the field)
+- [x] Mid-task perturbation recovery eval (results/recovery.json 4/4) + final-state verification in runtime
+- [x] Per-skill policy-only eval script (eval/skill_eval.py); 60-ep run in progress → results/skill_eval_act_60ep.json
+- [ ] ACT retrain on 1050 episodes (running) → skill_eval_act_1050ep, seeds_act_*, bench
+- [x] Anomalib PatchCore table-state check: data generator, trainer + OpenVINO export, checker, runtime `--anomaly` (training pending install)
+- [ ] results/anomaly.json + README row
+- [ ] Qwen3-VL-4B planner comparison (planner/get_qwen3vl.py; THALI_PLANNER_MODEL)
+- [ ] SmolVLA fine-tune on Kaggle (policies/kaggle_smolvla.ipynb) → seeds_smolvla_*, skill_eval_smolvla
+- [ ] Concurrent two-arm execution (both arms moving at once when workspaces are disjoint)
+- [ ] Push new checkpoints / IR to HF Hub; update Space page

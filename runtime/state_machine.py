@@ -51,6 +51,8 @@ class StepRecord:
     executor: str
     interrupted: bool = False
     replan_round: int = 0
+    table_ok: bool | None = None       # PatchCore table-state check after the step (None = check not enabled)
+    table_score: float | None = None
 
 
 @dataclass
@@ -93,7 +95,8 @@ class ExpertExecutor:
 class Runtime:
     def __init__(self, env: ThaliEnv, planner: Planner | None = None, verifier: Verifier | None = None,
                  executor_factory: Callable[[Expert], Any] | None = None, state_check=None,
-                 audit_path: Path | None = None, say: Callable[[str], None] | None = None, camera_check: bool = True):
+                 audit_path: Path | None = None, say: Callable[[str], None] | None = None, camera_check: bool = True,
+                 anomaly_check: Any | None = None):
         self.env = env
         self.planner = planner or Planner(backend="auto")
         self.verifier = verifier or Verifier()
@@ -102,6 +105,7 @@ class Runtime:
         self.audit = AuditLog(audit_path or ROOT / "results" / "audit.jsonl")
         self.say = say or (lambda text: None)
         self.camera_check = camera_check
+        self.anomaly_check = anomaly_check  # optional anomaly/check.TableAnomalyCheck (PatchCore IR on the overhead camera)
         self.barge = BargeIn()
         self.state = "IDLE"
         self.ex: Expert | None = None
@@ -236,11 +240,22 @@ class Runtime:
                     cam_backend = self.state_check.name
                 except Exception as e:  # pragma: no cover
                     cam_backend = f"error:{type(e).__name__}"
+            table_ok, table_score = None, None
+            if self.anomaly_check is not None:
+                try:
+                    table_score = round(float(self.anomaly_check.score(self._frame())), 4)
+                    table_ok = bool(table_score < self.anomaly_check.threshold)
+                    if not table_ok:
+                        self.say("The table looks disturbed. I will check everything at the end.")
+                except Exception as e:  # pragma: no cover
+                    table_ok = None
             rec = StepRecord(q.idx, q.step, q.step["arm"], {"ok": bool(result.ok), **{k: _jsonable(v) for k, v in result.detail.items()}},
                              oracle_ok, cam_ok, cam_backend, t0, t1, getattr(executor, "name", "expert"), interrupted, replan_round)
+            rec.table_ok, rec.table_score = table_ok, table_score
             log.steps.append(rec)
             self._log("skill", {"step": q.idx, "skill": q.step["skill"], "arm": q.step["arm"], "ok": bool(result.ok), "oracle": oracle_ok,
-                                "camera": cam_ok, "camera_backend": cam_backend, "seconds": round(t1 - t0, 2), "detail": rec.result})
+                                "camera": cam_ok, "camera_backend": cam_backend, "table_ok": table_ok, "table_score": table_score,
+                                "seconds": round(t1 - t0, 2), "detail": rec.result})
             if self.after_check:
                 self.after_check(q.idx, q.step)
             if oracle_ok:

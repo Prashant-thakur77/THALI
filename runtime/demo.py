@@ -79,6 +79,8 @@ def main() -> None:
     ap.add_argument("--resume-after", type=float, default=3.0)
     ap.add_argument("--tts", action="store_true", help="synthesize confirmations with Speechmatics TTS")
     ap.add_argument("--no-camera-check", action="store_true")
+    ap.add_argument("--anomaly", action="store_true", help="PatchCore table-state check (anomaly/check.py, OpenVINO IR) after every skill")
+    ap.add_argument("--anomaly-device", default="CPU")
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--video", type=Path, default=None, help="record front+overhead frames to this mp4 (ffmpeg)")
     ap.add_argument("--video-every", type=int, default=4, help="record one frame every N control steps (4 -> 12.5 fps)")
@@ -96,8 +98,12 @@ def main() -> None:
         say_log.append(rec)
         print(f"  🗣 {text}")
 
+    anomaly = None
+    if args.anomaly:
+        from anomaly.check import TableAnomalyCheck
+        anomaly = TableAnomalyCheck(args.anomaly_device)
     rt = Runtime(env, planner, Verifier(), say=say, camera_check=not args.no_camera_check,
-                 audit_path=ROOT / "results" / "audit.jsonl")
+                 audit_path=ROOT / "results" / "audit.jsonl", anomaly_check=anomaly)
     recorder = VideoRecorder(env, args.video, every=args.video_every, hud=lambda: (rt.state, say_log[-1]["text"] if say_log else "")) if args.video else None
     if recorder:
         rt.on_step = recorder.tick

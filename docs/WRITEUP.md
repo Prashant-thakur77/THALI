@@ -35,6 +35,7 @@ Closed loop per command: speech → plan → verify → execute skill → check 
 | ACT skill policies (fp32/fp16/INT8 IR, static batch-1 shapes) | **Intel CPU** (INT8), iGPU measured | 17 ms per 50-step action chunk INT8 vs 49 ms fp32; static shapes so `-d NPU` needs no re-export. |
 | SmolVLA vision encoder (SigLIP + connector, IR) | CPU / iGPU measured | 417 ms CPU; frozen in fine-tuning, so the same IR serves the fine-tuned checkpoint. |
 | Camera state check (pixel differencing; VLM optional) | CPU | 4 ms/question, 84 % agreement with the oracle; the 2B VLM is 38 % and 1.6 s — reported, not used by default. |
+| Table-state anomaly check (Anomalib PatchCore → OpenVINO IR) | CPU / iGPU | learned "does the table look disturbed" signal after every skill on the overhead frame; scored on held-out layouts in `results/anomaly.json`. |
 | Verifier, queues, audit log, parser | CPU | deterministic, microseconds. |
 | MuJoCo simulation + rendering | CPU + display GL | 5 ms physics + 6 ms per 240×320 camera. |
 | Speechmatics STT / TTS | cloud | the only off-device component; speech-end → arms moving 10.4 s end to end incl. the VLM plan and first TTS synthesis. |
