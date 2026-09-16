@@ -42,7 +42,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 
 ![architecture](docs/architecture.png)
 
-Full write-up (architecture, workload placement, optimisation choices): [docs/WRITEUP.md](docs/WRITEUP.md). Demo video: `video/thali_demo.mp4` (3:31).
+Full write-up (architecture, workload placement, optimisation choices): [docs/WRITEUP.md](docs/WRITEUP.md). Demo video: `video/thali_demo.mp4` (4:23).
 
 ```
  mic ─► Speechmatics realtime ─► parser ─► local VLM planner ─► verifier ─► per-arm queues ─► skill ─► camera check + oracle ─► next / replan
@@ -162,7 +162,7 @@ python -m docs.render_readme    # regenerate this page and docs/ from results/
 
 ## Limitations
 
-- Pouring is the hardest skill (expert 60% on the held-out split): water is 20 free spheres and the spout must tip past ~92°.
+- Pouring is the hardest skill (expert 70% on the held-out split): water is 20 free spheres and the spout must tip past ~92°.
 - The per-skill ACT baselines do not transfer beyond `open_drawer`; the multi-task SmolVLA is the intended policy and its rows fill in when the Kaggle run lands.
 - The 2B planner needs the verifier and rule fallback for about half of the commands.
 - One skill executes at a time; the queues schedule the arms, they do not move them simultaneously.

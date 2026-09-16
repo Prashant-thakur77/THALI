@@ -1,0 +1,290 @@
+[
+ {
+  "t": 0.0,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 0.188,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 0.188,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 0.277,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 0.44,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 0.628,
+  "kind": "partial",
+  "text": "All",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.628,
+  "kind": "partial",
+  "text": "All the",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.628,
+  "kind": "partial",
+  "text": "Open the top",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.633,
+  "kind": "partial",
+  "text": "Open the top drawer",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.65,
+  "kind": "partial",
+  "text": "Open the top drawer.",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.832,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up",
+  "speaker": "S1"
+ },
+ {
+  "t": 0.832,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up the",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.024,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up the plate",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.024,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up the plate with",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.024,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up the plate with arm a",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.024,
+  "kind": "partial",
+  "text": "Open the top drawer. Pick up the plate with arm a",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.111,
+  "kind": "final",
+  "text": "Open ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.111,
+  "kind": "partial",
+  "text": "the top drawer. Pick up the plate with arm a. Place it",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.205,
+  "kind": "final",
+  "text": "the ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.205,
+  "kind": "partial",
+  "text": "top drawer. Pick up the plate with arm A. Place it on the",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.205,
+  "kind": "partial",
+  "text": "top drawer. Pick up the plate with arm A. Place it on the table",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.29,
+  "kind": "final",
+  "text": "top ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.29,
+  "kind": "partial",
+  "text": "drawer. Pick up the plate with arm A. Place it on the table.",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.388,
+  "kind": "final",
+  "text": "drawer. ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.388,
+  "kind": "partial",
+  "text": "Pick up the plate with arm A. Place it on the table.",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.388,
+  "kind": "final",
+  "text": "Pick ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.388,
+  "kind": "partial",
+  "text": "up the plate with arm A. Place it on the table",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.521,
+  "kind": "final",
+  "text": "up the plate with arm A. Place it on the table. ",
+  "speaker": "S1"
+ },
+ {
+  "t": 1.521,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.521,
+  "kind": "end_of_utterance",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.521,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.521,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.521,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.627,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.627,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.627,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.702,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.805,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.805,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 1.807,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.236,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.417,
+  "kind": "final",
+  "text": "",
+  "speaker": null
+ },
+ {
+  "t": 2.417,
+  "kind": "partial",
+  "text": "",
+  "speaker": null
+ }
+]

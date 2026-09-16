@@ -1,33 +1,33 @@
 {
   "split": "test",
   "seeds": 10,
-  "successes": 4,
-  "success_rate": 0.4,
+  "successes": 5,
+  "success_rate": 0.5,
   "per_skill_rate": {
     "0_open_drawer": 1.0,
     "1_pick_place": 0.9,
     "2_handoff": 1.0,
     "3_pick_place": 0.9,
     "4_hold_mug": 1.0,
-    "5_pour": 0.6,
+    "5_pour": 0.7,
     "6_place_mug": 1.0
   },
   "per_subgoal_rate": {
     "drawer_open": 1.0,
-    "plate_placed": 0.9,
+    "plate_placed": 0.8,
     "fork_placed": 0.9,
     "spoon_placed": 1.0,
     "mug_placed": 1.0,
-    "poured": 0.6
+    "poured": 0.7
   },
-  "elapsed_s": 351.3,
+  "elapsed_s": 313.1,
   "rows": [
     {
       "seed": 0,
       "success": false,
       "subgoals": {
         "drawer_open": true,
-        "plate_placed": true,
+        "plate_placed": false,
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
@@ -42,19 +42,19 @@
         "5_pour": false,
         "6_place_mug": true
       },
-      "steps": 4477,
-      "seconds": 33.1
+      "steps": 4543,
+      "seconds": 31.6
     },
     {
       "seed": 1,
-      "success": false,
+      "success": true,
       "subgoals": {
         "drawer_open": true,
         "plate_placed": true,
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": false
+        "poured": true
       },
       "skills": {
         "0_open_drawer": true,
@@ -62,11 +62,11 @@
         "2_handoff": true,
         "3_pick_place": true,
         "4_hold_mug": true,
-        "5_pour": false,
+        "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4126,
-      "seconds": 34.8
+      "steps": 4535,
+      "seconds": 33.0
     },
     {
       "seed": 2,
@@ -88,8 +88,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4779,
-      "seconds": 39.2
+      "steps": 4654,
+      "seconds": 36.5
     },
     {
       "seed": 3,
@@ -111,8 +111,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4676,
-      "seconds": 39.5
+      "steps": 4675,
+      "seconds": 34.8
     },
     {
       "seed": 4,
@@ -134,8 +134,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4727,
-      "seconds": 30.3
+      "steps": 4726,
+      "seconds": 26.4
     },
     {
       "seed": 5,
@@ -157,8 +157,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4607,
-      "seconds": 37.4
+      "steps": 4604,
+      "seconds": 34.0
     },
     {
       "seed": 6,
@@ -180,8 +180,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4624,
-      "seconds": 45.8
+      "steps": 4656,
+      "seconds": 40.6
     },
     {
       "seed": 7,
@@ -203,8 +203,8 @@
         "5_pour": false,
         "6_place_mug": true
       },
-      "steps": 3950,
-      "seconds": 22.0
+      "steps": 4642,
+      "seconds": 22.6
     },
     {
       "seed": 8,
@@ -226,8 +226,8 @@
         "5_pour": true,
         "6_place_mug": true
       },
-      "steps": 4635,
-      "seconds": 39.3
+      "steps": 4648,
+      "seconds": 26.6
     },
     {
       "seed": 9,
@@ -249,8 +249,8 @@
         "5_pour": false,
         "6_place_mug": true
       },
-      "steps": 4680,
-      "seconds": 28.7
+      "steps": 4651,
+      "seconds": 25.7
     }
   ]
 }
