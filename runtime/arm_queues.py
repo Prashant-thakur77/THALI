@@ -3,9 +3,10 @@
 Each verified plan step is assigned to the arm that performs it and appended to that arm's queue.  Steps that
 need both arms (handoff, pour, and anything after a hold) carry dependencies on the other arm's earlier steps.
 ``next_ready`` returns the first step whose dependencies are done, preferring the arm that has been idle
-longer, so arm B's ``hold_mug`` is dispatched while arm A still has nothing runnable.  Execution itself is one
-skill at a time (the scripted expert and the policies move one arm's chain per skill); true simultaneous
-motion of both arms is not implemented and is stated as such in the README.
+longer, so arm B's ``hold_mug`` is dispatched while arm A still has nothing runnable.  ``ready_pair`` returns
+one ready step per arm when the two can safely run at the same time (independent skills whose objects and
+targets are far apart and outside the shared handoff/pour zone); the runtime then drives both arms through
+the expert's step barrier so they move simultaneously in one simulator.
 """
 
 from __future__ import annotations
@@ -13,7 +14,12 @@ from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass, field
 
+import numpy as np
+
 from souschef_env import constants as C
+
+PARALLEL_OK = ("open_drawer", "pick_place", "place_mug")   # single-arm skills; handoff / hold / pour need the shared zone
+MIN_SEPARATION = 0.15                                        # m between the two arms' objects/targets to move at once
 
 
 @dataclass
@@ -73,6 +79,43 @@ class ArmQueues:
             return None
         candidates.sort(key=lambda t: (t[0], t[1]))
         return candidates[0][2]
+
+    def ready_pair(self, positions: dict[str, tuple[float, float]] | None = None) -> tuple[QueuedStep, QueuedStep] | None:
+        """Both arms' first steps when each is ready and they can run together, else None.
+
+        ``positions`` maps object names to table xy (from the scene state) so the separation rule can use where
+        the objects actually are; zone centres come from constants.
+        """
+        done = {q.idx for q in self.all if q.status in ("done", "skipped")}
+        heads = {}
+        for arm, q in self.queues.items():
+            if q and q[0].status == "queued" and all(d in done for d in q[0].deps):
+                heads[arm] = q[0]
+        if len(heads) < 2:
+            return None
+        a, b = heads["a"], heads["b"]
+        if a.step["skill"] not in PARALLEL_OK or b.step["skill"] not in PARALLEL_OK:
+            return None
+        if any(d == b.idx for d in a.deps) or any(d == a.idx for d in b.deps):
+            return None
+        pa, pb = self._points(a.step, positions or {}), self._points(b.step, positions or {})
+        if not pa or not pb:
+            return None
+        sep = min(float(np.hypot(*(np.asarray(x) - np.asarray(y)))) for x in pa for y in pb)
+        return (a, b) if sep >= MIN_SEPARATION else None
+
+    @staticmethod
+    def _points(step: dict, positions: dict) -> list[tuple[float, float]]:
+        pts = []
+        if step["skill"] == "open_drawer":
+            pts.append((C.CABINET_POS[0], C.CABINET_POS[1] - 0.10))
+        if step.get("obj") in positions:
+            pts.append(tuple(positions[step["obj"]][:2]))
+        if step.get("zone") in C.ZONES:
+            pts.append(tuple(C.ZONES[step["zone"]][0]))
+        if step["skill"] == "place_mug":
+            pts.append(tuple(C.ZONES["mug"][0]))
+        return pts
 
     def mark(self, q: QueuedStep, status: str) -> None:
         q.status = status

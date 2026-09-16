@@ -51,6 +51,7 @@ class StepRecord:
     executor: str
     interrupted: bool = False
     replan_round: int = 0
+    concurrent: bool = False           # executed simultaneously with the other arm's step
     table_ok: bool | None = None       # PatchCore table-state check after the step (None = check not enabled)
     table_score: float | None = None
 
@@ -96,7 +97,7 @@ class Runtime:
     def __init__(self, env: ThaliEnv, planner: Planner | None = None, verifier: Verifier | None = None,
                  executor_factory: Callable[[Expert], Any] | None = None, state_check=None,
                  audit_path: Path | None = None, say: Callable[[str], None] | None = None, camera_check: bool = True,
-                 anomaly_check: Any | None = None):
+                 anomaly_check: Any | None = None, concurrent: bool = False):
         self.env = env
         self.planner = planner or Planner(backend="auto")
         self.verifier = verifier or Verifier()
@@ -106,6 +107,7 @@ class Runtime:
         self.say = say or (lambda text: None)
         self.camera_check = camera_check
         self.anomaly_check = anomaly_check  # optional anomaly/check.TableAnomalyCheck (PatchCore IR on the overhead camera)
+        self.concurrent = concurrent        # both arms at once for independent steps (expert executor; see ArmQueues.ready_pair)
         self.barge = BargeIn()
         self.state = "IDLE"
         self.ex: Expert | None = None
@@ -179,8 +181,12 @@ class Runtime:
         final_checks = 0
         t_first_move: float | None = None
         while True:
-            q = self.queues.next_ready()
-            if q is None:
+            pair = None
+            if self.concurrent and isinstance(executor, ExpertExecutor):
+                st_now = scene_state(self.env.model, self.env.data)
+                pair = self.queues.ready_pair({n: (o["x_cm"] / 100.0, o["y_cm"] / 100.0) for n, o in st_now["objects"].items()})
+            batch = list(pair) if pair else ([q] if (q := self.queues.next_ready()) is not None else [])
+            if not batch:
                 if self.queues.pending():
                     self._transition("BLOCKED", log, reasons=["queue deadlock"])
                     break
@@ -199,77 +205,91 @@ class Runtime:
                     self.queues.load({"steps": redo, "mode": mode})
                     continue
                 break
-            self._transition("EXECUTING", log, step=q.idx, skill=q.step["skill"], arm=q.arm)
-            self.queues.mark(q, "running")
-            if q.step["skill"] == "pour":
-                self.say("Pouring now. Say stop anytime.")
+            concurrent = len(batch) > 1
+            self._transition("EXECUTING", log, steps=[b.idx for b in batch], skills=[b.step["skill"] for b in batch],
+                             arms=[b.arm for b in batch], concurrent=concurrent)
+            for b in batch:
+                self.queues.mark(b, "running")
+                if b.step["skill"] == "pour":
+                    self.say("Pouring now. Say stop anytime.")
+            if concurrent:
+                self.say("Both arms at once: " + " and ".join(f"{b.step['skill'].replace('_', ' ')} with arm {b.arm.upper()}" for b in batch))
             t0 = time.time()
             if t_first_move is None:
                 t_first_move = t0
             interrupted = False
-            result: SkillResult | None = None
+            results: dict[int, SkillResult] = {}
             while True:
                 try:
-                    result = executor.run(q.step)
+                    if concurrent:
+                        results = self._run_concurrent(executor, batch)
+                    else:
+                        results = {batch[0].idx: executor.run(batch[0].step)}
                     break
                 except Interrupted:
                     interrupted = True
                     kind = self.barge.take()
-                    self._transition("PAUSED", log, barge_in=kind, step=q.idx)
-                    log.barge_ins.append({"t": time.time(), "kind": kind, "step": q.idx, "skill": q.step["skill"]})
+                    self._transition("PAUSED", log, barge_in=kind, steps=[b.idx for b in batch])
+                    log.barge_ins.append({"t": time.time(), "kind": kind, "step": batch[0].idx, "skill": batch[0].step["skill"]})
                     self.say("Stopped." if kind == "stop" else "Switching to the other arm.")
                     resume = self._wait_for_resume(kind)
-                    if resume == "other_arm":
-                        q.step = {**q.step, "arm": "b" if q.step["arm"] == "a" else "a"}
+                    if resume == "other_arm" and not concurrent:
+                        batch[0].step = {**batch[0].step, "arm": "b" if batch[0].step["arm"] == "a" else "a"}
                         self.say("Continuing with the other arm.")
                     else:
                         self.say("Continuing.")
-                    self._transition("EXECUTING", log, step=q.idx, resumed=True)
+                    self._transition("EXECUTING", log, steps=[b.idx for b in batch], resumed=True)
                     continue
             t1 = time.time()
             self.env.render_enabled = True
-            # ---- checks: sim oracle (ground truth) and camera-based judgement
-            self._transition("CHECKING", log, step=q.idx)
-            sg = oracles.subgoals(self.env.model, self.env.data)
-            key = self._subgoal_for(q.step)
-            oracle_ok = bool(result.ok) if key is None else bool(sg[key]) or bool(result.ok)
-            cam_ok, cam_backend = None, None
-            if self.camera_check and key is not None:
-                try:
-                    cam_ok = bool(self.state_check.ask(self._frame(), key))
-                    cam_backend = self.state_check.name
-                except Exception as e:  # pragma: no cover
-                    cam_backend = f"error:{type(e).__name__}"
-            table_ok, table_score = None, None
-            if self.anomaly_check is not None:
-                try:
-                    table_score = round(float(self.anomaly_check.score(self._frame())), 4)
-                    table_ok = bool(table_score < self.anomaly_check.threshold)
-                    if not table_ok:
-                        self.say("The table looks disturbed. I will check everything at the end.")
-                except Exception as e:  # pragma: no cover
-                    table_ok = None
-            rec = StepRecord(q.idx, q.step, q.step["arm"], {"ok": bool(result.ok), **{k: _jsonable(v) for k, v in result.detail.items()}},
-                             oracle_ok, cam_ok, cam_backend, t0, t1, getattr(executor, "name", "expert"), interrupted, replan_round)
-            rec.table_ok, rec.table_score = table_ok, table_score
-            log.steps.append(rec)
-            self._log("skill", {"step": q.idx, "skill": q.step["skill"], "arm": q.step["arm"], "ok": bool(result.ok), "oracle": oracle_ok,
-                                "camera": cam_ok, "camera_backend": cam_backend, "table_ok": table_ok, "table_score": table_score,
-                                "seconds": round(t1 - t0, 2), "detail": rec.result})
-            if self.after_check:
-                self.after_check(q.idx, q.step)
-            if oracle_ok:
-                self.queues.mark(q, "done")
-            else:
-                self.queues.mark(q, "failed")
+            # ---- checks: sim oracle (ground truth) and camera-based judgement, per step
+            self._transition("CHECKING", log, steps=[b.idx for b in batch])
+            failed: QueuedStep | None = None
+            for b in batch:
+                result = results[b.idx]
+                sg = oracles.subgoals(self.env.model, self.env.data)
+                key = self._subgoal_for(b.step)
+                oracle_ok = bool(result.ok) if key is None else bool(sg[key]) or bool(result.ok)
+                cam_ok, cam_backend = None, None
+                if self.camera_check and key is not None:
+                    try:
+                        cam_ok = bool(self.state_check.ask(self._frame(), key))
+                        cam_backend = self.state_check.name
+                    except Exception as e:  # pragma: no cover
+                        cam_backend = f"error:{type(e).__name__}"
+                table_ok, table_score = None, None
+                if self.anomaly_check is not None:
+                    try:
+                        table_score = round(float(self.anomaly_check.score(self._frame())), 4)
+                        table_ok = bool(table_score < self.anomaly_check.threshold)
+                        if not table_ok:
+                            self.say("The table looks disturbed. I will check everything at the end.")
+                    except Exception:  # pragma: no cover
+                        table_ok = None
+                rec = StepRecord(b.idx, b.step, b.step["arm"], {"ok": bool(result.ok), **{k: _jsonable(v) for k, v in result.detail.items()}},
+                                 oracle_ok, cam_ok, cam_backend, t0, t1, getattr(executor, "name", "expert"), interrupted, replan_round)
+                rec.table_ok, rec.table_score, rec.concurrent = table_ok, table_score, concurrent
+                log.steps.append(rec)
+                self._log("skill", {"step": b.idx, "skill": b.step["skill"], "arm": b.step["arm"], "ok": bool(result.ok), "oracle": oracle_ok,
+                                    "camera": cam_ok, "camera_backend": cam_backend, "table_ok": table_ok, "table_score": table_score,
+                                    "concurrent": concurrent, "seconds": round(t1 - t0, 2), "detail": rec.result})
+                if self.after_check:
+                    self.after_check(b.idx, b.step)
+                if oracle_ok:
+                    self.queues.mark(b, "done")
+                else:
+                    self.queues.mark(b, "failed")
+                    failed = failed or b
+            if failed is not None:
+                result = results[failed.idx]
                 if replan_round >= MAX_REPLANS:
-                    self._transition("BLOCKED", log, reasons=[f"step {q.idx} failed after {MAX_REPLANS} replans"])
+                    self._transition("BLOCKED", log, reasons=[f"step {failed.idx} failed after {MAX_REPLANS} replans"])
                     break
                 replan_round += 1
                 log.replans += 1
-                self._transition("REPLANNING", log, failed=q.idx, reason=str(result.detail.get("stage", result.detail.get("reason", "oracle false"))))
+                self._transition("REPLANNING", log, failed=failed.idx, reason=str(result.detail.get("stage", result.detail.get("reason", "oracle false"))))
                 st, txt = scene_state(self.env.model, self.env.data), describe(self.env.model, self.env.data)
-                remaining = {"steps": [q.step] + [p.step for p in self.queues.pending()], "mode": mode}
+                remaining = {"steps": [failed.step] + [p.step for p in self.queues.pending()], "mode": mode}
                 rp = self.planner.replan(command, st, txt, remaining, 0, str(result.detail), self._frame())
                 v = self.verifier.verify(rp.plan, World.from_scene_state(st))
                 log.verdicts.append(v.verdict)
@@ -298,6 +318,35 @@ class Runtime:
         log.wall_s = round(time.time() - t_wall0, 1)
         self._log("result", {"success": log.success, "subgoals": log.subgoals, "latency": log.latency, "replans": log.replans, "sim_steps": log.sim_steps})
         return log
+
+    def _run_concurrent(self, executor: Any, batch: list[QueuedStep]) -> dict[int, SkillResult]:
+        """Drive both arms' steps in two threads through the expert's step barrier; re-raise Interrupted once."""
+        import threading
+        results: dict[int, SkillResult] = {}
+        errors: list[BaseException] = []
+
+        def worker(b: QueuedStep) -> None:
+            self.ex.begin_concurrent(b.arm)
+            try:
+                results[b.idx] = executor.run(b.step)
+            except BaseException as e:
+                errors.append(e)
+            finally:
+                self.ex.end_concurrent(b.arm)
+
+        threads = [threading.Thread(target=worker, args=(b,), daemon=True) for b in batch]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        self.ex.sync_from_env()
+        if any(isinstance(e, Interrupted) for e in errors):
+            raise Interrupted()
+        if errors:
+            raise errors[0]
+        for b in batch:  # a thread that raised something else than Interrupted leaves no result: count it as failed
+            results.setdefault(b.idx, SkillResult(b.step["skill"], False, 0, {"reason": "thread error"}))
+        return results
 
     def _goals_for(self, plan: dict) -> list[str]:
         goals = []

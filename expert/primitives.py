@@ -15,6 +15,8 @@ Shared-workspace rule (plan 2.2): the handoff/pour zone is a reservation --
 
 from __future__ import annotations
 
+import threading
+
 import math
 from dataclasses import dataclass, field
 from typing import Callable
@@ -88,11 +90,67 @@ class Workspace:
             self.owner = None
 
 
+class StepBarrier:
+    """Lets two skill threads (one per arm) share one simulator.
+
+    Each thread owns one arm's joint targets; ``Expert.step`` from a registered thread parks at the barrier until
+    every active arm has submitted its targets for this control step, then exactly one thread advances the physics
+    once with the merged 12-D action and releases the others.  A thread that finishes its skill unregisters, which
+    also releases anyone waiting on it.  With fewer than two arms registered the barrier is a no-op.
+    """
+
+    def __init__(self) -> None:
+        self.cv = threading.Condition()
+        self.active: set[str] = set()
+        self.arrived: set[str] = set()
+        self.generation = 0
+        self.error: BaseException | None = None
+
+    def register(self, arm: str) -> None:
+        with self.cv:
+            self.active.add(arm)
+
+    def unregister(self, arm: str, do_step: Callable[[], None]) -> None:
+        with self.cv:
+            self.active.discard(arm)
+            self.arrived.discard(arm)
+            if self.active and self.arrived >= self.active:  # the other arm was already waiting on us
+                self._advance(do_step)
+
+    def _advance(self, do_step: Callable[[], None]) -> None:
+        try:
+            do_step()
+        except BaseException as e:  # Interrupted (barge-in) must reach every thread
+            self.error = e
+        self.arrived.clear()
+        self.generation += 1
+        self.cv.notify_all()
+
+    def step(self, arm: str, do_step: Callable[[], None]) -> None:
+        with self.cv:
+            if len(self.active) < 2 or arm not in self.active:
+                do_step()
+                return
+            self.arrived.add(arm)
+            gen = self.generation
+            if self.arrived >= self.active:
+                self.error = None
+                self._advance(do_step)
+            else:
+                while gen == self.generation:
+                    self.cv.wait(timeout=5.0)
+            if self.error is not None:
+                raise self.error
+
+
 class Expert:
     def __init__(self, env: ThaliEnv, on_step: Callable[[np.ndarray, dict], None] | None = None):
         self.env = env
         self.m, self.d = env.model, env.data
         self.ik = ArmIK()
+        self.ik_lock = threading.Lock()      # mink Configuration is shared; two arm threads solve one at a time
+        self.barrier = StepBarrier()
+        self._thread_arm = threading.local()  # which arm the calling thread drives (set by begin_concurrent)
         self.on_step = on_step
         self.interrupt: Callable[[], bool] | None = None  # polled every control step; True -> Interrupted
         self.workspace = Workspace()
@@ -115,16 +173,33 @@ class Expert:
             out.append(self.jaw[a])
         return np.asarray(out, dtype=np.float64)
 
+    def _raw_step(self) -> None:
+        if self.interrupt is not None and self.interrupt():
+            raise Interrupted()
+        act = self.action()
+        obs, _, _, _, info = self.env.step(act)
+        self.last_obs = obs
+        self.steps += 1
+        if self.on_step:
+            self.on_step(act, obs)
+
     def step(self, n: int = 1) -> None:
+        arm = getattr(self._thread_arm, "arm", None)
         for _ in range(n):
-            if self.interrupt is not None and self.interrupt():
-                raise Interrupted()
-            act = self.action()
-            obs, _, _, _, info = self.env.step(act)
-            self.last_obs = obs
-            self.steps += 1
-            if self.on_step:
-                self.on_step(act, obs)
+            if arm is None:
+                self._raw_step()
+            else:
+                self.barrier.step(arm, self._raw_step)
+
+    # ------------------------------------------------------------ concurrency (both arms at once)
+    def begin_concurrent(self, arm: str) -> None:
+        """Call at the start of a skill thread: this thread now drives ``arm`` and steps through the barrier."""
+        self._thread_arm.arm = arm
+        self.barrier.register(arm)
+
+    def end_concurrent(self, arm: str) -> None:
+        self.barrier.unregister(arm, self._raw_step)
+        self._thread_arm.arm = None
 
     def hold_still(self, n: int = 1) -> None:
         """Step the sim with the current targets and the interrupt check disabled (used while paused)."""
@@ -153,7 +228,8 @@ class Expert:
             s = 3 * s * s - 2 * s * s * s  # smoothstep velocity profile
             p = p0 + (pos - p0) * s
             R = _slerp_mat(R0, rot, s)
-            res = self.ik.solve(arm, p, R, q_init=self.q[arm], other_q=self.q[other], max_iters=15)
+            with self.ik_lock:
+                res = self.ik.solve(arm, p, R, q_init=self.q[arm], other_q=self.q[other], max_iters=15)
             self.q[arm] = res.q
             self.step()
             if stop and stop():
@@ -165,7 +241,8 @@ class Expert:
             # globally (two seeds), and blend the joints to it -- a curved finish beats a stalled arm.
             best = None
             for seed in (self.q[arm], np.array(C.HOME_QPOS_ARM)):
-                r = self.ik.solve(arm, pos, rot, q_init=seed, other_q=self.q[other], max_iters=100)
+                with self.ik_lock:
+                    r = self.ik.solve(arm, pos, rot, q_init=seed, other_q=self.q[other], max_iters=100)
                 if best is None or r.pos_err + 0.02 * r.rot_err < best.pos_err + 0.02 * best.rot_err:
                     best = r
             q0 = self.q[arm].copy()
@@ -202,7 +279,8 @@ class Expert:
 
     def park(self, arm: str) -> None:
         p, R = self.site(arm)
-        home_p, home_R = self.ik.site_pose(arm, np.array(C.HOME_QPOS_ARM))
+        with self.ik_lock:
+            home_p, home_R = self.ik.site_pose(arm, np.array(C.HOME_QPOS_ARM))
         self.move(arm, np.array([p[0], p[1], max(p[2], 0.10)]), R)
         self.move(arm, home_p, home_R)
         self.workspace.release(arm)
@@ -295,7 +373,8 @@ class Expert:
         margin = OPEN_MARGIN_NARROW if g.width < 0.02 else OPEN_MARGIN
         for flip in (False, True):
             pos, R = self.site_target(g, flip)
-            r = self.ik.solve(arm, pos, R, q_init=self.q[arm], max_iters=40)
+            with self.ik_lock:
+                r = self.ik.solve(arm, pos, R, q_init=self.q[arm], max_iters=40)
             err = r.pos_err + 0.05 * r.rot_err
             if obj is not None and self._sweep_blocked(obj, pos, R[:, 2], g.width + margin, g.pos[2]):
                 err += 0.05
@@ -332,7 +411,8 @@ class Expert:
         at both limits and 40 deg of error -- the arm then drags its forearm through the table)."""
         best = None
         for seed in (self.q[arm], np.array(C.HOME_QPOS_ARM)):
-            r = self.ik.solve(arm, np.asarray(pos, dtype=float), rot, q_init=seed, max_iters=80)
+            with self.ik_lock:
+                r = self.ik.solve(arm, np.asarray(pos, dtype=float), rot, q_init=seed, max_iters=80)
             if best is None or r.pos_err + 0.02 * r.rot_err < best.pos_err + 0.02 * best.rot_err:
                 best = r
         return best.pos_err <= 0.008 and best.rot_err <= rot_tol
