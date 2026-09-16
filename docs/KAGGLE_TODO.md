@@ -4,7 +4,7 @@ Nothing here blocks the local pipeline; each item is a one-line command once the
 
 ## 1. Push the demo dataset (Phase 2)
 No `HF_TOKEN` was available on this machine, so `Prashant-77/thali_all` is recorded locally under
-`data/lerobot/thali_all/` (2.8 GB, 420 episodes, 299 233 frames; see `results/demos.json`) but **not pushed**.
+`data/lerobot/thali_all/` — **done**: 1050 episodes, 742 837 frames are on the Hub as of 16 Sep 2026.
 
 ```bash
 echo "HF_TOKEN=hf_..." >> .env          # write access to Prashant-77
