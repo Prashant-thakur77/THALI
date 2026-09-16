@@ -37,7 +37,9 @@ def anomaly_row() -> str:
         return "pending"
     per = ", ".join(f"{k} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
     lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
-    return f"image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms · IR p50 {lat}"
+    op = d.get("at_10pct_fpr")
+    op_s = f" · at 10% false alarms: {op['detected']}/{d['test_bad_total']} caught" if op else ""
+    return f"image AUROC **{d['image_auroc']}** · exported threshold: {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms{op_s} · IR p50 {lat}"
 
 
 def concurrency_row() -> str:

@@ -1,0 +1,65 @@
+{
+ "model": "PatchCore (Anomalib) \u2192 OpenVINO IR",
+ "threshold": 0.5,
+ "input_hw": [
+  240,
+  320
+ ],
+ "test_good": 60,
+ "false_positives": 38,
+ "image_auroc": 0.762,
+ "detected": 72,
+ "test_bad_total": 75,
+ "per_type": {
+  "spill": {
+   "n": 15,
+   "detected": 13,
+   "auroc_vs_good": 0.607,
+   "median_score": 0.6206
+  },
+  "tipped_mug": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.852,
+   "median_score": 0.994
+  },
+  "knocked_plate": {
+   "n": 15,
+   "detected": 14,
+   "auroc_vs_good": 0.709,
+   "median_score": 0.8367
+  },
+  "fallen_bottle": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.946,
+   "median_score": 1.0
+  },
+  "dropped_cutlery": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.695,
+   "median_score": 0.7819
+  }
+ },
+ "at_10pct_fpr": {
+  "threshold": 0.9918,
+  "detected": 26,
+  "per_type": {
+   "spill": 3,
+   "tipped_mug": 8,
+   "knocked_plate": 1,
+   "fallen_bottle": 13,
+   "dropped_cutlery": 1
+  }
+ },
+ "latency_ms": {
+  "CPU": {
+   "p50": 591.0,
+   "mean": 606.54
+  },
+  "GPU": {
+   "error": "RuntimeError: Exception from src/inference/src/cpp/core.cpp:117:\nException from src/inference/src/dev/plugin.cpp:54:\nCheck 'false' fai"
+  }
+ }
+}

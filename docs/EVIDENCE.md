@@ -14,8 +14,8 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | Heatmap seeds × axis, ACT | pending | `eval/heatmap.py --policy act` | results/heatmap_act.json / .png |
 | Per-skill ACT policy-only (60 ep) | pending | `python -m eval.skill_eval --act-root outputs_60ep --tag act_60ep` | `results/skill_eval_act_60ep.json` |
 | Per-skill ACT policy-only (1050 ep) | pending | `python -m eval.skill_eval --tag act_1050ep` | `results/skill_eval_act_1050ep.json` |
-| Table-state anomaly check | pending | `python -m anomaly.make_data; .venv-anomalib/bin/python -m anomaly.train_patchcore; python -m anomaly.check --score` | `results/anomaly.json` |
-| Both arms at once vs sequential | pending | `python -m eval.concurrency` | `results/concurrency.json` |
+| Table-state anomaly check | image AUROC **0.762** · exported threshold: 72/75 disturbances flagged, 38/60 false alarms · at 10% false alarms: 26/75 caught · IR p50 CPU 591.0 ms | `python -m anomaly.make_data; .venv-anomalib/bin/python -m anomaly.train_patchcore; python -m anomaly.check --score` | `results/anomaly.json` |
+| Both arms at once vs sequential | drawer_and_mug: sequential 5/5 in 1065 sim steps → concurrent **5/5 in 591** (44% fewer) · plate_and_mug: sequential 4/5 in 994 sim steps → concurrent **4/5 in 695** (30% fewer) | `python -m eval.concurrency` | `results/concurrency.json` |
 | Mid-task perturbation recovery | 4/4 recovered (4 detected) | `python -m eval.recovery` | `results/recovery.json` |
 | Instruction swap | 7/10 | `eval/instruction_swap.py` | results/instruction_swap.json |
 | Camera vs oracle | pixels 84%, vlm 38% | `eval/camera_vs_oracle.py` | results/camera_vs_oracle.json |

@@ -17,7 +17,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
-MODEL_DIR = ROOT / "anomaly" / "model" / "openvino"
+MODEL_DIR = ROOT / "anomaly" / "model"
 DATA = ROOT / "anomaly" / "data"
 
 
@@ -42,23 +42,22 @@ class TableAnomalyCheck:
         self.req = self.compiled.create_infer_request()
         shp = self.model.inputs[0].get_partial_shape()
         self.h, self.w = int(shp[2].get_length()), int(shp[3].get_length())
-        self.threshold = float(self.meta.get("image_threshold", self.meta.get("threshold", 0.5)))
+        # anomalib 2.x exports the post-processor inside the graph: pred_score is min-max normalised so that the
+        # learned image threshold maps to 0.5, and pred_label is the thresholded decision.
+        self.threshold = float(self.meta.get("image_threshold", 0.5))
+        self.out_score = next((o for o in self.compiled.outputs if "pred_score" in o.get_any_name()), self.compiled.outputs[0])
         self.device = device
 
     def _prep(self, frame: np.ndarray) -> np.ndarray:
+        """RGB uint8 HxWx3 -> [1,3,H,W] float in [0,1]; the ImageNet normalisation lives inside the exported graph."""
         from PIL import Image
         img = Image.fromarray(frame).resize((self.w, self.h))
         x = np.asarray(img, dtype=np.float32) / 255.0
-        mean, std = self.meta.get("mean", [0.485, 0.456, 0.406]), self.meta.get("std", [0.229, 0.224, 0.225])
-        x = (x - np.array(mean, dtype=np.float32)) / np.array(std, dtype=np.float32)
-        return x.transpose(2, 0, 1)[None].astype(np.float32)
+        return np.ascontiguousarray(x.transpose(2, 0, 1)[None])
 
     def score(self, frame: np.ndarray) -> float:
         outs = self.req.infer({0: self._prep(frame)})
-        # anomalib's exported PatchCore returns (anomaly_map, pred_score) or a single score; take the scalar-most output
-        vals = [np.asarray(v) for v in outs.values()]
-        scalar = min(vals, key=lambda v: v.size)
-        return float(scalar.reshape(-1)[0]) if scalar.size == 1 else float(np.max(scalar))
+        return float(np.asarray(outs[self.out_score]).reshape(-1)[0])
 
     def ask(self, frame: np.ndarray) -> bool:
         """True when the table looks nominal."""
@@ -81,9 +80,13 @@ def score_all(devices: tuple[str, ...] = ("CPU", "GPU")) -> dict:
         per_type[k] = {"n": len(s), "detected": int(sum(x >= chk.threshold for x in s)), "auroc_vs_good": round(_auroc(s, good), 3), "median_score": round(float(np.median(s)), 4)}
         bad_all += s
     fp = int(sum(x >= chk.threshold for x in good))
+    # threshold-free operating point: the score cut that lets through 90% of nominal frames, and what it catches
+    thr10 = float(np.quantile(good, 0.90))
+    tpr10 = {k: int(sum(x >= thr10 for x in [r for r in bad_all[i * per_type[k]["n"]:(i + 1) * per_type[k]["n"]]])) for i, k in enumerate(per_type)}
     out = {"model": "PatchCore (Anomalib) → OpenVINO IR", "threshold": chk.threshold, "input_hw": [chk.h, chk.w],
            "test_good": len(good), "false_positives": fp, "image_auroc": round(_auroc(bad_all, good), 3),
-           "detected": int(sum(x >= chk.threshold for x in bad_all)), "test_bad_total": len(bad_all), "per_type": per_type, "latency_ms": {}}
+           "detected": int(sum(x >= chk.threshold for x in bad_all)), "test_bad_total": len(bad_all), "per_type": per_type,
+           "at_10pct_fpr": {"threshold": round(thr10, 4), "detected": int(sum(x >= thr10 for x in bad_all)), "per_type": tpr10}, "latency_ms": {}}
     frame = np.asarray(Image.open(sorted((DATA / "test" / "good").glob("*.png"))[0]).convert("RGB"))
     for dev in devices:
         try:

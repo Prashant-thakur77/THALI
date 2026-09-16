@@ -1,0 +1,473 @@
+{
+ "split": "test",
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "planner": "rules",
+ "commands": {
+  "drawer_and_mug": {
+   "command": "open the top drawer with arm A and put the mug on its spot with arm B",
+   "summary": {
+    "sequential": {
+     "successes": 5,
+     "total": 5,
+     "mean_sim_steps": 1065.0,
+     "mean_wall_s": 106.9
+    },
+    "concurrent": {
+     "successes": 5,
+     "total": 5,
+     "mean_sim_steps": 590.6,
+     "mean_wall_s": 29.8
+    },
+    "sim_step_reduction": 0.445,
+    "pairs_run_concurrently": 5
+   },
+   "rows": {
+    "sequential": [
+     {
+      "seed": 0,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1115,
+      "wall_s": 116.3,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 1,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1051,
+      "wall_s": 104.2,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 2,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1058,
+      "wall_s": 117.2,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 3,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1037,
+      "wall_s": 107.0,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 4,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1064,
+      "wall_s": 89.9,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     }
+    ],
+    "concurrent": [
+     {
+      "seed": 0,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 642,
+      "wall_s": 32.6,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 1,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 575,
+      "wall_s": 27.7,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 2,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 585,
+      "wall_s": 30.7,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 3,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 561,
+      "wall_s": 29.2,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 4,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 590,
+      "wall_s": 28.8,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "open_drawer",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "plate_and_mug": {
+   "command": "put the plate on its spot with arm A and put the mug on its spot with arm B",
+   "summary": {
+    "sequential": {
+     "successes": 4,
+     "total": 5,
+     "mean_sim_steps": 994.0,
+     "mean_wall_s": 84.9
+    },
+    "concurrent": {
+     "successes": 4,
+     "total": 5,
+     "mean_sim_steps": 695.4,
+     "mean_wall_s": 34.9
+    },
+    "sim_step_reduction": 0.3,
+    "pairs_run_concurrently": 3
+   },
+   "rows": {
+    "sequential": [
+     {
+      "seed": 0,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1140,
+      "wall_s": 110.1,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 1,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1045,
+      "wall_s": 91.9,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 2,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1098,
+      "wall_s": 109.3,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 3,
+      "concurrent": false,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1086,
+      "wall_s": 80.7,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 4,
+      "concurrent": false,
+      "success": false,
+      "state": "BLOCKED",
+      "sim_steps": 601,
+      "wall_s": 32.5,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        false
+       ]
+      ]
+     }
+    ],
+    "concurrent": [
+     {
+      "seed": 0,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 638,
+      "wall_s": 30.4,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 1,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 572,
+      "wall_s": 23.3,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 2,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 580,
+      "wall_s": 26.1,
+      "steps_concurrent": 2,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 3,
+      "concurrent": true,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1086,
+      "wall_s": 68.7,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
+       ]
+      ]
+     },
+     {
+      "seed": 4,
+      "concurrent": true,
+      "success": false,
+      "state": "BLOCKED",
+      "sim_steps": 601,
+      "wall_s": 25.9,
+      "steps_concurrent": 0,
+      "skills": [
+       [
+        "pick_place",
+        "a",
+        false
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ }
+}
