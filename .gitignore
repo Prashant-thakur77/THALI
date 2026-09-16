@@ -19,3 +19,4 @@ planner/qwen2vl_int4/
 results/test_audit.jsonl
 bench/ir/
 planner/qwen3vl_int4/
+video/

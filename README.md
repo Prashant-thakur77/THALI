@@ -40,6 +40,10 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 
 ## How it works
 
+![architecture](docs/architecture.png)
+
+Full write-up (architecture, workload placement, optimisation choices): [docs/WRITEUP.md](docs/WRITEUP.md). Demo video: `video/thali_demo.mp4` (2:34).
+
 ```
  mic ─► Speechmatics realtime ─► parser ─► local VLM planner ─► verifier ─► per-arm queues ─► skill ─► camera check + oracle ─► next / replan
         partials, end-of-turn      English    Qwen2-VL-2B INT4      ALLOW        drawer before    ACT / SmolVLA      "is the drawer open?"
@@ -89,7 +93,7 @@ object swaps — rows: requested, columns: what the plan encoded
 
 order swaps: plate_then_mug ✗, mug_then_plate ✗
 
-**Policies.** 420 scripted-expert demonstrations (299233 frames, 3 cameras, 10 instruction paraphrases per skill, 22 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10%.
+**Policies.** 1050 scripted-expert demonstrations (742837 frames, 3 cameras, 10 instruction paraphrases per skill, 48 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10%.
 
 **Robustness.** Six randomisation axes — placement, mass, friction, shape, lighting, background — with a held-out test split (ranges 1.5× wider, two unseen table textures, one unseen mug shape). Success per seed × axis on the test split:
 

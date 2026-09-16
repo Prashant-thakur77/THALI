@@ -23,7 +23,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | OpenVINO latency | fp32/CPU 49.13 ms, fp32/GPU 283.24 ms, fp16/CPU 49.51 ms, fp16/GPU 282.82 ms, int8/CPU 17.06 ms, int8/GPU 201.85 ms | `bench/run.py` | results/bench.json / bench.md |
 | Precision preservation | fp32 0, fp16 0, int8 0 | `bench/preserve.py` | results/preserve.json |
 | IR sizes / max Δ | open_drawer: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_fork: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_plate: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_mug: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, handoff_spoon: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, hold_mug: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pour: fp32 132.7MB/fp16 67.1MB/int8 34.9MB | `bench/export_ir.py`, `bench/quantize.py` | results/ir_export.json |
-| Dataset | 420 episodes, 299233 frames | `expert/make_demos.py` | results/demos.json |
+| Dataset | 1050 episodes, 742837 frames | `expert/make_demos.py` | results/demos.json |
 | Reach / handoff geometry | handoff [-0.010000000000000009, 0.0, 0.03] (via_table), 330 doubly-reachable cells | `souschef_env/reach.py` | results/reach_envelope.json |
 | Jaw pads | 0.23° tilt, 15.8 mm gap | `souschef_env/build_scene.py` | results/jaw_pads.json |
 

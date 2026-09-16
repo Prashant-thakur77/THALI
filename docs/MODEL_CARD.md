@@ -2,8 +2,8 @@
 
 ## Per-skill ACT baselines (`outputs/act_<skill>`)
 - Architecture: LeRobot ACT, ResNet-18 backbone, 3 cameras 240×320 + 12-D state, chunk 50, n_action_steps 50, VAE on.
-- Data: `Prashant-77/thali_all` — 60 scripted-expert episodes per skill (420 total,
-  299233 frames, 50 Hz), train-split randomisation, 10 % deliberate-miss recovery episodes for pick skills.
+- Data: `Prashant-77/thali_all` — 60 scripted-expert episodes per skill (1050 total,
+  742837 frames, 50 Hz), train-split randomisation, 10 % deliberate-miss recovery episodes for pick skills.
 - Training: batch 8, AMP, 8 000 steps, seed 1000, RTX 3050 6 GB (~29 min/skill) — `policies/train_act.sh`, `policies/act_<skill>.yaml`.
 - Evaluation: `results/seeds_act_*_test.json` (policy-only 0/10, +retry 0/10, +fallback 0/10 on the held-out split).
 - OpenVINO: fp32 / fp16 / NNCF int8 IRs (`results/ir_export.json`), preservation in `results/preserve.json`.
