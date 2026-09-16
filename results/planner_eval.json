@@ -1,0 +1,417 @@
+{
+  "device": "CPU",
+  "backend": "vlm",
+  "model": "Qwen/Qwen2-VL-2B-Instruct INT4 (optimum-cli export, group 128)",
+  "hardware": "Intel Core i7-13650HX CPU (Raptor Lake UHD iGPU unstable for VLM: see docs/BLOCKERS.md); no NPU",
+  "load_s": 1.6,
+  "commands": 8,
+  "accepted_from_vlm": 4,
+  "accepted_from_rules": 4,
+  "vlm_first_try_accepted": 4,
+  "match_reference_rate": 0.5,
+  "covers_requested_rate": 1.0,
+  "verifier_approved_rate": 1.0,
+  "mean_latency_s": 5.41,
+  "vlm_tokens_per_s": 44.6,
+  "vlm_ttft_ms": 1130,
+  "rows": [
+    {
+      "command": "Open the top drawer, pick up the plate with arm A, place it on the table, pick up the mug with arm B, pour water into the mug with arm A",
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "latency_s": 8.47,
+      "vlm_metrics": {
+        "latency_s": 8.3,
+        "tokens": 175,
+        "tokens_per_s": 44.6,
+        "ttft_ms": 4371.8,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [],
+          "verdict": "ALLOW",
+          "metrics": {
+            "latency_s": 8.2783430519994,
+            "tokens": 175,
+            "tokens_per_s": 44.55018997192383,
+            "ttft_ms": 4371.767578125,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "open_drawer",
+        "pick_place",
+        "handoff",
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "reference_skills": [
+        "open_drawer",
+        "pick_place",
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "covers_requested": true,
+      "matches_reference": false,
+      "mode": "normal"
+    },
+    {
+      "command": "set the table",
+      "source": "rules",
+      "verdict": "ALLOW",
+      "latency_s": 11.54,
+      "vlm_metrics": {
+        "latency_s": 5.1,
+        "tokens": 196,
+        "tokens_per_s": 44.5,
+        "ttft_ms": 711.8,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [
+            "zone fork is out of reach of the receiving arm b",
+            "zone spoon is out of reach of arm a (needs a handoff)"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 6.402806862999569,
+            "tokens": 260,
+            "tokens_per_s": 44.53681945800781,
+            "ttft_ms": 586.3877563476562,
+            "device": "CPU"
+          }
+        },
+        {
+          "try": 1,
+          "issues": [
+            "zone fork is out of reach of the receiving arm b",
+            "zone spoon is out of reach of arm a (needs a handoff)"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 5.098662860000331,
+            "tokens": 196,
+            "tokens_per_s": 44.46046829223633,
+            "ttft_ms": 711.7814331054688,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "open_drawer",
+        "pick_place",
+        "handoff",
+        "pick_place",
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "reference_skills": [
+        "open_drawer",
+        "pick_place",
+        "handoff",
+        "pick_place",
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "covers_requested": true,
+      "matches_reference": true,
+      "mode": "normal"
+    },
+    {
+      "command": "open the drawer and put a fork next to the plate",
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "latency_s": 2.19,
+      "vlm_metrics": {
+        "latency_s": 2.2,
+        "tokens": 71,
+        "tokens_per_s": 44.8,
+        "ttft_ms": 623.5,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [],
+          "verdict": "ALLOW",
+          "metrics": {
+            "latency_s": 2.186003491995507,
+            "tokens": 71,
+            "tokens_per_s": 44.823978424072266,
+            "ttft_ms": 623.5286865234375,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "open_drawer",
+        "pick_place"
+      ],
+      "reference_skills": [
+        "open_drawer",
+        "pick_place",
+        "pick_place"
+      ],
+      "covers_requested": true,
+      "matches_reference": false,
+      "mode": "normal"
+    },
+    {
+      "command": "pour a little water, gently",
+      "source": "rules",
+      "verdict": "ALLOW",
+      "latency_s": 6.64,
+      "vlm_metrics": {
+        "latency_s": 3.4,
+        "tokens": 115,
+        "tokens_per_s": 44.3,
+        "ttft_ms": 827.7,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [
+            "obj='water_spheres' not in ['plate', 'mug', 'bottle', 'fork_1', 'fork_2', 'spoon_1', 'spoon_2', None]",
+            "obj='water_spheres' not in ['plate', 'mug', 'bottle', 'fork_1', 'fork_2', 'spoon_1', 'spoon_2', None]"
+          ],
+          "verdict": null,
+          "metrics": {
+            "latency_s": 3.2357184100037557,
+            "tokens": 117,
+            "tokens_per_s": 44.273380279541016,
+            "ttft_ms": 614.787353515625,
+            "device": "CPU"
+          }
+        },
+        {
+          "try": 1,
+          "issues": [
+            "obj='water_spheres' not in ['plate', 'mug', 'bottle', 'fork_1', 'fork_2', 'spoon_1', 'spoon_2', None]",
+            "zone='none' not in ['plate', 'fork', 'spoon', 'mug', None]",
+            "obj='water_spheres' not in ['plate', 'mug', 'bottle', 'fork_1', 'fork_2', 'spoon_1', 'spoon_2', None]",
+            "zone='none' not in ['plate', 'fork', 'spoon', 'mug', None]"
+          ],
+          "verdict": null,
+          "metrics": {
+            "latency_s": 3.401782002998516,
+            "tokens": 115,
+            "tokens_per_s": 44.30242156982422,
+            "ttft_ms": 827.6742553710938,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "reference_skills": [
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "covers_requested": true,
+      "matches_reference": true,
+      "mode": "gentle"
+    },
+    {
+      "command": "hand the spoon to arm B and put it right of the plate",
+      "source": "rules",
+      "verdict": "ALLOW",
+      "latency_s": 5.27,
+      "vlm_metrics": {
+        "latency_s": 2.5,
+        "tokens": 82,
+        "tokens_per_s": 44.3,
+        "ttft_ms": 638.3,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [
+            "spoon_1 is in the closed drawer: open_drawer must come first",
+            "arm b does not hold the mug"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 2.794856152002467,
+            "tokens": 97,
+            "tokens_per_s": 44.49428176879883,
+            "ttft_ms": 636.3743286132812,
+            "device": "CPU"
+          }
+        },
+        {
+          "try": 1,
+          "issues": [
+            "drawer handle out of reach of arm b",
+            "spoon_1 is in the closed drawer: open_drawer must come first"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 2.4660602189978817,
+            "tokens": 82,
+            "tokens_per_s": 44.33794021606445,
+            "ttft_ms": 638.27685546875,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "open_drawer",
+        "handoff",
+        "pick_place"
+      ],
+      "reference_skills": [
+        "open_drawer",
+        "handoff",
+        "pick_place"
+      ],
+      "covers_requested": true,
+      "matches_reference": true,
+      "mode": "normal"
+    },
+    {
+      "command": "put the plate on the table with arm A",
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "latency_s": 3.07,
+      "vlm_metrics": {
+        "latency_s": 3.1,
+        "tokens": 110,
+        "tokens_per_s": 44.7,
+        "ttft_ms": 625.7,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [],
+          "verdict": "ALLOW",
+          "metrics": {
+            "latency_s": 3.0672464709932683,
+            "tokens": 110,
+            "tokens_per_s": 44.66463088989258,
+            "ttft_ms": 625.6698608398438,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "open_drawer",
+        "pick_place",
+        "handoff"
+      ],
+      "reference_skills": [
+        "pick_place"
+      ],
+      "covers_requested": true,
+      "matches_reference": false,
+      "mode": "normal"
+    },
+    {
+      "command": "arm B, put the mug on its spot",
+      "source": "rules",
+      "verdict": "ALLOW",
+      "latency_s": 4.08,
+      "vlm_metrics": {
+        "latency_s": 1.9,
+        "tokens": 57,
+        "tokens_per_s": 44.8,
+        "ttft_ms": 613.5,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [
+            "drawer handle out of reach of arm b"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 2.2171520560004865,
+            "tokens": 72,
+            "tokens_per_s": 44.495155334472656,
+            "ttft_ms": 620.5536499023438,
+            "device": "CPU"
+          }
+        },
+        {
+          "try": 1,
+          "issues": [
+            "drawer handle out of reach of arm b",
+            "arm b does not hold the mug"
+          ],
+          "verdict": "BLOCK",
+          "metrics": {
+            "latency_s": 1.8656718380007078,
+            "tokens": 57,
+            "tokens_per_s": 44.753326416015625,
+            "ttft_ms": 613.46044921875,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "pick_place"
+      ],
+      "reference_skills": [
+        "pick_place"
+      ],
+      "covers_requested": true,
+      "matches_reference": true,
+      "mode": "normal"
+    },
+    {
+      "command": "hold the mug with arm B and pour with arm A",
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "latency_s": 2.01,
+      "vlm_metrics": {
+        "latency_s": 2.0,
+        "tokens": 63,
+        "tokens_per_s": 44.7,
+        "ttft_ms": 625.3,
+        "device": "CPU"
+      },
+      "attempts": [
+        {
+          "try": 0,
+          "issues": [],
+          "verdict": "ALLOW",
+          "metrics": {
+            "latency_s": 2.0132302130004973,
+            "tokens": 63,
+            "tokens_per_s": 44.7015495300293,
+            "ttft_ms": 625.3413696289062,
+            "device": "CPU"
+          }
+        }
+      ],
+      "skills": [
+        "hold_mug",
+        "pour"
+      ],
+      "reference_skills": [
+        "hold_mug",
+        "pour",
+        "place_mug"
+      ],
+      "covers_requested": true,
+      "matches_reference": false,
+      "mode": "gentle"
+    }
+  ]
+}

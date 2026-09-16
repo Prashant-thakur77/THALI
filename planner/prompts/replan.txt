@@ -1,0 +1,10 @@
+Scene (from the sim state, after a failure):
+{scene}
+
+The plan so far was: {plan}
+Step {failed_step} failed: {reason}
+Remaining steps: {remaining}
+
+Command from the user: "{command}"
+
+Produce a new JSON plan for what is still left to do, starting from the current scene (retry the failed step differently if it makes sense, e.g. the other arm or a handoff):

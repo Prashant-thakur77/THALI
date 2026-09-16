@@ -26,9 +26,9 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [ ] 3.3 Runtime order SmolVLA → oracle → retry with expert; report policy-only / policy+retry / policy+fallback
 
 ## Phase 4 — Local VLM planner
-- [ ] 4.1 `planner/export.sh`: `optimum-cli export openvino --model Qwen/Qwen2-VL-2B-Instruct planner/qwen2vl_int4 --weight-format int4` (alt: Qwen3-VL-4B if iGPU memory allows)
-- [ ] 4.2 `planner/plan.py`: `VLMPipeline` on `GPU`; input = overhead frame + scene description + transcript; strict JSON per `schema.json`; validate/repair, one retry, rule-planner fallback
-- [ ] 4.3 `replan(frame, remaining_plan, failure_reason)` entry point
+- [x] 4.1 (INT4 group-128 export works once `TMPDIR` is disk-backed — /tmp tmpfs overflowed) `planner/export.sh`: `optimum-cli export openvino --model Qwen/Qwen2-VL-2B-Instruct planner/qwen2vl_int4 --weight-format int4` (alt: Qwen3-VL-4B if iGPU memory allows)
+- [x] 4.2 (**CPU, not GPU**: the iGPU plugin crashes on the 2nd generate and has 10× the TTFT — docs/BLOCKERS.md; 4/8 plans from the VLM, 4/8 rule fallback, 8/8 verifier-approved → `results/planner_eval.json`) `planner/plan.py`: `VLMPipeline` on `GPU`; input = overhead frame + scene description + transcript; strict JSON per `schema.json`; validate/repair, one retry, rule-planner fallback
+- [x] 4.3 `replan(frame, remaining_plan, failure_reason)` entry point
 
 ## Phase 5 — Verifier + audit
 - [x] 5.1 (`ALLOW | REORDER | BLOCK`, 10 coded rules, reach via mink IK; velocity check is a runtime hook `check_velocity`) `verifier/rules.py`: reachability, grasp precondition, workspace reservation, drawer-open-before-cutlery, pour-only-if-mug-held-under-spout, joint velocity limits → `ALLOW | REORDER | BLOCK` + reason
@@ -36,12 +36,12 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] 5.3 (20/20 caught + 6/6 sane plans passed → `results/verifier_injection.json`) `verifier/inject_bad_plans.py`: 20 unsafe/impossible plans → "20/20 caught" table in `results/`
 
 ## Phase 6 — Voice
-- [ ] 6.1 `voice/listen.py` (speechmatics-rt): 16 kHz PCM, `enable_partials`, `diarization="speaker"`, `additional_vocab`, `end_of_utterance_silence_trigger=0.6`, dispatch on `END_OF_UTTERANCE`; ASR-tolerant parser ported from duet `src/lib/language`
-- [ ] 6.2 Barge-in: partials matched against `stop | wait | other arm | no` → pause skill, replan (interrupt/resume from jawad-glitch `arm_control.py`)
-- [ ] 6.3 Speaker focus: first speaker to say "SousChef, listen" becomes operator; others logged + ignored, shown on HUD
-- [ ] 6.4 One Hindi/Hinglish command in the demo (`language="hi"` session or batch clip)
-- [ ] 6.5 `voice/speak.py` (speechmatics-tts) confirms each step
-- [ ] 6.6 Log speech-end → plan-ready → arm-moves latency; write to `results/`
+- [x] 6.1 `voice/listen.py` (speechmatics-rt): 16 kHz PCM, `enable_partials`, `diarization="speaker"`, `additional_vocab`, `end_of_utterance_silence_trigger=0.6`, dispatch on `END_OF_UTTERANCE`; ASR-tolerant parser ported from duet `src/lib/language`
+- [x] 6.2 (`voice/bargein.py`, wired into the runtime in Phase 7) Barge-in: partials matched against `stop | wait | other arm | no` → pause skill, replan (interrupt/resume from jawad-glitch `arm_control.py`)
+- [x] 6.3 (wake phrase or first-speaker policy; noisy.wav's background speaker S2 ignored in `results/voice_test.json`) Speaker focus: first speaker to say "SousChef, listen" becomes operator; others logged + ignored, shown on HUD
+- [x] 6.4 (`language="hi"` session → Devanagari → parser normalisation; hindi.wav in `results/voice_test.json`) One Hindi/Hinglish command in the demo (`language="hi"` session or batch clip)
+- [x] 6.5 `voice/speak.py` (speechmatics-tts) confirms each step
+- [x] 6.6 (first-partial→parse-ready per utterance in `results/voice_test.json`; plan-ready→arm-moves added by the runtime in Phase 7) Log speech-end → plan-ready → arm-moves latency; write to `results/`
 
 ## Phase 7 — Runtime
 - [ ] 7.1 `runtime/state_machine.py`: voice → planner → verifier → per-arm queues (`arm_queues.py`) → skill → camera check + oracle → next/replan; `python -m souschef.runtime.demo --seed 3 --voice`

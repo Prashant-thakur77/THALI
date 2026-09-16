@@ -123,3 +123,52 @@ was wrong or infeasible, and which rubric rows (plan §4) are satisfied with evi
 **Tests:** 10 new in `tests/test_verifier.py` (rules, reorder, velocity/gentle, audit tamper detection, results consistency).
 
 **Rubric status after Phase 5:** Innovation row now has evidence (20/20 + hash chain); the rest unchanged from Phase 2.
+
+---
+
+## Phase 4 — Local VLM planner
+
+**Built** (`planner/`): `export.sh` (Qwen2-VL-2B-Instruct → OpenVINO IR, INT4 group-128, 1.8 GB, gitignored);
+`plan.py` — `OpenVinoVLM` (openvino_genai `VLMPipeline`, stateless prompt, repetition penalty), ManipulaX-style
+JSON repair + `normalise` (arm/object synonyms, defaults, de-duplication of looped steps), `Planner.plan`: VLM →
+schema → verifier, one retry with the rejection reasons fed back, then the deterministic `rule_plan`;
+`Planner.replan(frame, remaining_plan, failure_reason)`; `prompts/{system,user,replan}.txt` with a worked
+example; `state_check.py` — per-sub-goal yes/no camera check (VLM, or a pixel heuristic when no model is loaded)
+used by the runtime and by `eval/camera_vs_oracle.py`.
+
+**Measured:** `results/planner_eval.json` (8 commands, seed-0 scene, CPU): **4/8 plans accepted straight from the
+VLM, 4/8 from the rule fallback; 8/8 verifier-approved and covering every requested skill; 44.6 tok/s, 1.1 s
+TTFT, mean 5.4 s per plan** including verification. On the iGPU: 9 tok/s, 24–55 s TTFT, crash on the second call.
+
+**Plan deviations:** planner runs on **CPU**, not the iGPU (see BLOCKERS.md); the plan's "VLM on iGPU" claim is
+replaced by "VLM on Intel CPU, iGPU unstable on this Raptor Lake box" in every table. Qwen3-VL-4B was not tried
+(3.1 GB INT4; the 2B model already needs the rule fallback half the time, and latency doubles).
+
+**Tests:** 10 (`tests/test_planner.py`, `tests/test_planner_results.py`): schema, repair/normalise, rule planner
+coverage, no-model fallback, overhead projection, pixel heuristic vs oracle on a rendered frame, results file.
+
+---
+
+## Phase 6 — Voice
+
+**Built** (`voice/`): `parser.py` — duet's ASR-tolerant parser ported to Python and extended with Hinglish and
+Devanagari normalisation (Speechmatics' `hi` session returns Devanagari), homophone arm names ("arm eight/hey/
+bee"), filler stripping, verb-onset clause splitting that tolerates verb-final Hindi, barge-in word detection,
+diagnostics for uninterpretable clauses; `listen.py` — Speechmatics realtime (`enable_partials`, `diarization=
+"speaker"`, `additional_vocab`, `end_of_utterance_silence_trigger=0.6`, dispatch on `EndOfUtterance`, wake-phrase
+or first-speaker **speaker focus**, per-utterance latency, quota retry); `bargein.py` — partials → stop / other
+arm / resume with speaker focus; `speak.py` — Speechmatics TTS with a phrase table ("Pouring now. Say stop
+anytime.") and an on-disk cache; `eval/voice_test.py` — the four provided samples.
+
+**Measured:** `results/voice_test.json` — normal.wav WER 0.00; tired.wav 0.44 (drops "with arm A"); hindi.wav raw
+WER 1.00 vs the romanised reference but **0.43 after normalisation**, and "arm A se" was heard as "आराम से"
+("gently") — a real ASR confusion, recorded as such; noisy.wav 0.31 with the background podcast diarised as
+speaker S2 and **ignored by speaker focus**. Skill sequence recovered on **4/4** samples; first-partial → parsed
+command 0.45–1.26 s. TTS: 2.5 s first synthesis, cached afterwards.
+
+**Plan deviations:** the "SousChef, listen" wake phrase is `Thali, listen` (also accepts sous chef); when no wake
+phrase is present the first speaker becomes the operator so the recorded samples exercise the focus rule.
+Barge-in and the plan-ready → arm-moves latency are wired in Phase 7 (they need the runtime loop).
+
+**Tests:** 8 (`tests/test_voice.py`) — offline parser cases (English, ASR noise, Hinglish, Devanagari, barge-in,
+speaker focus) and the results file.

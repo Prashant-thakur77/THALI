@@ -1,0 +1,8 @@
+Scene (from the sim state):
+{scene}
+
+Already done: {done}
+
+Command from the user: "{command}"
+
+JSON plan:
