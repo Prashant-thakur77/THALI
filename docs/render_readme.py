@@ -39,7 +39,7 @@ def anomaly_row() -> str:
         lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
         op = d["at_10pct_fpr"]
         per = ", ".join(f"{k.replace('_', ' ')} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
-        parts.append(f"|frame − reset reference| crop, resnet18: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
+        parts.append(f"abs(frame − reset reference) crop, resnet18: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
                      f"{d['false_positives']}/{d['test_good']} false alarms ({per}) · at 10% false alarms {op['detected']}/{d['test_bad_total']} · IR p50 {lat}")
     for name, label in (("anomaly.json", "full frame, wide_resnet50"), ("anomaly_crop.json", "table crop, resnet18")):
         a = load(name)
