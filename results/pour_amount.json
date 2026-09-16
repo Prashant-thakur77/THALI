@@ -1,0 +1,229 @@
+{
+ "split": "train",
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "targets": {
+  "little": 3,
+  "normal": 6,
+  "full": 12
+ },
+ "summary": {
+  "little": {
+   "target": 3,
+   "n": 5,
+   "hold_failed": 2,
+   "mean_poured": 5.6,
+   "mean_abs_error": 2.6,
+   "within_2": 2,
+   "reached_target": 5
+  },
+  "normal": {
+   "target": 6,
+   "n": 5,
+   "hold_failed": 2,
+   "mean_poured": 6.8,
+   "mean_abs_error": 0.8,
+   "within_2": 4,
+   "reached_target": 5
+  },
+  "full": {
+   "target": 12,
+   "n": 5,
+   "hold_failed": 2,
+   "mean_poured": 10.4,
+   "mean_abs_error": 3.2,
+   "within_2": 2,
+   "reached_target": 3
+  }
+ },
+ "rows": [
+  {
+   "amount": "little",
+   "seed": 0,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1265
+  },
+  {
+   "amount": "little",
+   "seed": 1,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 3,
+   "aborted": false,
+   "sim_steps": 1213
+  },
+  {
+   "amount": "little",
+   "seed": 2,
+   "hold_ok": false
+  },
+  {
+   "amount": "little",
+   "seed": 3,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1211
+  },
+  {
+   "amount": "little",
+   "seed": 4,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 3,
+   "aborted": false,
+   "sim_steps": 1229
+  },
+  {
+   "amount": "little",
+   "seed": 5,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 10,
+   "aborted": false,
+   "sim_steps": 1221
+  },
+  {
+   "amount": "little",
+   "seed": 6,
+   "hold_ok": false
+  },
+  {
+   "amount": "normal",
+   "seed": 0,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 6,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1265
+  },
+  {
+   "amount": "normal",
+   "seed": 1,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 6,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1223
+  },
+  {
+   "amount": "normal",
+   "seed": 2,
+   "hold_ok": false
+  },
+  {
+   "amount": "normal",
+   "seed": 3,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 6,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1211
+  },
+  {
+   "amount": "normal",
+   "seed": 4,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 6,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1241
+  },
+  {
+   "amount": "normal",
+   "seed": 5,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 6,
+   "poured": 10,
+   "aborted": false,
+   "sim_steps": 1221
+  },
+  {
+   "amount": "normal",
+   "seed": 6,
+   "hold_ok": false
+  },
+  {
+   "amount": "full",
+   "seed": 0,
+   "hold_ok": true,
+   "pour_ok": false,
+   "target": 12,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1466
+  },
+  {
+   "amount": "full",
+   "seed": 1,
+   "hold_ok": true,
+   "pour_ok": false,
+   "target": 12,
+   "poured": 6,
+   "aborted": false,
+   "sim_steps": 1448
+  },
+  {
+   "amount": "full",
+   "seed": 2,
+   "hold_ok": false
+  },
+  {
+   "amount": "full",
+   "seed": 3,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 12,
+   "poured": 12,
+   "aborted": false,
+   "sim_steps": 1230
+  },
+  {
+   "amount": "full",
+   "seed": 4,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 12,
+   "poured": 16,
+   "aborted": false,
+   "sim_steps": 1263
+  },
+  {
+   "amount": "full",
+   "seed": 5,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 12,
+   "poured": 12,
+   "aborted": false,
+   "sim_steps": 1228
+  },
+  {
+   "amount": "full",
+   "seed": 6,
+   "hold_ok": false
+  }
+ ],
+ "note": "seeds where hold_mug failed are excluded (hold_failed); seeds 0/1 saturate at 6 spheres for 'full' -- the bottle cannot deliver more at full roll on those layouts"
+}
