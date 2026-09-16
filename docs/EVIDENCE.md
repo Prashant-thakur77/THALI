@@ -12,7 +12,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | SmolVLA rows | pending SmolVLA run (docs/KAGGLE_TODO.md) | `eval/run_seeds.py --policy smolvla` | results/seeds.json |
 | Heatmap seeds × axis, expert | hardest axis shape | `eval/heatmap.py --policy expert` | results/heatmap_expert.json / .png |
 | Heatmap seeds × axis, ACT | pending | `eval/heatmap.py --policy act` | results/heatmap_act.json / .png |
-| Per-skill ACT policy-only (60 ep) | pending | `python -m eval.skill_eval --act-root outputs_60ep --tag act_60ep` | `results/skill_eval_act_60ep.json` |
+| Per-skill ACT policy-only (60 ep) | open_drawer **20/20** · pick_place_fork **2/20** (median 29.93 cm from zone) · pick_place_plate **8/20** (median 15.85 cm from zone) · pick_place_mug **1/20** (median 24.45 cm from zone) · handoff_spoon **0/20** (median 39.89 cm from zone) · hold_mug **10/20** · pour **1/20** | `python -m eval.skill_eval --act-root outputs_60ep --tag act_60ep` | `results/skill_eval_act_60ep.json` |
 | Per-skill ACT policy-only (1050 ep) | pending | `python -m eval.skill_eval --tag act_1050ep` | `results/skill_eval_act_1050ep.json` |
 | Table-state anomaly check | image AUROC **0.762** · exported threshold: 72/75 disturbances flagged, 38/60 false alarms · at 10% false alarms: 26/75 caught · IR p50 CPU 591.0 ms | `python -m anomaly.make_data; .venv-anomalib/bin/python -m anomaly.train_patchcore; python -m anomaly.check --score` | `results/anomaly.json` |
 | Both arms at once vs sequential | drawer_and_mug: sequential 5/5 in 1065 sim steps → concurrent **5/5 in 591** (44% fewer) · plate_and_mug: sequential 4/5 in 994 sim steps → concurrent **4/5 in 695** (30% fewer) | `python -m eval.concurrency` | `results/concurrency.json` |
