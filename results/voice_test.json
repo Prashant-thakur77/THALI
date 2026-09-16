@@ -1,0 +1,198 @@
+{
+  "samples": 4,
+  "mean_wer": 0.438,
+  "mean_normalized_wer": 0.295,
+  "intent_match_rate": 0.5,
+  "skill_match_rate": 1.0,
+  "features": [
+    "realtime",
+    "partials",
+    "end_of_utterance_0.6s",
+    "speaker_diarization",
+    "custom_vocab",
+    "language_hi"
+  ],
+  "rows": [
+    {
+      "file": "normal.wav",
+      "language": "en",
+      "reference": "open the top drawer, pick up the plate with arm A, place it on the table",
+      "hypothesis": "Open the top drawer. Pick up the plate with arm A. Place it on the table",
+      "wer": 0.0,
+      "normalized_wer": 0.0,
+      "utterances": 1,
+      "speakers": [
+        "S1"
+      ],
+      "operator": "S1",
+      "ignored_other_speaker": [],
+      "ref_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "hyp_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "intents_match": true,
+      "skills_match": true,
+      "wall_s": 4.39,
+      "partial_to_ready_s": [
+        0.785
+      ]
+    },
+    {
+      "file": "tired.wav",
+      "language": "en",
+      "reference": "open the top drawer, pick up the plate with arm A, place it on the table",
+      "hypothesis": "Open. Open the top drawer. Pick up the plate and place it on the table on the Table",
+      "wer": 0.438,
+      "normalized_wer": 0.438,
+      "utterances": 2,
+      "speakers": [
+        "S1"
+      ],
+      "operator": "S1",
+      "ignored_other_speaker": [],
+      "ref_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "hyp_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          null
+        ]
+      ],
+      "intents_match": false,
+      "skills_match": true,
+      "wall_s": 4.01,
+      "partial_to_ready_s": [
+        1.262,
+        0.45
+      ]
+    },
+    {
+      "file": "hindi.wav",
+      "language": "hi",
+      "reference": "top drawer kholo, plate ko arm A se uthao, aur table pe rakh do",
+      "hypothesis": "टॉप ड्राइवर खोलो। प्लेट को आराम से उठाओ और टेबल पर रख दो।",
+      "wer": 1.0,
+      "normalized_wer": 0.429,
+      "utterances": 1,
+      "speakers": [
+        "S1"
+      ],
+      "operator": "S1",
+      "ignored_other_speaker": [],
+      "ref_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "hyp_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          null
+        ]
+      ],
+      "intents_match": false,
+      "skills_match": true,
+      "wall_s": 3.01,
+      "partial_to_ready_s": [
+        0.861
+      ]
+    },
+    {
+      "file": "noisy.wav",
+      "language": "en",
+      "reference": "open the top drawer, pick up the plate with arm A, place it on the table",
+      "hypothesis": "Real estate that we have. Open the top drawer. Pick up the plate with arm A. Place it on the table",
+      "wer": 0.312,
+      "normalized_wer": 0.312,
+      "utterances": 2,
+      "speakers": [
+        "S1",
+        "S2"
+      ],
+      "operator": "S1",
+      "ignored_other_speaker": [
+        "And try things and listen to podcasts and books and."
+      ],
+      "ref_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "hyp_intents": [
+        [
+          "open_drawer",
+          null,
+          null
+        ],
+        [
+          "pick_place",
+          "plate",
+          "a"
+        ]
+      ],
+      "intents_match": true,
+      "skills_match": true,
+      "wall_s": 3.34,
+      "partial_to_ready_s": [
+        1.091,
+        0.629
+      ]
+    }
+  ]
+}
