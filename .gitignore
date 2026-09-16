@@ -20,3 +20,4 @@ results/test_audit.jsonl
 bench/ir/
 planner/qwen3vl_int4/
 video/
+!video/thali_demo.mp4
