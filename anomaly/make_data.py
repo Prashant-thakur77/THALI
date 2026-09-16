@@ -24,6 +24,7 @@ from PIL import Image
 
 import souschef_env  # noqa: F401
 from souschef_env import constants as C
+from anomaly.crop import diff_from_reference
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "anomaly" / "data"
@@ -97,28 +98,39 @@ def main() -> None:
     ap.add_argument("--train", type=int, default=240)
     ap.add_argument("--test-good", type=int, default=60)
     ap.add_argument("--test-bad", type=int, default=15, help="per anomaly type")
+    ap.add_argument("--variant", default="", choices=["", "diff"], help="'diff': save |frame - reset reference| table crops into anomaly/data_diff")
     a = ap.parse_args()
+    data = ROOT / "anomaly" / ("data_diff" if a.variant == "diff" else "data")
     env = gym.make("souschef_env/Thali-v0", disable_env_checker=True).unwrapped
     m, d = env.model, env.data
     manifest = {"train_good": 0, "test_good": 0, "test_bad": {k: 0 for k in ANOMALIES}, "image_size": [240, 320], "camera": "overhead"}
 
+    ref: dict = {}
+
+    def reset(seed: int, split: str) -> None:
+        env.reset(seed=seed, options={"split": split})
+        ref["img"] = env.render_camera("overhead")   # the reset frame: the runtime's reference for the state checks
+
     def save(split: str, cls: str, idx: int) -> None:
         img = env.render_camera("overhead")
-        p = DATA / split / cls; p.mkdir(parents=True, exist_ok=True)
+        if a.variant == "diff":
+            img = diff_from_reference(img, ref["img"])
+        p = data / split / cls; p.mkdir(parents=True, exist_ok=True)
         Image.fromarray(img).save(p / f"{idx:04d}.png")
 
     for i in range(a.train):
-        env.reset(seed=100_000 + i, options={"split": "train"})
+        reset(100_000 + i, "train")
         nominal_variant(m, d, random.Random(i)); save("train", "good", i); manifest["train_good"] += 1
     for i in range(a.test_good):
-        env.reset(seed=200_000 + i, options={"split": "test"})
+        reset(200_000 + i, "test")
         nominal_variant(m, d, random.Random(1000 + i)); save("test", "good", i); manifest["test_good"] += 1
     for k in ANOMALIES:
         for i in range(a.test_bad):
-            env.reset(seed=300_000 + i + 1000 * ANOMALIES.index(k), options={"split": "test"})
+            reset(300_000 + i + 1000 * ANOMALIES.index(k), "test")
             rng = random.Random(2000 + i)
             nominal_variant(m, d, rng); anomaly_variant(m, d, k, rng); save("test", k, i); manifest["test_bad"][k] += 1
-    (DATA / "manifest.json").write_text(json.dumps(manifest, indent=1))
+    manifest["variant"] = a.variant or "full_frame"
+    (data / "manifest.json").write_text(json.dumps(manifest, indent=1))
     print(manifest)
 
 

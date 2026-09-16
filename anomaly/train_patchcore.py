@@ -17,8 +17,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 import os
 VARIANT = os.environ.get("THALI_ANOMALY_VARIANT", "")          # "" = full frame, "crop" = table crop (anomaly/crop.py)
-DATA = ROOT / "anomaly" / ("data_crop" if VARIANT == "crop" else "data")
-OUT = ROOT / "anomaly" / ("model_crop" if VARIANT == "crop" else "model")
+DATA = ROOT / "anomaly" / (f"data_{VARIANT}" if VARIANT else "data")
+OUT = ROOT / "anomaly" / (f"model_{VARIANT}" if VARIANT else "model")
 
 
 def main() -> None:

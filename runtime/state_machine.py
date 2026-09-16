@@ -142,6 +142,8 @@ class Runtime:
         self.env.reset(seed=seed, options={"split": split})
         if hasattr(self.state_check, "set_reference"):
             self.state_check.set_reference(self._frame())
+        if self.anomaly_check is not None and hasattr(self.anomaly_check, "set_reference"):
+            self.anomaly_check.set_reference(self._frame())
         self.ex = Expert(self.env, on_step=(lambda a, o: self.on_step()) if self.on_step else None)
         self.ex.interrupt = self.barge.stop_requested
         executor = self.executor_factory(self.ex)
