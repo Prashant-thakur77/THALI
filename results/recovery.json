@@ -1,0 +1,290 @@
+{
+ "command": "open the top drawer, put the plate on the table with arm A, then put the fork on the table",
+ "perturbation": "plate teleported to (-0.08, 0.0) after its step passed its check",
+ "seeds": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "split": "test",
+ "planner": "rules",
+ "knocked": 4,
+ "detected": 4,
+ "recovered": 4,
+ "total": 4,
+ "rows": [
+  {
+   "seed": 0,
+   "split": "test",
+   "knock": {
+    "from": [
+     0.0,
+     -0.1,
+     0.003
+    ],
+    "to": [
+     -0.08,
+     0.0,
+     0.006
+    ],
+    "plate_in_zone_after_knock": false,
+    "after_step": 1
+   },
+   "detected": true,
+   "final_checks": [
+    {
+     "missing": [
+      "plate_placed"
+     ],
+     "redo": [
+      {
+       "skill": "pick_place",
+       "arm": "a",
+       "obj": "plate",
+       "zone": "plate"
+      }
+     ]
+    }
+   ],
+   "replans": 2,
+   "state": "DONE",
+   "plate_placed_final": true,
+   "fork_placed_final": true,
+   "drawer_open_final": true,
+   "recovered": true,
+   "steps": [
+    {
+     "skill": "open_drawer",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": false
+    },
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "oracle_ok": true
+    }
+   ],
+   "wall_s": 147.4
+  },
+  {
+   "seed": 1,
+   "split": "test",
+   "knock": {
+    "from": [
+     0.0,
+     -0.1,
+     0.003
+    ],
+    "to": [
+     -0.08,
+     0.0,
+     0.006
+    ],
+    "plate_in_zone_after_knock": false,
+    "after_step": 1
+   },
+   "detected": true,
+   "final_checks": [
+    {
+     "missing": [
+      "plate_placed"
+     ],
+     "redo": [
+      {
+       "skill": "pick_place",
+       "arm": "a",
+       "obj": "plate",
+       "zone": "plate"
+      }
+     ]
+    }
+   ],
+   "replans": 2,
+   "state": "DONE",
+   "plate_placed_final": true,
+   "fork_placed_final": true,
+   "drawer_open_final": true,
+   "recovered": true,
+   "steps": [
+    {
+     "skill": "open_drawer",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": false
+    },
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "oracle_ok": true
+    }
+   ],
+   "wall_s": 159.4
+  },
+  {
+   "seed": 2,
+   "split": "test",
+   "knock": {
+    "from": [
+     -0.0,
+     -0.1,
+     0.002
+    ],
+    "to": [
+     -0.08,
+     0.0,
+     0.006
+    ],
+    "plate_in_zone_after_knock": false,
+    "after_step": 1
+   },
+   "detected": true,
+   "final_checks": [
+    {
+     "missing": [
+      "plate_placed"
+     ],
+     "redo": [
+      {
+       "skill": "pick_place",
+       "arm": "a",
+       "obj": "plate",
+       "zone": "plate"
+      }
+     ]
+    }
+   ],
+   "replans": 2,
+   "state": "DONE",
+   "plate_placed_final": true,
+   "fork_placed_final": true,
+   "drawer_open_final": true,
+   "recovered": true,
+   "steps": [
+    {
+     "skill": "open_drawer",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": false
+    },
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "oracle_ok": true
+    }
+   ],
+   "wall_s": 164.4
+  },
+  {
+   "seed": 3,
+   "split": "test",
+   "knock": {
+    "from": [
+     -0.0,
+     -0.1,
+     0.003
+    ],
+    "to": [
+     -0.08,
+     0.0,
+     0.006
+    ],
+    "plate_in_zone_after_knock": false,
+    "after_step": 1
+   },
+   "detected": true,
+   "final_checks": [
+    {
+     "missing": [
+      "plate_placed"
+     ],
+     "redo": [
+      {
+       "skill": "pick_place",
+       "arm": "a",
+       "obj": "plate",
+       "zone": "plate"
+      }
+     ]
+    }
+   ],
+   "replans": 2,
+   "state": "DONE",
+   "plate_placed_final": true,
+   "fork_placed_final": true,
+   "drawer_open_final": true,
+   "recovered": true,
+   "steps": [
+    {
+     "skill": "open_drawer",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": true
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "oracle_ok": false
+    },
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "oracle_ok": true
+    }
+   ],
+   "wall_s": 166.2
+  }
+ ]
+}

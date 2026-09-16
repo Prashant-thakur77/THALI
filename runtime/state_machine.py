@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SUBGOAL_OF = {"open_drawer": "drawer_open", "pour": "poured", "place_mug": "mug_placed"}
 ZONE_SUBGOAL = {"plate": "plate_placed", "fork": "fork_placed", "spoon": "spoon_placed", "mug": "mug_placed"}
 MAX_REPLANS = 2
+MAX_FINAL_CHECKS = 1  # after the queue drains, re-verify every goal and redo what moved (once)
 
 
 @dataclass
@@ -61,6 +62,7 @@ class RunLog:
     verdicts: list[str] = field(default_factory=list)
     steps: list[StepRecord] = field(default_factory=list)
     replans: int = 0
+    final_checks: list[dict] = field(default_factory=list)
     barge_ins: list[dict] = field(default_factory=list)
     latency: dict = field(default_factory=dict)
     subgoals: dict = field(default_factory=dict)
@@ -105,6 +107,7 @@ class Runtime:
         self.ex: Expert | None = None
         self.queues = ArmQueues()
         self.on_step: Callable[[], None] | None = None  # e.g. a video recorder; called every control step
+        self.after_check: Callable[[int, dict], None] | None = None  # eval hook: called after each step's check (perturbations)
 
     # ------------------------------------------------------------ helpers
     def _log(self, kind: str, payload: dict) -> None:
@@ -169,12 +172,28 @@ class Runtime:
 
         # ---- execute
         replan_round = 0
+        final_checks = 0
         t_first_move: float | None = None
         while True:
             q = self.queues.next_ready()
             if q is None:
                 if self.queues.pending():
                     self._transition("BLOCKED", log, reasons=["queue deadlock"])
+                    break
+                # ---- final-state verification: the world may have changed since a step was checked (knocked item,
+                # a later skill disturbing an earlier placement).  Redo exactly the steps whose goal no longer holds.
+                sg_end = oracles.subgoals(self.env.model, self.env.data)
+                missing = [g for g in self._goals_for(plan) if not sg_end[g]]
+                if missing and final_checks < MAX_FINAL_CHECKS:
+                    final_checks += 1
+                    log.replans += 1
+                    redo = [s for s in plan["steps"] if self._subgoal_for(s) in missing]
+                    self._transition("REPLANNING", log, final_check=missing)
+                    log.final_checks.append({"missing": missing, "redo": redo})
+                    self._log("final_check", {"missing": missing, "redo": redo})
+                    self.say("Something moved. Redoing " + ", ".join(g.replace("_", " ") for g in missing) + ".")
+                    self.queues.load({"steps": redo, "mode": mode})
+                    continue
                 break
             self._transition("EXECUTING", log, step=q.idx, skill=q.step["skill"], arm=q.arm)
             self.queues.mark(q, "running")
@@ -222,6 +241,8 @@ class Runtime:
             log.steps.append(rec)
             self._log("skill", {"step": q.idx, "skill": q.step["skill"], "arm": q.step["arm"], "ok": bool(result.ok), "oracle": oracle_ok,
                                 "camera": cam_ok, "camera_backend": cam_backend, "seconds": round(t1 - t0, 2), "detail": rec.result})
+            if self.after_check:
+                self.after_check(q.idx, q.step)
             if oracle_ok:
                 self.queues.mark(q, "done")
             else:

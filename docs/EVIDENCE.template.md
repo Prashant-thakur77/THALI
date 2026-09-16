@@ -12,6 +12,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | SmolVLA rows | {{ "present" if load("seeds_smolvla_policy_fallback_test.json") else "pending SmolVLA run (docs/KAGGLE_TODO.md)" }} | `eval/run_seeds.py --policy smolvla` | results/seeds.json |
 | Heatmap seeds × axis, expert | hardest axis {{ load("heatmap_expert.json")["hardest_axis"] if load("heatmap_expert.json") else "pending" }} | `eval/heatmap.py --policy expert` | results/heatmap_expert.json / .png |
 | Heatmap seeds × axis, ACT | {{ ("hardest axis " + load("heatmap_act.json")["hardest_axis"]) if load("heatmap_act.json") else "pending" }} | `eval/heatmap.py --policy act` | results/heatmap_act.json / .png |
+| Mid-task perturbation recovery | {{ load("recovery.json")["recovered"] }}/{{ load("recovery.json")["total"] }} recovered ({{ load("recovery.json")["detected"] }} detected) | `python -m eval.recovery` | `results/recovery.json` |
 | Instruction swap | {{ load("instruction_swap.json")["correct"] }}/{{ load("instruction_swap.json")["total"] }} | `eval/instruction_swap.py` | results/instruction_swap.json |
 | Camera vs oracle | {{ ", ".join(f"{k} {pct(v['agreement'])}" for k, v in load("camera_vs_oracle.json")["backends"].items()) }} | `eval/camera_vs_oracle.py` | results/camera_vs_oracle.json |
 | Planner: VLM-accepted / approved / tok/s | {{ load("planner_eval.json")["accepted_from_vlm"] }}/8 · {{ pct(load("planner_eval.json")["verifier_approved_rate"]) }} · {{ load("planner_eval.json")["vlm_tokens_per_s"] }} | `eval/planner_eval.py` | results/planner_eval.json |

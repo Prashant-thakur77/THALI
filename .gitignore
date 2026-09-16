@@ -21,3 +21,6 @@ bench/ir/
 planner/qwen3vl_int4/
 video/
 !video/thali_demo.mp4
+hosting/static/*\n!hosting/static/index.html
+hosting/static/*
+!hosting/static/index.html

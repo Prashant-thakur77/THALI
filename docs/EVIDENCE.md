@@ -12,6 +12,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | SmolVLA rows | pending SmolVLA run (docs/KAGGLE_TODO.md) | `eval/run_seeds.py --policy smolvla` | results/seeds.json |
 | Heatmap seeds × axis, expert | hardest axis shape | `eval/heatmap.py --policy expert` | results/heatmap_expert.json / .png |
 | Heatmap seeds × axis, ACT | pending | `eval/heatmap.py --policy act` | results/heatmap_act.json / .png |
+| Mid-task perturbation recovery | 4/4 recovered (4 detected) | `python -m eval.recovery` | `results/recovery.json` |
 | Instruction swap | 7/10 | `eval/instruction_swap.py` | results/instruction_swap.json |
 | Camera vs oracle | pixels 84%, vlm 38% | `eval/camera_vs_oracle.py` | results/camera_vs_oracle.json |
 | Planner: VLM-accepted / approved / tok/s | 4/8 · 100% · 44.6 | `eval/planner_eval.py` | results/planner_eval.json |

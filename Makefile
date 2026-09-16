@@ -30,6 +30,7 @@ eval:         ## Phase 9 — 10-seed full task on test_ranges (SEEDS=$(SEEDS), P
 	$(PY) -m eval.run_seeds --policy $(POLICY) --mode policy_retry --seeds $(SEEDS) --split test
 	$(PY) -m eval.run_seeds --policy $(POLICY) --mode policy_fallback --seeds $(SEEDS) --split test
 	$(PY) -m eval.instruction_swap --seed 0
+	$(PY) -m eval.recovery --seeds 0 1 2 3
 	$(PY) -m eval.camera_vs_oracle --seeds $(SEEDS)
 	$(PY) -m eval.heatmap --policy expert --seeds $(SEEDS)
 
