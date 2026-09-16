@@ -1,0 +1,64 @@
+# Thali roadmap — beyond the dinner table
+
+Status on 17 Sep 2026: submission in; post-deadline work running (ACT retrain on 1050 episodes, SmolVLA on Kaggle,
+per-skill evals, PatchCore table check, concurrent two-arm execution). This is the plan for what comes next, ranked by
+how much it moves the project versus what it costs. Every item ends with the number it would put in the README.
+
+How a new skill enters the system (the same five files every time):
+1. `expert/primitives.py` — a scripted primitive (IK legs, jaw commands, retries).
+2. `souschef_env/oracles.py` — a ground-truth predicate for "did it happen" (+ `scene_description.py` if a new object).
+3. `verifier/rules.py` — preconditions and a bad-plan injection for it; `planner/schema.json` + prompts — the planner can name it.
+4. `expert/make_demos.py` — instruction paraphrases + demos (150 episodes ≈ 25 min of recording per skill, 4 shards).
+5. `policies/` — retrain the per-skill ACT (42 min) and the multi-task SmolVLA (Kaggle, 6 h); `eval/skill_eval.py` scores it.
+
+## Tier 1 — more of the same table (days, high judge impact)
+
+| item | what it adds | needs | result row |
+|---|---|---|---|
+| **Clear the table** | reverse task: cutlery back to the drawer, mug to the cabinet, close the drawer | 3 primitives (put-in-drawer, close_drawer, place-in-cabinet), oracles, 3×150 demos | "clear the table" N/10 held-out |
+| **Two place settings** | second plate/fork/spoon set; zones per seat; the planner must count | assets + zones, planner prompt with seats, workspace rule for the far seat (handoff needed) | 2-seat task N/10 |
+| **Glass + jug / bottle cap** | pour into a glass, one arm holds the bottle while the other unscrews the cap (true bimanual, not handoff) | cap joint on the bottle, twist primitive with torque limit | cap-off N/10, pour-into-glass N/10 |
+| **Target-volume pour** | "half a cup", "a little" → stop the roll at a sphere count, closed loop on `water_in_mug` | amount → target spheres map, pour loop with early stop | volume error in spheres over 20 pours |
+| **Tray carry (two-arm lift)** | both arms lift one object (tray with the mug on it) and carry it together | coordinated two-arm IK legs through the step barrier (now possible), tray asset | tray delivered without spill N/10 |
+
+## Tier 2 — interaction (days)
+
+| item | what it adds | needs | result row |
+|---|---|---|---|
+| **Follow-ups & corrections** | "a bit more", "no, the other side", "left of the plate" resolved against the last step | dialogue state in the runtime, relative-position parsing, verifier re-check | 20 scripted follow-ups → N correct |
+| **Per-person preferences** | two diarised speakers, each with a seat and preferences ("I don't take water") | speaker → seat map, plan per seat | 2-speaker sessions N/10 |
+| **Ask when ambiguous** | "which mug?" when two match; refuse with a reason when an item is missing (already partly there) | clarification state + TTS question, resume on answer | ambiguous commands: N asked, 0 wrong |
+| **Kitchen timer & reminders** | "tell me when the tea has steeped 3 minutes" — voice-only skills mixed with arm skills | scheduler in the state machine | — (demo value) |
+
+## Tier 3 — perception & robustness (days–weeks)
+
+| item | what it adds | needs | result row |
+|---|---|---|---|
+| **Table-crop anomaly check** | crop the overhead frame to the table before PatchCore so backgrounds/lighting stop causing false alarms (today 38/60 at the exported threshold) | crop from known table extent, resnet18 + coreset 0.05, retrain 10 min | AUROC 0.76 → target > 0.95 at ≤ 10 % FPR |
+| **Unseen objects** | new mug/plate meshes and colours never in the demos; the policy and the planner must cope | 5 extra assets in the test split only | per-skill success on unseen shapes |
+| **Clutter & moved cabinet** | distractor objects, cabinet position randomised ±10 cm | randomiser axes 7–8, heatmap rerun | heatmap columns |
+| **Camera check with a small VLM** | replace the pixel heuristic with a fine-tuned SmolVLM yes/no on 2 k labelled frames | frames from the oracle, 1 h fine-tune | camera vs oracle 84 % → > 95 % |
+
+## Tier 4 — learned policies that win (weeks)
+
+| item | what it adds | needs | result row |
+|---|---|---|---|
+| **3 000 episodes/skill + augmentation** | ACT/SmolVLA that beat the expert's speed and match its success | 5 h recording (4 shards), Kaggle runs | per-skill policy-only ≥ 18/20 |
+| **Policy-first execution** | run the learned policy by default and the expert only as fallback in the demo video | after the row above | full task policy-only N/10 |
+| **Core Ultra / NPU** | ACT + PatchCore IR timed on NPU with `-d NPU`; the export is already static-shape | access to a Core Ultra machine (or Intel DevCloud) | NPU ms per call |
+| **Real SO-101 arms** | sim-to-real of drawer + plate skills with the same LeRobot dataset format | 2 arms (~$220), camera mounts, 200 real demos | real-world drawer N/10 |
+
+## Tier 5 — different tables
+
+| item | why | needs |
+|---|---|---|
+| **Packing / shipping bench** (the other Intel prompt) | same stack: boxes instead of plates, "fragile on top" as a verifier rule | assets + 4 primitives + rules |
+| **Medication tray** | assistive-care fit: pill cups to seats, verifier blocks a wrong seat | assets + per-person rules |
+| **Café counter** | cup, saucer, spoon, milk pour — a public-facing demo | assets |
+
+## Suggested order for the next two weeks
+1. Table-crop anomaly retrain (½ day) — cheapest fix to a weak number.
+2. Clear-the-table + target-volume pour (3 days) — doubles the task list, reuses everything.
+3. Follow-ups/corrections + ask-when-ambiguous (2 days) — the strongest voice-track story.
+4. 3 000-episode recording in the background throughout; SmolVLA retrain at the end (1 week wall, mostly unattended).
+5. Two-arm tray carry (3 days) — the first skill that only two arms can do.
