@@ -17,8 +17,10 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
-MODEL_DIR = ROOT / "anomaly" / "model"
-DATA = ROOT / "anomaly" / "data"
+MODEL_DIR = ROOT / "anomaly" / ("model_crop" if VARIANT == "crop" else "model")
+import os
+VARIANT = os.environ.get("THALI_ANOMALY_VARIANT", "")          # "" = full frame, "crop" = table crop (anomaly/crop.py)
+DATA = ROOT / "anomaly" / ("data_crop" if VARIANT == "crop" else "data")
 
 
 def _find_ir(d: Path) -> Path:
@@ -47,10 +49,14 @@ class TableAnomalyCheck:
         self.threshold = float(self.meta.get("image_threshold", 0.5))
         self.out_score = next((o for o in self.compiled.outputs if "pred_score" in o.get_any_name()), self.compiled.outputs[0])
         self.device = device
+        self.crop = "crop" in str(model_dir)   # model_crop/ was trained on table crops: crop live frames the same way
 
     def _prep(self, frame: np.ndarray) -> np.ndarray:
         """RGB uint8 HxWx3 -> [1,3,H,W] float in [0,1]; the ImageNet normalisation lives inside the exported graph."""
         from PIL import Image
+        if self.crop:
+            from anomaly.crop import crop_table
+            frame = crop_table(frame)
         img = Image.fromarray(frame).resize((self.w, self.h))
         x = np.asarray(img, dtype=np.float32) / 255.0
         return np.ascontiguousarray(x.transpose(2, 0, 1)[None])
@@ -72,22 +78,23 @@ def _auroc(scores_pos: list[float], scores_neg: list[float]) -> float:
 def score_all(devices: tuple[str, ...] = ("CPU", "GPU")) -> dict:
     from PIL import Image
     chk = TableAnomalyCheck("CPU")
-    manifest = json.loads((DATA / "manifest.json").read_text())
-    good = [float(chk.score(np.asarray(Image.open(p).convert("RGB")))) for p in sorted((DATA / "test" / "good").glob("*.png"))]
+    RAW = ROOT / "anomaly" / "data"   # always score raw frames; the checker applies the crop itself when its model needs it
+    manifest = json.loads((RAW / "manifest.json").read_text())
+    good = [float(chk.score(np.asarray(Image.open(p).convert("RGB")))) for p in sorted((RAW / "test" / "good").glob("*.png"))]
     per_type, bad_all = {}, []
     for k in manifest["test_bad"]:
-        s = [float(chk.score(np.asarray(Image.open(p).convert("RGB")))) for p in sorted((DATA / "test" / k).glob("*.png"))]
+        s = [float(chk.score(np.asarray(Image.open(p).convert("RGB")))) for p in sorted((RAW / "test" / k).glob("*.png"))]
         per_type[k] = {"n": len(s), "detected": int(sum(x >= chk.threshold for x in s)), "auroc_vs_good": round(_auroc(s, good), 3), "median_score": round(float(np.median(s)), 4)}
         bad_all += s
     fp = int(sum(x >= chk.threshold for x in good))
     # threshold-free operating point: the score cut that lets through 90% of nominal frames, and what it catches
     thr10 = float(np.quantile(good, 0.90))
     tpr10 = {k: int(sum(x >= thr10 for x in [r for r in bad_all[i * per_type[k]["n"]:(i + 1) * per_type[k]["n"]]])) for i, k in enumerate(per_type)}
-    out = {"model": "PatchCore (Anomalib) → OpenVINO IR", "threshold": chk.threshold, "input_hw": [chk.h, chk.w],
+    out = {"model": "PatchCore (Anomalib) → OpenVINO IR", "variant": VARIANT or "full_frame", "crop": chk.crop, "threshold": chk.threshold, "input_hw": [chk.h, chk.w],
            "test_good": len(good), "false_positives": fp, "image_auroc": round(_auroc(bad_all, good), 3),
            "detected": int(sum(x >= chk.threshold for x in bad_all)), "test_bad_total": len(bad_all), "per_type": per_type,
            "at_10pct_fpr": {"threshold": round(thr10, 4), "detected": int(sum(x >= thr10 for x in bad_all)), "per_type": tpr10}, "latency_ms": {}}
-    frame = np.asarray(Image.open(sorted((DATA / "test" / "good").glob("*.png"))[0]).convert("RGB"))
+    frame = np.asarray(Image.open(sorted((RAW / "test" / "good").glob("*.png"))[0]).convert("RGB"))
     for dev in devices:
         try:
             c = TableAnomalyCheck(dev)
@@ -107,5 +114,5 @@ if __name__ == "__main__":
     ap.add_argument("--score", action="store_true")
     a = ap.parse_args()
     res = score_all()
-    (ROOT / "results" / "anomaly.json").write_text(json.dumps(res, indent=1))
+    (ROOT / "results" / ("anomaly_crop.json" if VARIANT == "crop" else "anomaly.json")).write_text(json.dumps(res, indent=1))
     print(json.dumps({k: v for k, v in res.items() if k != "per_type"}, indent=1)); print(json.dumps(res["per_type"], indent=1))

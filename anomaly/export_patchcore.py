@@ -10,7 +10,7 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "anomaly" / "model"
+OUT = ROOT / "anomaly" / ("model_crop" if VARIANT == "crop" else "model")
 
 
 def main() -> None:

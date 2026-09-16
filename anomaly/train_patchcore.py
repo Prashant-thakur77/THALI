@@ -15,8 +15,10 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "anomaly" / "data"
-OUT = ROOT / "anomaly" / "model"
+import os
+VARIANT = os.environ.get("THALI_ANOMALY_VARIANT", "")          # "" = full frame, "crop" = table crop (anomaly/crop.py)
+DATA = ROOT / "anomaly" / ("data_crop" if VARIANT == "crop" else "data")
+OUT = ROOT / "anomaly" / ("model_crop" if VARIANT == "crop" else "model")
 
 
 def main() -> None:
