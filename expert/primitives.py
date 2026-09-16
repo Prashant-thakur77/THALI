@@ -659,13 +659,20 @@ class Expert:
         c, sn = math.cos(d), math.sin(d)
         return np.array([[c, -sn, 0], [sn, c, 0], [0, 0, 1.0]]) @ R
 
-    def _roll_wrist(self, arm: str, delta: float, t: float) -> None:
+    def _roll_wrist(self, arm: str, delta: float, t: float, stop: Callable[[], bool] | None = None) -> float:
+        """Roll the wrist joint by ``delta`` over ``t`` seconds; with ``stop`` the roll ends early (checked every
+        control step) and the roll actually applied is returned."""
         n = max(1, int(t / C.DT))
         q0 = float(self.q[arm][4])
+        applied = 0.0
         for k in range(1, n + 1):
             s = k / n
-            self.q[arm][4] = q0 + delta * (3 * s * s - 2 * s * s * s)
+            applied = delta * (3 * s * s - 2 * s * s * s)
+            self.q[arm][4] = q0 + applied
             self.step()
+            if stop is not None and stop():
+                break
+        return applied
 
     def pour(self, arm: str = "a", amount: str | None = None) -> SkillResult:
         """Side-grasp the bottle, carry it beside the held mug, roll the wrist so the spout tips over the rim.
@@ -791,18 +798,22 @@ class Expert:
             n1 = oracles.water_in_mug(self.m, self.d)
             self._roll_wrist(arm, -phi1, 1.0)
         else:
-            chunks = 6
+            chunks = 12
             dphi = (phi - phi1) / chunks
             applied = phi1
 
             def enough() -> bool:
                 return oracles.water_in_mug(self.m, self.d) - n0 >= target
 
+            def enough_soon() -> bool:   # stop the roll one sphere early: what is already in the air still lands
+                return oracles.water_in_mug(self.m, self.d) - n0 >= max(1, target - 1)
+
             for _ in range(chunks):
-                if enough():
+                if enough_soon():
                     break
-                self._roll_wrist(arm, dphi, 0.7)
-                applied += dphi
+                applied += self._roll_wrist(arm, dphi, 0.4, stop=enough_soon)
+                if enough_soon():
+                    break
                 correct(1)
             # hold the tilt until the target count is in (water needs time to run out), at most 1.5 s
             for _ in range(int(1.5 / C.DT)):

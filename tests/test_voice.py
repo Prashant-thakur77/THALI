@@ -73,3 +73,11 @@ def test_voice_results_file():
     assert files["noisy.wav"]["ignored_other_speaker"], "speaker focus should have ignored the background speaker"
     for r in d["rows"]:
         assert all(0 < x < 5 for x in r["partial_to_ready_s"])
+
+
+def test_parser_pour_amount_full_and_little():
+    from voice.parser import parse
+    full = parse("fill the mug with water with arm A")
+    little = parse("pour a little water into the mug with arm A")
+    assert any(i.kind == "pour" and i.amount == "full" for i in full.intents)
+    assert any(i.kind == "pour" and i.amount == "little" for i in little.intents)

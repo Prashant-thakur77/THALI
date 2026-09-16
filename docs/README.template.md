@@ -32,6 +32,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | {{ skill_row("act_60ep") }} | `results/skill_eval_act_60ep.json` |
 | **Per-skill ACT, policy only — retrained on 1050 episodes** | {{ skill_row("act_1050ep") }} | `results/skill_eval_act_1050ep.json` |
 | **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | {{ anomaly_row() }} | `results/anomaly.json` |
+| **Target-volume pour** ("a little" / normal / "fill it up" → 3 / 6 / 12 water spheres; the roll stops when the oracle counts the target) | {{ pour_amount_row() }} | `results/pour_amount.json` |
 | **Both arms at once** (independent steps driven through the expert's step barrier; same seeds, same commands) | {{ concurrency_row() }} | `results/concurrency.json` |
 | **Mid-task perturbation recovery** (plate knocked 10 cm off its zone after its step passed; final-state check must notice and redo it) | {{ load("recovery.json")["detected"] }}/{{ load("recovery.json")["total"] }} detected · {{ load("recovery.json")["recovered"] }}/{{ load("recovery.json")["total"] }} recovered | `results/recovery.json` |
 | **Instruction swap** (arm / object / order) | {{ load("instruction_swap.json")["correct"] }}/{{ load("instruction_swap.json")["total"] }} encoded correctly | `results/instruction_swap.json` |
