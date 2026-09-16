@@ -23,7 +23,10 @@ def _default_model_dir() -> Path:
     """The diff variant when trained (best held-out AUROC), else whatever THALI_ANOMALY_VARIANT names."""
     if VARIANT:
         return ROOT / "anomaly" / f"model_{VARIANT}"
-    return ROOT / "anomaly" / ("model_diff" if (ROOT / "anomaly" / "model_diff").exists() else "model")
+    for name in ("model_diffreal", "model_diff", "model"):
+        if (ROOT / "anomaly" / name).exists():
+            return ROOT / "anomaly" / name
+    return ROOT / "anomaly" / "model"
 
 
 MODEL_DIR = _default_model_dir()
@@ -57,7 +60,7 @@ class TableAnomalyCheck:
         self.out_score = next((o for o in self.compiled.outputs if "pred_score" in o.get_any_name()), self.compiled.outputs[0])
         self.device = device
         self.crop = str(model_dir).endswith("model_crop")   # trained on table crops: crop live frames the same way
-        self.diff = str(model_dir).endswith("model_diff")   # trained on |frame - reset reference| crops
+        self.diff = "diff" in Path(model_dir).name          # model_diff*: trained on |frame - reset reference| crops
         self.reference: np.ndarray | None = None
 
     def set_reference(self, frame: np.ndarray) -> None:
