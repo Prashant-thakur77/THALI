@@ -42,6 +42,10 @@ def anomaly_row() -> str:
         src = "nominal set from real expert runs (post-skill states)" if d.get("variant") == "diffreal" else "synthetic nominal set"
         parts.append(f"abs(frame − reset reference) crop, resnet18, {src}: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
                      f"{d['false_positives']}/{d['test_good']} false alarms ({per}) · at 10% false alarms {op['detected']}/{d['test_bad_total']} · IR p50 {lat}")
+    live = load("recovery_anomaly.json")
+    if live:
+        parts.append(f"**live, in the loop** (plate knocked mid-task, 10%-FPR threshold): flagged at the next check in {live['anomaly_flagged_after_knock']}/{live['total']} runs, "
+                     f"{live['anomaly_false_alarms_before_knock']}/{live['total']} false alarms on clean steps, table nominal again after the redo")
     for name, label in (("anomaly.json", "full frame, wide_resnet50"), ("anomaly_crop.json", "table crop, resnet18"), ("anomaly_diff.json", "diff on the synthetic nominal set")):
         a = load(name)
         if a:
