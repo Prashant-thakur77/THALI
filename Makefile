@@ -4,7 +4,7 @@ DEVICE ?= CPU
 PY     ?= .venv/bin/python
 export MUJOCO_GL ?= glfw   # EGL is broken on this box, see docs/BLOCKERS.md
 
-.PHONY: demos train eval bench demo verify-log test scene
+.PHONY: demos train eval bench demo verify-log test scene inject
 
 EPISODES ?= 60
 demos:        ## Phase 2 — scripted-expert demos (4 parallel shards, EPISODES=$(EPISODES) per skill) -> LeRobotDataset, pushed if HF_TOKEN is set
@@ -30,8 +30,12 @@ bench:        ## Phase 8 — OpenVINO bench (DEVICE=$(DEVICE); CPU|GPU only, no 
 demo:         ## Phase 7 — voice -> planner -> verifier -> arms
 	@echo "demo: not implemented"
 
-verify-log:   ## Phase 5 — recompute the hash chain of the audit log
-	@echo "verify-log: not implemented"
+LOG ?= results/verifier_injection_audit.jsonl
+verify-log:   ## Phase 5 — recompute the hash chain of an audit log (LOG=$(LOG)); exit 1 if tampered
+	$(PY) -m verifier.audit verify $(LOG)
+
+inject:       ## Phase 5 — 20 unsafe plans through the verifier -> results/verifier_injection.json
+	$(PY) -m verifier.inject_bad_plans
 
 test:         ## run the pytest suite
 	$(PY) -m pytest -q

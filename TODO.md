@@ -31,9 +31,9 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [ ] 4.3 `replan(frame, remaining_plan, failure_reason)` entry point
 
 ## Phase 5 — Verifier + audit
-- [ ] 5.1 `verifier/rules.py`: reachability, grasp precondition, workspace reservation, drawer-open-before-cutlery, pour-only-if-mug-held-under-spout, joint velocity limits → `ALLOW | REORDER | BLOCK` + reason
-- [ ] 5.2 `verifier/audit.py`: JSON lines with `prev_hash`, `sha256`; `make verify-log` recomputes
-- [ ] 5.3 `verifier/inject_bad_plans.py`: 20 unsafe/impossible plans → "20/20 caught" table in `results/`
+- [x] 5.1 (`ALLOW | REORDER | BLOCK`, 10 coded rules, reach via mink IK; velocity check is a runtime hook `check_velocity`) `verifier/rules.py`: reachability, grasp precondition, workspace reservation, drawer-open-before-cutlery, pour-only-if-mug-held-under-spout, joint velocity limits → `ALLOW | REORDER | BLOCK` + reason
+- [x] 5.2 `verifier/audit.py`: JSON lines with `prev_hash`, `sha256`; `make verify-log` recomputes
+- [x] 5.3 (20/20 caught + 6/6 sane plans passed → `results/verifier_injection.json`) `verifier/inject_bad_plans.py`: 20 unsafe/impossible plans → "20/20 caught" table in `results/`
 
 ## Phase 6 — Voice
 - [ ] 6.1 `voice/listen.py` (speechmatics-rt): 16 kHz PCM, `enable_partials`, `diarization="speaker"`, `additional_vocab`, `end_of_utterance_silence_trigger=0.6`, dispatch on `END_OF_UTTERANCE`; ASR-tolerant parser ported from duet `src/lib/language`

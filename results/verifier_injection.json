@@ -1,0 +1,330 @@
+{
+  "bad_plans": 20,
+  "caught": 20,
+  "good_plans": 6,
+  "good_passed": 6,
+  "audit_chain": {
+    "ok": true,
+    "records": 26,
+    "first_bad_seq": null,
+    "reason": "chain intact"
+  },
+  "rows": [
+    {
+      "name": "pour_without_hold",
+      "expected_code": "POUR_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "POUR_PRECOND"
+      ],
+      "caught": true,
+      "reasons": [
+        "pour by arm a requires the mug held by arm b under the spout"
+      ]
+    },
+    {
+      "name": "pour_same_arm_holds_mug",
+      "expected_code": "POUR_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "POUR_PRECOND",
+        "REACH"
+      ],
+      "caught": true,
+      "reasons": [
+        "mug is out of reach of arm a",
+        "pour by arm a requires the mug held by arm b under the spout"
+      ]
+    },
+    {
+      "name": "pour_after_mug_set_down",
+      "expected_code": "POUR_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "POUR_PRECOND"
+      ],
+      "caught": true,
+      "reasons": [
+        "pour by arm a requires the mug held by arm b under the spout"
+      ]
+    },
+    {
+      "name": "handoff_to_self",
+      "expected_code": "SELF_HANDOFF",
+      "verdict": "BLOCK",
+      "codes": [
+        "REACH",
+        "SELF_HANDOFF"
+      ],
+      "caught": true,
+      "reasons": [
+        "handoff to the same arm",
+        "zone spoon is out of reach of the receiving arm a"
+      ]
+    },
+    {
+      "name": "unknown_object",
+      "expected_code": "SCHEMA|UNKNOWN_OBJECT",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "obj='knife' not in ['plate', 'mug', 'bottle', 'fork_1', 'fork_2', 'spoon_1', 'spoon_2', None]"
+      ]
+    },
+    {
+      "name": "unknown_zone",
+      "expected_code": "SCHEMA|UNKNOWN_OBJECT",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "zone='sink' not in ['plate', 'fork', 'spoon', 'mug', None]"
+      ]
+    },
+    {
+      "name": "unknown_skill",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "skill='throw' not in ['open_drawer', 'pick_place', 'handoff', 'hold_mug', 'pour', 'place_mug']"
+      ]
+    },
+    {
+      "name": "unknown_arm",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "arm='c' not in ['a', 'b']"
+      ]
+    },
+    {
+      "name": "empty_plan",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "steps must be a non-empty list"
+      ]
+    },
+    {
+      "name": "too_many_steps",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "too many steps (13)"
+      ]
+    },
+    {
+      "name": "extra_keys",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "unexpected key 'force'"
+      ]
+    },
+    {
+      "name": "bad_mode",
+      "expected_code": "SCHEMA",
+      "verdict": "BLOCK",
+      "codes": [
+        "SCHEMA"
+      ],
+      "caught": true,
+      "reasons": [
+        "bad mode 'fast'"
+      ]
+    },
+    {
+      "name": "spoon_zone_out_of_reach_for_a",
+      "expected_code": "REACH",
+      "verdict": "BLOCK",
+      "codes": [
+        "REACH"
+      ],
+      "caught": true,
+      "reasons": [
+        "zone spoon is out of reach of arm a (needs a handoff)"
+      ]
+    },
+    {
+      "name": "mug_at_b_side_picked_by_a",
+      "expected_code": "REACH",
+      "verdict": "BLOCK",
+      "codes": [
+        "REACH"
+      ],
+      "caught": true,
+      "reasons": [
+        "mug at (0.17,-0.22) is out of reach of arm a"
+      ]
+    },
+    {
+      "name": "plate_into_fork_zone",
+      "expected_code": "ZONE_MISMATCH",
+      "verdict": "BLOCK",
+      "codes": [
+        "ZONE_MISMATCH"
+      ],
+      "caught": true,
+      "reasons": [
+        "plate does not belong in zone 'fork'"
+      ]
+    },
+    {
+      "name": "place_mug_without_holding",
+      "expected_code": "GRASP_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "GRASP_PRECOND"
+      ],
+      "caught": true,
+      "reasons": [
+        "arm b does not hold the mug"
+      ]
+    },
+    {
+      "name": "two_objects_one_arm",
+      "expected_code": "GRASP_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "GRASP_PRECOND",
+        "REACH"
+      ],
+      "caught": true,
+      "reasons": [
+        "arm b already holds mug",
+        "plate is out of reach of arm b"
+      ]
+    },
+    {
+      "name": "workspace_double_booking",
+      "expected_code": "WORKSPACE",
+      "verdict": "BLOCK",
+      "codes": [
+        "GRASP_PRECOND",
+        "WORKSPACE"
+      ],
+      "caught": true,
+      "reasons": [
+        "receiving arm b holds mug",
+        "shared zone reserved by arm b"
+      ]
+    },
+    {
+      "name": "handoff_into_busy_arm",
+      "expected_code": "GRASP_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "GRASP_PRECOND",
+        "WORKSPACE"
+      ],
+      "caught": true,
+      "reasons": [
+        "receiving arm b holds mug",
+        "shared zone reserved by arm b"
+      ]
+    },
+    {
+      "name": "handoff_object_held_by_other_arm",
+      "expected_code": "GRASP_PRECOND",
+      "verdict": "BLOCK",
+      "codes": [
+        "GRASP_PRECOND",
+        "WORKSPACE"
+      ],
+      "caught": true,
+      "reasons": [
+        "mug is held by arm b",
+        "receiving arm b holds mug",
+        "shared zone reserved by arm b"
+      ]
+    }
+  ],
+  "good_rows": [
+    {
+      "name": "full_task",
+      "verdict": "ALLOW",
+      "codes": [],
+      "passed": true,
+      "reordered_steps": null
+    },
+    {
+      "name": "cutlery_before_drawer_reorderable",
+      "verdict": "REORDER",
+      "codes": [
+        "ORDER"
+      ],
+      "passed": true,
+      "reordered_steps": [
+        "open_drawer",
+        "pick_place"
+      ]
+    },
+    {
+      "name": "pour_before_hold_reorderable",
+      "verdict": "REORDER",
+      "codes": [
+        "ORDER"
+      ],
+      "passed": true,
+      "reordered_steps": [
+        "hold_mug",
+        "pour"
+      ]
+    },
+    {
+      "name": "gentle_mode",
+      "verdict": "ALLOW",
+      "codes": [],
+      "passed": true,
+      "reordered_steps": null
+    },
+    {
+      "name": "just_the_plate",
+      "verdict": "ALLOW",
+      "codes": [],
+      "passed": true,
+      "reordered_steps": null
+    },
+    {
+      "name": "missing_open_drawer_inserted",
+      "verdict": "REORDER",
+      "codes": [
+        "ORDER"
+      ],
+      "passed": true,
+      "reordered_steps": [
+        "open_drawer",
+        "hold_mug",
+        "pick_place",
+        "pour"
+      ]
+    }
+  ],
+  "seed": 0,
+  "split": "train"
+}

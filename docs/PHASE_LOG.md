@@ -105,3 +105,21 @@ was wrong or infeasible, and which rubric rows (plan §4) are satisfied with evi
 | Reproducibility | partial — `make demos` real; HF push pending token |
 | Innovation | open |
 | Speechmatics | open |
+
+---
+
+## Phase 5 — Verifier + audit
+
+**Built** (`verifier/`, `planner/schema.json`):
+- `planner/schema.json`: the plan contract shared by planner, verifier and runtime — `steps[{skill, arm, obj, zone, to_arm, amount}]`, `mode: normal|gentle`.
+- `rules.py`: `Verifier.verify(plan, World) -> ALLOW | REORDER | BLOCK` with coded issues (SCHEMA, UNKNOWN_OBJECT, REACH, GRASP_PRECOND, WORKSPACE, POUR_PRECOND, ORDER, VELOCITY, SELF_HANDOFF, ZONE_MISMATCH). The plan is simulated step by step on a symbolic world built from the scene description, so preconditions are checked in the state each step will actually see. Reach uses the same mink IK bar as the expert. `ORDER` issues (cutlery before open_drawer, pour before hold_mug) are repaired by `_reorder` and returned as REORDER with the fixed plan; everything else is BLOCK. `check_velocity` is the per-step joint-velocity hook for the runtime (3 rad/s, halved in gentle mode).
+- `audit.py`: JSON-lines log, each record hashed (sha256 over canonical JSON) and chained through `prev_hash` from a genesis of 64 zeros; `verify()` recomputes and names the first bad line. `make verify-log LOG=...`.
+- `inject_bad_plans.py`: 20 unsafe/impossible plans + 6 sane plans (2 of them only valid after reorder) against seed 0's real scene state; every decision is appended to a hash-chained log.
+
+**Measured:** `results/verifier_injection.json` — **20/20 unsafe plans caught, 6/6 sane plans passed**; the run's own audit log `results/verifier_injection_audit.jsonl` verifies intact.
+
+**Plan deviations:** the verifier operates on the plan/world level; joint-velocity limits are enforced at runtime per command (`check_velocity`) rather than at plan time, because a plan carries no joint trajectory. Two of the 20 injected cases (unknown object/zone) are caught by the schema enum before the world check, which is the intended defence in depth.
+
+**Tests:** 10 new in `tests/test_verifier.py` (rules, reorder, velocity/gentle, audit tamper detection, results consistency).
+
+**Rubric status after Phase 5:** Innovation row now has evidence (20/20 + hash chain); the rest unchanged from Phase 2.
