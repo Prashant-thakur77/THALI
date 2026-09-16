@@ -150,7 +150,7 @@ def parse(raw: str) -> ParseResult:
         elif "drawer" in c and re.search(r"\b(open|pull|slide)\b", c):
             res.intents.append(Intent("open_drawer", arm=arm, gentle=gentle, phrase=c))
         elif re.search(r"\b(pour|fill)\b", c) or (obj == "bottle" and re.search(r"\binto\b", c)):
-            amount = "little" if re.search(r"\b(little|bit|half|some)\b", c) else "normal"
+            amount = "little" if re.search(r"\b(little|bit|half|some)\b", c) else ("full" if re.search(r"\b(full|fill|brim|top)\b", c) else "normal")
             res.intents.append(Intent("pour", arm=arm, amount=amount, gentle=gentle, phrase=c))
         elif re.search(r"\b(hand|pass|give|transfer)\b", c):
             to = None
@@ -187,7 +187,7 @@ def intents_to_command(intents: list[Intent]) -> str:
         elif i.kind == "hold_mug":
             parts.append(f"hold the mug{arm}")
         elif i.kind == "pour":
-            parts.append(("pour a little water" if i.amount == "little" else "pour water") + f" into the mug{arm}")
+            parts.append(("pour a little water" if i.amount == "little" else "fill the mug with water" if i.amount == "full" else "pour water") + f" into the mug{arm}")
         if i.gentle and "gently" not in parts[-1:]:
             parts[-1] += " gently"
     return ", ".join(parts)

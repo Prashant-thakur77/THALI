@@ -67,6 +67,7 @@ OBJECTS = ("plate", "mug", "bottle", "fork_1", "fork_2", "spoon_1", "spoon_2")
 CUTLERY = ("fork_1", "fork_2", "spoon_1", "spoon_2")
 N_WATER = 20                    # free spheres inside the bottle
 POURED_MIN_SPHERES = 6          # "poured" = at least this many spheres inside the mug
+POUR_TARGET_SPHERES = {"little": 3, "normal": 6, "full": 12}   # "a little" / default / "fill it up" -> spheres to deliver
 
 # Place-setting target zones on the table top (x, y) and acceptance radius (m).
 # Start boxes (build_scene + randomize.PLACEMENT_HALF) never overlap a zone: plate starts at y <= -0.21, mug at y <= -0.18.

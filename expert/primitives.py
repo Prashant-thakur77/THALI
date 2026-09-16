@@ -667,10 +667,14 @@ class Expert:
             self.q[arm][4] = q0 + delta * (3 * s * s - 2 * s * s * s)
             self.step()
 
-    def pour(self, arm: str = "a") -> SkillResult:
-        """Side-grasp the bottle, carry it beside the held mug, roll the wrist so the spout tips over the rim."""
+    def pour(self, arm: str = "a", amount: str | None = None) -> SkillResult:
+        """Side-grasp the bottle, carry it beside the held mug, roll the wrist so the spout tips over the rim.
+
+        ``amount`` ("little" / "normal" / "full") sets the sphere count to deliver (constants.POUR_TARGET_SPHERES);
+        the roll stops and reverses as soon as that many spheres are in the mug (closed loop on the oracle)."""
         start = self.steps
         n0 = oracles.water_in_mug(self.m, self.d)
+        target = C.POUR_TARGET_SPHERES.get(amount or "normal", C.POURED_MIN_SPHERES)
         if oracles.mug_held(self.m, self.d) == arm:
             return SkillResult("pour", False, 0, {"reason": "pouring arm holds the mug"})
         p_b0 = self.obj_pose("bottle")[0].copy()
@@ -789,12 +793,24 @@ class Expert:
         else:
             chunks = 6
             dphi = (phi - phi1) / chunks
+            applied = phi1
+
+            def enough() -> bool:
+                return oracles.water_in_mug(self.m, self.d) - n0 >= target
+
             for _ in range(chunks):
+                if enough():
+                    break
                 self._roll_wrist(arm, dphi, 0.7)
+                applied += dphi
                 correct(1)
-            self.settle(1.0)
+            # hold the tilt until the target count is in (water needs time to run out), at most 1.5 s
+            for _ in range(int(1.5 / C.DT)):
+                if enough():
+                    break
+                self.step()
             n1 = oracles.water_in_mug(self.m, self.d)
-            self._roll_wrist(arm, -phi, 1.5)
+            self._roll_wrist(arm, -applied, 1.5)
         self.settle(0.3)
         # put the bottle back where it was and let go
         back_site = np.array([p_b0[0], p_b0[1], 0.0]) + np.array([0, 0, GZ]) - site_to_grasp0
@@ -806,8 +822,9 @@ class Expert:
         self.open_jaw(arm, width=0.04)
         self.move(arm, back_site - R0[:, 0] * 0.06 + np.array([0, 0, 0.05]), R0)
         self.park(arm)
-        ok = (n1 - n0) >= C.POURED_MIN_SPHERES
-        return SkillResult("pour", ok, self.steps - start, {"arm": arm, "spheres_before": n0, "spheres_after": n1, "phi": phi, "aborted": aborted})
+        ok = (n1 - n0) >= target
+        return SkillResult("pour", ok, self.steps - start, {"arm": arm, "amount": amount or "normal", "target_spheres": target, "poured": n1 - n0,
+                                                          "spheres_before": n0, "spheres_after": n1, "phi": phi, "aborted": aborted})
 
 
 def _slerp_mat(R0: np.ndarray, R1: np.ndarray, s: float) -> np.ndarray:

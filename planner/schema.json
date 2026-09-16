@@ -21,7 +21,7 @@
           "obj": {"type": ["string", "null"], "enum": ["plate", "mug", "bottle", "fork_1", "fork_2", "spoon_1", "spoon_2", null]},
           "zone": {"type": ["string", "null"], "enum": ["plate", "fork", "spoon", "mug", null]},
           "to_arm": {"type": ["string", "null"], "enum": ["a", "b", null]},
-          "amount": {"type": ["string", "null"], "enum": ["little", "normal", null]}
+          "amount": {"type": ["string", "null"], "enum": ["little", "normal", "full", null]}
         }
       }
     }

@@ -5,7 +5,7 @@ Skills (one JSON object per step):
 - {"skill":"pick_place","arm":A,"obj":O,"zone":Z}  — pick O with arm A and place it in zone Z. Zones: "plate" (centre-left), "fork" (left of the plate, arm A's side), "spoon" (right of the plate, arm B's side), "mug" (right, arm B's side)
 - {"skill":"handoff","arm":A,"obj":O,"to_arm":B,"zone":Z}  — arm A carries O to the centre, arm B takes it and places it in Z
 - {"skill":"hold_mug","arm":B}  — arm B lifts the mug and holds it steady under the spout
-- {"skill":"pour","arm":A,"amount":"normal"|"little"}  — arm A pours the bottle into the mug held by the OTHER arm (never the same arm)
+- {"skill":"pour","arm":A,"amount":"normal"|"little"|"full"}  — arm A pours the bottle into the mug held by the OTHER arm (never the same arm)
 - {"skill":"place_mug","arm":B}  — the arm holding the mug sets it down in the mug zone
 
 Objects: plate, mug, bottle, fork_1, fork_2, spoon_1, spoon_2. Arms: "a" or "b".

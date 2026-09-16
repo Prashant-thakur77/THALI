@@ -90,7 +90,7 @@ class ExpertExecutor:
 
     def run(self, step: dict) -> SkillResult:
         from expert.task import Step
-        return Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm")).run(self.ex)
+        return Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm"), amount=step.get("amount")).run(self.ex)
 
 
 class Runtime:

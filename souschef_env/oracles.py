@@ -97,6 +97,11 @@ def poured(model: mujoco.MjModel, data: mujoco.MjData) -> bool:
     return water_in_mug(model, data) >= C.POURED_MIN_SPHERES
 
 
+def poured_amount(model: mujoco.MjModel, data: mujoco.MjData, amount: str | None) -> bool:
+    """Amount-aware pour goal: at least the target sphere count for ``amount`` (None -> "normal")."""
+    return water_in_mug(model, data) >= C.POUR_TARGET_SPHERES.get(amount or "normal", C.POURED_MIN_SPHERES)
+
+
 def subgoals(model: mujoco.MjModel, data: mujoco.MjData) -> dict[str, bool]:
     return {
         "drawer_open": drawer_open(model, data),

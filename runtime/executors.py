@@ -65,7 +65,7 @@ def skill_done(ex: Expert, step: dict) -> bool:
     if sk == "hold_mug":
         return oracles.mug_held(m, d) == step["arm"] and abs(oracles.object_pos(m, d, "mug")[2] - C.POUR_POSE[2]) < 0.03
     if sk == "pour":
-        return oracles.poured(m, d)
+        return oracles.poured_amount(m, d, step.get("amount"))
     if sk == "place_mug":
         return oracles.object_in_zone(m, d, "mug", "mug")
     return False
@@ -169,7 +169,7 @@ class PolicyExecutor:
         pol = self._policy_for(skill) if skill else None
         stages: list[dict] = []
         if pol is None:
-            r = Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm")).run(self.ex)
+            r = Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm"), amount=step.get("amount")).run(self.ex)
             r.detail = {**r.detail, "stage": "expert_only", "reason": "no policy for this step", "stages": []}
             return r
         ok, n, dt = self._rollout(pol, step, skill)
@@ -182,7 +182,7 @@ class PolicyExecutor:
         if not ok and self.mode == "policy_fallback":
             self.ex.open_jaw(step["arm"])
             self.ex.park(step["arm"])
-            r = Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm")).run(self.ex)
+            r = Step(step["skill"], step["arm"], step.get("obj"), step.get("zone"), step.get("to_arm"), amount=step.get("amount")).run(self.ex)
             ok = bool(r.ok)
             stages.append({"stage": "fallback", "ok": ok, "steps": int(r.steps)})
         else:

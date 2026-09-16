@@ -21,6 +21,7 @@ class Step:
     obj: str | None = None
     zone: str | None = None
     arm2: str | None = None
+    amount: str | None = None   # pour only: "little" / "normal" / "full"
 
     def run(self, ex: Expert) -> SkillResult:
         if self.skill == "open_drawer":
@@ -32,7 +33,7 @@ class Step:
         if self.skill == "hold_mug":
             return ex.hold_mug(self.arm)
         if self.skill == "pour":
-            return ex.pour(self.arm)
+            return ex.pour(self.arm, self.amount)
         if self.skill == "place_mug":
             (zx, zy), _ = C.ZONES["mug"]
             r = ex.place("mug", self.arm, (zx, zy))

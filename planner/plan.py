@@ -110,7 +110,7 @@ def normalise(plan: dict) -> dict:
         to = s.get("to_arm", s.get("to"))
         t["to_arm"] = arm_map.get(str(to).lower().strip()) if to is not None else None
         if t["skill"] == "pour":
-            t["amount"] = s.get("amount") if s.get("amount") in ("little", "normal") else "normal"
+            t["amount"] = s.get("amount") if s.get("amount") in ("little", "normal", "full") else "normal"
         # fill the obvious defaults so the schema does not reject a terse but correct answer
         if t["skill"] == "hold_mug":
             t["obj"] = None
@@ -149,6 +149,7 @@ def rule_plan(command: str, scene: dict | None = None) -> dict:
     t = command.lower()
     gentle = "gentl" in t or "slow" in t or "careful" in t
     little = "little" in t or "bit" in t or "half" in t
+    full = "full" in t or "fill" in t or "to the top" in t or "brim" in t
     done = (scene or {}).get("subgoals", {})
     drawer_open = bool((scene or {}).get("drawer", {}).get("open", False))
     steps: list[dict] = []
@@ -176,7 +177,7 @@ def rule_plan(command: str, scene: dict | None = None) -> dict:
             pour_arm = _arm_in(seg, "a")
         hold_arm = "b" if pour_arm == "a" else "a"
         steps.append({"skill": "hold_mug", "arm": hold_arm})
-        steps.append({"skill": "pour", "arm": pour_arm, "amount": "little" if little else "normal"})
+        steps.append({"skill": "pour", "arm": pour_arm, "amount": "little" if little else ("full" if full else "normal")})
         steps.append({"skill": "place_mug", "arm": hold_arm})
     elif want_mug and not done.get("mug_placed"):
         steps.append({"skill": "pick_place", "arm": "b", "obj": "mug", "zone": "mug"})  # mug and its zone: arm B's side
