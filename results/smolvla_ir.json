@@ -1,0 +1,53 @@
+{
+  "source": "lerobot/smolvla_base",
+  "component": "SigLIP vision encoder + connector (frozen in SmolVLA fine-tuning)",
+  "input": "1x3x512x512",
+  "output_shape": [
+    1,
+    64,
+    960
+  ],
+  "load_convert_s": 23.4,
+  "precisions": {
+    "fp32": {
+      "size_mb": 397.5,
+      "max_abs_diff_vs_torch": 4.4345855712890625e-05
+    },
+    "fp16": {
+      "size_mb": 199.1,
+      "max_abs_diff_vs_torch": 28.93240737915039
+    }
+  },
+  "bench": [
+    {
+      "precision": "fp32",
+      "device": "CPU",
+      "n": 15,
+      "p50_ms": 417.0,
+      "p95_ms": 446.4
+    },
+    {
+      "precision": "fp32",
+      "device": "GPU",
+      "n": 2,
+      "p50_ms": 4423.6,
+      "p95_ms": 4426.7
+    },
+    {
+      "precision": "fp16",
+      "device": "CPU",
+      "n": 14,
+      "p50_ms": 441.2,
+      "p95_ms": 446.0
+    },
+    {
+      "precision": "fp16",
+      "device": "GPU",
+      "n": 2,
+      "p50_ms": 4437.5,
+      "p95_ms": 4440.7
+    }
+  ],
+  "action_expert": "exported from the fine-tuned checkpoint when Prashant-77/thali_smolvla exists (pending)",
+  "caption": "measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d NPU and static shapes, not measured here."
+}

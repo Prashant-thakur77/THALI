@@ -5,7 +5,7 @@
 - Data: `Prashant-77/thali_all` — 60 scripted-expert episodes per skill (420 total,
   299233 frames, 50 Hz), train-split randomisation, 10 % deliberate-miss recovery episodes for pick skills.
 - Training: batch 8, AMP, 8 000 steps, seed 1000, RTX 3050 6 GB (~29 min/skill) — `policies/train_act.sh`, `policies/act_<skill>.yaml`.
-- Evaluation: `results/seeds_act_*_test.json` (policy-only pending, +retry pending, +fallback pending on the held-out split).
+- Evaluation: `results/seeds_act_*_test.json` (policy-only 0/10, +retry 0/10, +fallback 0/10 on the held-out split).
 - OpenVINO: fp32 / fp16 / NNCF int8 IRs (`results/ir_export.json`), preservation in `results/preserve.json`.
 - Intended use: skill execution inside the Thali runtime, with the verifier gating every plan and the expert as fallback. Not for real hardware without re-training on real data.
 

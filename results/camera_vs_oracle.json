@@ -1,21 +1,36 @@
 {
-  "seeds": 4,
+  "seeds": 10,
   "split": "test",
   "backends": {
     "pixels": {
-      "judgements": 192,
-      "agreement": 0.781,
-      "precision": 0.765,
-      "recall": 0.812,
+      "judgements": 480,
+      "agreement": 0.844,
+      "precision": 0.826,
+      "recall": 0.858,
       "per_subgoal_agreement": {
         "drawer_open": 1.0,
-        "plate_placed": 0.812,
-        "fork_placed": 0.812,
-        "spoon_placed": 0.688,
-        "mug_placed": 0.938,
-        "poured": 0.438
+        "plate_placed": 0.875,
+        "fork_placed": 0.85,
+        "spoon_placed": 0.875,
+        "mug_placed": 0.95,
+        "poured": 0.512
       },
-      "mean_latency_s": 0.002
+      "mean_latency_s": 0.004
+    },
+    "vlm": {
+      "judgements": 480,
+      "agreement": 0.383,
+      "precision": 0.289,
+      "recall": 0.19,
+      "per_subgoal_agreement": {
+        "drawer_open": 0.237,
+        "plate_placed": 0.412,
+        "fork_placed": 0.325,
+        "spoon_placed": 0.375,
+        "mug_placed": 0.125,
+        "poured": 0.825
+      },
+      "mean_latency_s": 4.906
     }
   },
   "judgements": [
@@ -31,11 +46,29 @@
     {
       "seed": 0,
       "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 18.305
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.834
     },
     {
       "seed": 0,
@@ -44,7 +77,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.667
     },
     {
       "seed": 0,
@@ -58,11 +100,29 @@
     {
       "seed": 0,
       "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.843
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.904
     },
     {
       "seed": 0,
@@ -71,7 +131,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.012
+    },
+    {
+      "seed": 0,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.673
     },
     {
       "seed": 0,
@@ -80,7 +149,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.003
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.031
     },
     {
       "seed": 0,
@@ -89,7 +167,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.067
     },
     {
       "seed": 0,
@@ -98,7 +185,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.785
     },
     {
       "seed": 0,
@@ -112,11 +208,29 @@
     {
       "seed": 0,
       "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 6.303
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.014
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 5.703
     },
     {
       "seed": 0,
@@ -125,7 +239,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.943
     },
     {
       "seed": 0,
@@ -139,11 +262,29 @@
     {
       "seed": 0,
       "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.855
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.383
     },
     {
       "seed": 0,
@@ -157,6 +298,15 @@
     {
       "seed": 0,
       "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.783
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -166,11 +316,29 @@
     {
       "seed": 0,
       "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.92
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.01
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.629
     },
     {
       "seed": 0,
@@ -179,7 +347,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.01
+    },
+    {
+      "seed": 0,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.676
     },
     {
       "seed": 0,
@@ -193,11 +370,29 @@
     {
       "seed": 0,
       "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 9.612
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.857
     },
     {
       "seed": 0,
@@ -211,6 +406,15 @@
     {
       "seed": 0,
       "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.624
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -220,11 +424,29 @@
     {
       "seed": 0,
       "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.788
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.861
     },
     {
       "seed": 0,
@@ -233,7 +455,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.526
     },
     {
       "seed": 0,
@@ -242,7 +473,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.405
     },
     {
       "seed": 0,
@@ -251,7 +491,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.59
     },
     {
       "seed": 0,
@@ -265,6 +514,15 @@
     {
       "seed": 0,
       "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.355
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -274,11 +532,29 @@
     {
       "seed": 0,
       "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.778
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.625
     },
     {
       "seed": 0,
@@ -287,7 +563,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 0,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.277
     },
     {
       "seed": 0,
@@ -301,11 +586,29 @@
     {
       "seed": 0,
       "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.738
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.512
     },
     {
       "seed": 0,
@@ -319,6 +622,15 @@
     {
       "seed": 0,
       "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.107
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -328,11 +640,29 @@
     {
       "seed": 0,
       "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.429
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.404
     },
     {
       "seed": 0,
@@ -341,7 +671,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 0,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.992
     },
     {
       "seed": 0,
@@ -355,11 +694,29 @@
     {
       "seed": 0,
       "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.878
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
       "subgoal": "plate_placed",
       "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
       "camera": true,
-      "oracle": true,
-      "latency_s": 0.003
+      "oracle": false,
+      "latency_s": 3.114
     },
     {
       "seed": 0,
@@ -373,6 +730,15 @@
     {
       "seed": 0,
       "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.403
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -382,11 +748,29 @@
     {
       "seed": 0,
       "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.274
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.33
     },
     {
       "seed": 0,
@@ -395,7 +779,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 0,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.387
     },
     {
       "seed": 0,
@@ -409,11 +802,29 @@
     {
       "seed": 0,
       "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 9.235
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
       "subgoal": "plate_placed",
       "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
       "camera": true,
-      "oracle": true,
-      "latency_s": 0.003
+      "oracle": false,
+      "latency_s": 3.414
     },
     {
       "seed": 0,
@@ -427,6 +838,15 @@
     {
       "seed": 0,
       "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.175
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -436,11 +856,29 @@
     {
       "seed": 0,
       "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.354
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.809
     },
     {
       "seed": 0,
@@ -449,7 +887,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.011
+    },
+    {
+      "seed": 0,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.551
     },
     {
       "seed": 1,
@@ -463,11 +910,29 @@
     {
       "seed": 1,
       "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 10.2
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.812
     },
     {
       "seed": 1,
@@ -476,7 +941,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.738
     },
     {
       "seed": 1,
@@ -490,20 +964,47 @@
     {
       "seed": 1,
       "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.248
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.873
     },
     {
       "seed": 1,
       "after_step": 0,
       "subgoal": "poured",
       "backend": "pixels",
-      "camera": true,
+      "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.286
     },
     {
       "seed": 1,
@@ -517,11 +1018,29 @@
     {
       "seed": 1,
       "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.638
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.233
     },
     {
       "seed": 1,
@@ -535,6 +1054,15 @@
     {
       "seed": 1,
       "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.305
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -544,11 +1072,29 @@
     {
       "seed": 1,
       "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.335
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.374
     },
     {
       "seed": 1,
@@ -557,7 +1103,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 1,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.463
     },
     {
       "seed": 1,
@@ -571,11 +1126,29 @@
     {
       "seed": 1,
       "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.426
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.992
     },
     {
       "seed": 1,
@@ -584,7 +1157,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.04
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.636
     },
     {
       "seed": 1,
@@ -598,11 +1180,29 @@
     {
       "seed": 1,
       "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.419
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.02
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.624
     },
     {
       "seed": 1,
@@ -611,7 +1211,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.534
     },
     {
       "seed": 1,
@@ -625,11 +1234,29 @@
     {
       "seed": 1,
       "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 9.455
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.004
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.594
     },
     {
       "seed": 1,
@@ -638,7 +1265,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.76
     },
     {
       "seed": 1,
@@ -652,11 +1288,29 @@
     {
       "seed": 1,
       "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.51
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.004
+      "latency_s": 0.009
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.103
     },
     {
       "seed": 1,
@@ -665,7 +1319,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.004
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.421
     },
     {
       "seed": 1,
@@ -679,11 +1342,29 @@
     {
       "seed": 1,
       "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.993
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.203
     },
     {
       "seed": 1,
@@ -697,6 +1378,15 @@
     {
       "seed": 1,
       "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.582
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -706,11 +1396,29 @@
     {
       "seed": 1,
       "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.602
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.009
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.325
     },
     {
       "seed": 1,
@@ -719,7 +1427,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.357
     },
     {
       "seed": 1,
@@ -728,7 +1445,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.122
     },
     {
       "seed": 1,
@@ -737,7 +1463,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.768
     },
     {
       "seed": 1,
@@ -751,6 +1486,15 @@
     {
       "seed": 1,
       "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.875
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -760,11 +1504,29 @@
     {
       "seed": 1,
       "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.578
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.025
     },
     {
       "seed": 1,
@@ -773,7 +1535,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 1,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.778
     },
     {
       "seed": 1,
@@ -787,11 +1558,29 @@
     {
       "seed": 1,
       "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.037
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.577
     },
     {
       "seed": 1,
@@ -805,6 +1594,15 @@
     {
       "seed": 1,
       "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.55
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -814,11 +1612,29 @@
     {
       "seed": 1,
       "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.356
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.013
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.46
     },
     {
       "seed": 1,
@@ -826,8 +1642,17 @@
       "subgoal": "poured",
       "backend": "pixels",
       "camera": true,
-      "oracle": false,
-      "latency_s": 0.003
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.014
     },
     {
       "seed": 1,
@@ -836,7 +1661,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.002
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.989
     },
     {
       "seed": 1,
@@ -845,7 +1679,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.604
     },
     {
       "seed": 1,
@@ -859,6 +1702,15 @@
     {
       "seed": 1,
       "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.214
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": true,
@@ -868,155 +1720,317 @@
     {
       "seed": 1,
       "after_step": 7,
-      "subgoal": "mug_placed",
-      "backend": "pixels",
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 3.276
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.078
     },
     {
       "seed": 1,
       "after_step": 7,
       "subgoal": "poured",
       "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 1,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.44
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
       "camera": false,
       "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 10.616
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.144
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.671
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.782
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.746
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.192
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 10.963
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.578
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.151
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.348
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.436
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.772
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 11.08
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.009
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 5.333
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.002
     },
     {
       "seed": 2,
-      "after_step": 0,
-      "subgoal": "drawer_open",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 0,
-      "subgoal": "plate_placed",
-      "backend": "pixels",
-      "camera": true,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 0,
-      "subgoal": "fork_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 0,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 0,
-      "subgoal": "mug_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 0,
-      "subgoal": "poured",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "drawer_open",
-      "backend": "pixels",
-      "camera": true,
-      "oracle": true,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "plate_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "fork_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "mug_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 1,
-      "subgoal": "poured",
-      "backend": "pixels",
-      "camera": true,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
-      "after_step": 2,
-      "subgoal": "drawer_open",
-      "backend": "pixels",
-      "camera": true,
-      "oracle": true,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 2,
-      "after_step": 2,
-      "subgoal": "plate_placed",
-      "backend": "pixels",
-      "camera": true,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 2,
       "after_step": 2,
       "subgoal": "fork_placed",
-      "backend": "pixels",
-      "camera": true,
+      "backend": "vlm",
+      "camera": false,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 5.394
     },
     {
       "seed": 2,
@@ -1030,11 +2044,29 @@
     {
       "seed": 2,
       "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.203
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.881
     },
     {
       "seed": 2,
@@ -1043,7 +2075,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.119
     },
     {
       "seed": 2,
@@ -1052,7 +2093,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 11.366
     },
     {
       "seed": 2,
@@ -1061,7 +2111,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.212
     },
     {
       "seed": 2,
@@ -1075,11 +2134,29 @@
     {
       "seed": 2,
       "after_step": 3,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
+      "subgoal": "fork_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
+      "latency_s": 3.58
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.616
     },
     {
       "seed": 2,
@@ -1088,7 +2165,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.757
     },
     {
       "seed": 2,
@@ -1097,7 +2183,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.686
     },
     {
       "seed": 2,
@@ -1111,11 +2206,29 @@
     {
       "seed": 2,
       "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.835
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.735
     },
     {
       "seed": 2,
@@ -1129,11 +2242,29 @@
     {
       "seed": 2,
       "after_step": 4,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
+      "subgoal": "fork_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
+      "latency_s": 3.263
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.312
     },
     {
       "seed": 2,
@@ -1142,7 +2273,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.279
     },
     {
       "seed": 2,
@@ -1151,7 +2291,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 2,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.013
     },
     {
       "seed": 2,
@@ -1165,11 +2314,29 @@
     {
       "seed": 2,
       "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 13.018
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.595
     },
     {
       "seed": 2,
@@ -1183,11 +2350,29 @@
     {
       "seed": 2,
       "after_step": 5,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
+      "subgoal": "fork_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
+      "latency_s": 3.59
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.581
     },
     {
       "seed": 2,
@@ -1196,7 +2381,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.512
     },
     {
       "seed": 2,
@@ -1205,7 +2399,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.554
     },
     {
       "seed": 2,
@@ -1219,11 +2422,29 @@
     {
       "seed": 2,
       "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 11.969
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.765
     },
     {
       "seed": 2,
@@ -1237,11 +2458,29 @@
     {
       "seed": 2,
       "after_step": 6,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
+      "subgoal": "fork_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
+      "latency_s": 3.916
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.768
     },
     {
       "seed": 2,
@@ -1250,7 +2489,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.919
     },
     {
       "seed": 2,
@@ -1259,7 +2507,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.008
+    },
+    {
+      "seed": 2,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.022
     },
     {
       "seed": 2,
@@ -1273,11 +2530,29 @@
     {
       "seed": 2,
       "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.355
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.756
     },
     {
       "seed": 2,
@@ -1291,11 +2566,29 @@
     {
       "seed": 2,
       "after_step": 7,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
+      "subgoal": "fork_placed",
+      "backend": "vlm",
       "camera": false,
       "oracle": true,
+      "latency_s": 2.736
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
       "latency_s": 0.0
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.777
     },
     {
       "seed": 2,
@@ -1304,7 +2597,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.804
     },
     {
       "seed": 2,
@@ -1313,7 +2615,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 2,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.636
     },
     {
       "seed": 3,
@@ -1327,11 +2638,29 @@
     {
       "seed": 3,
       "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 12.612
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.742
     },
     {
       "seed": 3,
@@ -1345,6 +2674,15 @@
     {
       "seed": 3,
       "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.493
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -1354,11 +2692,29 @@
     {
       "seed": 3,
       "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.14
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.275
     },
     {
       "seed": 3,
@@ -1367,7 +2723,16 @@
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.472
     },
     {
       "seed": 3,
@@ -1376,7 +2741,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.0
+      "latency_s": 0.001
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.975
     },
     {
       "seed": 3,
@@ -1385,7 +2759,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.009
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.572
     },
     {
       "seed": 3,
@@ -1399,6 +2782,15 @@
     {
       "seed": 3,
       "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.475
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -1408,20 +2800,47 @@
     {
       "seed": 3,
       "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.812
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.882
     },
     {
       "seed": 3,
       "after_step": 1,
       "subgoal": "poured",
       "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 3.18
     },
     {
       "seed": 3,
@@ -1435,11 +2854,29 @@
     {
       "seed": 3,
       "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.161
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.52
     },
     {
       "seed": 3,
@@ -1453,6 +2890,15 @@
     {
       "seed": 3,
       "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.677
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -1462,11 +2908,29 @@
     {
       "seed": 3,
       "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.439
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.599
     },
     {
       "seed": 3,
@@ -1475,7 +2939,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.014
+    },
+    {
+      "seed": 3,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.641
     },
     {
       "seed": 3,
@@ -1489,11 +2962,29 @@
     {
       "seed": 3,
       "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 12.097
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
       "subgoal": "plate_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.423
     },
     {
       "seed": 3,
@@ -1507,6 +2998,15 @@
     {
       "seed": 3,
       "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.535
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
@@ -1516,11 +3016,29 @@
     {
       "seed": 3,
       "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.348
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.921
     },
     {
       "seed": 3,
@@ -1529,7 +3047,16 @@
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.009
+    },
+    {
+      "seed": 3,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.975
     },
     {
       "seed": 3,
@@ -1543,7 +3070,412 @@
     {
       "seed": 3,
       "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.209
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
       "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.826
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.146
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.131
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.772
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.532
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.129
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.009
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.994
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.903
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.848
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.958
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.01
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 10.344
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.972
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.288
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.916
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.96
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 3,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.842
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.484
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.521
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.767
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.068
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.32
+    },
+    {
+      "seed": 3,
+      "after_step": 7,
+      "subgoal": "poured",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
@@ -1551,42 +3483,555 @@
     },
     {
       "seed": 3,
-      "after_step": 4,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.186
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 11.086
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.089
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
       "subgoal": "fork_placed",
       "backend": "pixels",
       "camera": false,
-      "oracle": true,
+      "oracle": false,
       "latency_s": 0.0
     },
     {
-      "seed": 3,
-      "after_step": 4,
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.219
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
       "subgoal": "spoon_placed",
       "backend": "pixels",
       "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.781
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.024
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 4,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.78
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
       "oracle": true,
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.605
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.302
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.573
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.742
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.187
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 4,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.093
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.729
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.009
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.934
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.511
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.973
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.567
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 4,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.472
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.581
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.236
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.297
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.862
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.695
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 4,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.488
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.066
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.781
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.888
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.629
+    },
+    {
+      "seed": 4,
       "after_step": 4,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.005
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.307
+    },
+    {
+      "seed": 4,
       "after_step": 4,
       "subgoal": "poured",
       "backend": "pixels",
-      "camera": true,
+      "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.475
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "drawer_open",
       "backend": "pixels",
@@ -1595,52 +4040,106 @@
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.805
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "plate_placed",
       "backend": "pixels",
-      "camera": true,
-      "oracle": true,
-      "latency_s": 0.003
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.667
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "fork_placed",
       "backend": "pixels",
-      "camera": false,
+      "camera": true,
       "oracle": true,
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.765
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "spoon_placed",
       "backend": "pixels",
-      "camera": false,
+      "camera": true,
       "oracle": true,
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.453
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": false,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.006
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.496
+    },
+    {
+      "seed": 4,
       "after_step": 5,
       "subgoal": "poured",
       "backend": "pixels",
       "camera": true,
       "oracle": false,
-      "latency_s": 0.003
+      "latency_s": 0.007
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.678
+    },
+    {
+      "seed": 4,
       "after_step": 6,
       "subgoal": "drawer_open",
       "backend": "pixels",
@@ -1649,52 +4148,970 @@
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 9.926
+    },
+    {
+      "seed": 4,
       "after_step": 6,
       "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.785
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.613
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.816
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.278
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 4,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.098
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.701
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.747
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.771
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.045
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.088
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 4,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.046
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 10.44
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.443
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.591
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.898
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.68
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 5,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.883
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 13.295
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.01
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.0
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.181
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.52
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 5,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.281
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.161
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.035
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.471
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.184
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.413
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.649
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.822
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.633
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.102
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.844
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.691
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.508
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.029
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.01
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.184
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.847
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.718
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.333
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.607
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.254
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 4.064
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.565
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.81
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.216
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 5,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.285
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.896
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 4.043
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.825
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.133
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.28
+    },
+    {
+      "seed": 5,
+      "after_step": 6,
+      "subgoal": "poured",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
       "latency_s": 0.004
     },
     {
-      "seed": 3,
-      "after_step": 6,
-      "subgoal": "fork_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": true,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 3,
-      "after_step": 6,
-      "subgoal": "spoon_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": true,
-      "latency_s": 0.0
-    },
-    {
-      "seed": 3,
-      "after_step": 6,
-      "subgoal": "mug_placed",
-      "backend": "pixels",
-      "camera": false,
-      "oracle": false,
-      "latency_s": 0.003
-    },
-    {
-      "seed": 3,
+      "seed": 5,
       "after_step": 6,
       "subgoal": "poured",
-      "backend": "pixels",
-      "camera": true,
+      "backend": "vlm",
+      "camera": false,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 3.192
     },
     {
-      "seed": 3,
+      "seed": 5,
       "after_step": 7,
       "subgoal": "drawer_open",
       "backend": "pixels",
@@ -1703,16 +5120,1762 @@
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.041
+    },
+    {
+      "seed": 5,
       "after_step": 7,
       "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.897
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.84
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.016
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.722
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 5,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.379
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 14.944
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.848
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.863
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.477
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.012
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.008
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.048
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.432
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.255
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.291
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.988
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.048
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.366
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.52
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.012
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.876
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.835
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.878
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.875
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.65
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.897
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.834
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.413
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.599
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.563
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.48
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.23
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.993
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.522
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.7
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.111
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.004
+    },
+    {
+      "seed": 6,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.948
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 18.774
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 5.847
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 6.923
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 5.638
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 5.56
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 6,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 6.057
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "drawer_open",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
       "latency_s": 0.003
     },
     {
-      "seed": 3,
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.219
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.418
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.001
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.739
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.99
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.348
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 6,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.321
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.341
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.889
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.062
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.886
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.646
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 6,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.827
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 10.254
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.01
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.541
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.685
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.902
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.466
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.009
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 12.329
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.368
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.837
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.646
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.525
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 7,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.488
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.665
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.775
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.88
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.065
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.633
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.019
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.264
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.424
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.486
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.886
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.616
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.632
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.883
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.893
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.826
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.795
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.797
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.5
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 16.565
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 5.496
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.001
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 5.504
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 5.098
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.525
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 7,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.235
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 14.922
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 5.055
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.924
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.541
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.027
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 7,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.666
+    },
+    {
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.116
+    },
+    {
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.837
+    },
+    {
+      "seed": 7,
       "after_step": 7,
       "subgoal": "fork_placed",
       "backend": "pixels",
@@ -1721,7 +6884,16 @@
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.556
+    },
+    {
+      "seed": 7,
       "after_step": 7,
       "subgoal": "spoon_placed",
       "backend": "pixels",
@@ -1730,22 +6902,1777 @@
       "latency_s": 0.0
     },
     {
-      "seed": 3,
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.157
+    },
+    {
+      "seed": 7,
       "after_step": 7,
       "subgoal": "mug_placed",
       "backend": "pixels",
       "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.011
     },
     {
-      "seed": 3,
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.811
+    },
+    {
+      "seed": 7,
       "after_step": 7,
       "subgoal": "poured",
       "backend": "pixels",
       "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 7,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.282
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 12.486
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.009
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.405
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.891
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.094
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.498
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.041
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
       "oracle": true,
-      "latency_s": 0.003
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.576
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.685
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.314
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.985
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.235
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.021
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 14.203
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.012
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 5.014
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.197
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.256
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.487
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.02
+    },
+    {
+      "seed": 8,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.5
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.634
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.009
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.59
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.042
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.571
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.337
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 2.715
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.39
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.125
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.278
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.122
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.192
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.475
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.308
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.178
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.329
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.053
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 2.932
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.02
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.214
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.209
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.107
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.233
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.145
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.889
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.808
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.086
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.372
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.066
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.254
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 8,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.103
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 10.673
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.35
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.178
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.248
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.245
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.007
+    },
+    {
+      "seed": 9,
+      "after_step": 0,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.472
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 11.835
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.624
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.476
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 4.606
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.434
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 9,
+      "after_step": 1,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.967
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.744
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.696
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.972
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.725
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.084
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 2,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.974
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.361
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.374
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.967
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.271
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.012
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.073
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 9,
+      "after_step": 3,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.385
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.724
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.015
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 3.61
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.759
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.971
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.017
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 4.847
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 4,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.083
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 12.84
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 4.591
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.191
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.686
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.587
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.004
+    },
+    {
+      "seed": 9,
+      "after_step": 5,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.755
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 10.821
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.008
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 2.755
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.618
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 2.934
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": false,
+      "latency_s": 3.379
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 6,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.844
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "drawer_open",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 13.909
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.006
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "plate_placed",
+      "backend": "vlm",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 4.736
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "fork_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.119
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "pixels",
+      "camera": true,
+      "oracle": true,
+      "latency_s": 0.0
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "spoon_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 3.937
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 0.011
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "mug_placed",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": true,
+      "latency_s": 4.226
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "pixels",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 0.005
+    },
+    {
+      "seed": 9,
+      "after_step": 7,
+      "subgoal": "poured",
+      "backend": "vlm",
+      "camera": false,
+      "oracle": false,
+      "latency_s": 3.409
     }
   ]
 }

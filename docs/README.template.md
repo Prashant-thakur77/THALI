@@ -36,7 +36,10 @@ pour water into the mug with arm A"_ → 7 skills: open_drawer(A) · fork(A) · 
 | SmolVLA multi-task, policy only | {{ seeds_row("smolvla", "policy_only") }} | |
 | SmolVLA + retry + fallback | {{ seeds_row("smolvla", "policy_fallback") }} | |
 
-Per-sub-goal rates, per-seed rows and which stage won each skill: [`results/seeds.json`](results/seeds.json).
+Per-sub-goal rates (test split): {{ ", ".join(f"{k} {pct(v)}" for k, v in load("seeds_act_policy_fallback_test.json")["per_subgoal_rate"].items()) }} for ACT+fallback vs
+{{ ", ".join(f"{k} {pct(v)}" for k, v in load("seeds_act_policy_only_test.json")["per_subgoal_rate"].items()) }} policy-only. The 60-episode ACT baselines transfer
+`open_drawer` reliably and little else; a failed policy attempt often leaves the scene in a state the expert cannot recover (fallback < expert alone).
+Per-seed rows and which stage won each skill: [`results/seeds.json`](results/seeds.json).
 The runtime executes one skill at a time; the queues decide which arm goes next (both arms do not move simultaneously).
 
 ## VLA / multi-modal (20)
@@ -76,6 +79,10 @@ Policy-only vs +retry vs +fallback is the table above; the expert's own ceiling 
 **Does optimisation preserve success?** The 10 test seeds re-run with the ACT policies executed through each IR precision:
 
 {{ preserve_table() }}
+
+Full-task success is 0/10 for the ACT baselines in PyTorch too, so the finer signal is the sub-goal rate through each IR
+(`results/preserve.json`): {{ "; ".join(f"{k}: " + ", ".join(f"{g} {pct(r)}" for g, r in v["per_subgoal_rate"].items() if r > 0) for k, v in load("preserve.json")["results"].items() if k != "torch") }} — the same skills succeed at every precision.
+SmolVLA vision encoder (SigLIP + connector, frozen in fine-tuning) exported from `lerobot/smolvla_base`: {{ ", ".join(f"{r['precision']}/{r['device']} p50 {r['p50_ms']} ms" for r in load("smolvla_ir.json")["bench"] if "p50_ms" in r) }} ({{ load("smolvla_ir.json")["precisions"]["fp16"]["size_mb"] }} MB fp16; the action expert IR follows the Kaggle checkpoint).
 
 Export: `bench/export_ir.py` (ACT → IR, static batch-1 shapes, fp32/fp16), `bench/quantize.py` (NNCF INT8, 300 real calibration
 frames), sizes and max |Δ| vs PyTorch in [`results/ir_export.json`](results/ir_export.json). The VLM planner on the **iGPU** loads and answers

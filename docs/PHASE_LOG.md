@@ -223,9 +223,11 @@ focus (S2's "stop" ignored, S1's honoured, resume), audit chain of the runs, dem
   `policy_only` / `policy_retry` (second rollout from wherever the first left the scene) / `policy_fallback`
   (scripted expert). Which stage won each skill is recorded per seed.
 
-**Measured** (test split, seeds 0–9, `results/seeds_act_*_test.json` → `results/seeds.json`): see the README table —
-policy-only, +retry, +fallback rows; the per-skill picture is that `open_drawer` transfers reliably from 60 episodes,
-the pick/place skills rarely, and the fallback recovers what the policy left recoverable.
+**Measured** (test split, seeds 0–9, `results/seeds_act_*_test.json` → `results/seeds.json`): ACT **0/10** full task in
+all three modes. Sub-goals policy-only: drawer 90 %, plate 40 %, mug 10 %, fork/spoon/pour 0 %; +retry: fork 20 %,
+mug 20 %; +fallback: plate 50 %, fork 40 %, spoon 30 %, mug 40 %, pour 10 %. Fallback stays well below the expert
+alone (5/10) because a failed policy attempt frequently leaves objects where the expert cannot recover them
+(spoon out of the drawer tray, water spilled). `open_drawer` transfers reliably from 60 episodes; the rest do not.
 
 **Plan deviations:** MiniLM language conditioning of ACT (VoiceSort's `text_embed.py`) was not implemented — each
 per-skill dataset holds one instruction class, so the plan step (not the text) selects the skill; language selection

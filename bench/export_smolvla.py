@@ -58,7 +58,7 @@ def main() -> None:
     args = ap.parse_args()
     from lerobot.policies.smolvla.modeling_smolvla import SmolVLAPolicy
     t0 = time.time()
-    pol = SmolVLAPolicy.from_pretrained(args.checkpoint).eval().float()
+    pol = SmolVLAPolicy.from_pretrained(args.checkpoint).eval().float().to("cpu")
     vlm = pol.model.vlm_with_expert.get_vlm_model()
     wrapper = VisionWrapper(vlm).eval()
     x = torch.randn(1, 3, 512, 512)

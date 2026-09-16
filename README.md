@@ -30,13 +30,16 @@ pour water into the mug with arm A"_ → 7 skills: open_drawer(A) · fork(A) · 
 | executor | test split (held-out, seeds 0–9) | train split |
 |---|---|---|
 | scripted expert (mink IK) | 5/10 | 7/10 |
-| ACT, policy only | pending | |
-| ACT + retry | pending | |
-| ACT + retry + expert fallback | pending | |
+| ACT, policy only | **0/10** (0%) — skills won by policy 17, expert 1 | |
+| ACT + retry | **0/10** (0%) — skills won by policy 12, retry 12, expert 2 | |
+| ACT + retry + expert fallback | **0/10** (0%) — skills won by policy 13, fallback 15, retry 9, expert 4 | |
 | SmolVLA multi-task, policy only | pending SmolVLA run (docs/KAGGLE_TODO.md) | |
 | SmolVLA + retry + fallback | pending SmolVLA run (docs/KAGGLE_TODO.md) | |
 
-Per-sub-goal rates, per-seed rows and which stage won each skill: [`results/seeds.json`](results/seeds.json).
+Per-sub-goal rates (test split): drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10% for ACT+fallback vs
+drawer_open 90%, plate_placed 40%, fork_placed 0%, spoon_placed 0%, mug_placed 10%, poured 0% policy-only. The 60-episode ACT baselines transfer
+`open_drawer` reliably and little else; a failed policy attempt often leaves the scene in a state the expert cannot recover (fallback < expert alone).
+Per-seed rows and which stage won each skill: [`results/seeds.json`](results/seeds.json).
 The runtime executes one skill at a time; the queues decide which arm goes next (both arms do not move simultaneously).
 
 ## VLA / multi-modal (20)
@@ -67,8 +70,8 @@ object swaps — rows: requested, columns: what the plan encoded
 | mug | 0 | 0 | 0 | 1 |
 
 order swaps: plate_then_mug ✗, mug_then_plate ✗
-- **Camera-based state check vs sim oracle** (4 seeds × 8 checkpoints × 6 questions):
-  pixels: agreement 78%, precision 76%, recall 81%, 0.002 s/question
+- **Camera-based state check vs sim oracle** (10 seeds × 8 checkpoints × 6 questions):
+  pixels: agreement 84%, precision 83%, recall 86%, 0.004 s/question, vlm: agreement 38%, precision 29%, recall 19%, 4.906 s/question
   ([`results/camera_vs_oracle.json`](results/camera_vs_oracle.json)).
 - **Replan**: a failed skill re-enters the planner with the failure reason and the remaining steps (`Planner.replan`), re-verified; see `results/demo_bargein_stop.json`.
 - **Training data**: 420 scripted-expert episodes / 299233 frames at 50 Hz, 3 cameras,
@@ -107,18 +110,28 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 
 | precision / device | mean p50 ms over skills | skills |
 |---|---|---|
-| fp32/CPU | 114.39 | 1 |
-| fp32/GPU | 555.63 | 1 |
-| fp16/CPU | 111.51 | 1 |
-| fp16/GPU | 556.94 | 1 |
-| int8/CPU | 36.95 | 1 |
-| int8/GPU | 421.94 | 1 |
+| fp32/CPU | 49.13 | 7 |
+| fp32/GPU | 283.24 | 7 |
+| fp16/CPU | 49.51 | 7 |
+| fp16/GPU | 282.82 | 7 |
+| int8/CPU | 17.06 | 7 |
+| int8/GPU | 201.85 | 7 |
 
 Per-skill rows in [results/bench.md](results/bench.md). Devices skipped: NPU.
 
 **Does optimisation preserve success?** The 10 test seeds re-run with the ACT policies executed through each IR precision:
 
-pending
+_measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d NPU and static shapes, not measured here._
+
+| precision (CPU) | full-task successes / 10 | Δ vs PyTorch |
+|---|---|---|
+| fp32 | 0 | 0 |
+| fp16 | 0 | 0 |
+| int8 | 0 | 0 |
+
+Full-task success is 0/10 for the ACT baselines in PyTorch too, so the finer signal is the sub-goal rate through each IR
+(`results/preserve.json`): fp32: drawer_open 100%, plate_placed 20%, fork_placed 10%; fp16: drawer_open 90%, plate_placed 10%, fork_placed 10%, mug_placed 10%; int8: drawer_open 100%, plate_placed 40%, fork_placed 10% — the same skills succeed at every precision.
+SmolVLA vision encoder (SigLIP + connector, frozen in fine-tuning) exported from `lerobot/smolvla_base`: fp32/CPU p50 417.0 ms, fp32/GPU p50 4423.6 ms, fp16/CPU p50 441.2 ms, fp16/GPU p50 4437.5 ms (199.1 MB fp16; the action expert IR follows the Kaggle checkpoint).
 
 Export: `bench/export_ir.py` (ACT → IR, static batch-1 shapes, fp32/fp16), `bench/quantize.py` (NNCF INT8, 300 real calibration
 frames), sizes and max |Δ| vs PyTorch in [`results/ir_export.json`](results/ir_export.json). The VLM planner on the **iGPU** loads and answers
