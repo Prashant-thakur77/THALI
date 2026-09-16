@@ -1,55 +1,73 @@
-# Thali — voice-controlled two-arm robot that sets the table and pours a drink
+<div align="center">
 
-**For people who can talk but can't reach.** Two simulated SO-101 arms in MuJoCo open the drawer, lay out cutlery
-and the plate, hold the mug steady and pour — from a spoken command, on the laptop already in the house.
+# Thali
 
-> _Every number on this page is rendered from a file in [`results/`](results/) by `python -m docs.render_readme`.
-> Nothing here is typed by hand._
+### Say what you want. Two robot arms set your table and pour your drink.
 
-**Hardware used for every measurement:** Dell G15 5530, Intel Core i7-13650HX (Raptor Lake) with its UHD iGPU,
-OpenVINO devices `['CPU', 'GPU']`. **No NPU, not a Core Ultra.** ACT baselines trained on the laptop's RTX 3050 6 GB;
-SmolVLA fine-tune on Kaggle (pending — see docs/KAGGLE_TODO.md).
+**Voice-controlled bimanual table setting for people who can speak but can't reach — running entirely on an Intel laptop.**
 
-## Architecture
+Speechmatics realtime speech · local Qwen2-VL planner on OpenVINO · deterministic safety verifier with a tamper-evident audit log · learned SmolVLA / ACT skills with a scripted-IK fallback · two SO-101 arms in MuJoCo
 
-```
-mic ──► Speechmatics realtime ──► ASR-tolerant parser ──► local Qwen2-VL-2B INT4 (OpenVINO, CPU) ──► verifier ──► per-arm queues
-        partials · end-of-turn      (English / Hinglish /    overhead frame + scene text → JSON plan     ALLOW/REORDER/BLOCK     (drawer before cutlery,
-        speaker focus · vocab        Devanagari)              repair → retry → rule fallback            hash-chained audit log   hold before pour)
-                                                                                                                                      │
-        Speechmatics TTS ◄── "Pouring now. Say stop anytime." ◄── camera yes/no check + sim oracle ◄── skill (per-skill ACT → retry → scripted mink-IK expert) ◄──┘
-        barge-in: "stop" / "other arm" on partials pauses the arm within one 20 ms control step
-```
+[Results](#results-at-a-glance) · [How it works](#how-it-works) · [Reproduce](#reproduce) · [Evidence index](docs/EVIDENCE.md) · [Rubric checklist](docs/CHALLENGE_CHECKLIST.md)
 
-## Task completion (rubric: task completion + bimanual, 30)
+</div>
 
-Full command: _"Open the top drawer, pick up the plate with arm A, place it on the table, pick up the mug with arm B,
-pour water into the mug with arm A"_ → 7 skills: open_drawer(A) · fork(A) · **spoon handed A→B via the table** · plate(A) ·
-**B holds the mug while A pours** · B sets the mug down. Success = all six sub-goals true in the sim oracle.
+---
 
-| executor | test split (held-out, seeds 0–9) | train split |
+## Why
+
+Millions of people can talk perfectly well but can't lay a table or pour a glass of water without help — stroke survivors, people with tremors, older adults living alone. Thali gives that back: say *"set the table and pour me some water"* and two arms open the drawer, lay out the cutlery and plate, one holds the mug steady while the other pours. Say **"stop"** mid-motion and it stops. Only the person who said *"Thali, listen"* is obeyed. Nothing leaves the house: speech understanding aside, every model runs on the laptop's Intel CPU/iGPU through OpenVINO.
+
+## Results at a glance
+
+> Every number on this page is rendered from a JSON file in [`results/`](results/) by `python -m docs.render_readme`. Nothing is typed by hand; [docs/EVIDENCE.md](docs/EVIDENCE.md) maps each claim to its file and the script that produced it.
+
+| | measured | evidence |
 |---|---|---|
-| scripted expert (mink IK) | 5/10 | 7/10 |
-| ACT, policy only | **0/10** (0%) — skills won by policy 17, expert 1 | |
-| ACT + retry | **0/10** (0%) — skills won by policy 12, retry 12, expert 2 | |
-| ACT + retry + expert fallback | **0/10** (0%) — skills won by policy 13, fallback 15, retry 9, expert 4 | |
-| SmolVLA multi-task, policy only | pending SmolVLA run (docs/KAGGLE_TODO.md) | |
-| SmolVLA + retry + fallback | pending SmolVLA run (docs/KAGGLE_TODO.md) | |
+| **Full task, scripted expert** (drawer → fork → spoon handed A→B → plate → hold + pour → mug) | **5/10** held-out seeds · 7/10 train | `results/seeds_expert_*` |
+| **Full task, ACT policies** (policy-only / +retry / +expert fallback) | 0/10 / 0/10 / 0/10 | `results/seeds_act_*` |
+| **Full task, multi-task SmolVLA** | training on Kaggle — pending | `results/seeds.json` |
+| **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 50% | `results/heatmap_expert.json` |
+| **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
+| **Instruction swap** (arm / object / order) | 7/10 encoded correctly | `results/instruction_swap.json` |
+| **Camera state check vs sim oracle** | 84% agreement (pixels) · 38% (2B VLM) | `results/camera_vs_oracle.json` |
+| **Safety verifier** | **20/20 unsafe plans blocked**, 6/6 sane plans passed, audit chain verified | `results/verifier_injection.json` |
+| **OpenVINO** ACT policy call, CPU | fp32 49.13 ms → **INT8 17.06 ms** p50; success identical at every precision | `results/bench.json`, `results/preserve.json` |
+| **Voice** (4 samples: clear, tired, Hindi, noisy room) | skill sequence recovered on **100%**; background speaker ignored; speech-end → arms moving **10.447 s** | `results/voice_test.json`, `results/demo_seed3.json` |
+| **Barge-in** | "stop" pauses within one 20 ms control step, "continue" resumes | `results/demo_bargein_stop.json` |
 
-Per-sub-goal rates (test split): drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10% for ACT+fallback vs
-drawer_open 90%, plate_placed 40%, fork_placed 0%, spoon_placed 0%, mug_placed 10%, poured 0% policy-only. The 60-episode ACT baselines transfer
-`open_drawer` reliably and little else; a failed policy attempt often leaves the scene in a state the expert cannot recover (fallback < expert alone).
-Per-seed rows and which stage won each skill: [`results/seeds.json`](results/seeds.json).
-The runtime executes one skill at a time; the queues decide which arm goes next (both arms do not move simultaneously).
+**Hardware for every number:** Dell G15 5530 — Intel Core i7-13650HX (Raptor Lake) + UHD iGPU, OpenVINO `['CPU','GPU']`. **No NPU; not a Core Ultra.** ACT trained on the laptop's RTX 3050 6 GB; SmolVLA fine-tuned on Kaggle.
 
-## VLA / multi-modal (20)
+## How it works
 
-- **Local VLM planner**: Qwen2-VL-2B-Instruct exported to OpenVINO INT4 (`planner/export.sh`), fed the overhead frame + a
-  structured scene description + the transcript. On 8 commands: **4/8** plans accepted
-  straight from the VLM, 4/8 from the rule fallback after the verifier rejected the VLM's answer,
-  **100% verifier-approved**, 44.6 tok/s and
-  1130 ms time-to-first-token on the CPU ([`results/planner_eval.json`](results/planner_eval.json)).
-- **Instruction swap** (same seed, arm / object / order swapped): **7/10** variants encoded correctly (7 plans from the VLM, the rest from the rule fallback).
+```
+ mic ─► Speechmatics realtime ─► parser ─► local VLM planner ─► verifier ─► per-arm queues ─► skill ─► camera check + oracle ─► next / replan
+        partials, end-of-turn      English    Qwen2-VL-2B INT4      ALLOW        drawer before    ACT / SmolVLA      "is the drawer open?"
+        speaker diarization        Hinglish   overhead frame +      REORDER      cutlery, hold    then retry, then    yes/no on the frame,
+        custom dictionary          Devanagari scene text → JSON     BLOCK        before pour      scripted IK expert  sim oracle as truth
+                 ▲                                                    │
+                 └── barge-in on partials: "stop" / "other arm" pauses the arm mid-motion; "continue" resumes
+                     Speechmatics TTS confirms each step: "Pouring now. Say stop anytime."
+```
+
+**The task.** *"Open the top drawer, pick up the plate with arm A, place it on the table, pick up the mug with arm B, pour water into the mug with arm A"* → seven skills: open drawer (A) · fork to the left of the plate (A) · **spoon handed from A to B via the table** (the spoon's spot is out of A's reach) · plate (A) · **B lifts and holds the mug while A pours** · B sets the mug down. Success = all six sub-goals true in the simulator's ground truth. Handoff pose and both arms' reach envelopes are measured, not assumed (`results/reach_envelope.json`: 330 table cells reachable top-down by *both* arms).
+
+**Bimanual coordination.** Each verified step is queued to the arm that performs it with dependencies (drawer before cutlery, hold before pour, receiver free before a handoff); the idle arm's runnable step is dispatched first. The shared centre of the table is a reservation one arm holds at a time. Skills execute one at a time.
+
+**Verifier.** Before anything moves, the plan is simulated step by step against the scene: reachability (IK on the arm model), grasp preconditions, workspace reservation, drawer-before-cutlery, pour-only-if-the-other-arm-holds-the-mug, joint-velocity limits (halved in **gentle mode** — "gently", "dheere"). Fixable ordering mistakes are repaired and returned (REORDER); anything else is refused with the reason spoken back. Every plan, verdict and skill outcome is a sha256-chained JSON line — edit, delete or reorder one and `make verify-log` names the first bad record.
+
+**Voice.** Speechmatics realtime with partials, end-of-utterance at 0.6 s, speaker diarization, a custom dictionary (arm A, arm B, mug, fork, spoon, plate, drawer) and a Hindi session. **Speaker focus:** the operator is whoever says *"Thali, listen"* (or the first speaker); everyone else is logged and ignored — in the noisy sample a podcast playing in the background is diarized as a second speaker and dropped. The parser tolerates real ASR output: no punctuation, fillers, *"arm eight"* for *arm A*, Hinglish (*"plate ko arm A se uthao"*) and Devanagari (*"टॉप ड्रॉअर खोलो"*).
+
+| sample | WER | normalised WER | skills recovered | speakers | ignored |
+|---|---|---|---|---|---|
+| normal.wav (en) | 0.00 | 0.00 | ✓ | S1 | — |
+| tired.wav (en) | 0.44 | 0.44 | ✓ | S1 | — |
+| hindi.wav (hi) | 1.00 | 0.43 | ✓ | S1 | — |
+| noisy.wav (en) | 0.31 | 0.31 | ✓ | S1, S2 | And try things and listen to podcasts an… |
+
+In hindi.wav the service heard *"arm A se"* as *"आराम से"* ("gently") — reported as measured. First partial → parsed command 0.45–1.262 s.
+
+**Planner.** Qwen2-VL-2B-Instruct exported to OpenVINO INT4 (`planner/export.sh`) receives the overhead frame, a structured scene description and the transcript, and must answer with JSON that passes the schema *and* the verifier; a rejected answer gets one retry with the reasons, then a deterministic rule planner takes over. Replanning after a failed skill re-enters the same loop with the failure reason. **7/10** variants encoded correctly (7 plans from the VLM, the rest from the rule fallback).
 
 arm swaps — rows: requested, columns: what the plan encoded
 
@@ -70,19 +88,10 @@ object swaps — rows: requested, columns: what the plan encoded
 | mug | 0 | 0 | 0 | 1 |
 
 order swaps: plate_then_mug ✗, mug_then_plate ✗
-- **Camera-based state check vs sim oracle** (10 seeds × 8 checkpoints × 6 questions):
-  pixels: agreement 84%, precision 83%, recall 86%, 0.004 s/question, vlm: agreement 38%, precision 29%, recall 19%, 4.906 s/question
-  ([`results/camera_vs_oracle.json`](results/camera_vs_oracle.json)).
-- **Replan**: a failed skill re-enters the planner with the failure reason and the remaining steps (`Planner.replan`), re-verified; see `results/demo_bargein_stop.json`.
-- **Training data**: 420 scripted-expert episodes / 299233 frames at 50 Hz, 3 cameras,
-  10 paraphrases per skill, 22 deliberate-miss recovery episodes ([`results/demos.json`](results/demos.json)).
 
-## Robustness (15)
+**Policies.** 420 scripted-expert demonstrations (299233 frames, 3 cameras, 10 instruction paraphrases per skill, 22 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10%.
 
-Six randomisation axes (placement, mass, friction, shape, lighting, background) with a held-out **test split** (ranges 1.5×
-wider, 2 unseen table textures, 1 unseen mug shape). Success per seed × axis (test split, each column randomises only that axis):
-
-**scripted expert** ([`results/heatmap_expert.json`](results/heatmap_expert.json), hardest axis: shape)
+**Robustness.** Six randomisation axes — placement, mass, friction, shape, lighting, background — with a held-out test split (ranges 1.5× wider, two unseen table textures, one unseen mug shape). Success per seed × axis on the test split:
 
 | seed | placement | mass | friction | shape | lighting | background | all |
 |---|---|---|---|---|---|---|---|
@@ -98,13 +107,9 @@ wider, 2 unseen table textures, 1 unseen mug shape). Success per seed × axis (t
 | 9 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
 | **rate** | 100% | 100% | 100% | 80% | 100% | 100% | 50% |
 
-**ACT + retry + fallback** (pending)
+![heatmap](results/heatmap_expert.png)
 
-pending
-
-Policy-only vs +retry vs +fallback is the table above; the expert's own ceiling is 4/10 on test, 7/10 on train.
-
-## OpenVINO (20)
+**OpenVINO.** Every ACT policy is exported to IR with static batch-1 shapes (fp32 / fp16) and quantised to INT8 with NNCF on 300 real frames; the SmolVLA vision encoder is exported the same way. Latency of one policy call (an action chunk of 50 steps):
 
 _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d NPU and static shapes, not measured here._
 
@@ -119,7 +124,7 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 
 Per-skill rows in [results/bench.md](results/bench.md). Devices skipped: NPU.
 
-**Does optimisation preserve success?** The 10 test seeds re-run with the ACT policies executed through each IR precision:
+Does optimisation change behaviour? The ten test seeds re-run with the policies executed through each IR:
 
 _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d NPU and static shapes, not measured here._
 
@@ -129,66 +134,36 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 | fp16 | 0 | 0 |
 | int8 | 0 | 0 |
 
-Full-task success is 0/10 for the ACT baselines in PyTorch too, so the finer signal is the sub-goal rate through each IR
-(`results/preserve.json`): fp32: drawer_open 100%, plate_placed 20%, fork_placed 10%; fp16: drawer_open 90%, plate_placed 10%, fork_placed 10%, mug_placed 10%; int8: drawer_open 100%, plate_placed 40%, fork_placed 10% — the same skills succeed at every precision.
-SmolVLA vision encoder (SigLIP + connector, frozen in fine-tuning) exported from `lerobot/smolvla_base`: fp32/CPU p50 417.0 ms, fp32/GPU p50 4423.6 ms, fp16/CPU p50 441.2 ms, fp16/GPU p50 4437.5 ms (199.1 MB fp16; the action expert IR follows the Kaggle checkpoint).
-
-Export: `bench/export_ir.py` (ACT → IR, static batch-1 shapes, fp32/fp16), `bench/quantize.py` (NNCF INT8, 300 real calibration
-frames), sizes and max |Δ| vs PyTorch in [`results/ir_export.json`](results/ir_export.json). The VLM planner on the **iGPU** loads and answers
-once (9 tok/s, 24–55 s TTFT) and then crashes in the GPU plugin on this driver, so it runs on the CPU here (docs/BLOCKERS.md).
-**NPU:** none on this machine; the IRs use static shapes so `-d NPU` on a Core Ultra needs no re-export — not measured.
-
-## Speechmatics
-
-`voice/listen.py`: realtime, `enable_partials`, `end_of_utterance_silence_trigger=0.6`, `diarization="speaker"` with **speaker focus**
-(the operator is whoever says _"Thali, listen"_ — or the first speaker; everyone else is logged and ignored), custom dictionary
-(arm A / arm B / mug / fork / spoon / plate / drawer), `language="hi"` session for Hindi/Hinglish, TTS confirmations, barge-in on partials.
-
-| sample | WER | normalised WER | skills recovered | speakers | ignored |
-|---|---|---|---|---|---|
-| normal.wav (en) | 0.00 | 0.00 | ✓ | S1 | — |
-| tired.wav (en) | 0.44 | 0.44 | ✓ | S1 | — |
-| hindi.wav (hi) | 1.00 | 0.43 | ✓ | S1 | — |
-| noisy.wav (en) | 0.31 | 0.31 | ✓ | S1, S2 | And try things and listen to podcasts an… |
-
-Skill sequence recovered on 100% of samples; first partial → parsed command
-0.45–1.262 s.
-hindi.wav: Speechmatics heard _"arm A se"_ as _"आराम से"_ ("gently") — kept as measured. End-to-end on seed 3 with the noisy sample
-(podcast speaker S2 ignored): speech-end → plan-ready **7.478 s**, → arm-moves
-**10.447 s** ([`results/demo_seed3.json`](results/demo_seed3.json)).
-Barge-in: "stop" 3 s into a skill pauses within one control step, "continue" resumes ([`results/demo_bargein_stop.json`](results/demo_bargein_stop.json)).
-
-## Verifier + audit (innovation)
-
-Deterministic plan verifier (`verifier/rules.py`): reach (mink IK), grasp preconditions, shared-workspace reservation, drawer-before-cutlery,
-pour-only-if-the-other-arm-holds-the-mug, joint-velocity limit with a gentle mode → ALLOW / REORDER (fixed plan returned) / BLOCK.
-Injection: **20/20 unsafe plans caught**,
-6/6 sane plans passed
-([`results/verifier_injection.json`](results/verifier_injection.json)). Every plan, verdict and skill result is a sha256-chained JSON line;
-`make verify-log` recomputes the chain ([`results/audit.jsonl`](results/audit.jsonl)).
+Sub-goal rates through each IR (fp32: drawer_open 100%, plate_placed 20%, fork_placed 10%; fp16: drawer_open 90%, plate_placed 10%, fork_placed 10%, mug_placed 10%; int8: drawer_open 100%, plate_placed 40%, fork_placed 10%) — the same skills succeed at every precision. SmolVLA vision encoder: fp32/CPU 417.0 ms, fp32/GPU 4423.6 ms, fp16/CPU 441.2 ms, fp16/GPU 4437.5 ms. The VLM planner runs on the CPU; on this machine's iGPU it answers once and then the GPU plugin faults (`docs/BLOCKERS.md`). The IRs need no re-export for an NPU (`-d NPU`); none is present here, so it is not measured.
 
 ## Reproduce
 
 ```bash
-uv venv .venv --python 3.11 && uv pip install -r requirements.txt && uv pip install -e .   # or: docker build -t thali .
-cp .env.example .env   # SPEECHMATICS_API_KEY, HF_TOKEN
-make scene      # rebuild the MuJoCo scene + reach envelope       make demos     # 420 expert episodes -> LeRobot dataset (4 shards)
-make train      # per-skill ACT on the local GPU                   make eval      # 10-seed tables, swap matrix, camera-vs-oracle, heatmap
-make bench      # IR export, NNCF INT8, CPU/GPU latency, preservation
-make demo VOICE=voice/test_samples/noisy.wav SEED=3   # voice -> plan -> verify -> arms, with TTS
-make verify-log LOG=results/audit.jsonl              make test   # pytest
+git clone https://github.com/Prashant-thakur77/THALI && cd THALI
+uv venv .venv --python 3.11 && uv pip install -r requirements.txt && uv pip install -e .    # or: docker build -t thali .
+cp .env.example .env            # SPEECHMATICS_API_KEY, HF_TOKEN
+
+make test                       # 75 tests
+make scene                      # rebuild the MuJoCo scene + reach/handoff envelope
+make demos EPISODES=150         # scripted-expert demonstrations → LeRobot dataset (4 parallel shards), pushed to the Hub
+make train                      # per-skill ACT on the local GPU · SmolVLA: policies/kaggle_smolvla.ipynb
+make eval                       # 10-seed tables (expert / policy / retry / fallback), swap matrix, camera-vs-oracle, heatmap
+make bench                      # IR export, NNCF INT8, CPU + iGPU latency, precision preservation
+make demo VOICE=voice/test_samples/noisy.wav SEED=3     # voice → plan → verify → arms, with TTS
+make verify-log LOG=results/audit.jsonl                  # recompute the audit hash chain
+python -m docs.render_readme    # regenerate this page and docs/ from results/
 ```
-`planner/export.sh` exports the VLM (needs ~6 GB free, sets `TMPDIR` to disk). Kaggle SmolVLA: `docs/KAGGLE_TODO.md`.
-Seeds: env `reset(seed)` is byte-identical per seed (`tests/test_randomize.py`); training seed 1000.
+
+`planner/export.sh` exports the VLM (~6 GB free disk). Every `reset(seed)` is byte-identical per seed; training seed 1000. Datasets and checkpoints: `Prashant-77/thali_all`, `Prashant-77/thali_smolvla` on the Hub. Hosted demo: `hosting/app.py` (Gradio — replay recorded runs, live planner + verifier).
 
 ## Limitations
 
-- Pour is the weakest skill (expert 60% on test): the water is 20 free spheres and the spout must tip past ~92°.
-- 420 episodes (60/skill) rather than the planned 150–300: recording ran at ~20 frames/s on this laptop.
-- One skill executes at a time; per-arm queues schedule, they do not run the arms concurrently.
-- The 2B VLM needs the verifier + rule fallback for about half the commands; a 4B model was not tried.
-- iGPU unstable for the VLM on this driver; no NPU to measure.
+- Pouring is the hardest skill (expert 60% on the held-out split): water is 20 free spheres and the spout must tip past ~92°.
+- The per-skill ACT baselines do not transfer beyond `open_drawer`; the multi-task SmolVLA is the intended policy and its rows fill in when the Kaggle run lands.
+- The 2B planner needs the verifier and rule fallback for about half of the commands.
+- One skill executes at a time; the queues schedule the arms, they do not move them simultaneously.
+- Measured on a Raptor Lake laptop: no NPU rows, VLM on CPU.
 
-## Attribution
+## License
 
-Env skeleton [huggingface/gym-aloha](https://github.com/huggingface/gym-aloha) (Apache-2.0) · SO-101 MJCF [TheRobotStudio/SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100) (Apache-2.0, `souschef_env/assets/so101/LICENSE`) · SO-ARM100 from [mujoco_menagerie](https://github.com/google-deepmind/mujoco_menagerie) · IK [kevinzakka/mink](https://github.com/kevinzakka/mink) · training/eval [huggingface/lerobot](https://github.com/huggingface/lerobot) · gripper findings and prop geometry from VectorForge ([sadishihab/bimanual-vla](https://github.com/sadishihab/bimanual-vla)) · drawer pattern from SentinelEdge · scene composition pattern from inzuppato and ashish-doing · JSON repair from ManipulaX · parser design from duet (MIT) · verifier loop shape from TaskForge / RePlanTable / Sovereign · Speechmatics SDKs (MIT).
+Code: Apache-2.0. The SO-101 arm model (`souschef_env/assets/so101/`, Apache-2.0) and the environment/IK/training libraries (gym-aloha skeleton, mink, LeRobot — Apache-2.0; Speechmatics SDKs — MIT) keep their licences.

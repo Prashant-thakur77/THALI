@@ -22,7 +22,10 @@ from souschef_env import constants as C
 from verifier.rules import validate_schema
 
 ROOT = Path(__file__).resolve().parent.parent
-MODEL_DIR = ROOT / "planner" / "qwen2vl_int4"
+import os as _os
+# THALI_PLANNER_MODEL selects the exported VLM directory (default: our Qwen2-VL-2B INT4 export;
+# alternative: planner/qwen3vl_int4 = OpenVINO/Qwen3-VL-4B-Instruct-int4-ov, pre-converted, see planner/get_qwen3vl.py)
+MODEL_DIR = Path(_os.environ.get("THALI_PLANNER_MODEL", ROOT / "planner" / "qwen2vl_int4"))
 PROMPTS = ROOT / "planner" / "prompts"
 SYSTEM = (PROMPTS / "system.txt").read_text()
 USER = (PROMPTS / "user.txt").read_text()
