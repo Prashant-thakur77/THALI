@@ -34,7 +34,7 @@ How a new skill enters the system (the same five files every time):
 
 | item | what it adds | needs | result row |
 |---|---|---|---|
-| **Anomaly check on difference images** | done: table crop + resnet18 (AUROC 0.76 → 0.78, 520 → 76 ms) did *not* fix the false alarms — the held-out split randomises the table texture itself, so a memory bank of nominal patches sees every unseen texture as an anomaly. Next: run PatchCore on the difference between the live frame and the reset reference frame (texture cancels, disturbances remain), which is what the pixel state check already does by hand | reference-frame diff in `anomaly/crop.py`, retrain 10 min | target AUROC > 0.95 at ≤ 10 % FPR |
+| **Anomaly check on difference images** — *done 17 Sep* | full frame (AUROC 0.76, 38/60 false alarms) and table crop (0.78, 42/60) both failed because the held-out split randomises the table texture; PatchCore on \|frame − reset reference\| crops cancels the texture: **AUROC 0.94, 61/75 flagged, 5/60 false alarms, 75 ms CPU**. Spill (20 tiny spheres) is the remaining weak class (6/15) | next: higher-gain diff or a 2× crop resolution for spills | spill ≥ 12/15 |
 | **Unseen objects** | new mug/plate meshes and colours never in the demos; the policy and the planner must cope | 5 extra assets in the test split only | per-skill success on unseen shapes |
 | **Clutter & moved cabinet** | distractor objects, cabinet position randomised ±10 cm | randomiser axes 7–8, heatmap rerun | heatmap columns |
 | **Camera check with a small VLM** | replace the pixel heuristic with a fine-tuned SmolVLM yes/no on 2 k labelled frames | frames from the oracle, 1 h fine-tune | camera vs oracle 84 % → > 95 % |
@@ -57,7 +57,7 @@ How a new skill enters the system (the same five files every time):
 | **Café counter** | cup, saucer, spoon, milk pour — a public-facing demo | assets |
 
 ## Suggested order for the next two weeks
-1. Difference-image anomaly retrain (½ day) — the crop alone did not fix the false alarms (see Tier 3).
+1. ~~Difference-image anomaly retrain~~ done (AUROC 0.94); optional: spill sensitivity.
 2. Clear-the-table + target-volume pour (3 days) — doubles the task list, reuses everything.
 3. Follow-ups/corrections + ask-when-ambiguous (2 days) — the strongest voice-track story.
 4. 3 000-episode recording in the background throughout; SmolVLA retrain at the end (1 week wall, mostly unattended).

@@ -32,19 +32,20 @@ def skill_row(tag: str) -> str:
 
 
 def anomaly_row() -> str:
-    d = load("anomaly.json")
-    if not d:
-        return "pending"
-    per = ", ".join(f"{k} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
-    lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
-    op = d.get("at_10pct_fpr")
-    op_s = f" · at 10% false alarms: {op['detected']}/{d['test_bad_total']} caught" if op else ""
-    base = f"full frame (wide_resnet50): image AUROC **{d['image_auroc']}** · exported threshold: {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms{op_s} · IR p50 {lat}"
-    c = load("anomaly_crop.json")
-    if c:
-        lat_c = ", ".join(f"{k} {v['p50']} ms" for k, v in c["latency_ms"].items() if "p50" in v)
-        base += f" — table crop (resnet18): AUROC **{c['image_auroc']}**, {c['false_positives']}/{c['test_good']} false alarms, at 10% false alarms {c['at_10pct_fpr']['detected']}/{c['test_bad_total']} caught, IR p50 {lat_c}"
-    return base
+    """Headline = the difference-image variant; the full-frame and crop variants are the ablation that motivated it."""
+    d = load("anomaly_diff.json")
+    parts = []
+    if d:
+        lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
+        op = d["at_10pct_fpr"]
+        per = ", ".join(f"{k.replace('_', ' ')} {v['detected']}/{v['n']}" for k, v in d["per_type"].items())
+        parts.append(f"|frame − reset reference| crop, resnet18: image AUROC **{d['image_auroc']}** · {d['detected']}/{d['test_bad_total']} disturbances flagged with "
+                     f"{d['false_positives']}/{d['test_good']} false alarms ({per}) · at 10% false alarms {op['detected']}/{d['test_bad_total']} · IR p50 {lat}")
+    for name, label in (("anomaly.json", "full frame, wide_resnet50"), ("anomaly_crop.json", "table crop, resnet18")):
+        a = load(name)
+        if a:
+            parts.append(f"ablation {label}: AUROC {a['image_auroc']}, {a['false_positives']}/{a['test_good']} false alarms")
+    return " — ".join(parts) if parts else "pending"
 
 
 def concurrency_row() -> str:

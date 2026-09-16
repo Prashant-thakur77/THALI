@@ -1,0 +1,27 @@
+{
+ "backbone": "resnet18",
+ "layers": [
+  "layer2",
+  "layer3"
+ ],
+ "coreset_sampling_ratio": 0.05,
+ "input_size": [
+  240,
+  320
+ ],
+ "train_good": 240,
+ "test_good": 60,
+ "test_bad": {
+  "spill": 15,
+  "tipped_mug": 15,
+  "knocked_plate": 15,
+  "fallen_bottle": 15,
+  "dropped_cutlery": 15
+ },
+ "fit_s": 793.5,
+ "lightning_test_metrics": {
+  "image_AUROC": 0.9236842393875122,
+  "image_F1Score": 0.837837815284729
+ },
+ "exported_ir": "/home/prashant/projects/lablabinfra/anomaly/model_diff/weights/openvino/model.xml"
+}

@@ -19,7 +19,14 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 import os
 VARIANT = os.environ.get("THALI_ANOMALY_VARIANT", "")          # "" = full frame, "crop" = table crop (anomaly/crop.py)
-MODEL_DIR = ROOT / "anomaly" / (f"model_{VARIANT}" if VARIANT else "model")
+def _default_model_dir() -> Path:
+    """The diff variant when trained (best held-out AUROC), else whatever THALI_ANOMALY_VARIANT names."""
+    if VARIANT:
+        return ROOT / "anomaly" / f"model_{VARIANT}"
+    return ROOT / "anomaly" / ("model_diff" if (ROOT / "anomaly" / "model_diff").exists() else "model")
+
+
+MODEL_DIR = _default_model_dir()
 DATA = ROOT / "anomaly" / (f"data_{VARIANT}" if VARIANT else "data")
 
 
