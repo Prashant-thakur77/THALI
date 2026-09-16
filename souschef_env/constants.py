@@ -43,7 +43,7 @@ N_ACTIONS = len(ACTIONS)  # 12
 
 # Ready pose: both arms raised over their own half of the table, jaws open.
 # (shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll) per arm.
-HOME_QPOS_ARM = (0.0, -1.2, 0.8, 1.2, 0.0)  # site 0.20 m ahead of base, 0.12 m up, approach 45 deg down (FK scan, Phase 1)
+HOME_QPOS_ARM = (0.0, -1.5, 0.4, 1.5, 0.0)  # site ~0.15 m ahead of the base, ~0.19 m up: parked arms stay clear of the shared zone (Phase 2)
 GRIPPER_OPEN_Q = 1.6   # rad, near the joint's upper stop (range -0.17..1.745)
 GRIPPER_CLOSED_Q = -0.1
 
@@ -57,7 +57,7 @@ TABLE_Z = 0.0                     # top surface
 FLOOR_Z = -0.75
 
 # Cabinet at the far (+y) edge; the drawer slides toward -y (toward the arms).
-CABINET_POS = (-0.10, 0.31, 0.0)
+CABINET_POS = (-0.16, 0.31, 0.0)  # toward arm A: the open drawer must not crowd the bottle grasp
 DRAWER_TRAVEL = 0.12
 DRAWER_OPEN_QPOS = 0.08          # oracle threshold, from the plan (drawer qpos > 0.08)
 
@@ -69,11 +69,12 @@ N_WATER = 20                    # free spheres inside the bottle
 POURED_MIN_SPHERES = 6          # "poured" = at least this many spheres inside the mug
 
 # Place-setting target zones on the table top (x, y) and acceptance radius (m).
+# Start boxes (build_scene + randomize.PLACEMENT_HALF) never overlap a zone: plate starts at y <= -0.21, mug at y <= -0.18.
 ZONES = {
     "plate": ((0.00, -0.10), 0.05),
-    "fork": ((-0.11, -0.10), 0.04),
-    "spoon": ((0.11, -0.10), 0.04),
-    "mug": ((0.10, 0.05), 0.04),
+    "fork": ((-0.13, -0.10), 0.04),   # arm A's side
+    "spoon": ((0.13, -0.10), 0.04),   # arm B's side (out of A's reach: spoons are handed over)
+    "mug": ((0.10, 0.04), 0.04),
 }
 # Where the mug is held while the other arm pours (x, y, z of the mug base).
-POUR_POSE = (0.0, 0.0, 0.06)
+POUR_POSE = (0.0, 0.0, 0.03)  # 10 cm from both the bottle (+y) and the plate zone (-y)

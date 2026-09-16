@@ -75,7 +75,7 @@ class ArmIK:
         return T.translation().copy(), T.rotation().as_matrix().copy()
 
     def solve(self, arm: str, pos: np.ndarray, rot: np.ndarray | None = None, q_init: np.ndarray | None = None,
-              other_q: np.ndarray | None = None, max_iters: int = 60, dt: float = 0.05) -> IKResult:
+              other_q: np.ndarray | None = None, max_iters: int = 60, dt: float = 0.05, ori_cost: float = 0.05) -> IKResult:
         """Joint angles that put ``arm``'s site at ``pos`` (and ``rot`` if given), starting from ``q_init``."""
         q = self.home.copy()
         q[self._qadr[arm]] = C.HOME_QPOS_ARM if q_init is None else q_init
@@ -91,6 +91,7 @@ class ArmIK:
             rot = self.configuration.get_transform_frame_to_world(f"{C.ARM_PREFIX[arm]}gripperframe", "site").rotation().as_matrix()
         target = mink.SE3.from_rotation_and_translation(mink.SO3.from_matrix(np.asarray(rot, dtype=float)), np.asarray(pos, dtype=float))
         self.tasks[arm].set_target(target)
+        self.tasks[arm].set_orientation_cost(ori_cost)
         tasks = [self.tasks[arm], self.tasks[other], self.posture]
         it = 0
         for it in range(1, max_iters + 1):

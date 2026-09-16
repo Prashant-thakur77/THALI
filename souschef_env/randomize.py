@@ -24,7 +24,7 @@ from souschef_env import constants as C
 AXES = ("placement", "mass", "friction", "shape", "lighting", "background")
 
 # Per-object placement boxes (half-extents, m) about the built-in nominal position; cutlery jitters inside the drawer.
-PLACEMENT_HALF = {"plate": (0.05, 0.04), "mug": (0.05, 0.05), "bottle": (0.05, 0.04),
+PLACEMENT_HALF = {"plate": (0.04, 0.03), "mug": (0.04, 0.04), "bottle": (0.03, 0.03),  # boxes sized so no start overlaps a target zone or the drawer path
                   "fork_1": (0.006, 0.01), "fork_2": (0.006, 0.01), "spoon_1": (0.006, 0.01), "spoon_2": (0.006, 0.01)}
 YAW_HALF = {"plate": math.pi, "mug": math.pi, "bottle": math.pi,
             "fork_1": 0.17, "fork_2": 0.17, "spoon_1": 0.17, "spoon_2": 0.17}

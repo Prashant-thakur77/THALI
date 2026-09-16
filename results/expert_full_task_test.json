@@ -1,0 +1,256 @@
+{
+  "split": "test",
+  "seeds": 10,
+  "successes": 4,
+  "success_rate": 0.4,
+  "per_skill_rate": {
+    "0_open_drawer": 1.0,
+    "1_pick_place": 0.9,
+    "2_handoff": 1.0,
+    "3_pick_place": 0.9,
+    "4_hold_mug": 1.0,
+    "5_pour": 0.6,
+    "6_place_mug": 1.0
+  },
+  "per_subgoal_rate": {
+    "drawer_open": 1.0,
+    "plate_placed": 0.9,
+    "fork_placed": 0.9,
+    "spoon_placed": 1.0,
+    "mug_placed": 1.0,
+    "poured": 0.6
+  },
+  "elapsed_s": 351.3,
+  "rows": [
+    {
+      "seed": 0,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": false
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": false,
+        "6_place_mug": true
+      },
+      "steps": 4477,
+      "seconds": 33.1
+    },
+    {
+      "seed": 1,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": false
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": false,
+        "6_place_mug": true
+      },
+      "steps": 4126,
+      "seconds": 34.8
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4779,
+      "seconds": 39.2
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4676,
+      "seconds": 39.5
+    },
+    {
+      "seed": 4,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": false,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": false,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4727,
+      "seconds": 30.3
+    },
+    {
+      "seed": 5,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": false,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": false,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4607,
+      "seconds": 37.4
+    },
+    {
+      "seed": 6,
+      "success": true,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4624,
+      "seconds": 45.8
+    },
+    {
+      "seed": 7,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": false
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": false,
+        "6_place_mug": true
+      },
+      "steps": 3950,
+      "seconds": 22.0
+    },
+    {
+      "seed": 8,
+      "success": true,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": true
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": true,
+        "6_place_mug": true
+      },
+      "steps": 4635,
+      "seconds": 39.3
+    },
+    {
+      "seed": 9,
+      "success": false,
+      "subgoals": {
+        "drawer_open": true,
+        "plate_placed": true,
+        "fork_placed": true,
+        "spoon_placed": true,
+        "mug_placed": true,
+        "poured": false
+      },
+      "skills": {
+        "0_open_drawer": true,
+        "1_pick_place": true,
+        "2_handoff": true,
+        "3_pick_place": true,
+        "4_hold_mug": true,
+        "5_pour": false,
+        "6_place_mug": true
+      },
+      "steps": 4680,
+      "seconds": 28.7
+    }
+  ]
+}

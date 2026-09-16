@@ -16,9 +16,9 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] 1.7 (via LeRobot's plugin hook `--env.discover_packages_path=souschef_env`, no site-packages edits) Register env in LeRobot (`configs.py` + `factory.py`) so `lerobot-eval --env.type=souschef` works
 
 ## Phase 2 — Scripted expert + demos
-- [ ] 2.1 mink primitives: `open_drawer`, `pick_place`, `handoff`, `hold_mug`, `pour` (position weight high, orientation low; start from inzuppato `primitives/`, VectorForge `control/primitives.py`)
-- [ ] 2.2 Shared-workspace rule in the expert: handoff zone is a reservation
-- [ ] 2.3 `expert/make_demos.py` → LeRobotDataset v3.0 (3 cams + state + action + instruction); 150–300 eps/skill, 10 paraphrases × arm swaps, 10% missed-grasp-with-retry demos; push to HF Hub
+- [x] 2.1 (`expert/primitives.py`: open_drawer, pick/place, via-table handoff, hold_mug, pour with roll-correct-roll; grasp-assist weld after a physical two-pad grasp) mink primitives: `open_drawer`, `pick_place`, `handoff`, `hold_mug`, `pour` (position weight high, orientation low; start from inzuppato `primitives/`, VectorForge `control/primitives.py`)
+- [x] 2.2 (`Workspace` reservation in primitives.py) Shared-workspace rule in the expert: handoff zone is a reservation
+- [x] 2.3 (**60/skill = 420 episodes, not 150–300/skill**: ~2 h wall on 4 shards; push pending HF_TOKEN → docs/KAGGLE_TODO.md) `expert/make_demos.py` → LeRobotDataset v3.0 (3 cams + state + action + instruction); 150–300 eps/skill, 10 paraphrases × arm swaps, 10% missed-grasp-with-retry demos; push to HF Hub
 
 ## Phase 3 — Policies
 - [ ] 3.1 One multi-task SmolVLA on all skills (Kaggle via `policies/kaggle_smolvla.ipynb`, checkpoints synced through HF Hub)

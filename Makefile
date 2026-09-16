@@ -6,8 +6,17 @@ export MUJOCO_GL ?= glfw   # EGL is broken on this box, see docs/BLOCKERS.md
 
 .PHONY: demos train eval bench demo verify-log test scene
 
-demos:        ## Phase 2 — scripted-expert demos -> LeRobotDataset
-	@echo "demos: not implemented"
+EPISODES ?= 60
+demos:        ## Phase 2 — scripted-expert demos (4 parallel shards, EPISODES=$(EPISODES) per skill) -> LeRobotDataset, pushed if HF_TOKEN is set
+	rm -rf data/lerobot/shard_1 data/lerobot/shard_2 data/lerobot/shard_3 data/lerobot/shard_4
+	$(PY) -m expert.make_demos --episodes $(EPISODES) --skills open_drawer pick_place_fork  --root data/lerobot/shard_1 --repo-id shard/shard_1 --results data/lerobot/shard_1/demos_shard.json & \
+	$(PY) -m expert.make_demos --episodes $(EPISODES) --skills pick_place_plate pick_place_mug --root data/lerobot/shard_2 --repo-id shard/shard_2 --results data/lerobot/shard_2/demos_shard.json & \
+	$(PY) -m expert.make_demos --episodes $(EPISODES) --skills handoff_spoon hold_mug --root data/lerobot/shard_3 --repo-id shard/shard_3 --results data/lerobot/shard_3/demos_shard.json & \
+	$(PY) -m expert.make_demos --episodes $(EPISODES) --skills pour --root data/lerobot/shard_4 --repo-id shard/shard_4 --results data/lerobot/shard_4/demos_shard.json & \
+	wait
+	$(PY) -m expert.merge_demos --shards data/lerobot/shard_1 data/lerobot/shard_2 data/lerobot/shard_3 data/lerobot/shard_4 --out data/lerobot/thali_all --repo-id Prashant-77/thali_all --push
+	$(PY) -m expert.sweep --seeds 10 --split train
+	$(PY) -m expert.sweep --seeds 10 --split test
 
 train:        ## Phase 3 — train ACT baselines locally / SmolVLA on Kaggle
 	@echo "train: not implemented"

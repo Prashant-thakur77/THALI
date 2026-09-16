@@ -267,11 +267,11 @@
         </body>
       </body>
     </body>
-    <body name="cabinet" pos="-0.1 0.31 0">
+    <body name="cabinet" pos="-0.16 0.31 0">
       <geom name="cabinet_back" size="0.128 0.005 0.03" pos="0 0.078 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
       <geom name="cabinet_left" size="0.005 0.08 0.03" pos="-0.123 0 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
       <geom name="cabinet_right" size="0.005 0.08 0.03" pos="0.123 0 0.03" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
-      <geom name="cabinet_top" size="0.128 0.083 0.0025" pos="0 0 0.0655" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
+      <geom name="cabinet_top" size="0.128 0.063 0.0025" pos="0 0.02 0.0655" type="box" contype="3" conaffinity="3" rgba="0.45 0.3 0.18 1"/>
       <body name="drawer">
         <joint name="drawer_slide" type="slide" range="0 0.12" damping="2" frictionloss="0.3" axis="0 -1 0"/>
         <geom name="drawer_floor" size="0.11 0.07 0.002" pos="0 0 0.006" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.15"/>
@@ -281,11 +281,11 @@
         <geom name="drawer_front" size="0.112 0.004 0.027" pos="0 -0.074 0.032" type="box" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.6 0.42 0.24 1" mass="0.05"/>
         <geom name="drawer_handle_post0" size="0.003 0.011" pos="-0.02 -0.089 0.035" quat="0.707107 -0.707107 0 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.8 0.8 0.8 1" mass="0.005"/>
         <geom name="drawer_handle_post1" size="0.003 0.011" pos="0.02 -0.089 0.035" quat="0.707107 -0.707107 0 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.8 0.8 0.8 1" mass="0.005"/>
-        <geom name="drawer_handle" size="0.005 0.025" pos="0 -0.1 0.035" quat="0.707107 0 -0.707107 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.85 0.85 0.85 1" mass="0.01"/>
+        <geom name="drawer_handle" size="0.006 0.025" pos="0 -0.1 0.035" quat="0.707107 0 -0.707107 0" type="capsule" contype="3" conaffinity="3" friction="0.6 0.01 0.001" rgba="0.85 0.85 0.85 1" mass="0.01"/>
         <site name="drawer_handle_site" size="0.004" pos="0 -0.1 0.035"/>
       </body>
     </body>
-    <body name="fork_1" pos="-0.1675 0.3 0.008" quat="0.707107 0 0 0.707107">
+    <body name="fork_1" pos="-0.235 0.3 0.008" quat="0.707107 0 0 0.707107">
       <joint name="fork_1_free" type="free"/>
       <geom name="fork_1_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
       <geom name="fork_1_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
@@ -296,7 +296,7 @@
       <geom name="fork_1_tine2" size="0.007 0.0022 0.003" pos="0.027 0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
       <geom name="fork_1_tine3" size="0.007 0.0022 0.003" pos="0.027 0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
     </body>
-    <body name="fork_2" pos="-0.1225 0.3 0.008" quat="0.707107 0 0 0.707107">
+    <body name="fork_2" pos="-0.185 0.3 0.008" quat="0.707107 0 0 0.707107">
       <joint name="fork_2_free" type="free"/>
       <geom name="fork_2_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
       <geom name="fork_2_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
@@ -307,174 +307,171 @@
       <geom name="fork_2_tine2" size="0.007 0.0022 0.003" pos="0.027 0.0024 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
       <geom name="fork_2_tine3" size="0.007 0.0022 0.003" pos="0.027 0.0072 0.004" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.001"/>
     </body>
-    <body name="spoon_1" pos="-0.0775 0.3 0.008" quat="0.707107 0 0 0.707107">
+    <body name="spoon_1" pos="-0.135 0.3 0.008" quat="0.707107 0 0 0.707107">
       <joint name="spoon_1_free" type="free"/>
       <geom name="spoon_1_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
       <geom name="spoon_1_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
       <geom name="spoon_1_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
       <geom name="spoon_1_bowl" size="0.01 0.011 0.004" pos="0.023 0 0.004" type="ellipsoid" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
     </body>
-    <body name="spoon_2" pos="-0.0325 0.3 0.008" quat="0.707107 0 0 0.707107">
+    <body name="spoon_2" pos="-0.085 0.3 0.008" quat="0.707107 0 0 0.707107">
       <joint name="spoon_2_free" type="free"/>
       <geom name="spoon_2_riser" size="0.006 0.006 0.0095" pos="-0.026 0 0.0095" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
       <geom name="spoon_2_grasp" size="0.016 0.006 0.005" pos="-0.012 0 0.024" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.006"/>
       <geom name="spoon_2_neck" size="0.003 0.00806226" pos="0.008 0 0.013" quat="0.9665 0 -0.256668 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.002"/>
       <geom name="spoon_2_bowl" size="0.01 0.011 0.004" pos="0.023 0 0.004" type="ellipsoid" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.78 0.79 0.82 1" mass="0.004"/>
     </body>
-    <body name="plate" pos="-0.12 -0.22 0.004">
+    <body name="plate" pos="-0.12 -0.24 0.004">
       <joint name="plate_free" type="free"/>
       <geom name="plate_disc" size="0.055 0.003" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.06"/>
-      <geom name="plate_rim_wall0" size="0.0015 0.0154741 0.009" pos="0.0535 0 0.012" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall1" size="0.0015 0.0154741 0.009" pos="0.0463324 0.02675 0.012" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall2" size="0.0015 0.0154741 0.009" pos="0.02675 0.0463324 0.012" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall3" size="0.0015 0.0154741 0.009" pos="0 0.0535 0.012" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall4" size="0.0015 0.0154741 0.009" pos="-0.02675 0.0463324 0.012" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall5" size="0.0015 0.0154741 0.009" pos="-0.0463324 0.02675 0.012" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall6" size="0.0015 0.0154741 0.009" pos="-0.0535 0 0.012" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall7" size="0.0015 0.0154741 0.009" pos="-0.0463324 -0.02675 0.012" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall8" size="0.0015 0.0154741 0.009" pos="-0.02675 -0.0463324 0.012" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall9" size="0.0015 0.0154741 0.009" pos="0 -0.0535 0.012" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall10" size="0.0015 0.0154741 0.009" pos="0.02675 -0.0463324 0.012" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
-      <geom name="plate_rim_wall11" size="0.0015 0.0154741 0.009" pos="0.0463324 -0.02675 0.012" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall0" size="0.006 0.0154741 0.009" pos="0.049 0 0.012" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall1" size="0.006 0.0154741 0.009" pos="0.0424352 0.0245 0.012" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall2" size="0.006 0.0154741 0.009" pos="0.0245 0.0424352 0.012" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall3" size="0.006 0.0154741 0.009" pos="0 0.049 0.012" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall4" size="0.006 0.0154741 0.009" pos="-0.0245 0.0424352 0.012" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall5" size="0.006 0.0154741 0.009" pos="-0.0424352 0.0245 0.012" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall6" size="0.006 0.0154741 0.009" pos="-0.049 0 0.012" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall7" size="0.006 0.0154741 0.009" pos="-0.0424352 -0.0245 0.012" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall8" size="0.006 0.0154741 0.009" pos="-0.0245 -0.0424352 0.012" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall9" size="0.006 0.0154741 0.009" pos="0 -0.049 0.012" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall10" size="0.006 0.0154741 0.009" pos="0.0245 -0.0424352 0.012" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
+      <geom name="plate_rim_wall11" size="0.006 0.0154741 0.009" pos="0.0424352 -0.0245 0.012" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.95 0.95 0.92 1" mass="0.00333333"/>
     </body>
-    <body name="mug" pos="0.14 -0.2 0.003">
+    <body name="mug" pos="0.15 -0.22 0.003">
       <joint name="mug_free" type="free"/>
-      <geom name="mug_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.02"/>
-      <geom name="mug_body_wall0" size="0.0015 0.00506424 0.032" pos="0.0165 0 0.0345" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall1" size="0.0015 0.00506424 0.032" pos="0.0142894 0.00825 0.0345" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall2" size="0.0015 0.00506424 0.032" pos="0.00825 0.0142894 0.0345" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall3" size="0.0015 0.00506424 0.032" pos="0 0.0165 0.0345" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall4" size="0.0015 0.00506424 0.032" pos="-0.00825 0.0142894 0.0345" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall5" size="0.0015 0.00506424 0.032" pos="-0.0142894 0.00825 0.0345" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall6" size="0.0015 0.00506424 0.032" pos="-0.0165 0 0.0345" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall7" size="0.0015 0.00506424 0.032" pos="-0.0142894 -0.00825 0.0345" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall8" size="0.0015 0.00506424 0.032" pos="-0.00825 -0.0142894 0.0345" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall9" size="0.0015 0.00506424 0.032" pos="0 -0.0165 0.0345" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall10" size="0.0015 0.00506424 0.032" pos="0.00825 -0.0142894 0.0345" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_body_wall11" size="0.0015 0.00506424 0.032" pos="0.0142894 -0.00825 0.0345" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
-      <geom name="mug_handle0" size="0.0035 0.006" pos="0 0.024 0.05" quat="0.707107 0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
-      <geom name="mug_handle1" size="0.0035 0.015" pos="0 0.03 0.035" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
-      <geom name="mug_handle2" size="0.0035 0.006" pos="0 0.024 0.02" quat="0.707107 -0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <geom name="mug_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.02"/>
+      <geom name="mug_body_wall0" size="0.0015 0.00506424 0.032" pos="0.0165 0 0.0345" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall1" size="0.0015 0.00506424 0.032" pos="0.0142894 0.00825 0.0345" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall2" size="0.0015 0.00506424 0.032" pos="0.00825 0.0142894 0.0345" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall3" size="0.0015 0.00506424 0.032" pos="0 0.0165 0.0345" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall4" size="0.0015 0.00506424 0.032" pos="-0.00825 0.0142894 0.0345" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall5" size="0.0015 0.00506424 0.032" pos="-0.0142894 0.00825 0.0345" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall6" size="0.0015 0.00506424 0.032" pos="-0.0165 0 0.0345" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall7" size="0.0015 0.00506424 0.032" pos="-0.0142894 -0.00825 0.0345" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall8" size="0.0015 0.00506424 0.032" pos="-0.00825 -0.0142894 0.0345" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall9" size="0.0015 0.00506424 0.032" pos="0 -0.0165 0.0345" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall10" size="0.0015 0.00506424 0.032" pos="0.00825 -0.0142894 0.0345" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_body_wall11" size="0.0015 0.00506424 0.032" pos="0.0142894 -0.00825 0.0345" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.00416667"/>
+      <geom name="mug_handle0" size="0.0035 0.006" pos="0 0.024 0.05" quat="0.707107 0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <geom name="mug_handle1" size="0.0035 0.015" pos="0 0.03 0.035" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.005"/>
+      <geom name="mug_handle2" size="0.0035 0.006" pos="0 0.024 0.02" quat="0.707107 -0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.005"/>
       <site name="mug_inside" size="0.015 0.032" pos="0 0 0.035" type="cylinder" rgba="0 0 0 0"/>
     </body>
-    <body name="bottle" pos="-0.05 0.1 0.003">
+    <body name="bottle" pos="0.04 0.09 0.003">
       <joint name="bottle_free" type="free"/>
-      <geom name="bottle_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.02"/>
-      <geom name="bottle_body_wall0" size="0.0015 0.00506424 0.035" pos="0.0165 0 0.0375" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall1" size="0.0015 0.00506424 0.035" pos="0.0142894 0.00825 0.0375" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall2" size="0.0015 0.00506424 0.035" pos="0.00825 0.0142894 0.0375" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall3" size="0.0015 0.00506424 0.035" pos="0 0.0165 0.0375" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall4" size="0.0015 0.00506424 0.035" pos="-0.00825 0.0142894 0.0375" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall5" size="0.0015 0.00506424 0.035" pos="-0.0142894 0.00825 0.0375" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall6" size="0.0015 0.00506424 0.035" pos="-0.0165 0 0.0375" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall7" size="0.0015 0.00506424 0.035" pos="-0.0142894 -0.00825 0.0375" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall8" size="0.0015 0.00506424 0.035" pos="-0.00825 -0.0142894 0.0375" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall9" size="0.0015 0.00506424 0.035" pos="0 -0.0165 0.0375" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall10" size="0.0015 0.00506424 0.035" pos="0.00825 -0.0142894 0.0375" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_body_wall11" size="0.0015 0.00506424 0.035" pos="0.0142894 -0.00825 0.0375" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.00416667"/>
-      <geom name="bottle_neck_wall0" size="0.0015 0.00365751 0.01" pos="0.0115 0 0.0825" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall1" size="0.0015 0.00365751 0.01" pos="0.00995929 0.00575 0.0825" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall2" size="0.0015 0.00365751 0.01" pos="0.00575 0.00995929 0.0825" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall3" size="0.0015 0.00365751 0.01" pos="0 0.0115 0.0825" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall4" size="0.0015 0.00365751 0.01" pos="-0.00575 0.00995929 0.0825" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall5" size="0.0015 0.00365751 0.01" pos="-0.00995929 0.00575 0.0825" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall6" size="0.0015 0.00365751 0.01" pos="-0.0115 0 0.0825" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall7" size="0.0015 0.00365751 0.01" pos="-0.00995929 -0.00575 0.0825" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall8" size="0.0015 0.00365751 0.01" pos="-0.00575 -0.00995929 0.0825" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall9" size="0.0015 0.00365751 0.01" pos="0 -0.0115 0.0825" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall10" size="0.0015 0.00365751 0.01" pos="0.00575 -0.00995929 0.0825" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_neck_wall11" size="0.0015 0.00365751 0.01" pos="0.00995929 -0.00575 0.0825" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.000833333"/>
-      <geom name="bottle_shoulder0" size="0.004 0.0085 0.0015" pos="0.0135 0 0.0725" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder1" size="0.004 0.0085 0.0015" pos="0.00954594 0.00954594 0.0725" quat="0.92388 0 0 0.382683" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder2" size="0.004 0.0085 0.0015" pos="0 0.0135 0.0725" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder3" size="0.004 0.0085 0.0015" pos="-0.00954594 0.00954594 0.0725" quat="0.382683 0 0 0.92388" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder4" size="0.004 0.0085 0.0015" pos="-0.0135 0 0.0725" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder5" size="0.004 0.0085 0.0015" pos="-0.00954594 -0.00954594 0.0725" quat="-0.382683 0 0 0.92388" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder6" size="0.004 0.0085 0.0015" pos="0 -0.0135 0.0725" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
-      <geom name="bottle_shoulder7" size="0.004 0.0085 0.0015" pos="0.00954594 -0.00954594 0.0725" quat="-0.92388 0 0 0.382683" type="box" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.002"/>
+      <geom name="bottle_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.02"/>
+      <geom name="bottle_body_wall0" size="0.0015 0.00506424 0.045" pos="0.0165 0 0.0475" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall1" size="0.0015 0.00506424 0.045" pos="0.0142894 0.00825 0.0475" quat="0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall2" size="0.0015 0.00506424 0.045" pos="0.00825 0.0142894 0.0475" quat="0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall3" size="0.0015 0.00506424 0.045" pos="0 0.0165 0.0475" quat="0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall4" size="0.0015 0.00506424 0.045" pos="-0.00825 0.0142894 0.0475" quat="0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall5" size="0.0015 0.00506424 0.045" pos="-0.0142894 0.00825 0.0475" quat="0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall6" size="0.0015 0.00506424 0.045" pos="-0.0165 0 0.0475" quat="0 0 0 1" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall7" size="0.0015 0.00506424 0.045" pos="-0.0142894 -0.00825 0.0475" quat="-0.258819 0 0 0.965926" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall8" size="0.0015 0.00506424 0.045" pos="-0.00825 -0.0142894 0.0475" quat="-0.5 0 0 0.866025" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall9" size="0.0015 0.00506424 0.045" pos="0 -0.0165 0.0475" quat="-0.707107 0 0 0.707107" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall10" size="0.0015 0.00506424 0.045" pos="0.00825 -0.0142894 0.0475" quat="-0.866025 0 0 0.5" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
+      <geom name="bottle_body_wall11" size="0.0015 0.00506424 0.045" pos="0.0142894 -0.00825 0.0475" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
       <site name="bottle_spout" pos="0 0 0.0925" rgba="0 0 0 0"/>
     </body>
-    <body name="water_0" pos="-0.043 0.1 0.012">
+    <body name="water_0" pos="0.0465 0.09 0.011">
       <joint name="water_0_free" type="free"/>
-      <geom name="water_0_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_0_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_1" pos="-0.0535 0.106062 0.012">
+    <body name="water_1" pos="0.03675 0.0956292 0.011">
       <joint name="water_1_free" type="free"/>
-      <geom name="water_1_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_1_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_2" pos="-0.0535 0.0939378 0.012">
+    <body name="water_2" pos="0.03675 0.0843708 0.011">
       <joint name="water_2_free" type="free"/>
-      <geom name="water_2_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_2_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_3" pos="-0.0446461 0.10451 0.0195">
+    <body name="water_3" pos="0.0449715 0.0941874 0.0175">
       <joint name="water_3_free" type="free"/>
-      <geom name="water_3_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_3_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_4" pos="-0.0565823 0.102382 0.0195">
+    <body name="water_4" pos="0.0338879 0.0922117 0.0175">
       <joint name="water_4_free" type="free"/>
-      <geom name="water_4_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_4_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_5" pos="-0.0487716 0.0931086 0.0195">
+    <body name="water_5" pos="0.0411407 0.0836009 0.0175">
       <joint name="water_5_free" type="free"/>
-      <geom name="water_5_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_5_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_6" pos="-0.0488102 0.106898 0.027">
+    <body name="water_6" pos="0.0411048 0.0964054 0.024">
       <joint name="water_6_free" type="free"/>
-      <geom name="water_6_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_6_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_7" pos="-0.0565689 0.0975813 0.027">
+    <body name="water_7" pos="0.0339003 0.0877541 0.024">
       <joint name="water_7_free" type="free"/>
-      <geom name="water_7_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_7_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_8" pos="-0.0446209 0.0955206 0.027">
+    <body name="water_8" pos="0.0449949 0.0858405 0.024">
       <joint name="water_8_free" type="free"/>
-      <geom name="water_8_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_8_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_9" pos="-0.0535339 0.106042 0.0345">
+    <body name="water_9" pos="0.0367185 0.0956109 0.0305">
       <joint name="water_9_free" type="free"/>
-      <geom name="water_9_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_9_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_10" pos="-0.053466 0.0939183 0.0345">
+    <body name="water_10" pos="0.0367816 0.0843527 0.0305">
       <joint name="water_10_free" type="free"/>
-      <geom name="water_10_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_10_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_11" pos="-0.0430001 0.100039 0.0345">
+    <body name="water_11" pos="0.0464999 0.0900364 0.0305">
       <joint name="water_11_free" type="free"/>
-      <geom name="water_11_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_11_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_12" pos="-0.0565956 0.102345 0.042">
+    <body name="water_12" pos="0.0338756 0.0921774 0.037">
       <joint name="water_12_free" type="free"/>
-      <geom name="water_12_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_12_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_13" pos="-0.048733 0.0931156 0.042">
+    <body name="water_13" pos="0.0411765 0.0836074 0.037">
       <joint name="water_13_free" type="free"/>
-      <geom name="water_13_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_13_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_14" pos="-0.0446715 0.104539 0.042">
+    <body name="water_14" pos="0.0449479 0.0942152 0.037">
       <joint name="water_14_free" type="free"/>
-      <geom name="water_14_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_14_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_15" pos="-0.0565552 0.0975445 0.0495">
+    <body name="water_15" pos="0.033913 0.0877199 0.0435">
       <joint name="water_15_free" type="free"/>
-      <geom name="water_15_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_15_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_16" pos="-0.0445959 0.0955508 0.0495">
+    <body name="water_16" pos="0.0450181 0.0858686 0.0435">
       <joint name="water_16_free" type="free"/>
-      <geom name="water_16_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_16_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_17" pos="-0.0488489 0.106905 0.0495">
+    <body name="water_17" pos="0.0410689 0.0964115 0.0435">
       <joint name="water_17_free" type="free"/>
-      <geom name="water_17_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_17_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_18" pos="-0.0534318 0.093899 0.057">
+    <body name="water_18" pos="0.0368133 0.0843348 0.05">
       <joint name="water_18_free" type="free"/>
-      <geom name="water_18_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_18_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_19" pos="-0.0430004 0.100078 0.057">
+    <body name="water_19" pos="0.0464996 0.0900729 0.05">
       <joint name="water_19_free" type="free"/>
-      <geom name="water_19_geom" size="0.0035" contype="2" conaffinity="2" condim="1" group="1" friction="0.2" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_19_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
   </worldbody>
+
+  <equality>
+    <weld name="weld_a_plate" body1="arm_a_gripper" body2="plate" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_mug" body1="arm_a_gripper" body2="mug" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_bottle" body1="arm_a_gripper" body2="bottle" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_fork_1" body1="arm_a_gripper" body2="fork_1" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_fork_2" body1="arm_a_gripper" body2="fork_2" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_spoon_1" body1="arm_a_gripper" body2="spoon_1" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_a_spoon_2" body1="arm_a_gripper" body2="spoon_2" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_plate" body1="arm_b_gripper" body2="plate" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_mug" body1="arm_b_gripper" body2="mug" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_bottle" body1="arm_b_gripper" body2="bottle" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_fork_1" body1="arm_b_gripper" body2="fork_1" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_fork_2" body1="arm_b_gripper" body2="fork_2" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_spoon_1" body1="arm_b_gripper" body2="spoon_1" anchor="0 1 0" active="false" solref="0.005"/>
+    <weld name="weld_b_spoon_2" body1="arm_b_gripper" body2="spoon_2" anchor="0 1 0" active="false" solref="0.005"/>
+  </equality>
 
   <actuator>
     <general name="arm_a_shoulder_pan" class="arm_a_sts3215" joint="arm_a_shoulder_pan" ctrlrange="-1.91986 1.91986" forcerange="-3.35 3.35"/>
@@ -492,6 +489,6 @@
   </actuator>
 
   <keyframe>
-    <key name="home" qpos="0 -1.2 0.8 1.2 0 1.6 0 -1.2 0.8 1.2 0 1.6 0 -0.1675 0.3 0.008 0.707107 0 0 0.707107 -0.1225 0.3 0.008 0.707107 0 0 0.707107 -0.0775 0.3 0.008 0.707107 0 0 0.707107 -0.0325 0.3 0.008 0.707107 0 0 0.707107 -0.12 -0.22 0.004 1 0 0 0 0.14 -0.2 0.003 1 0 0 0 -0.05 0.1 0.003 1 0 0 0 -0.043 0.1 0.012 1 0 0 0 -0.0535 0.106062 0.012 1 0 0 0 -0.0535 0.0939378 0.012 1 0 0 0 -0.0446461 0.10451 0.0195 1 0 0 0 -0.0565823 0.102382 0.0195 1 0 0 0 -0.0487716 0.0931086 0.0195 1 0 0 0 -0.0488102 0.106898 0.027 1 0 0 0 -0.0565689 0.0975813 0.027 1 0 0 0 -0.0446209 0.0955206 0.027 1 0 0 0 -0.0535339 0.106042 0.0345 1 0 0 0 -0.053466 0.0939183 0.0345 1 0 0 0 -0.0430001 0.100039 0.0345 1 0 0 0 -0.0565956 0.102345 0.042 1 0 0 0 -0.048733 0.0931156 0.042 1 0 0 0 -0.0446715 0.104539 0.042 1 0 0 0 -0.0565552 0.0975445 0.0495 1 0 0 0 -0.0445959 0.0955508 0.0495 1 0 0 0 -0.0488489 0.106905 0.0495 1 0 0 0 -0.0534318 0.093899 0.057 1 0 0 0 -0.0430004 0.100078 0.057 1 0 0 0" ctrl="0 -1.2 0.8 1.2 0 1 0 -1.2 0.8 1.2 0 1"/>
+    <key name="home" qpos="0 -1.5 0.4 1.5 0 1.6 0 -1.5 0.4 1.5 0 1.6 0 -0.235 0.3 0.008 0.707107 0 0 0.707107 -0.185 0.3 0.008 0.707107 0 0 0.707107 -0.135 0.3 0.008 0.707107 0 0 0.707107 -0.085 0.3 0.008 0.707107 0 0 0.707107 -0.12 -0.24 0.004 1 0 0 0 0.15 -0.22 0.003 1 0 0 0 0.04 0.09 0.003 1 0 0 0 0.0465 0.09 0.011 1 0 0 0 0.03675 0.0956292 0.011 1 0 0 0 0.03675 0.0843708 0.011 1 0 0 0 0.0449715 0.0941874 0.0175 1 0 0 0 0.0338879 0.0922117 0.0175 1 0 0 0 0.0411407 0.0836009 0.0175 1 0 0 0 0.0411048 0.0964054 0.024 1 0 0 0 0.0339003 0.0877541 0.024 1 0 0 0 0.0449949 0.0858405 0.024 1 0 0 0 0.0367185 0.0956109 0.0305 1 0 0 0 0.0367816 0.0843527 0.0305 1 0 0 0 0.0464999 0.0900364 0.0305 1 0 0 0 0.0338756 0.0921774 0.037 1 0 0 0 0.0411765 0.0836074 0.037 1 0 0 0 0.0449479 0.0942152 0.037 1 0 0 0 0.033913 0.0877199 0.0435 1 0 0 0 0.0450181 0.0858686 0.0435 1 0 0 0 0.0410689 0.0964115 0.0435 1 0 0 0 0.0368133 0.0843348 0.05 1 0 0 0 0.0464996 0.0900729 0.05 1 0 0 0" ctrl="0 -1.5 0.4 1.5 0 1 0 -1.5 0.4 1.5 0 1"/>
   </keyframe>
 </mujoco>

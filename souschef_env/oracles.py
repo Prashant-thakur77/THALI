@@ -36,8 +36,16 @@ def drawer_open(model: mujoco.MjModel, data: mujoco.MjData) -> bool:
 
 
 def held_by(model: mujoco.MjModel, data: mujoco.MjData, obj: str) -> str | None:
-    """Arm whose *both* jaw pads touch ``obj``, or None.  A one-pad touch is a nudge, not a grasp."""
+    """Arm whose *both* jaw pads touch ``obj`` (or whose grasp-assist weld on it is active), else None.
+
+    A one-pad touch is a nudge, not a grasp.  The weld only ever activates after a two-pad contact grasp
+    (env._try_weld), so counting it keeps the oracle true while the carry unloads one pad.
+    """
     geoms = _body_geoms(model, obj)
+    for arm in C.ARMS:
+        eq = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_EQUALITY, f"weld_{arm}_{obj}")
+        if eq >= 0 and data.eq_active[eq]:
+            return arm
     for arm in C.ARMS:
         fixed, moving = _pad_ids(model, arm)
         touching = {fixed: False, moving: False}

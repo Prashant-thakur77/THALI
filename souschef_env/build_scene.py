@@ -98,8 +98,8 @@ def add_plate(spec: mujoco.MjSpec, pos) -> None:
     disc = b.add_geom(name="plate_disc", type=mujoco.mjtGeom.mjGEOM_CYLINDER, size=[0.055, 0.003, 0],
                       pos=[0, 0, 0], rgba=[0.95, 0.95, 0.92, 1], mass=0.06)
     _prop_defaults(disc)
-    # Raised rim: the grasp feature.  3 mm wall, 18 mm tall -> jaws straddle it top-down.
-    _add_ring(b, "plate_rim", inner_r=0.052, wall=0.003, z0=0.003, height=0.018, rgba=[0.95, 0.95, 0.92, 1], mass_total=0.04)
+    # Raised rim: the grasp feature.  12 mm thick, 18 mm tall: the jaws bottom out at ~8 mm, so a thinner wall cannot be gripped.
+    _add_ring(b, "plate_rim", inner_r=0.043, wall=0.012, z0=0.003, height=0.018, rgba=[0.95, 0.95, 0.92, 1], mass_total=0.04)
     for g in b.geoms:
         _prop_defaults(g)
 
@@ -118,6 +118,7 @@ def add_mug(spec: mujoco.MjSpec, pos) -> None:
                        fromto=[*f, *t], rgba=[0.20, 0.42, 0.75, 1], mass=0.005)
     for g in b.geoms:
         _prop_defaults(g)
+        g.solref = [0.004, 2.0]  # overdamped: catches falling water spheres instead of bouncing them out
     # non-colliding marker of the "inside the mug" volume, used by the poured oracle
     s = b.add_site(name="mug_inside", pos=[0, 0, 0.035], size=[0.015, 0.032, 0], type=mujoco.mjtGeom.mjGEOM_CYLINDER)  # (radius, half-height)
     s.rgba = [0, 0, 0, 0]
@@ -128,19 +129,12 @@ def add_bottle(spec: mujoco.MjSpec, pos) -> None:
     b.add_freejoint(name="bottle_free")
     b.add_geom(name="bottle_base", type=mujoco.mjtGeom.mjGEOM_CYLINDER, size=[0.018, 0.0025, 0],
                pos=[0, 0, 0], rgba=[0.85, 0.85, 0.95, 0.6], mass=0.02)
-    _add_ring(b, "bottle_body", inner_r=0.015, wall=0.003, z0=0.0025, height=0.070, rgba=[0.85, 0.85, 0.95, 0.6], mass_total=0.05)
-    # neck: narrower ring; spheres (r=3.5 mm) pass through a 20 mm bore
-    _add_ring(b, "bottle_neck", inner_r=0.010, wall=0.003, z0=0.0725, height=0.020, rgba=[0.85, 0.85, 0.95, 0.6], mass_total=0.01)
-    # shoulder: flat annulus approximated by the neck ring sitting on the body ring is leaky at the
-    # step, so add 8 wedge boxes as a shoulder.
-    seg = 2 * math.pi / 8
-    for i in range(8):
-        ang = i * seg
-        g = b.add_geom(name=f"bottle_shoulder{i}", type=mujoco.mjtGeom.mjGEOM_BOX,
-                       size=[0.004, 0.0085, 0.0015], pos=[0.0135 * math.cos(ang), 0.0135 * math.sin(ang), 0.0725],
-                       quat=[math.cos(ang / 2), 0, 0, math.sin(ang / 2)], rgba=[0.85, 0.85, 0.95, 0.6], mass=0.002)
+    # straight tube: a shouldered neck jams 3 mm spheres (hole/particle ratio < 4), a 30 mm bore pours at ~100 deg
+    _add_ring(b, "bottle_body", inner_r=0.015, wall=0.003, z0=0.0025, height=0.090, rgba=[0.85, 0.85, 0.95, 0.6], mass_total=0.06)
     for g in b.geoms:
         _prop_defaults(g)
+    for g in b.geoms:
+        g.friction = [0.1, 0.005, 0.0001]
     s = b.add_site(name="bottle_spout", pos=[0, 0, 0.0925], size=[0.005, 0.005, 0.005])
     s.rgba = [0, 0, 0, 0]
 
@@ -151,15 +145,16 @@ def add_water(spec: mujoco.MjSpec, bottle_pos) -> None:
     for i in range(C.N_WATER):
         layer, k = divmod(i, 3)
         ang = k * 2 * math.pi / 3 + layer * 0.7
-        x = bottle_pos[0] + 0.007 * math.cos(ang)
-        y = bottle_pos[1] + 0.007 * math.sin(ang)
-        z = 0.012 + layer * 0.0075
+        x = bottle_pos[0] + 0.0065 * math.cos(ang)
+        y = bottle_pos[1] + 0.0065 * math.sin(ang)
+        z = 0.011 + layer * 0.0065
         b = spec.worldbody.add_body(name=f"water_{i}", pos=[x, y, z])
         b.add_freejoint(name=f"water_{i}_free")
-        g = b.add_geom(name=f"water_{i}_geom", type=mujoco.mjtGeom.mjGEOM_SPHERE, size=[0.0035, 0, 0],
+        g = b.add_geom(name=f"water_{i}_geom", type=mujoco.mjtGeom.mjGEOM_SPHERE, size=[0.003, 0, 0],
                        rgba=[0.3, 0.6, 1.0, 0.9], mass=0.001)
         g.condim = 1
-        g.friction = [0.2, 0.005, 0.0001]
+        g.friction = [0.05, 0.001, 0.0001]  # "water": nearly frictionless so it flows out of a tilted bottle
+        g.solref = [0.004, 2.0]  # overdamped contacts: a sphere dropped into the mug must not bounce back out
         g.solref = [0.004, 1.0]
         g.contype = g.conaffinity = 2
         g.group = 1
@@ -197,7 +192,8 @@ def add_cabinet_and_drawer(spec: mujoco.MjSpec) -> None:
     cab.add_geom(name="cabinet_back", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0, 0.078, 0.03], size=[0.128, 0.005, 0.03], rgba=cab_rgba)
     cab.add_geom(name="cabinet_left", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[-0.123, 0.0, 0.03], size=[0.005, 0.08, 0.03], rgba=cab_rgba)
     cab.add_geom(name="cabinet_right", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0.123, 0.0, 0.03], size=[0.005, 0.08, 0.03], rgba=cab_rgba)
-    cab.add_geom(name="cabinet_top", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0, 0.0, 0.0655], size=[0.128, 0.083, 0.0025], rgba=cab_rgba)
+    # top recessed: its front edge sits 6 cm behind the handle so the moving jaw can swing closed above the bar
+    cab.add_geom(name="cabinet_top", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0, 0.02, 0.0655], size=[0.128, 0.063, 0.0025], rgba=cab_rgba)
     for g in cab.geoms:
         g.contype = g.conaffinity = 3
 
@@ -210,10 +206,10 @@ def add_cabinet_and_drawer(spec: mujoco.MjSpec) -> None:
     dr.add_geom(name="drawer_wall_left", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[-0.108, 0, 0.017], size=[0.002, 0.07, 0.011], rgba=dr_rgba, mass=0.02)
     dr.add_geom(name="drawer_wall_right", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0.108, 0, 0.017], size=[0.002, 0.07, 0.011], rgba=dr_rgba, mass=0.02)
     dr.add_geom(name="drawer_front", type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0, -0.074, 0.032], size=[0.112, 0.004, 0.027], rgba=dr_rgba, mass=0.05)
-    # handle: horizontal bar (10 mm dia) 25 mm proud of the front face, at 35 mm height
+    # handle: horizontal bar (12 mm dia -- the jaws cannot close below ~8 mm) 25 mm proud of the front face, at 35 mm height
     dr.add_geom(name="drawer_handle_post0", type=mujoco.mjtGeom.mjGEOM_CAPSULE, fromto=[-0.02, -0.078, 0.035, -0.02, -0.100, 0.035], size=[0.003, 0, 0], rgba=[0.8, 0.8, 0.8, 1], mass=0.005)
     dr.add_geom(name="drawer_handle_post1", type=mujoco.mjtGeom.mjGEOM_CAPSULE, fromto=[0.02, -0.078, 0.035, 0.02, -0.100, 0.035], size=[0.003, 0, 0], rgba=[0.8, 0.8, 0.8, 1], mass=0.005)
-    dr.add_geom(name="drawer_handle", type=mujoco.mjtGeom.mjGEOM_CAPSULE, fromto=[-0.025, -0.100, 0.035, 0.025, -0.100, 0.035], size=[0.005, 0, 0], rgba=[0.85, 0.85, 0.85, 1], mass=0.01)
+    dr.add_geom(name="drawer_handle", type=mujoco.mjtGeom.mjGEOM_CAPSULE, fromto=[-0.025, -0.100, 0.035, 0.025, -0.100, 0.035], size=[0.006, 0, 0], rgba=[0.85, 0.85, 0.85, 1], mass=0.01)
     for g in dr.geoms:
         g.contype = g.conaffinity = 3
         g.friction = [0.6, 0.01, 0.001]
@@ -270,16 +266,28 @@ def build_spec() -> mujoco.MjSpec:
     # fixtures + props
     add_cabinet_and_drawer(spec)
     cx, cy, _ = C.CABINET_POS
-    # pieces lie along y (yaw 90 deg): 65 mm long, 12 mm wide, so 45 mm x-spacing keeps them apart
-    add_cutlery(spec, "fork_1", "fork", (cx - 0.0675, cy - 0.01, 0.008), math.pi / 2)
-    add_cutlery(spec, "fork_2", "fork", (cx - 0.0225, cy - 0.01, 0.008), math.pi / 2)
-    add_cutlery(spec, "spoon_1", "spoon", (cx + 0.0225, cy - 0.01, 0.008), math.pi / 2)
-    add_cutlery(spec, "spoon_2", "spoon", (cx + 0.0675, cy - 0.01, 0.008), math.pi / 2)
-    add_plate(spec, (-0.12, -0.22))
-    add_mug(spec, (0.14, -0.20))
-    bottle_pos = (-0.05, 0.10)
+    # pieces lie along y (yaw 90 deg): 65 mm long, 12 mm wide; 50 mm x-spacing clears the partially-open moving jaw
+    add_cutlery(spec, "fork_1", "fork", (cx - 0.075, cy - 0.01, 0.008), math.pi / 2)
+    add_cutlery(spec, "fork_2", "fork", (cx - 0.025, cy - 0.01, 0.008), math.pi / 2)
+    add_cutlery(spec, "spoon_1", "spoon", (cx + 0.025, cy - 0.01, 0.008), math.pi / 2)
+    add_cutlery(spec, "spoon_2", "spoon", (cx + 0.075, cy - 0.01, 0.008), math.pi / 2)
+    add_plate(spec, (-0.12, -0.24))
+    add_mug(spec, (0.15, -0.22))
+    bottle_pos = (0.04, 0.09)  # clear of the open drawer's front corner (x < -0.05) and of the held mug (x in [-0.16, -0.04], y in [0.09, 0.22])
     add_bottle(spec, bottle_pos)
     add_water(spec, bottle_pos)
+
+    # grasp-assist welds (inactive; env.py activates one only after a physical two-pad grasp is confirmed)
+    for arm in C.ARMS:
+        for obj in C.OBJECTS:
+            eq = spec.add_equality()
+            eq.type = mujoco.mjtEq.mjEQ_WELD
+            eq.name = f"weld_{arm}_{obj}"
+            eq.objtype = mujoco.mjtObj.mjOBJ_BODY
+            eq.name1 = f"{C.ARM_PREFIX[arm]}gripper"
+            eq.name2 = obj
+            eq.active = False
+            eq.solref = [0.005, 1.0]
 
     # keyframe: home pose, jaws open
     key = spec.add_key(name="home")
