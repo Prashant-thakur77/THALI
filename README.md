@@ -42,7 +42,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 
 ![architecture](docs/architecture.png)
 
-Full write-up (architecture, workload placement, optimisation choices): [docs/WRITEUP.md](docs/WRITEUP.md). Demo video: `video/thali_demo.mp4` (2:34).
+Full write-up (architecture, workload placement, optimisation choices): [docs/WRITEUP.md](docs/WRITEUP.md). Demo video: `video/thali_demo.mp4` (3:31).
 
 ```
  mic ─► Speechmatics realtime ─► parser ─► local VLM planner ─► verifier ─► per-arm queues ─► skill ─► camera check + oracle ─► next / replan

@@ -2,7 +2,7 @@
 
 **Problem.** People with stroke, tremor, arthritis or age can speak but cannot lay a table or pour a drink. **Thali** is a voice-controlled bimanual robot (two SO-101 arms, MuJoCo) that sets the table and pours, running on an Intel laptop with OpenVINO.
 
-Demo video: `video/thali_demo.mp4` (2:34). Repo: https://github.com/Prashant-thakur77/THALI. Dataset: https://huggingface.co/datasets/Prashant-77/thali_all.
+Demo video: `video/thali_demo.mp4` (3:31). Repo: https://github.com/Prashant-thakur77/THALI. Dataset: https://huggingface.co/datasets/Prashant-77/thali_all.
 
 ## Architecture
 
