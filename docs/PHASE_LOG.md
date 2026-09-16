@@ -233,3 +233,63 @@ is exercised by the planner/instruction-swap path and would be the multi-task Sm
 was not attempted on the 6 GB card.
 
 **Tests:** `tests/test_policies.py` (configs/notebook, step→skill mapping, checkpoint loads and acts).
+
+---
+
+## Phase 8 — OpenVINO bench
+
+**Built** (`bench/`): `export_ir.py` — each ACT policy wrapped so it takes exactly the LeRobot-normalised inputs
+(state + 3 cameras, batch 1, static shapes) → `ov.convert_model` → fp32 and fp16 IR, checked against PyTorch on a
+real dataset frame (`results/ir_export.json`: max |Δ| ~1e-6 fp32, ~5e-4 fp16, 133 → 67 MB). `quantize.py` — NNCF
+post-training INT8 with 300 real calibration frames per skill (MIXED preset, transformer model type; 35 MB, mean |Δ|
+vs fp32 0.004–0.008 in normalised action units). `run.py` — p50/p95 latency and throughput per skill × precision ×
+device with `PERFORMANCE_HINT=LATENCY`, lscpu model and OpenVINO device names captured, the VLM's tok/s and TTFT
+pulled from `results/planner_eval.json`, every table captioned "measured on i7-13650HX CPU + UHD iGPU; same IR runs
+on Core Ultra NPU with -d NPU and static shapes, not measured here." `preserve.py` — the 10 test seeds re-run with
+the ACT policies executed through each IR (`OVActPolicy`, same pre/post-processors) in policy-only mode.
+`export_smolvla.py` — SmolVLA vision encoder + connector → IR from `lerobot/smolvla_base` (frozen in fine-tuning,
+so identical for the pending Kaggle checkpoint); the action expert is exported from the fine-tuned checkpoint when
+it exists.
+
+**Measured:** `results/bench.json` / `results/bench.md`, `results/preserve.json`, `results/ir_export.json`,
+`results/smolvla_ir.json` — see README "OpenVINO" and docs/EVIDENCE.md for the rendered numbers.
+
+**Plan deviations:** NPU rows are absent (no NPU on this machine) — static batch-1 shapes are exported so `-d NPU`
+needs no re-export; the SmolVLA action expert IR waits for the Kaggle checkpoint; the VLM planner runs on CPU (iGPU
+plugin crashes on the second generate, `docs/BLOCKERS.md`) and its iGPU single-call number (9 tok/s, 24–55 s TTFT)
+is reported from that one measurement.
+
+---
+
+## Phase 9 — Eval suite
+
+**Built** (`eval/`): `run_seeds.py` (full 7-step task on `test_ranges` seeds 0–9 through the runtime executor:
+expert / ACT policy-only / +retry / +fallback / SmolVLA-when-present; per-skill outcome and which stage won; aggregate
+`results/seeds.json` with explicit "pending SmolVLA run" rows), `heatmap.py` (seeds × axis, one axis randomised per
+column plus the all-axes column, PNG + JSON), `instruction_swap.py` (arm / object / order swaps → confusion matrix),
+`camera_vs_oracle.py` (pixel heuristic and VLM yes/no vs the sim oracle after every skill: agreement, precision,
+recall, latency), `planner_eval.py`, `voice_test.py`. `make eval` runs them all.
+
+**Measured:** rendered into README / docs/EVIDENCE.md from `results/seeds_*.json`, `heatmap_expert.json`,
+`instruction_swap.json`, `camera_vs_oracle.json`.
+
+**Plan deviations:** the seeds × axis heatmap is produced for the scripted expert only — for the ACT policies it
+would be 70 full-task policy rollouts (~6 h on this laptop); the ACT rows exist for the all-axes column
+(`seeds_act_*`). Four evaluation jobs were run in parallel on this machine, which doubled per-seed wall time
+(recorded in each results file's `seconds`). A nominal-layout bug (bottle 9 cm from the held mug → pour grasp
+collides with arm B) surfaced through the single-axis columns and was fixed before the final runs.
+
+---
+
+## Phase 10 — Packaging + presentation
+
+**Built:** `Dockerfile` (python:3.11-slim + ffmpeg/EGL libs, pinned requirements, scene built at image build),
+`.github/workflows/ci.yml` (offline tests + verifier injection + audit chain), `environment.yml`/`requirements.txt`,
+`Makefile` with every target real, `docs/render_readme.py` rendering README.md, EVIDENCE.md, CHALLENGE_CHECKLIST.md,
+MODEL_CARD.md and PITCH.md from `results/*.json` (the enforcement of "every claim backed by a file in results/"),
+`hosting/app.py` (Gradio: replay of recorded runs, live parser → planner → verifier on the seed-0 scene, verifier
+playground, evidence tab) with its own `hosting/requirements.txt`, `runtime/demo.py --video` for the presentation
+montage, `docs/PITCH.md` (pitch, scale slide, shot list).
+
+**Pending on the user:** HF token (dataset + checkpoints + IR push), Kaggle SmolVLA run, Space deployment, the
+video recording itself, and the lablab submission (docs/KAGGLE_TODO.md).
