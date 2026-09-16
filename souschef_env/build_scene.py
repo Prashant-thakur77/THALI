@@ -273,7 +273,7 @@ def build_spec() -> mujoco.MjSpec:
     add_cutlery(spec, "spoon_2", "spoon", (cx + 0.075, cy - 0.01, 0.008), math.pi / 2)
     add_plate(spec, (-0.12, -0.24))
     add_mug(spec, (0.15, -0.22))
-    bottle_pos = (0.04, 0.09)  # clear of the open drawer's front corner (x < -0.05) and of the held mug (x in [-0.16, -0.04], y in [0.09, 0.22])
+    bottle_pos = (0.03, 0.11)  # >= 13 cm from the held mug (arm A's opening jaw must clear arm B's gripper), clear of the open drawer (x < -0.05)
     add_bottle(spec, bottle_pos)
     add_water(spec, bottle_pos)
 

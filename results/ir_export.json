@@ -1,0 +1,204 @@
+{
+  "model": "ACT (resnet18 backbone, chunk 50), per skill",
+  "inputs": "batch 1: state (1,12) + 3 x (1,3,240,320) float, LeRobot-normalised",
+  "static_shapes": true,
+  "note": "static batch-1 shapes as an NPU would need; no NPU on this box, not measured",
+  "skills": {
+    "open_drawer": {
+      "skill": "open_drawer",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 3.3,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 1.1920928955078125e-06,
+          "mean_abs_diff_vs_torch": 2.331535000621443e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0004048347473144531,
+          "mean_abs_diff_vs_torch": 0.00019388899090699852
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.004761343821883202,
+          "max_mean_abs_diff_vs_fp32": 0.008066339418292046
+        }
+      }
+    },
+    "pick_place_fork": {
+      "skill": "pick_place_fork",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 4.0,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 1.3113021850585938e-06,
+          "mean_abs_diff_vs_torch": 2.500352707102138e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0005353689193725586,
+          "mean_abs_diff_vs_torch": 0.00019246968440711498
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.003912172745913267,
+          "max_mean_abs_diff_vs_fp32": 0.007275220472365618
+        }
+      }
+    },
+    "pick_place_plate": {
+      "skill": "pick_place_plate",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 5.1,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 1.430511474609375e-06,
+          "mean_abs_diff_vs_torch": 2.4082760319288354e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0003362894058227539,
+          "mean_abs_diff_vs_torch": 0.00016835860151331872
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.006087062414735556,
+          "max_mean_abs_diff_vs_fp32": 0.010434047318994999
+        }
+      }
+    },
+    "pick_place_mug": {
+      "skill": "pick_place_mug",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 4.8,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 1.5497207641601562e-06,
+          "mean_abs_diff_vs_torch": 2.343878975352709e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0004514455795288086,
+          "mean_abs_diff_vs_torch": 0.0001224243751494214
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.005811473820358515,
+          "max_mean_abs_diff_vs_fp32": 0.018305141478776932
+        }
+      }
+    },
+    "handoff_spoon": {
+      "skill": "handoff_spoon",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 5.5,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 1.0728836059570312e-06,
+          "mean_abs_diff_vs_torch": 2.3747483623992593e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0005101487040519714,
+          "mean_abs_diff_vs_torch": 0.00017222767928615212
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.008190284483134747,
+          "max_mean_abs_diff_vs_fp32": 0.0272078737616539
+        }
+      }
+    },
+    "hold_mug": {
+      "skill": "hold_mug",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 4.5,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 2.1457672119140625e-06,
+          "mean_abs_diff_vs_torch": 2.3563703166473715e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.00029414892196655273,
+          "mean_abs_diff_vs_torch": 9.575103467795998e-05
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.004234022460877895,
+          "max_mean_abs_diff_vs_fp32": 0.008908510208129883
+        }
+      }
+    },
+    "pour": {
+      "skill": "pour",
+      "chunk": 50,
+      "action_dim": 12,
+      "convert_s": 5.3,
+      "precisions": {
+        "fp32": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/fp32/model.xml",
+          "size_mb": 132.7,
+          "max_abs_diff_vs_torch": 2.1457672119140625e-06,
+          "mean_abs_diff_vs_torch": 2.7890160936294706e-07
+        },
+        "fp16": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/fp16/model.xml",
+          "size_mb": 67.1,
+          "max_abs_diff_vs_torch": 0.0006147325038909912,
+          "mean_abs_diff_vs_torch": 0.0002140789438271895
+        },
+        "int8": {
+          "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/int8/model.xml",
+          "size_mb": 34.9,
+          "calibration_frames": 300,
+          "preset": "MIXED, model_type=TRANSFORMER",
+          "mean_abs_diff_vs_fp32": 0.006265623029321432,
+          "max_mean_abs_diff_vs_fp32": 0.024165427312254906
+        }
+      }
+    }
+  }
+}

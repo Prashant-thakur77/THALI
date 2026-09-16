@@ -1,0 +1,19 @@
+# One multi-task, language-conditioned SmolVLA on all seven skills (plan Phase 3.1).
+# Runs on Kaggle via policies/kaggle_smolvla.ipynb (the RTX 3050 6 GB here cannot hold SmolVLA-450M training).
+policy:
+  path: lerobot/smolvla_base
+  type: smolvla
+  chunk_size: 50
+  n_action_steps: 50
+  use_amp: true
+  freeze_vision_encoder: true   # default; expert + state projection trained
+dataset:
+  repo_id: Prashant-77/thali_all   # 420 episodes, 7 skills, 3 cams 240x320, 12-D actions
+train:
+  batch_size: 16
+  steps: 20000
+  seed: 1000
+output:
+  repo_id: Prashant-77/thali_smolvla
+runtime:
+  instruction: canonical paraphrase per skill (runtime/executors.py LANG_INSTRUCTION); the plan step selects it

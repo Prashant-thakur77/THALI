@@ -1,0 +1,80 @@
+{
+ "steps": 8000,
+ "batch": 8,
+ "amp": true,
+ "chunk": 50,
+ "gpu": "RTX 3050 6GB",
+ "seconds_per_skill": 1740,
+ "loss": {
+  "open_drawer": {
+   "first": [
+    500,
+    3.719
+   ],
+   "last": [
+    8000,
+    0.093
+   ]
+  },
+  "pick_place_fork": {
+   "first": [
+    500,
+    3.747
+   ],
+   "last": [
+    8000,
+    0.103
+   ]
+  },
+  "pick_place_plate": {
+   "first": [
+    500,
+    3.557
+   ],
+   "last": [
+    8000,
+    0.093
+   ]
+  },
+  "pick_place_mug": {
+   "first": [
+    500,
+    3.883
+   ],
+   "last": [
+    8000,
+    0.123
+   ]
+  },
+  "handoff_spoon": {
+   "first": [
+    500,
+    4.008
+   ],
+   "last": [
+    8000,
+    0.12
+   ]
+  },
+  "hold_mug": {
+   "first": [
+    500,
+    3.847
+   ],
+   "last": [
+    8000,
+    0.104
+   ]
+  },
+  "pour": {
+   "first": [
+    500,
+    3.862
+   ],
+   "last": [
+    8000,
+    0.118
+   ]
+  }
+ }
+}

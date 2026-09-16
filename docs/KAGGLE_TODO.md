@@ -17,6 +17,11 @@ ds.push_to_hub(tags=['thali','so101','bimanual','mujoco'], private=False)"
 (`make demos` does the same push automatically when `HF_TOKEN` is set.)
 
 ## 2. SmolVLA fine-tune on Kaggle (Phase 3)
-Filled in by Phase 3: upload `policies/kaggle_smolvla.ipynb`, attach the dataset, run, and the notebook pushes
-`Prashant-77/thali_smolvla`. Until that checkpoint exists on the Hub, every SmolVLA row in the results is marked
-"pending SmolVLA run".
+Needs item 1 first (the notebook streams the dataset from the Hub).
+1. kaggle.com → New Notebook → File → Import `policies/kaggle_smolvla.ipynb`.
+2. Settings: Accelerator **GPU T4 ×2** (or P100), Internet **on**, Persistence on.
+3. Add-ons → Secrets → `HF_TOKEN` = a write token for `Prashant-77`.
+4. Run all. ~5–6 h for 20 000 steps at batch 16; checkpoints every 5 000 steps are pushed to
+   `Prashant-77/thali_smolvla` (`--policy.push_to_hub=true`), the last cell re-uploads the final one.
+5. Back here: `make eval POLICY=smolvla` (or `python -m eval.run_seeds --policy smolvla`) adds the SmolVLA rows to
+   `results/seeds.json`. Until the checkpoint exists on the Hub those rows read **"pending SmolVLA run"**.

@@ -357,7 +357,7 @@
       <geom name="mug_handle2" size="0.0035 0.006" pos="0 0.024 0.02" quat="0.707107 -0.707107 0 0" type="capsule" contype="2" conaffinity="2" condim="4" friction="1 0.02 0.001" solref="0.004 2" rgba="0.2 0.42 0.75 1" mass="0.005"/>
       <site name="mug_inside" size="0.015 0.032" pos="0 0 0.035" type="cylinder" rgba="0 0 0 0"/>
     </body>
-    <body name="bottle" pos="0.04 0.09 0.003">
+    <body name="bottle" pos="0.03 0.11 0.003">
       <joint name="bottle_free" type="free"/>
       <geom name="bottle_base" size="0.018 0.0025" type="cylinder" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.02"/>
       <geom name="bottle_body_wall0" size="0.0015 0.00506424 0.045" pos="0.0165 0 0.0475" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
@@ -374,83 +374,83 @@
       <geom name="bottle_body_wall11" size="0.0015 0.00506424 0.045" pos="0.0142894 -0.00825 0.0475" quat="-0.965926 0 0 0.258819" type="box" contype="2" conaffinity="2" condim="4" friction="0.1" solref="0.004" rgba="0.85 0.85 0.95 0.6" mass="0.005"/>
       <site name="bottle_spout" pos="0 0 0.0925" rgba="0 0 0 0"/>
     </body>
-    <body name="water_0" pos="0.0465 0.09 0.011">
+    <body name="water_0" pos="0.0365 0.11 0.011">
       <joint name="water_0_free" type="free"/>
       <geom name="water_0_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_1" pos="0.03675 0.0956292 0.011">
+    <body name="water_1" pos="0.02675 0.115629 0.011">
       <joint name="water_1_free" type="free"/>
       <geom name="water_1_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_2" pos="0.03675 0.0843708 0.011">
+    <body name="water_2" pos="0.02675 0.104371 0.011">
       <joint name="water_2_free" type="free"/>
       <geom name="water_2_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_3" pos="0.0449715 0.0941874 0.0175">
+    <body name="water_3" pos="0.0349715 0.114187 0.0175">
       <joint name="water_3_free" type="free"/>
       <geom name="water_3_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_4" pos="0.0338879 0.0922117 0.0175">
+    <body name="water_4" pos="0.0238879 0.112212 0.0175">
       <joint name="water_4_free" type="free"/>
       <geom name="water_4_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_5" pos="0.0411407 0.0836009 0.0175">
+    <body name="water_5" pos="0.0311407 0.103601 0.0175">
       <joint name="water_5_free" type="free"/>
       <geom name="water_5_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_6" pos="0.0411048 0.0964054 0.024">
+    <body name="water_6" pos="0.0311048 0.116405 0.024">
       <joint name="water_6_free" type="free"/>
       <geom name="water_6_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_7" pos="0.0339003 0.0877541 0.024">
+    <body name="water_7" pos="0.0239003 0.107754 0.024">
       <joint name="water_7_free" type="free"/>
       <geom name="water_7_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_8" pos="0.0449949 0.0858405 0.024">
+    <body name="water_8" pos="0.0349949 0.105841 0.024">
       <joint name="water_8_free" type="free"/>
       <geom name="water_8_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_9" pos="0.0367185 0.0956109 0.0305">
+    <body name="water_9" pos="0.0267185 0.115611 0.0305">
       <joint name="water_9_free" type="free"/>
       <geom name="water_9_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_10" pos="0.0367816 0.0843527 0.0305">
+    <body name="water_10" pos="0.0267816 0.104353 0.0305">
       <joint name="water_10_free" type="free"/>
       <geom name="water_10_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_11" pos="0.0464999 0.0900364 0.0305">
+    <body name="water_11" pos="0.0364999 0.110036 0.0305">
       <joint name="water_11_free" type="free"/>
       <geom name="water_11_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_12" pos="0.0338756 0.0921774 0.037">
+    <body name="water_12" pos="0.0238756 0.112177 0.037">
       <joint name="water_12_free" type="free"/>
       <geom name="water_12_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_13" pos="0.0411765 0.0836074 0.037">
+    <body name="water_13" pos="0.0311765 0.103607 0.037">
       <joint name="water_13_free" type="free"/>
       <geom name="water_13_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_14" pos="0.0449479 0.0942152 0.037">
+    <body name="water_14" pos="0.0349479 0.114215 0.037">
       <joint name="water_14_free" type="free"/>
       <geom name="water_14_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_15" pos="0.033913 0.0877199 0.0435">
+    <body name="water_15" pos="0.023913 0.10772 0.0435">
       <joint name="water_15_free" type="free"/>
       <geom name="water_15_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_16" pos="0.0450181 0.0858686 0.0435">
+    <body name="water_16" pos="0.0350181 0.105869 0.0435">
       <joint name="water_16_free" type="free"/>
       <geom name="water_16_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_17" pos="0.0410689 0.0964115 0.0435">
+    <body name="water_17" pos="0.0310689 0.116412 0.0435">
       <joint name="water_17_free" type="free"/>
       <geom name="water_17_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_18" pos="0.0368133 0.0843348 0.05">
+    <body name="water_18" pos="0.0268133 0.104335 0.05">
       <joint name="water_18_free" type="free"/>
       <geom name="water_18_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
-    <body name="water_19" pos="0.0464996 0.0900729 0.05">
+    <body name="water_19" pos="0.0364996 0.110073 0.05">
       <joint name="water_19_free" type="free"/>
       <geom name="water_19_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
@@ -489,6 +489,6 @@
   </actuator>
 
   <keyframe>
-    <key name="home" qpos="0 -1.5 0.4 1.5 0 1.6 0 -1.5 0.4 1.5 0 1.6 0 -0.235 0.3 0.008 0.707107 0 0 0.707107 -0.185 0.3 0.008 0.707107 0 0 0.707107 -0.135 0.3 0.008 0.707107 0 0 0.707107 -0.085 0.3 0.008 0.707107 0 0 0.707107 -0.12 -0.24 0.004 1 0 0 0 0.15 -0.22 0.003 1 0 0 0 0.04 0.09 0.003 1 0 0 0 0.0465 0.09 0.011 1 0 0 0 0.03675 0.0956292 0.011 1 0 0 0 0.03675 0.0843708 0.011 1 0 0 0 0.0449715 0.0941874 0.0175 1 0 0 0 0.0338879 0.0922117 0.0175 1 0 0 0 0.0411407 0.0836009 0.0175 1 0 0 0 0.0411048 0.0964054 0.024 1 0 0 0 0.0339003 0.0877541 0.024 1 0 0 0 0.0449949 0.0858405 0.024 1 0 0 0 0.0367185 0.0956109 0.0305 1 0 0 0 0.0367816 0.0843527 0.0305 1 0 0 0 0.0464999 0.0900364 0.0305 1 0 0 0 0.0338756 0.0921774 0.037 1 0 0 0 0.0411765 0.0836074 0.037 1 0 0 0 0.0449479 0.0942152 0.037 1 0 0 0 0.033913 0.0877199 0.0435 1 0 0 0 0.0450181 0.0858686 0.0435 1 0 0 0 0.0410689 0.0964115 0.0435 1 0 0 0 0.0368133 0.0843348 0.05 1 0 0 0 0.0464996 0.0900729 0.05 1 0 0 0" ctrl="0 -1.5 0.4 1.5 0 1 0 -1.5 0.4 1.5 0 1"/>
+    <key name="home" qpos="0 -1.5 0.4 1.5 0 1.6 0 -1.5 0.4 1.5 0 1.6 0 -0.235 0.3 0.008 0.707107 0 0 0.707107 -0.185 0.3 0.008 0.707107 0 0 0.707107 -0.135 0.3 0.008 0.707107 0 0 0.707107 -0.085 0.3 0.008 0.707107 0 0 0.707107 -0.12 -0.24 0.004 1 0 0 0 0.15 -0.22 0.003 1 0 0 0 0.03 0.11 0.003 1 0 0 0 0.0365 0.11 0.011 1 0 0 0 0.02675 0.115629 0.011 1 0 0 0 0.02675 0.104371 0.011 1 0 0 0 0.0349715 0.114187 0.0175 1 0 0 0 0.0238879 0.112212 0.0175 1 0 0 0 0.0311407 0.103601 0.0175 1 0 0 0 0.0311048 0.116405 0.024 1 0 0 0 0.0239003 0.107754 0.024 1 0 0 0 0.0349949 0.105841 0.024 1 0 0 0 0.0267185 0.115611 0.0305 1 0 0 0 0.0267816 0.104353 0.0305 1 0 0 0 0.0364999 0.110036 0.0305 1 0 0 0 0.0238756 0.112177 0.037 1 0 0 0 0.0311765 0.103607 0.037 1 0 0 0 0.0349479 0.114215 0.037 1 0 0 0 0.023913 0.10772 0.0435 1 0 0 0 0.0350181 0.105869 0.0435 1 0 0 0 0.0310689 0.116412 0.0435 1 0 0 0 0.0268133 0.104335 0.05 1 0 0 0 0.0364996 0.110073 0.05 1 0 0 0" ctrl="0 -1.5 0.4 1.5 0 1 0 -1.5 0.4 1.5 0 1"/>
   </keyframe>
 </mujoco>

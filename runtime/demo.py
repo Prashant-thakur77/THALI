@@ -26,6 +26,45 @@ from voice.parser import intents_to_command, parse
 ROOT = Path(__file__).resolve().parent.parent
 
 
+class VideoRecorder:
+    """Side-by-side front + overhead frames with a text HUD (state, last TTS line), piped to ffmpeg."""
+
+    def __init__(self, env, path: Path, every: int = 4, hud=None, fps: float = 50.0):
+        import subprocess
+        from PIL import ImageDraw, ImageFont  # noqa: F401
+        self.env, self.path, self.every, self.hud = env, path, every, hud
+        self.n = 0
+        self.frames = 0
+        path.parent.mkdir(parents=True, exist_ok=True)
+        self.w, self.h = 2 * 640, 480 + 40
+        self.proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{self.w}x{self.h}",
+                                      "-r", f"{fps / every:.3f}", "-i", "-", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "23", str(path)], stdin=subprocess.PIPE)
+
+    def tick(self) -> None:
+        self.n += 1
+        if self.n % self.every:
+            return
+        import numpy as np
+        from PIL import Image, ImageDraw
+        was = self.env.render_enabled
+        self.env.render_enabled = True
+        front = self.env.render_camera("front", 640, 480)
+        over = self.env.render_camera("overhead", 640, 480)
+        self.env.render_enabled = was
+        canvas = Image.new("RGB", (self.w, self.h), (20, 20, 24))
+        canvas.paste(Image.fromarray(front), (0, 40))
+        canvas.paste(Image.fromarray(over), (640, 40))
+        d = ImageDraw.Draw(canvas)
+        state, said = self.hud() if self.hud else ("", "")
+        d.text((10, 10), f"Thali  |  {state}  |  {said}"[:140], fill=(240, 240, 240))
+        self.proc.stdin.write(np.asarray(canvas, dtype=np.uint8).tobytes())
+        self.frames += 1
+
+    def close(self) -> None:
+        self.proc.stdin.close()
+        self.proc.wait()
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=3)
@@ -41,6 +80,8 @@ def main() -> None:
     ap.add_argument("--tts", action="store_true", help="synthesize confirmations with Speechmatics TTS")
     ap.add_argument("--no-camera-check", action="store_true")
     ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--video", type=Path, default=None, help="record front+overhead frames to this mp4 (ffmpeg)")
+    ap.add_argument("--video-every", type=int, default=4, help="record one frame every N control steps (4 -> 12.5 fps)")
     args = ap.parse_args()
 
     env = gym.make("souschef_env/Thali-v0", disable_env_checker=True).unwrapped
@@ -57,6 +98,9 @@ def main() -> None:
 
     rt = Runtime(env, planner, Verifier(), say=say, camera_check=not args.no_camera_check,
                  audit_path=ROOT / "results" / "audit.jsonl")
+    recorder = VideoRecorder(env, args.video, every=args.video_every, hud=lambda: (rt.state, say_log[-1]["text"] if say_log else "")) if args.video else None
+    if recorder:
+        rt.on_step = recorder.tick
 
     # ---- get the command
     t_speech_end = None
@@ -98,6 +142,9 @@ def main() -> None:
         threading.Thread(target=inject, daemon=True).start()
 
     log = rt.run_command(command, seed=args.seed, split=args.split, t_speech_end=t_speech_end)
+    if recorder:
+        recorder.close()
+        print(f"video: {args.video} ({recorder.frames} frames)")
     out = log.as_dict() | {"voice": voice_rec, "tts": say_log, "planner_backend": planner.backend, "device": args.device}
     path = args.out or ROOT / "results" / f"demo_seed{args.seed}.json"
     path.write_text(json.dumps(out, indent=2, default=str))

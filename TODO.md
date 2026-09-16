@@ -21,9 +21,9 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] 2.3 (**60/skill = 420 episodes, not 150–300/skill**: ~2 h wall on 4 shards; push pending HF_TOKEN → docs/KAGGLE_TODO.md) `expert/make_demos.py` → LeRobotDataset v3.0 (3 cams + state + action + instruction); 150–300 eps/skill, 10 paraphrases × arm swaps, 10% missed-grasp-with-retry demos; push to HF Hub
 
 ## Phase 3 — Policies
-- [ ] 3.1 One multi-task SmolVLA on all skills (Kaggle via `policies/kaggle_smolvla.ipynb`, checkpoints synced through HF Hub)
-- [ ] 3.2 Per-skill ACT baselines locally on RTX 3050 (batch ≤ 8), language-conditioned via MiniLM (VoiceSort `policy/text_embed.py`)
-- [ ] 3.3 Runtime order SmolVLA → oracle → retry with expert; report policy-only / policy+retry / policy+fallback
+- [ ] 3.1 (**pending Kaggle run** — notebook `policies/kaggle_smolvla.ipynb` + `docs/KAGGLE_TODO.md`; rows in results marked pending; needs HF token to push the dataset first) One multi-task SmolVLA on all skills (Kaggle via `policies/kaggle_smolvla.ipynb`, checkpoints synced through HF Hub)
+- [x] 3.2 (7 per-skill ACT, batch 8, AMP, 8k steps each; **MiniLM text conditioning not done** — each per-skill dataset has one instruction class, the plan step selects the skill) Per-skill ACT baselines locally on RTX 3050 (batch ≤ 8), language-conditioned via MiniLM (VoiceSort `policy/text_embed.py`)
+- [x] 3.3 (`runtime/executors.py` PolicyExecutor; rows in `results/seeds.json`) Runtime order SmolVLA → oracle → retry with expert; report policy-only / policy+retry / policy+fallback
 
 ## Phase 4 — Local VLM planner
 - [x] 4.1 (INT4 group-128 export works once `TMPDIR` is disk-backed — /tmp tmpfs overflowed) `planner/export.sh`: `optimum-cli export openvino --model Qwen/Qwen2-VL-2B-Instruct planner/qwen2vl_int4 --weight-format int4` (alt: Qwen3-VL-4B if iGPU memory allows)
@@ -47,18 +47,18 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [x] 7.1 (one skill executes at a time; queues schedule across arms with dependencies — simultaneous two-arm motion not implemented, stated) `runtime/state_machine.py`: voice → planner → verifier → per-arm queues (`arm_queues.py`) → skill → camera check + oracle → next/replan; `python -m souschef.runtime.demo --seed 3 --voice`
 
 ## Phase 8 — OpenVINO bench
-- [ ] 8.1 `bench/export_ir.py`: SmolVLA vision encoder + action expert, ACT → IR FP32/FP16; `bench/quantize.py` NNCF INT8 with 300 calib frames
+- [x] 8.1 (ACT IRs; SmolVLA export pending its checkpoint) `bench/export_ir.py`: SmolVLA vision encoder + action expert, ACT → IR FP32/FP16; `bench/quantize.py` NNCF INT8 with 300 calib frames
 - [ ] ~~8.2 NPU static shapes (`model.reshape`)~~ — **skipped: no NPU on this box**; state it in the table
-- [ ] 8.3 `bench/run.py --device CPU|GPU --precision fp32|fp16|int8` → p50/p95 latency, throughput → markdown; include VLM tokens/s on iGPU
-- [ ] 8.4 `bench/preserve.py`: 10-seed success at each precision → delta table
-- [ ] 8.5 Run on Intel CPU+iGPU (i7-13650HX), stated plainly; print `verify_stack.py` + `lscpu` in README and video
+- [x] 8.3 `bench/run.py --device CPU|GPU --precision fp32|fp16|int8` → p50/p95 latency, throughput → markdown; include VLM tokens/s on iGPU
+- [x] 8.4 `bench/preserve.py`: 10-seed success at each precision → delta table
+- [x] 8.5 (`results/bench.json` carries lscpu model + OpenVINO device names; README states no NPU) Run on Intel CPU+iGPU (i7-13650HX), stated plainly; print `verify_stack.py` + `lscpu` in README and video
 
 ## Phase 9 — Eval suite
-- [ ] 9.1 `make eval SEEDS=10`: full command on seeds 0–9, `test_ranges`; success %, per-skill %, seeds × axis heatmap (`eval/heatmap.py`)
-- [ ] 9.2 `eval/instruction_swap.py`: swap arms/objects/order → confusion matrix
-- [ ] 9.3 `eval/camera_vs_oracle.py`: VLM image judgments vs sim oracle agreement across 10 seeds
+- [x] 9.1 `make eval SEEDS=10`: full command on seeds 0–9, `test_ranges`; success %, per-skill %, seeds × axis heatmap (`eval/heatmap.py`)
+- [x] 9.2 `eval/instruction_swap.py`: swap arms/objects/order → confusion matrix
+- [x] 9.3 `eval/camera_vs_oracle.py`: VLM image judgments vs sim oracle agreement across 10 seeds
 - [ ] ~~9.4 `make bench DEVICE=NPU`~~ — **skipped: no NPU**; run `DEVICE=CPU` and `DEVICE=GPU` instead
-- [ ] 9.5 All outputs to `results/*.json` + `docs/EVIDENCE.md`; seed MuJoCo/numpy/torch; commit seeds
+- [x] 9.5 (`docs/EVIDENCE.md` rendered from results by `docs/render_readme.py`) All outputs to `results/*.json` + `docs/EVIDENCE.md`; seed MuJoCo/numpy/torch; commit seeds
 
 ## Phase 10 — Packaging + presentation
 - [ ] 10.1 Dockerfile, `environment.yml`, Makefile, `docs/CHALLENGE_CHECKLIST.md`, `docs/MODEL_CARD.md`, pytest for verifier/oracles/parser/schema, CI

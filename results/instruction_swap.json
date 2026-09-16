@@ -1,0 +1,328 @@
+{
+  "seed": 0,
+  "planner_backend": "vlm",
+  "arm": [
+    {
+      "variant": "plate_arm_A",
+      "command": "pick up the plate with arm A and place it on its spot",
+      "expected": [
+        "pick_place",
+        "a",
+        "plate"
+      ],
+      "got": [
+        "pick_place",
+        "a",
+        "plate"
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "open_drawer",
+          "a",
+          null
+        ],
+        [
+          "pick_place",
+          "a",
+          "plate"
+        ]
+      ]
+    },
+    {
+      "variant": "mug_arm_B",
+      "command": "pick up the mug with arm B and place it on its spot",
+      "expected": [
+        "pick_place",
+        "b",
+        "mug"
+      ],
+      "got": [
+        "pick_place",
+        "b",
+        "mug"
+      ],
+      "source": "rules",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "pick_place",
+          "b",
+          "mug"
+        ]
+      ]
+    },
+    {
+      "variant": "hold_B_pour_A",
+      "command": "hold the mug with arm B and pour water with arm A",
+      "expected": [
+        "pour",
+        "a",
+        null
+      ],
+      "got": [
+        "pour",
+        "a",
+        null
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "hold_mug",
+          "b",
+          null
+        ],
+        [
+          "pour",
+          "a",
+          null
+        ]
+      ]
+    },
+    {
+      "variant": "hold_A_pour_B",
+      "command": "hold the mug with arm A and pour water with arm B",
+      "expected": [
+        "pour",
+        "b",
+        null
+      ],
+      "got": [
+        "pour",
+        "a",
+        null
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": false,
+      "plan": [
+        [
+          "hold_mug",
+          "b",
+          null
+        ],
+        [
+          "pour",
+          "a",
+          null
+        ]
+      ]
+    }
+  ],
+  "object": [
+    {
+      "variant": "fork",
+      "command": "open the drawer and put a fork on the left of the plate",
+      "expected": [
+        "pick_place",
+        "a",
+        "fork_1"
+      ],
+      "got": [
+        "pick_place",
+        "a",
+        "fork_1"
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "open_drawer",
+          "a",
+          null
+        ],
+        [
+          "pick_place",
+          "a",
+          "fork_1"
+        ]
+      ]
+    },
+    {
+      "variant": "spoon",
+      "command": "open the drawer and put a spoon on the right of the plate",
+      "expected": [
+        "handoff",
+        "a",
+        "spoon_1"
+      ],
+      "got": [
+        "handoff",
+        "a",
+        "spoon_1"
+      ],
+      "source": "rules",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "open_drawer",
+          "a",
+          null
+        ],
+        [
+          "handoff",
+          "a",
+          "spoon_1"
+        ],
+        [
+          "pick_place",
+          "a",
+          "plate"
+        ]
+      ]
+    },
+    {
+      "variant": "plate",
+      "command": "put the plate on the plate spot",
+      "expected": [
+        "pick_place",
+        "a",
+        "plate"
+      ],
+      "got": [
+        "pick_place",
+        "a",
+        "plate"
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "open_drawer",
+          "a",
+          null
+        ],
+        [
+          "pick_place",
+          "a",
+          "plate"
+        ],
+        [
+          "handoff",
+          "a",
+          "plate"
+        ]
+      ]
+    },
+    {
+      "variant": "mug",
+      "command": "put the mug on the mug spot",
+      "expected": [
+        "pick_place",
+        "b",
+        "mug"
+      ],
+      "got": [
+        "pick_place",
+        "b",
+        "mug"
+      ],
+      "source": "rules",
+      "verdict": "ALLOW",
+      "correct": true,
+      "plan": [
+        [
+          "pick_place",
+          "b",
+          "mug"
+        ]
+      ]
+    }
+  ],
+  "order": [
+    {
+      "variant": "plate_then_mug",
+      "command": "first put the plate on its spot, then put the mug on its spot",
+      "expected": [
+        "plate",
+        "mug"
+      ],
+      "got": [
+        "plate"
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": false
+    },
+    {
+      "variant": "mug_then_plate",
+      "command": "first put the mug on its spot, then put the plate on its spot",
+      "expected": [
+        "mug",
+        "plate"
+      ],
+      "got": [
+        "plate"
+      ],
+      "source": "vlm",
+      "verdict": "ALLOW",
+      "correct": false
+    }
+  ],
+  "matrix": {
+    "arm": {
+      "plate_arm_A": {
+        "plate_arm_A": 1,
+        "mug_arm_B": 0,
+        "hold_B_pour_A": 0,
+        "hold_A_pour_B": 0
+      },
+      "mug_arm_B": {
+        "plate_arm_A": 0,
+        "mug_arm_B": 1,
+        "hold_B_pour_A": 0,
+        "hold_A_pour_B": 0
+      },
+      "hold_B_pour_A": {
+        "plate_arm_A": 0,
+        "mug_arm_B": 0,
+        "hold_B_pour_A": 1,
+        "hold_A_pour_B": 0
+      },
+      "hold_A_pour_B": {
+        "plate_arm_A": 0,
+        "mug_arm_B": 0,
+        "hold_B_pour_A": 1,
+        "hold_A_pour_B": 0
+      }
+    },
+    "object": {
+      "fork": {
+        "fork": 1,
+        "spoon": 0,
+        "plate": 0,
+        "mug": 0
+      },
+      "spoon": {
+        "fork": 0,
+        "spoon": 1,
+        "plate": 0,
+        "mug": 0
+      },
+      "plate": {
+        "fork": 0,
+        "spoon": 0,
+        "plate": 1,
+        "mug": 0
+      },
+      "mug": {
+        "fork": 0,
+        "spoon": 0,
+        "plate": 0,
+        "mug": 1
+      }
+    }
+  },
+  "correct": 7,
+  "total": 10,
+  "accuracy": 0.7,
+  "from_vlm": 7
+}

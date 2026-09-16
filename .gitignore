@@ -17,3 +17,4 @@ data/
 *.mp4
 planner/qwen2vl_int4/
 results/test_audit.jsonl
+bench/ir/

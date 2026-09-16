@@ -18,14 +18,26 @@ demos:        ## Phase 2 — scripted-expert demos (4 parallel shards, EPISODES=
 	$(PY) -m expert.sweep --seeds 10 --split train
 	$(PY) -m expert.sweep --seeds 10 --split test
 
-train:        ## Phase 3 — train ACT baselines locally / SmolVLA on Kaggle
-	@echo "train: not implemented"
+STEPS ?= 8000
+train:        ## Phase 3 — per-skill ACT baselines on the local GPU (STEPS=$(STEPS)); SmolVLA runs on Kaggle (policies/kaggle_smolvla.ipynb)
+	STEPS=$(STEPS) ./policies/train_act.sh
 
-eval:         ## Phase 9 — 10-seed eval on test_ranges (SEEDS=$(SEEDS))
-	@echo "eval: not implemented"
+POLICY ?= act
+eval:         ## Phase 9 — 10-seed full task on test_ranges (SEEDS=$(SEEDS), POLICY=expert|act|smolvla): policy-only / +retry / +fallback, swap matrix, camera-vs-oracle, heatmap
+	$(PY) -m eval.run_seeds --policy expert --seeds $(SEEDS) --split test
+	$(PY) -m eval.run_seeds --policy expert --seeds $(SEEDS) --split train
+	$(PY) -m eval.run_seeds --policy $(POLICY) --mode policy_only --seeds $(SEEDS) --split test
+	$(PY) -m eval.run_seeds --policy $(POLICY) --mode policy_retry --seeds $(SEEDS) --split test
+	$(PY) -m eval.run_seeds --policy $(POLICY) --mode policy_fallback --seeds $(SEEDS) --split test
+	$(PY) -m eval.instruction_swap --seed 0
+	$(PY) -m eval.camera_vs_oracle --seeds $(SEEDS)
+	$(PY) -m eval.heatmap --policy expert --seeds $(SEEDS)
 
-bench:        ## Phase 8 — OpenVINO bench (DEVICE=$(DEVICE); CPU|GPU only, no NPU on this box)
-	@echo "bench: not implemented"
+bench:        ## Phase 8 — ACT -> IR fp32/fp16 -> NNCF int8 -> latency on CPU+GPU (no NPU on this box) -> 10-seed preservation
+	$(PY) -m bench.export_ir
+	$(PY) -m bench.quantize --frames 300
+	$(PY) -m bench.run --devices CPU GPU
+	$(PY) -m bench.preserve --device $(DEVICE) --precisions fp32 fp16 int8 --seeds $(SEEDS)
 
 SEED ?= 3
 VOICE ?= voice/test_samples/normal.wav

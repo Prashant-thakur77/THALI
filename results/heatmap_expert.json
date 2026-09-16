@@ -1,0 +1,111 @@
+{
+  "policy": "expert",
+  "mode": "expert",
+  "split": "test",
+  "seeds": 10,
+  "columns": [
+    "placement",
+    "mass",
+    "friction",
+    "shape",
+    "lighting",
+    "background",
+    "all"
+  ],
+  "matrix": {
+    "placement": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "mass": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "friction": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "shape": [
+      false,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "lighting": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "background": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "all": [
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false
+    ]
+  },
+  "per_axis_success_rate": {
+    "placement": 1.0,
+    "mass": 1.0,
+    "friction": 1.0,
+    "shape": 0.8,
+    "lighting": 1.0,
+    "background": 1.0,
+    "all": 0.5
+  },
+  "hardest_axis": "shape"
+}

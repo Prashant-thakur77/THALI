@@ -1,0 +1,2 @@
+# Hosted demo (Gradio Space). The core pins live in ../requirements.txt; the Space installs both.
+gradio>=5.0

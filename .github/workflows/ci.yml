@@ -1,0 +1,23 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg libegl1 libgl1 libglib2.0-0
+      - run: pip install uv && uv pip install --system -r requirements.txt && uv pip install --system -e .
+      - name: offline tests (scene, oracles, randomiser, verifier, parser, planner schema, queues)
+        env: {MUJOCO_GL: egl}
+        run: |
+          python -m souschef_env.build_scene
+          python -m pytest -q tests/test_scene.py tests/test_oracles.py tests/test_randomize.py tests/test_verifier.py \
+                 tests/test_planner.py tests/test_voice.py tests/test_policies.py tests/test_demos.py \
+                 -k "not rendered_frame and not gym_make and not lerobot"
+      - name: verifier injection + audit chain
+        run: |
+          MUJOCO_GL=egl python -m verifier.inject_bad_plans
+          python -m verifier.audit verify results/verifier_injection_audit.jsonl

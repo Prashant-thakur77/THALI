@@ -1,0 +1,16 @@
+# Per-skill ACT baseline (plan Phase 3.2), trained locally on the RTX 3050 6 GB by policies/train_act.sh.
+policy:
+  type: act
+  chunk_size: 50
+  n_action_steps: 50
+  vision_backbone: resnet18
+  use_amp: true
+  device: cuda
+dataset:
+  repo_id: Prashant-77/thali_all
+  episodes: results/demos.json -> skills.handoff_spoon.episodes   # the 60 recorded episodes of this skill
+train:
+  batch_size: 8      # <= 8 on 6 GB
+  steps: 8000
+  seed: 1000
+output_dir: outputs/act_handoff_spoon

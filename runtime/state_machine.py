@@ -104,6 +104,7 @@ class Runtime:
         self.state = "IDLE"
         self.ex: Expert | None = None
         self.queues = ArmQueues()
+        self.on_step: Callable[[], None] | None = None  # e.g. a video recorder; called every control step
 
     # ------------------------------------------------------------ helpers
     def _log(self, kind: str, payload: dict) -> None:
@@ -130,7 +131,9 @@ class Runtime:
         t_wall0 = time.time()
         log = RunLog(seed=seed, split=split, command=command)
         self.env.reset(seed=seed, options={"split": split})
-        self.ex = Expert(self.env)
+        if hasattr(self.state_check, "set_reference"):
+            self.state_check.set_reference(self._frame())
+        self.ex = Expert(self.env, on_step=(lambda a, o: self.on_step()) if self.on_step else None)
         self.ex.interrupt = self.barge.stop_requested
         executor = self.executor_factory(self.ex)
         self._log("command", {"text": command, "seed": seed, "split": split})

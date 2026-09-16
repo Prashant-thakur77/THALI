@@ -204,3 +204,32 @@ oracle is measured in Phase 9. Latency numbers include TTS synthesis when `--tts
 
 **Tests:** 7 (`tests/test_runtime.py`): queue dependencies/dispatch, a full short command, barge-in with speaker
 focus (S2's "stop" ignored, S1's honoured, resume), audit chain of the runs, demo result files.
+
+---
+
+## Phase 3 — Policies
+
+**Built** (`policies/`, `runtime/executors.py`):
+- Seven per-skill **ACT** baselines trained locally (`policies/train_act.sh`, `policies/act_<skill>.yaml`): ResNet-18,
+  3 cameras 240×320 + 12-D state, chunk 50, batch 8, AMP, 8 000 steps, seed 1000 on the RTX 3050 6 GB — ~29 min per
+  skill, final L1 losses 0.09–0.12 (`results/act_training.json`).
+- **Multi-task SmolVLA**: `policies/kaggle_smolvla.ipynb` (streams `Prashant-77/thali_all`, fine-tunes
+  `lerobot/smolvla_base`, batch 16, 20 k steps, pushes `Prashant-77/thali_smolvla`), `policies/smolvla_multitask.yaml`,
+  step-by-step in `docs/KAGGLE_TODO.md`. **Not run here** (no HF token to push the dataset, no Kaggle access from this
+  session); every SmolVLA row in the results is "pending SmolVLA run" and `eval/run_seeds.py --policy smolvla`
+  fills them in the moment the Hub checkpoint exists.
+- `runtime/executors.py`: `PolicyExecutor` — plan step → dataset skill → checkpoint (per-skill ACT, or the multi-task
+  SmolVLA with the canonical instruction), closed-loop rollout with an early exit on the skill's oracle, then
+  `policy_only` / `policy_retry` (second rollout from wherever the first left the scene) / `policy_fallback`
+  (scripted expert). Which stage won each skill is recorded per seed.
+
+**Measured** (test split, seeds 0–9, `results/seeds_act_*_test.json` → `results/seeds.json`): see the README table —
+policy-only, +retry, +fallback rows; the per-skill picture is that `open_drawer` transfers reliably from 60 episodes,
+the pick/place skills rarely, and the fallback recovers what the policy left recoverable.
+
+**Plan deviations:** MiniLM language conditioning of ACT (VoiceSort's `text_embed.py`) was not implemented — each
+per-skill dataset holds one instruction class, so the plan step (not the text) selects the skill; language selection
+is exercised by the planner/instruction-swap path and would be the multi-task SmolVLA's job. Local SmolVLA training
+was not attempted on the 6 GB card.
+
+**Tests:** `tests/test_policies.py` (configs/notebook, step→skill mapping, checkpoint loads and acts).

@@ -181,6 +181,17 @@ def rule_plan(command: str, scene: dict | None = None) -> dict:
         steps.append({"skill": "hold_mug", "arm": _arm_in(t, "b")})
     if not steps:
         raise PlanError(f"rule planner found nothing to do in {command!r}")
+    # "first the plate, then the mug": order object steps by where their object is first mentioned
+    def mention(s: dict) -> int:
+        obj = s.get("obj") or ("mug" if s["skill"] in ("hold_mug", "pour", "place_mug") else "drawer")
+        word = obj.split("_")[0]
+        i = t.find(word)
+        return i if i >= 0 else -1
+    if "then" in t or "first" in t or "after" in t:
+        head = [s for s in steps if s["skill"] == "open_drawer"]
+        rest = [s for s in steps if s["skill"] != "open_drawer"]
+        rest.sort(key=mention)
+        steps = head + rest
     return {"steps": steps, "mode": "gentle" if gentle else "normal"}
 
 

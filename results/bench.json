@@ -1,0 +1,123 @@
+{
+  "caption": "measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d NPU and static shapes, not measured here.",
+  "hardware": {
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13650HX",
+    "openvino": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+    "devices": {
+      "CPU": "13th Gen Intel(R) Core(TM) i7-13650HX",
+      "GPU": "NVIDIA GeForce RTX 3050 6GB Laptop GPU (dGPU)"
+    },
+    "npu": false,
+    "note": "Dell G15 5530, Intel Core i7-13650HX (Raptor Lake), UHD iGPU, no NPU, not Core Ultra"
+  },
+  "devices_benchmarked": [
+    "CPU",
+    "GPU"
+  ],
+  "devices_skipped": [
+    "NPU"
+  ],
+  "seconds_per_case": 5.0,
+  "rows": [
+    {
+      "skill": "open_drawer",
+      "precision": "fp32",
+      "device": "CPU",
+      "size_mb": 132.7,
+      "n": 44,
+      "p50_ms": 114.39,
+      "p95_ms": 131.6,
+      "mean_ms": 115.27,
+      "throughput_per_s": 8.7
+    },
+    {
+      "skill": "open_drawer",
+      "precision": "fp32",
+      "device": "GPU",
+      "size_mb": 132.7,
+      "n": 10,
+      "p50_ms": 555.63,
+      "p95_ms": 557.92,
+      "mean_ms": 553.57,
+      "throughput_per_s": 1.8
+    },
+    {
+      "skill": "open_drawer",
+      "precision": "fp16",
+      "device": "CPU",
+      "size_mb": 67.1,
+      "n": 45,
+      "p50_ms": 111.51,
+      "p95_ms": 127.86,
+      "mean_ms": 113.02,
+      "throughput_per_s": 8.8
+    },
+    {
+      "skill": "open_drawer",
+      "precision": "fp16",
+      "device": "GPU",
+      "size_mb": 67.1,
+      "n": 10,
+      "p50_ms": 556.94,
+      "p95_ms": 559.05,
+      "mean_ms": 553.41,
+      "throughput_per_s": 1.8
+    },
+    {
+      "skill": "open_drawer",
+      "precision": "int8",
+      "device": "CPU",
+      "size_mb": 34.9,
+      "n": 137,
+      "p50_ms": 36.95,
+      "p95_ms": 40.16,
+      "mean_ms": 36.65,
+      "throughput_per_s": 27.3
+    },
+    {
+      "skill": "open_drawer",
+      "precision": "int8",
+      "device": "GPU",
+      "size_mb": 34.9,
+      "n": 12,
+      "p50_ms": 421.94,
+      "p95_ms": 430.42,
+      "mean_ms": 422.6,
+      "throughput_per_s": 2.4
+    }
+  ],
+  "summary": {
+    "fp32/CPU": {
+      "mean_p50_ms": 114.39,
+      "skills": 1
+    },
+    "fp32/GPU": {
+      "mean_p50_ms": 555.63,
+      "skills": 1
+    },
+    "fp16/CPU": {
+      "mean_p50_ms": 111.51,
+      "skills": 1
+    },
+    "fp16/GPU": {
+      "mean_p50_ms": 556.94,
+      "skills": 1
+    },
+    "int8/CPU": {
+      "mean_p50_ms": 36.95,
+      "skills": 1
+    },
+    "int8/GPU": {
+      "mean_p50_ms": 421.94,
+      "skills": 1
+    }
+  },
+  "vlm_planner": {
+    "model": "Qwen/Qwen2-VL-2B-Instruct INT4 (optimum-cli export, group 128)",
+    "device": "CPU",
+    "tokens_per_s": 44.6,
+    "ttft_ms": 1130,
+    "mean_plan_latency_s": 5.41,
+    "igpu": "loads and answers once, then crashes in the GPU plugin (docs/BLOCKERS.md)"
+  }
+}

@@ -35,10 +35,36 @@ def overhead_to_table(u: float, v: float, w: int = C.IMAGE_WIDTH, h: int = C.IMA
     return float(x), float(y)
 
 
+def _px(x: float, y: float) -> tuple[int, int]:
+    """Table xy -> overhead pixel (inverse of overhead_to_table)."""
+    fy = (C.IMAGE_HEIGHT / 2) / np.tan(np.radians(52 / 2)) / 0.95
+    return int(C.IMAGE_WIDTH / 2 + x * fy), int(C.IMAGE_HEIGHT / 2 - (y + 0.05) * fy)
+
+
+def _patch(img: np.ndarray, x0: float, y0: float, x1: float, y1: float) -> np.ndarray:
+    u0, v1 = _px(x0, y0)
+    u1, v0 = _px(x1, y1)
+    return img[max(0, v0):max(0, v1), max(0, u0):max(0, u1)]
+
+
 class PixelHeuristic:
-    """Colour-blob judgements on the overhead frame. Deliberately crude: it is the no-model fallback."""
+    """Camera-only judgements on the overhead frame, deliberately simple: the no-model fallback.
+
+    Colour blobs locate the plate (white) and the mug (blue).  Everything else is *change* against the frame
+    captured at reset (``set_reference``): the region in front of the cabinet changes when the drawer slides
+    out, a cutlery zone changes when a piece lands in it, the mug's interior changes when water is in it.
+    Lighting is randomised per episode but constant within one, which is what makes differencing robust
+    where absolute colour thresholds were not.
+    """
 
     name = "pixels"
+    DIFF = 18.0  # mean |Δ| over a patch (0-255) that counts as "changed"
+
+    def __init__(self) -> None:
+        self.ref: np.ndarray | None = None
+
+    def set_reference(self, image: np.ndarray) -> None:
+        self.ref = np.asarray(image).astype(np.int16)
 
     @staticmethod
     def _mask_centroid(img: np.ndarray, lo: tuple, hi: tuple) -> tuple[float, float, int] | None:
@@ -49,55 +75,46 @@ class PixelHeuristic:
         vs, us = np.nonzero(m)
         return float(us.mean()), float(vs.mean()), n
 
+    def _changed(self, img: np.ndarray, box: tuple[float, float, float, float]) -> float:
+        if self.ref is None:
+            return 0.0
+        a = _patch(np.asarray(img).astype(np.int16), *box)
+        b = _patch(self.ref, *box)
+        if a.size == 0 or a.shape != b.shape:
+            return 0.0
+        return float(np.abs(a - b).mean())
+
     def ask(self, image: np.ndarray, key: str) -> bool:
         img = np.asarray(image)
         if key == "mug_placed":
-            c = self._mask_centroid(img, (20, 60, 130), (110, 150, 255))  # blue mug
+            c = self._mask_centroid(img, (20, 60, 130), (110, 150, 255))
             if c is None:
                 return False
             x, y = overhead_to_table(c[0], c[1])
             (zx, zy), r = C.ZONES["mug"]
             return bool(np.hypot(x - zx, y - zy) < r + 0.03)
         if key == "plate_placed":
-            c = self._mask_centroid(img, (200, 200, 190), (255, 255, 255))  # white plate
+            c = self._mask_centroid(img, (200, 200, 190), (255, 255, 255))
             if c is None:
                 return False
             x, y = overhead_to_table(c[0], c[1])
             (zx, zy), r = C.ZONES["plate"]
             return bool(np.hypot(x - zx, y - zy) < r + 0.03)
         if key == "drawer_open":
-            # drawer front (lighter wood) moves toward -y: count light-wood pixels in the band just below the cabinet
             cx, cy, _ = C.CABINET_POS
-            band = [overhead_to_table(u, v) for u, v in ((0, 0),)]  # noqa: F841 (documenting the frame)
-            fy = (C.IMAGE_HEIGHT / 2) / np.tan(np.radians(26)) / 0.95
-            v0 = int(C.IMAGE_HEIGHT / 2 - (cy - 0.10 + 0.05) * fy)
-            v1 = int(C.IMAGE_HEIGHT / 2 - (cy - 0.10 - 0.03 + 0.05) * fy)
-            u0 = int(C.IMAGE_WIDTH / 2 + (cx - 0.11) * fy)
-            u1 = int(C.IMAGE_WIDTH / 2 + (cx + 0.11) * fy)
-            patch = img[max(0, v0):max(0, v1), max(0, u0):max(0, u1)]
-            if patch.size == 0:
-                return False
-            wood = np.all((patch >= (110, 70, 30)) & (patch <= (190, 130, 90)), axis=-1)
-            return bool(wood.mean() > 0.25)
+            # the strip the drawer front slides into: y from (front, closed) - 0.13 to (front, closed) - 0.02
+            return self._changed(img, (cx - 0.10, cy - 0.078 - 0.13, cx + 0.10, cy - 0.078 - 0.02)) > self.DIFF
         if key in ("fork_placed", "spoon_placed"):
             (zx, zy), r = C.ZONES["fork" if key == "fork_placed" else "spoon"]
-            fy = (C.IMAGE_HEIGHT / 2) / np.tan(np.radians(26)) / 0.95
-            u = int(C.IMAGE_WIDTH / 2 + zx * fy)
-            v = int(C.IMAGE_HEIGHT / 2 - (zy + 0.05) * fy)
-            k = int(r * fy)
-            patch = img[max(0, v - k):v + k, max(0, u - k):u + k]
-            if patch.size == 0:
-                return False
-            grey = np.all((patch >= (150, 150, 150)) & (patch <= (230, 230, 240)), axis=-1) & (np.abs(patch[..., 0].astype(int) - patch[..., 2].astype(int)) < 25)
-            return bool(grey.sum() > 25)
+            return self._changed(img, (zx - r, zy - r, zx + r, zy + r)) > self.DIFF * 0.6
         if key == "poured":
             c = self._mask_centroid(img, (20, 60, 130), (110, 150, 255))
             if c is None:
                 return False
             u, v = int(c[0]), int(c[1])
-            patch = img[max(0, v - 6):v + 6, max(0, u - 6):u + 6]
-            light_blue = np.all((patch >= (60, 130, 200)) & (patch <= (160, 210, 255)), axis=-1)
-            return bool(light_blue.sum() > 4)
+            patch = img[max(0, v - 5):v + 5, max(0, u - 5):u + 5]
+            light_blue = np.all((patch >= (60, 130, 200)) & (patch <= (170, 215, 255)), axis=-1)
+            return bool(light_blue.sum() > 3)
         raise KeyError(key)
 
 
