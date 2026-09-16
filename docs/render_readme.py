@@ -39,7 +39,12 @@ def anomaly_row() -> str:
     lat = ", ".join(f"{k} {v['p50']} ms" for k, v in d["latency_ms"].items() if "p50" in v)
     op = d.get("at_10pct_fpr")
     op_s = f" · at 10% false alarms: {op['detected']}/{d['test_bad_total']} caught" if op else ""
-    return f"image AUROC **{d['image_auroc']}** · exported threshold: {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms{op_s} · IR p50 {lat}"
+    base = f"full frame (wide_resnet50): image AUROC **{d['image_auroc']}** · exported threshold: {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms{op_s} · IR p50 {lat}"
+    c = load("anomaly_crop.json")
+    if c:
+        lat_c = ", ".join(f"{k} {v['p50']} ms" for k, v in c["latency_ms"].items() if "p50" in v)
+        base += f" — table crop (resnet18): AUROC **{c['image_auroc']}**, {c['false_positives']}/{c['test_good']} false alarms, at 10% false alarms {c['at_10pct_fpr']['detected']}/{c['test_bad_total']} caught, IR p50 {lat_c}"
+    return base
 
 
 def concurrency_row() -> str:

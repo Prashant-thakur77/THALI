@@ -1,0 +1,67 @@
+{
+ "model": "PatchCore (Anomalib) \u2192 OpenVINO IR",
+ "variant": "crop",
+ "crop": true,
+ "threshold": 0.5,
+ "input_hw": [
+  240,
+  320
+ ],
+ "test_good": 60,
+ "false_positives": 42,
+ "image_auroc": 0.78,
+ "detected": 75,
+ "test_bad_total": 75,
+ "per_type": {
+  "spill": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.543,
+   "median_score": 0.7317
+  },
+  "tipped_mug": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.88,
+   "median_score": 1.0
+  },
+  "knocked_plate": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.752,
+   "median_score": 0.8613
+  },
+  "fallen_bottle": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.924,
+   "median_score": 1.0
+  },
+  "dropped_cutlery": {
+   "n": 15,
+   "detected": 15,
+   "auroc_vs_good": 0.8,
+   "median_score": 0.8895
+  }
+ },
+ "at_10pct_fpr": {
+  "threshold": 1.0,
+  "detected": 31,
+  "per_type": {
+   "spill": 0,
+   "tipped_mug": 8,
+   "knocked_plate": 5,
+   "fallen_bottle": 13,
+   "dropped_cutlery": 5
+  }
+ },
+ "latency_ms": {
+  "CPU": {
+   "p50": 75.75,
+   "mean": 75.33
+  },
+  "GPU": {
+   "error": "RuntimeError: Exception from src/inference/src/cpp/core.cpp:117:\nException from src/inference/src/dev/plugin.cpp:54:\nCheck 'false' fai"
+  }
+ }
+}
