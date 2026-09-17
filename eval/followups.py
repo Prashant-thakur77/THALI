@@ -32,7 +32,7 @@ CASES = [
     ([DRAWER, FORK], "do that again", [FORK]),
     ([HOLD, POUR, PLACE], "a bit more", [HOLD, {"skill": "pour", "arm": "a", "amount": "little"}, PLACE]),
     ([HOLD, POUR, PLACE], "more water", [HOLD, {"skill": "pour", "arm": "a", "amount": "little"}, PLACE]),
-    ([HOLD, POUR], "some more", [{"skill": "pour", "arm": "a", "amount": "little"}, PLACE]),
+    ([HOLD, POUR], "some more", [HOLD, {"skill": "pour", "arm": "a", "amount": "little"}, PLACE]),   # on the reset scene the mug is not held: re-hold first
     ([DRAWER, FORK], "use the other arm", [dict(FORK, arm="b")]),
     ([DRAWER, SPOON], "the other arm", [{"skill": "handoff", "arm": "b", "obj": "spoon_1", "to_arm": "a", "zone": "spoon"}]),
     ([DRAWER, PLATE], "once more", [PLATE]),

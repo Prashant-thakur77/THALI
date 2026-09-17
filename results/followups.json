@@ -1,6 +1,6 @@
 {
  "cases": 20,
- "correct": 19,
+ "correct": 20,
  "resolved": 16,
  "verifier_approved": 14,
  "rows": [
@@ -278,6 +278,10 @@
    ],
    "expected": [
     {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
      "skill": "pour",
      "arm": "a",
      "amount": "little"
@@ -287,7 +291,7 @@
      "arm": "b"
     }
    ],
-   "correct": false,
+   "correct": true,
    "verdict": "ALLOW"
   },
   {

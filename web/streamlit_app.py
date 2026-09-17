@@ -63,12 +63,13 @@ with left:
     st.markdown("#### Command")
     presets = {"drawer + plate": "open the top drawer, put the plate on the table with arm A", "set the table": "set the table",
                "pour a little": "hold the mug with arm B and pour a little water with arm A",
-               "both arms at once": "open the top drawer with arm A and put the mug on its spot with arm B", "clear the table (follow-up)": "clear the table"}
+               "both arms at once": "open the top drawer with arm A and put the mug on its spot with arm B", "clear the table (follow-up)": "clear the table",
+               "a bit more (follow-up)": "a bit more", "other side (follow-up)": "no, the other side"}
     pcols = st.columns(len(presets))
     for (name, text), c in zip(presets.items(), pcols):
         if c.button(name, use_container_width=True):
             st.session_state["cmd"] = text
-            st.session_state["keep"] = name.startswith("clear")
+            st.session_state["keep"] = "follow-up" in name
     cmd = st.text_input("command", key="cmd", value=st.session_state.get("cmd", presets["drawer + plate"]), label_visibility="collapsed")
     c1, c2, c3, c4 = st.columns([1, 1.4, 1.4, 1.4])
     seed = c1.number_input("seed", 0, 99, 3)
