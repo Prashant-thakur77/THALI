@@ -376,83 +376,83 @@
     </body>
     <body name="water_0" pos="0.0365 0.11 0.011">
       <joint name="water_0_free" type="free"/>
-      <geom name="water_0_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_0_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_1" pos="0.02675 0.115629 0.011">
       <joint name="water_1_free" type="free"/>
-      <geom name="water_1_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_1_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_2" pos="0.02675 0.104371 0.011">
       <joint name="water_2_free" type="free"/>
-      <geom name="water_2_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_2_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_3" pos="0.0349715 0.114187 0.0175">
       <joint name="water_3_free" type="free"/>
-      <geom name="water_3_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_3_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_4" pos="0.0238879 0.112212 0.0175">
       <joint name="water_4_free" type="free"/>
-      <geom name="water_4_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_4_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_5" pos="0.0311407 0.103601 0.0175">
       <joint name="water_5_free" type="free"/>
-      <geom name="water_5_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_5_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_6" pos="0.0311048 0.116405 0.024">
       <joint name="water_6_free" type="free"/>
-      <geom name="water_6_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_6_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_7" pos="0.0239003 0.107754 0.024">
       <joint name="water_7_free" type="free"/>
-      <geom name="water_7_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_7_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_8" pos="0.0349949 0.105841 0.024">
       <joint name="water_8_free" type="free"/>
-      <geom name="water_8_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_8_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_9" pos="0.0267185 0.115611 0.0305">
       <joint name="water_9_free" type="free"/>
-      <geom name="water_9_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_9_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_10" pos="0.0267816 0.104353 0.0305">
       <joint name="water_10_free" type="free"/>
-      <geom name="water_10_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_10_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_11" pos="0.0364999 0.110036 0.0305">
       <joint name="water_11_free" type="free"/>
-      <geom name="water_11_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_11_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_12" pos="0.0238756 0.112177 0.037">
       <joint name="water_12_free" type="free"/>
-      <geom name="water_12_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_12_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_13" pos="0.0311765 0.103607 0.037">
       <joint name="water_13_free" type="free"/>
-      <geom name="water_13_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_13_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_14" pos="0.0349479 0.114215 0.037">
       <joint name="water_14_free" type="free"/>
-      <geom name="water_14_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_14_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_15" pos="0.023913 0.10772 0.0435">
       <joint name="water_15_free" type="free"/>
-      <geom name="water_15_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_15_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_16" pos="0.0350181 0.105869 0.0435">
       <joint name="water_16_free" type="free"/>
-      <geom name="water_16_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_16_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_17" pos="0.0310689 0.116412 0.0435">
       <joint name="water_17_free" type="free"/>
-      <geom name="water_17_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_17_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_18" pos="0.0268133 0.104335 0.05">
       <joint name="water_18_free" type="free"/>
-      <geom name="water_18_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_18_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
     <body name="water_19" pos="0.0364996 0.110073 0.05">
       <joint name="water_19_free" type="free"/>
-      <geom name="water_19_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004" rgba="0.3 0.6 1 0.9" mass="0.001"/>
+      <geom name="water_19_geom" size="0.003" contype="2" conaffinity="2" condim="1" group="1" friction="0.05 0.001" solref="0.004 2" rgba="0.3 0.6 1 0.9" mass="0.001"/>
     </body>
   </worldbody>
 

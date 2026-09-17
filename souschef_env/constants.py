@@ -78,4 +78,4 @@ ZONES = {
     "mug": ((0.10, 0.04), 0.04),
 }
 # Where the mug is held while the other arm pours (x, y, z of the mug base).
-POUR_POSE = (0.0, -0.02, 0.03)  # 13 cm from the bottle (+y), clear of the plate zone (-y)
+POUR_POSE = (0.0, -0.02, 0.05)   # base 5 cm up: 2.6 cm above a placed plate's rim 8 cm away (3 cm left the mug resting on it on some layouts)  # 13 cm from the bottle (+y), clear of the plate zone (-y)

@@ -42,7 +42,8 @@ OPEN_T = 0.5
 SETTLE_T = 0.3
 POUR_ROLL = math.radians(132)
 POUR_EXIT_ROLL = math.radians(110)  # roll at which a straight-tube bottle starts to dump (~92 deg tilt with a 30 deg-pitched axis)
-POUR_LIP_Z = -0.006   # spout lip this far *below* the rim plane, inside the opening: spheres leave the tube at ~0.5 m/s with a
+POUR_LIP_Z = 0.0
+MUG_GRASP_Z = 0.034   # side-grasp height above the mug base (body is 6.4 cm tall; handle spans 2-5 cm on +y)   # spout lip this far *below* the rim plane, inside the opening: spheres leave the tube at ~0.5 m/s with a
                       # sideways component and bounce off the rim when dropped onto it from above
 POUR_PITCH = math.radians(30)  # shallower approach for the bottle: the roll axis is closer to horizontal, so 132 deg of roll tips it ~105 deg
 SIDE_PITCH = math.radians(45)  # approach angle below horizontal for side grasps
@@ -460,6 +461,12 @@ class Expert:
         # resting against the pad is not carried back up
         p_rel, R_rel = self.site(arm)
         self.move(arm, p_rel - R_rel[:, 2] * 0.012, R_rel, t=0.4)
+        if obj == "mug":
+            # the handle can hook over the opening jaw: slide the gripper away from the handle before rising
+            handle_dir = self.obj_pose("mug")[1][:, 1]
+            self.open_jaw(arm, width=0.06)
+            p_rel, R_rel = self.site(arm)
+            self.move(arm, p_rel - np.array([handle_dir[0], handle_dir[1], 0.0]) * 0.03, R_rel, t=0.5)
         self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + HOVER]), R_level)
         self.settle()
         # a light piece can ride up on the open jaw instead of staying put: if it is still above the surface, go back down,
@@ -484,9 +491,35 @@ class Expert:
         (zx, zy), _ = C.ZONES[zone]
         return self.reachable(arm, np.array([zx, zy, 0.03]), top_down_rotation(0.0))
 
+    def zone_target(self, obj: str, zone: str) -> tuple[float, float]:
+        """Where inside the zone to set ``obj`` down: the centre, nudged away from whatever already sits too close.
+
+        The plate's randomised start can overlap the fork zone and a plate placed after the fork can land on its tines;
+        cutlery is moved away from a plate within 9 cm (plate radius 5.5 cm + a fork's half-length) and the plate away
+        from cutlery within 8 cm, by at most 3 cm so the piece stays inside the zone (radius 5 cm)."""
+        (zx, zy), radius = C.ZONES[zone]
+        tgt = np.array([zx, zy])
+        others = [("plate", 0.09)] if obj in C.CUTLERY else ([(c, 0.08) for c in C.CUTLERY] if obj == "plate" else [])
+        for name, clear in others:
+            if name == obj:
+                continue
+            try:
+                q = self.obj_pose(name)[0][:2]
+            except Exception:
+                continue
+            if oracles.held_by(self.m, self.d, name) is not None:
+                continue
+            v = tgt - q
+            dist = float(np.linalg.norm(v))
+            if 1e-6 < dist < clear:
+                tgt = tgt + v / dist * min(0.03, clear - dist)
+        if float(np.hypot(*(tgt - np.array([zx, zy])))) > radius - 0.01:
+            tgt = np.array([zx, zy]) + (tgt - np.array([zx, zy])) / np.hypot(*(tgt - np.array([zx, zy]))) * (radius - 0.01)
+        return float(tgt[0]), float(tgt[1])
+
     def pick_place(self, obj: str, arm: str, zone: str, miss_offset: float = 0.0) -> SkillResult:
         start = self.steps
-        (zx, zy), _ = C.ZONES[zone]
+        (zx, zy) = self.zone_target(obj, zone)
         if not self.zone_reachable(arm, zone):
             return SkillResult("pick_place", False, 0, {"obj": obj, "arm": arm, "zone": zone, "reason": "zone unreachable for this arm"})
         r1 = self.pick(obj, arm, miss_offset=miss_offset)
@@ -677,13 +710,15 @@ class Expert:
         if oracles.held_by(self.m, self.d, "mug") != arm:
             # the moving jaw (which sticks out along the opening axis) must point away from the bottle
             away = self.obj_pose("mug")[0][:2] - self.obj_pose("bottle")[0][:2]
-            _, R_try, _ = self.side_grasp_target("mug", arm, 0.020, SIDE_PITCH, False)
+            # grasp at mid-body (centre of mass height), not 2 cm above the base: a low grasp lets the mug's weight and
+            # handle torque it 15-20 deg in the jaw, and a tilted mug spills the pour and tips over on set-down
+            _, R_try, _ = self.side_grasp_target("mug", arm, MUG_GRASP_Z, SIDE_PITCH, False)
             ld = bool(R_try[:2, 2] @ away < 0)
-            r = self.pick_side("mug", arm, z_above_base=0.020, lateral_down=ld)
+            r = self.pick_side("mug", arm, z_above_base=MUG_GRASP_Z, lateral_down=ld)
             if not r.ok:
                 self.open_jaw(arm)
                 self.park(arm)
-                r = self.pick_side("mug", arm, z_above_base=0.020, lateral_down=not ld)
+                r = self.pick_side("mug", arm, z_above_base=MUG_GRASP_Z, lateral_down=not ld)
             if not r.ok:
                 self.open_jaw(arm)
                 self.park(arm)

@@ -155,7 +155,6 @@ def add_water(spec: mujoco.MjSpec, bottle_pos) -> None:
         g.condim = 1
         g.friction = [0.05, 0.001, 0.0001]  # "water": nearly frictionless so it flows out of a tilted bottle
         g.solref = [0.004, 2.0]  # overdamped contacts: a sphere dropped into the mug must not bounce back out
-        g.solref = [0.004, 1.0]
         g.contype = g.conaffinity = 2
         g.group = 1
 
