@@ -318,3 +318,14 @@ latency run overlapped a 50k-step training and an eval on the same machine (fp32
 idle machine after the 50k runs finish. Preservation at fp32/fp16/int8 is unchanged (Δ 0).
 50k-step ACT per skill: plate 8/20 → 15/20 (median 1.85 cm) — training length, not episode count, was the bottleneck; the other
 skills are training at 50k steps now.
+
+## 17 Sep — full task 5/10 → 7/10 held-out (8/10 training)
+Three expert fixes from per-seed failure diagnostics: (1) the pour aimed the spout 1.5 cm *above* the mug rim, so spheres
+leaving the near-horizontal tube at ~0.5 m/s with a sideways component bounced off the rim — the lip now dips just inside the
+opening, the roll is finer (16 chunks) and the tilt is held until the flow stops (up to 4 s, one extra 20° tip if nothing comes);
+(2) `water_in_mug` no longer counts spheres that are inside the mug's cylinder but still inside the bottle tube (the dipped lip
+made the old count stop the pour early); (3) `place` shakes a piece off the open jaw when it rides up (fork on seed 5), and the
+plate pick retries two other rim points (plate at the table edge on seed 4). A scoring bug surfaced with the clear-table goals:
+`run_seeds` required *every* subgoal key to be true, including fork_stowed / drawer_closed — it now scores `oracles.FULL_TASK`
+and the saved rows were re-scored. Pour-amount after the fix: normal 5/5, full 5/5, little 4/5 within ±2 spheres.
+Remaining misses: place_mug after the pour (3 seeds), pour (3), one fork and one plate pick.
