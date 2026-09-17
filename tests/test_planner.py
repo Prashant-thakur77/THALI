@@ -13,7 +13,7 @@ FULL = "Open the top drawer, pick up the plate with arm A, place it on the table
 
 def test_schema_file_is_valid_json_with_all_skills():
     s = json.loads((ROOT / "planner" / "schema.json").read_text())
-    assert set(s["properties"]["steps"]["items"]["properties"]["skill"]["enum"]) == {"open_drawer", "pick_place", "handoff", "hold_mug", "pour", "place_mug"}
+    assert set(s["properties"]["steps"]["items"]["properties"]["skill"]["enum"]) == {"open_drawer", "pick_place", "handoff", "hold_mug", "pour", "place_mug", "put_in_drawer", "close_drawer"}
 
 
 def test_rule_plan_full_command_validates_and_is_allowed():

@@ -53,6 +53,14 @@ def anomaly_row() -> str:
     return " — ".join(parts) if parts else "pending"
 
 
+def clear_row() -> str:
+    d = load("clear_table.json")
+    if not d:
+        return "pending"
+    per = ", ".join(f"{k.replace('_', ' ')} {pct(v)}" for k, v in d["per_subgoal_rate"].items())
+    return f"**{d['successes']}/{d['seeds']}** held-out seeds fully cleared ({per})"
+
+
 def pour_amount_row() -> str:
     d = load("pour_amount.json")
     if not d:
@@ -140,7 +148,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "json": json,
 }
 
 

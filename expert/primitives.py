@@ -417,14 +417,17 @@ class Expert:
                 best = r
         return best.pos_err <= 0.008 and best.rot_err <= rot_tol
 
-    def place(self, obj: str, arm: str, xy: tuple[float, float], yaw: float | None = None) -> SkillResult:
+    def place(self, obj: str, arm: str, xy: tuple[float, float], yaw: float | None = None, floor_z: float = 0.0,
+              extra_lift: float = 0.0) -> SkillResult:
+        """Set the held object down at ``xy``; ``floor_z`` is the height of the surface it lands on (drawer tray floor),
+        ``extra_lift`` raises the carry so the hanging piece clears obstacles on the way (the drawer front)."""
         start = self.steps
         p_site, R = self.site(arm)
         p_obj, _ = self.obj_pose(obj)
         hold = p_obj - p_site                      # where the object hangs relative to the site
         drop = p_site[2] - self.obj_lowest_z(obj)  # how far below the site its lowest point is
         target_site_xy = np.array(xy) - hold[:2]
-        carry_z = LIFT + drop
+        carry_z = LIFT + drop + extra_lift
         R_level0 = self._levelling_rotation(obj) @ R  # a 5-DoF grasp can hold the piece up to 20 deg tilted
         # the object's final yaw is free (zones are discs), so try yaw offsets until the set-down pose is reachable
         R_level = None
@@ -434,7 +437,7 @@ class Expert:
             # a tilted set-down leaves cutlery leaning on the fixed pad, so its pose must be near-level (rot < 0.25);
             # side-grasped mug/bottle frames never converge that tightly and do not need to
             tol = 0.25 if obj in C.CUTLERY else 0.5
-            if self.reachable(arm, np.array([target_site_xy[0], target_site_xy[1], drop + 0.004]), R_try, rot_tol=tol):
+            if self.reachable(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + 0.004]), R_try, rot_tol=tol):
                 R_level = R_try
                 break
         if R_level is None:
@@ -446,14 +449,14 @@ class Expert:
         hold = self.obj_pose(obj)[0] - p_site2
         drop = p_site2[2] - self.obj_lowest_z(obj)
         target_site_xy = np.array(xy) - hold[:2]
-        self.move(arm, np.array([target_site_xy[0], target_site_xy[1], drop + 0.003]), R_level)
+        self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + 0.003]), R_level)
         self.settle(0.2)
         self.open_jaw(arm, width=0.04)
         # detach: back the fixed pad away from the piece along the opening axis before rising, so a piece
         # resting against the pad is not carried back up
         p_rel, R_rel = self.site(arm)
         self.move(arm, p_rel - R_rel[:, 2] * 0.012, R_rel, t=0.4)
-        self.move(arm, np.array([target_site_xy[0], target_site_xy[1], drop + HOVER]), R_level)
+        self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + HOVER]), R_level)
         self.settle()
         p_final = self.obj_pose(obj)[0]
         err = float(np.hypot(*(p_final[:2] - np.array(xy))))
@@ -520,6 +523,58 @@ class Expert:
         self.park(arm)
         ok = oracles.drawer_open(self.m, self.d)
         return SkillResult("open_drawer", ok, self.steps - start, {"arm": arm, "drawer_qpos": oracles.drawer_qpos(self.m, self.d)})
+
+    # ------------------------------------------------------------ clearing the table
+    def drawer_slot(self, obj: str) -> tuple[float, float]:
+        """Where ``obj`` goes inside the (open) drawer tray: the spot it occupied at reset, following the slide."""
+        cx, cy, _ = C.CABINET_POS
+        q = oracles.drawer_qpos(self.m, self.d)
+        dx = -0.075 if obj.startswith("fork") else 0.025
+        return (cx + dx, cy - q - 0.01)
+
+    def put_in_drawer(self, obj: str, arm: str) -> SkillResult:
+        """Return a piece of cutlery to the open drawer: pick it (unless the arm already holds it), set it on the tray floor."""
+        start = self.steps
+        if not oracles.drawer_open(self.m, self.d):
+            return SkillResult("put_in_drawer", False, 0, {"obj": obj, "arm": arm, "reason": "drawer closed"})
+        if oracles.held_by(self.m, self.d, obj) != arm:
+            r = self.pick(obj, arm)
+            if not r.ok:
+                self.open_jaw(arm)
+                self.park(arm)
+                return SkillResult("put_in_drawer", False, self.steps - start, {"obj": obj, "arm": arm, "stage": "pick", **r.detail})
+        floor = float(self.m.geom_pos[self.m.geom("drawer_floor").id][2] + self.m.geom_size[self.m.geom("drawer_floor").id][2])
+        # the tray front stands 6 cm above the table: carry the piece well over it or its tip shoves the drawer shut
+        r = self.place(obj, arm, self.drawer_slot(obj), floor_z=floor, extra_lift=0.06)
+        self.park(arm)
+        ok = oracles.in_drawer(self.m, self.d, obj)
+        return SkillResult("put_in_drawer", ok, self.steps - start, {"obj": obj, "arm": arm, "stage": "place", **r.detail})
+
+    def close_drawer(self, arm: str = "a") -> SkillResult:
+        """Grasp the handle bar and push the drawer home (+y); the mirror of open_drawer."""
+        start = self.steps
+        q0 = oracles.drawer_qpos(self.m, self.d)
+        if q0 < 0.02:
+            return SkillResult("close_drawer", True, 0, {"arm": arm, "drawer_qpos": q0, "already": True})
+        g = self.drawer_grasp()
+        pos, R = self.site_target(g, flip=False)
+        pos2, R2 = self.site_target(g, flip=True)
+        if pos2[1] < pos[1]:  # fixed jaw on the open (-y) side: the push (+y) goes through the fixed pad's face
+            pos, R = pos2, R2
+        self.open_jaw(arm, width=g.width)
+        p_now, _ = self.site(arm)
+        self.move(arm, np.array([p_now[0], p_now[1], max(p_now[2], pos[2] + HOVER)]))
+        self.move(arm, pos + np.array([0, 0, HOVER]), R)
+        self.move(arm, pos, R)
+        self.close_jaw(arm)
+        self.move(arm, pos + np.array([0, q0 * 0.97, 0.0]), R, t=1.8)
+        self.settle()
+        self.open_jaw(arm)
+        p, _ = self.site(arm)
+        self.move(arm, p + np.array([0, -0.03, HOVER]), R)
+        self.park(arm)
+        ok = oracles.drawer_closed(self.m, self.d)
+        return SkillResult("close_drawer", ok, self.steps - start, {"arm": arm, "drawer_qpos": oracles.drawer_qpos(self.m, self.d)})
 
     def handoff(self, obj: str, from_arm: str, to_arm: str) -> SkillResult:
         """Via-table handoff: from_arm places the object at the handoff pose, to_arm picks it up."""

@@ -15,6 +15,7 @@ from souschef_env import constants as C
 
 # Sub-goals of the full "set the table and pour" task, in the order the plan states them.
 FULL_TASK = ("drawer_open", "plate_placed", "fork_placed", "spoon_placed", "mug_placed", "poured")
+CLEAR_TASK = ("fork_stowed", "spoon_stowed", "drawer_closed")
 
 
 def _body_geoms(model: mujoco.MjModel, body: str) -> set[int]:
@@ -29,6 +30,18 @@ def _pad_ids(model: mujoco.MjModel, arm: str) -> tuple[int, int]:
 
 def drawer_qpos(model: mujoco.MjModel, data: mujoco.MjData) -> float:
     return float(data.qpos[model.jnt_qposadr[model.joint("drawer_slide").id]])
+
+
+def drawer_closed(model: mujoco.MjModel, data: mujoco.MjData) -> bool:
+    return drawer_qpos(model, data) < 0.02
+
+
+def in_drawer(model: mujoco.MjModel, data: mujoco.MjData, obj: str) -> bool:
+    """Object rests inside the drawer tray (which slides toward -y by drawer_qpos when open)."""
+    q = drawer_qpos(model, data)
+    p = object_pos(model, data, obj)
+    cx, cy, _ = C.CABINET_POS
+    return bool(abs(p[0] - cx) < 0.11 and abs(p[1] - (cy - q)) < 0.075 and p[2] < 0.04 and held_by(model, data, obj) is None)
 
 
 def drawer_open(model: mujoco.MjModel, data: mujoco.MjData) -> bool:
@@ -110,6 +123,9 @@ def subgoals(model: mujoco.MjModel, data: mujoco.MjData) -> dict[str, bool]:
         "spoon_placed": any_in_zone(model, data, ("spoon_1", "spoon_2"), "spoon"),
         "mug_placed": object_in_zone(model, data, "mug", "mug"),
         "poured": poured(model, data),
+        "fork_stowed": in_drawer(model, data, "fork_1"),
+        "spoon_stowed": in_drawer(model, data, "spoon_1"),
+        "drawer_closed": drawer_closed(model, data),
     }
 
 

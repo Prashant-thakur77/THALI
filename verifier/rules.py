@@ -245,6 +245,35 @@ class Verifier:
                 issues.append(Issue("GRASP_PRECOND", i, f"arm {arm} does not hold the mug"))
             if not self.reachable(arm, w.zones["mug"]):
                 issues.append(Issue("REACH", i, f"mug zone is out of reach of arm {arm}"))
+        elif skill == "put_in_drawer":
+            if obj is None or obj not in C.CUTLERY:
+                return [Issue("SCHEMA", i, "put_in_drawer needs a fork or spoon as obj")], owner
+            if not w.drawer_open:
+                if any(t.get("skill") == "open_drawer" for t in later):
+                    issues.append(Issue("ORDER", i, "open_drawer must come before put_in_drawer"))
+                else:
+                    issues.append(Issue("GRASP_PRECOND", i, "the drawer is closed: open_drawer first"))
+            if w.held.get(obj) == other:
+                issues.append(Issue("GRASP_PRECOND", i, f"{obj} is held by arm {other}"))
+            if w.holding(arm) not in (None, obj):
+                issues.append(Issue("GRASP_PRECOND", i, f"arm {arm} already holds {w.holding(arm)}"))
+            p = w.objects[obj]
+            if w.held.get(obj) != arm and not self.reachable(arm, (p[0], p[1])):
+                issues.append(Issue("REACH", i, f"{obj} at ({p[0]:.2f},{p[1]:.2f}) is out of reach of arm {arm} (needs a handoff)"))
+            cx, cy, _ = C.CABINET_POS
+            if not self.reachable(arm, (cx - 0.075, cy - 0.13)):
+                issues.append(Issue("REACH", i, f"the drawer tray is out of reach of arm {arm}"))
+
+        elif skill == "close_drawer":
+            if w.holding(arm):
+                issues.append(Issue("GRASP_PRECOND", i, f"arm {arm} is holding {w.holding(arm)}"))
+            cx, cy, _ = C.CABINET_POS
+            if not self.reachable(arm, (cx, cy - 0.10), 0.035):
+                issues.append(Issue("REACH", i, f"drawer handle out of reach of arm {arm}"))
+            if not w.drawer_open:
+                issues.append(Issue("ORDER", i, "drawer is already closed"))
+            if any(t.get("skill") in ("put_in_drawer", "pick_place", "handoff") and t.get("obj") in C.CUTLERY for t in later):
+                issues.append(Issue("ORDER", i, "close_drawer must come after the cutlery steps"))
         else:
             issues.append(Issue("SCHEMA", i, f"unknown skill {skill!r}"))
 
@@ -252,6 +281,13 @@ class Verifier:
         if not issues:
             if skill == "open_drawer":
                 w.drawer_open = True
+            elif skill == "put_in_drawer":
+                cx, cy, _ = C.CABINET_POS
+                w.held[obj] = None
+                w.in_drawer[obj] = True
+                w.objects[obj] = (cx, cy - 0.12, 0.0)
+            elif skill == "close_drawer":
+                w.drawer_open = False
             elif skill == "pick_place":
                 w.held[obj] = None
                 w.in_drawer[obj] = False

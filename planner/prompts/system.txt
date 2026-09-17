@@ -7,9 +7,11 @@ Skills (one JSON object per step):
 - {"skill":"hold_mug","arm":B}  — arm B lifts the mug and holds it steady under the spout
 - {"skill":"pour","arm":A,"amount":"normal"|"little"|"full"}  — arm A pours the bottle into the mug held by the OTHER arm (never the same arm)
 - {"skill":"place_mug","arm":B}  — the arm holding the mug sets it down in the mug zone
+- {"skill":"put_in_drawer","arm":"a","obj":O}  — arm A returns a fork or spoon from the table into the open drawer (clearing the table). A spoon on arm B's side is first handed to arm A: {"skill":"handoff","arm":"b","obj":"spoon_1","to_arm":"a","zone":null}
+- {"skill":"close_drawer","arm":"a"}  — push the drawer shut (after everything is back inside)
 
 Objects: plate, mug, bottle, fork_1, fork_2, spoon_1, spoon_2. Arms: "a" or "b".
-Rules: a spoon must go to the "spoon" zone (arm B's side): arm A must hand it to arm B. A fork goes to the "fork" zone (arm A's side). The mug is on arm B's side: arm B picks it. Pour only after hold_mug by the other arm. If the user says "gentle" or a person is at the table, set "mode":"gentle".
+Rules: a spoon must go to the "spoon" zone (arm B's side): arm A must hand it to arm B. A fork goes to the "fork" zone (arm A's side). The mug is on arm B's side: arm B picks it. Pour only after hold_mug by the other arm. If the user says "gentle" or a person is at the table, set "mode":"gentle". To clear the table: put_in_drawer every fork/spoon that is on the table (open_drawer first if it is closed), then close_drawer.
 
 Example. Command: "open the drawer, put a fork and a spoon by the plate, then pour me some water" ->
 {"steps":[{"skill":"open_drawer","arm":"a"},{"skill":"pick_place","arm":"a","obj":"fork_1","zone":"fork"},{"skill":"handoff","arm":"a","obj":"spoon_1","to_arm":"b","zone":"spoon"},{"skill":"pick_place","arm":"a","obj":"plate","zone":"plate"},{"skill":"hold_mug","arm":"b"},{"skill":"pour","arm":"a","amount":"normal"},{"skill":"place_mug","arm":"b"}],"mode":"normal"}

@@ -35,9 +35,12 @@ SKILL_OF = {
     ("pick_place", "plate"): "pick_place_plate", ("pick_place", "mug"): "pick_place_mug",
     ("handoff", "spoon_1"): "handoff_spoon", ("handoff", "spoon_2"): "handoff_spoon",
     ("hold_mug", None): "hold_mug", ("pour", None): "pour",
+    ("put_in_drawer", "fork_1"): "put_in_drawer_fork", ("put_in_drawer", "fork_2"): "put_in_drawer_fork",
+    ("put_in_drawer", "spoon_1"): "put_in_drawer_spoon", ("put_in_drawer", "spoon_2"): "put_in_drawer_spoon",
+    ("close_drawer", None): "close_drawer",
 }
 MAX_STEPS = {"open_drawer": 700, "pick_place_fork": 800, "pick_place_plate": 700, "pick_place_mug": 800,
-             "handoff_spoon": 1300, "hold_mug": 600, "pour": 1600}
+             "handoff_spoon": 1300, "hold_mug": 600, "pour": 1600, "put_in_drawer_fork": 800, "put_in_drawer_spoon": 800, "close_drawer": 700}
 LANG_INSTRUCTION = {  # canonical instruction per skill for the language-conditioned policy
     "open_drawer": "open the top drawer with arm A",
     "pick_place_fork": "pick up a fork with arm A and place it on the left of the plate",
@@ -66,6 +69,10 @@ def skill_done(ex: Expert, step: dict) -> bool:
         return oracles.mug_held(m, d) == step["arm"] and abs(oracles.object_pos(m, d, "mug")[2] - C.POUR_POSE[2]) < 0.03
     if sk == "pour":
         return oracles.poured_amount(m, d, step.get("amount"))
+    if sk == "put_in_drawer":
+        return oracles.in_drawer(m, d, step["obj"])
+    if sk == "close_drawer":
+        return oracles.drawer_closed(m, d)
     if sk == "place_mug":
         return oracles.object_in_zone(m, d, "mug", "mug")
     return False

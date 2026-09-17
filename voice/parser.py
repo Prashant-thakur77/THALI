@@ -38,7 +38,7 @@ DEVANAGARI = {"टॉप": "top", "ऊपर": "top", "ड्राइवर": "
 STOP_WORDS = ("stop", "halt", "wait", "freeze", "no no", "hold on", "ruko")
 RESUME_WORDS = ("continue", "resume", "go on", "carry on", "aage badho")
 OTHER_ARM = ("other arm", "the other one", "switch arms", "swap arms", "doosra haath", "dusra haath")
-COMMAND_VERB = re.compile(r"\b(?:open|close|pick|grab|take|lift|fetch|grasp|place|put|drop|pour|fill|hand|pass|give|transfer|hold|keep|stop|halt|reset|set|lay)\b")
+COMMAND_VERB = re.compile(r"\b(?:open|close|shut|clear|tidy|pick|grab|take|lift|fetch|grasp|place|put|drop|pour|fill|hand|pass|give|transfer|hold|keep|stop|halt|reset|set|lay)\b")
 
 
 @dataclass
@@ -147,6 +147,10 @@ def parse(raw: str) -> ParseResult:
         arm, obj = _arm(c), _obj(c)
         if re.search(r"\b(set|lay)\b.*\btable\b", c) or "everything" in c or "whole table" in c or "dinner" in c:
             res.intents.append(Intent("set_table", gentle=gentle, phrase=c))
+        elif re.search(r"\b(clear|tidy|clean)\b.*\btable\b", c) or re.search(r"\b(put|pack)\b.*\b(away|back)\b", c):
+            res.intents.append(Intent("clear_table", gentle=gentle, phrase=c))
+        elif "drawer" in c and re.search(r"\b(close|shut|push)\b", c):
+            res.intents.append(Intent("close_drawer", arm=arm, gentle=gentle, phrase=c))
         elif "drawer" in c and re.search(r"\b(open|pull|slide)\b", c):
             res.intents.append(Intent("open_drawer", arm=arm, gentle=gentle, phrase=c))
         elif re.search(r"\b(pour|fill)\b", c) or (obj == "bottle" and re.search(r"\binto\b", c)):
@@ -180,6 +184,10 @@ def intents_to_command(intents: list[Intent]) -> str:
             parts.append("set the table")
         elif i.kind == "open_drawer":
             parts.append(f"open the top drawer{arm}")
+        elif i.kind == "clear_table":
+            parts.append("clear the table")
+        elif i.kind == "close_drawer":
+            parts.append(f"close the drawer{arm}")
         elif i.kind == "pick_place":
             parts.append(f"put the {i.obj} on the table{arm}")
         elif i.kind == "handoff":

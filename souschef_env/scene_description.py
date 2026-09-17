@@ -29,7 +29,7 @@ def scene_state(model: mujoco.MjModel, data: mujoco.MjData) -> dict:
             "y_cm": _cm(p[1]),
             "z_cm": _cm(p[2]),
             "held_by": oracles.held_by(model, data, name),
-            "in_drawer": name in C.CUTLERY and p[1] > C.CABINET_POS[1] - 0.12 and p[2] < 0.04,
+            "in_drawer": name in C.CUTLERY and oracles.in_drawer(model, data, name),
         }
     arms = {}
     for arm in C.ARMS:

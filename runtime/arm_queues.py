@@ -18,7 +18,7 @@ import numpy as np
 
 from souschef_env import constants as C
 
-PARALLEL_OK = ("open_drawer", "pick_place", "place_mug")   # single-arm skills; handoff / hold / pour need the shared zone
+PARALLEL_OK = ("open_drawer", "pick_place", "place_mug", "put_in_drawer", "close_drawer")   # single-arm skills; handoff / hold / pour need the shared zone
 MIN_SEPARATION = 0.15                                        # m between the two arms' objects/targets to move at once
 
 
@@ -50,8 +50,10 @@ class ArmQueues:
             if last_by_arm[arm] is not None:
                 q.deps.append(last_by_arm[arm])
             other = "b" if arm == "a" else "a"
-            if s["skill"] in ("pick_place", "handoff") and s.get("obj") in C.CUTLERY and drawer_idx is not None:
+            if s["skill"] in ("pick_place", "handoff", "put_in_drawer") and s.get("obj") in C.CUTLERY and drawer_idx is not None:
                 q.deps.append(drawer_idx)
+            if s["skill"] == "close_drawer":
+                q.deps += [j for j, t in enumerate(plan["steps"][:i]) if t.get("obj") in C.CUTLERY or t["skill"] == "open_drawer"]
             if s["skill"] == "handoff" and last_by_arm[s.get("to_arm", other)] is not None:
                 q.deps.append(last_by_arm[s.get("to_arm", other)])   # the receiving arm must be free
             if s["skill"] == "pour":
@@ -115,6 +117,8 @@ class ArmQueues:
             pts.append(tuple(C.ZONES[step["zone"]][0]))
         if step["skill"] == "place_mug":
             pts.append(tuple(C.ZONES["mug"][0]))
+        if step["skill"] in ("put_in_drawer", "close_drawer"):
+            pts.append((C.CABINET_POS[0], C.CABINET_POS[1] - 0.12))
         return pts
 
     def mark(self, q: QueuedStep, status: str) -> None:

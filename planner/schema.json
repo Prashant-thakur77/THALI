@@ -16,7 +16,7 @@
         "required": ["skill", "arm"],
         "additionalProperties": false,
         "properties": {
-          "skill": {"type": "string", "enum": ["open_drawer", "pick_place", "handoff", "hold_mug", "pour", "place_mug"]},
+          "skill": {"type": "string", "enum": ["open_drawer", "pick_place", "handoff", "hold_mug", "pour", "place_mug", "put_in_drawer", "close_drawer"]},
           "arm": {"type": "string", "enum": ["a", "b"]},
           "obj": {"type": ["string", "null"], "enum": ["plate", "mug", "bottle", "fork_1", "fork_2", "spoon_1", "spoon_2", null]},
           "zone": {"type": ["string", "null"], "enum": ["plate", "fork", "spoon", "mug", null]},

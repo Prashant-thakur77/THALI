@@ -96,6 +96,10 @@ def normalise(plan: dict) -> dict:
             t["skill"] = "hold_mug"
         if t["skill"] in ("open_the_drawer", "drawer", "open"):
             t["skill"] = "open_drawer"
+        if t["skill"] in ("close", "close_the_drawer", "shut_drawer", "push_drawer"):
+            t["skill"] = "close_drawer"
+        if t["skill"] in ("put_back", "return", "stow", "put_away", "place_in_drawer"):
+            t["skill"] = "put_in_drawer"
         t["arm"] = arm_map.get(str(s.get("arm", "a")).lower().strip(), "a")
         obj = s.get("obj", s.get("object"))
         if obj is not None:
@@ -153,6 +157,23 @@ def rule_plan(command: str, scene: dict | None = None) -> dict:
     done = (scene or {}).get("subgoals", {})
     drawer_open = bool((scene or {}).get("drawer", {}).get("open", False))
     steps: list[dict] = []
+    # ---- clearing: cutlery back into the drawer, then shut it
+    clearing = any(w in t for w in ("clear the table", "clear table", "tidy", "clean up", "put away", "put back", "pack up"))
+    if clearing or ("drawer" in t and any(w in t for w in ("close", "shut", "push"))):
+        objs = (scene or {}).get("objects", {})
+        on_table = [n for n in ("fork_1", "spoon_1", "fork_2", "spoon_2") if n in objs and not objs[n].get("in_drawer")]
+        if clearing and on_table and not drawer_open:
+            steps.append({"skill": "open_drawer", "arm": "a"})
+        if clearing:
+            for n in on_table:
+                if n.startswith("spoon") and objs[n].get("x_cm", 0) > 0:      # arm B's side: hand it across first
+                    steps.append({"skill": "handoff", "arm": "b", "obj": n, "to_arm": "a", "zone": None})
+                steps.append({"skill": "put_in_drawer", "arm": "a", "obj": n})
+        if drawer_open or (clearing and on_table):
+            steps.append({"skill": "close_drawer", "arm": "a"})
+        if not steps:
+            raise PlanError(f"nothing to clear or close in {command!r}")
+        return {"steps": steps, "mode": "gentle" if gentle else "normal"}
     wants_all = any(w in t for w in ("set the table", "set table", "lay the table", "everything", "whole", "full", "dinner"))
     want_fork = wants_all or "fork" in t or "cutlery" in t
     want_spoon = wants_all or "spoon" in t or "cutlery" in t

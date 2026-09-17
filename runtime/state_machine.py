@@ -31,7 +31,7 @@ from verifier.rules import ALLOW, BLOCK, REORDER, Verifier, World
 from voice.bargein import BargeIn
 
 ROOT = Path(__file__).resolve().parent.parent
-SUBGOAL_OF = {"open_drawer": "drawer_open", "pour": "poured", "place_mug": "mug_placed"}
+SUBGOAL_OF = {"open_drawer": "drawer_open", "pour": "poured", "place_mug": "mug_placed", "close_drawer": "drawer_closed"}
 ZONE_SUBGOAL = {"plate": "plate_placed", "fork": "fork_placed", "spoon": "spoon_placed", "mug": "mug_placed"}
 MAX_REPLANS = 2
 MAX_FINAL_CHECKS = 1  # after the queue drains, re-verify every goal and redo what moved (once)
@@ -132,14 +132,18 @@ class Runtime:
             return SUBGOAL_OF[step["skill"]]
         if step["skill"] in ("pick_place", "handoff") and step.get("zone"):
             return ZONE_SUBGOAL.get(step["zone"])
+        if step["skill"] == "put_in_drawer" and step.get("obj"):
+            return {"fork": "fork_stowed", "spoon": "spoon_stowed"}.get(step["obj"].split("_")[0])
         return None
 
     # ------------------------------------------------------------ main loop
     def run_command(self, command: str, seed: int, split: str = "test", t_speech_end: float | None = None,
-                    max_sim_steps: int = 20000) -> RunLog:
+                    max_sim_steps: int = 20000, reset: bool = True) -> RunLog:
+        """``reset=False`` keeps the current scene (a follow-up command on a table that is already set)."""
         t_wall0 = time.time()
         log = RunLog(seed=seed, split=split, command=command)
-        self.env.reset(seed=seed, options={"split": split})
+        if reset:
+            self.env.reset(seed=seed, options={"split": split})
         if hasattr(self.state_check, "set_reference"):
             self.state_check.set_reference(self._frame())
         if self.anomaly_check is not None and hasattr(self.anomaly_check, "set_reference"):
