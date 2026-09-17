@@ -47,6 +47,10 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 
 **Hardware for every number:** Dell G15 5530 — Intel Core i7-13650HX (Raptor Lake) + UHD iGPU, OpenVINO `['CPU','GPU']`. **No NPU; not a Core Ultra.** ACT trained on the laptop's RTX 3050 6 GB; SmolVLA fine-tuned on Kaggle.
 
+## Try it live
+
+**https://huggingface.co/spaces/Prashant-77/thali-live** — the whole loop in a browser: type a command or pick a Speechmatics voice sample, watch both arms execute it in the simulator (front + overhead cameras streamed live), and see the plan, the verifier's verdict, each skill's oracle / camera / PatchCore checks and the sha256-chained audit records as they happen. "Stop" and "Continue" inject barge-in partials exactly as the microphone path does; "clear the table" runs as a follow-up on the set table. One CPU simulator is shared by every visitor (a run takes 1–4 minutes). Run it yourself: `uvicorn web.server:app --port 7860` (or `docker build -f Dockerfile.web`).
+
 ## How it works
 
 ![architecture](docs/architecture.png)

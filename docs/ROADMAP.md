@@ -15,7 +15,7 @@ How a new skill enters the system (the same five files every time):
 
 | item | what it adds | needs | result row |
 |---|---|---|---|
-| **Clear the table** | reverse task: cutlery back to the drawer, mug to the cabinet, close the drawer | 3 primitives (put-in-drawer, close_drawer, place-in-cabinet), oracles, 3×150 demos | "clear the table" N/10 held-out |
+| **Clear the table** — *done 17 Sep* | reverse task: fork back to the drawer, spoon handed B→A and back, drawer closed (`put_in_drawer`, `close_drawer`; verifier orders close after stow) | done: `results/clear_table.json` **9/10** held-out (the miss is the set-up) | next: demos + ACT for the two skills; mug to the cabinet |
 | **Two place settings** | second plate/fork/spoon set; zones per seat; the planner must count | assets + zones, planner prompt with seats, workspace rule for the far seat (handoff needed) | 2-seat task N/10 |
 | **Glass + jug / bottle cap** | pour into a glass, one arm holds the bottle while the other unscrews the cap (true bimanual, not handoff) | cap joint on the bottle, twist primitive with torque limit | cap-off N/10, pour-into-glass N/10 |
 | **Target-volume pour** — *done 17 Sep* | "a little" / normal / "fill it up" → 3 / 6 / 12 spheres; the roll stops per control step when the oracle counts target − 1 | done: `results/pour_amount.json` — normal within ±2 on 4/5, little 2/5 (overshoot: water leaves in bursts), full 2/5 (two layouts saturate at 6 spheres) | next: slower final roll chunk near the exit angle; bottle neck geometry for "full" |
@@ -59,7 +59,7 @@ How a new skill enters the system (the same five files every time):
 
 ## Suggested order for the next two weeks
 1. ~~Difference-image anomaly retrain~~ done (AUROC 0.94); optional: spill sensitivity.
-2. Clear-the-table (2 days) — doubles the task list, reuses everything. (target-volume pour: done, needs finer control for 'little')
+2. ~~Clear-the-table~~ done (9/10). Live site: done (Hugging Face Docker Space `thali-live`).
 3. Follow-ups/corrections + ask-when-ambiguous (2 days) — the strongest voice-track story.
 4. 3 000-episode recording in the background throughout; SmolVLA retrain at the end (1 week wall, mostly unattended).
 5. Two-arm tray carry (3 days) — the first skill that only two arms can do.
