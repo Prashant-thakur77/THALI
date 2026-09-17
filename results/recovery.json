@@ -13,13 +13,16 @@
  "detected": 4,
  "recovered": 4,
  "total": 4,
+ "anomaly_check": false,
+ "anomaly_flagged_after_knock": null,
+ "anomaly_false_alarms_before_knock": null,
  "rows": [
   {
    "seed": 0,
    "split": "test",
    "knock": {
     "from": [
-     0.0,
+     -0.0,
      -0.1,
      0.003
     ],
@@ -47,7 +50,7 @@
      ]
     }
    ],
-   "replans": 2,
+   "replans": 1,
    "state": "DONE",
    "plate_placed_final": true,
    "fork_placed_final": true,
@@ -57,30 +60,35 @@
     {
      "skill": "open_drawer",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": false
-    },
-    {
-     "skill": "pick_place",
-     "arm": "b",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     }
    ],
-   "wall_s": 147.4
+   "anomaly_flagged_after_knock": null,
+   "anomaly_false_alarm_before_knock": null,
+   "wall_s": 79.7
   },
   {
    "seed": 1,
@@ -115,7 +123,7 @@
      ]
     }
    ],
-   "replans": 2,
+   "replans": 1,
    "state": "DONE",
    "plate_placed_final": true,
    "fork_placed_final": true,
@@ -125,30 +133,35 @@
     {
      "skill": "open_drawer",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": false
-    },
-    {
-     "skill": "pick_place",
-     "arm": "b",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     }
    ],
-   "wall_s": 159.4
+   "anomaly_flagged_after_knock": null,
+   "anomaly_false_alarm_before_knock": null,
+   "wall_s": 108.2
   },
   {
    "seed": 2,
@@ -183,7 +196,7 @@
      ]
     }
    ],
-   "replans": 2,
+   "replans": 1,
    "state": "DONE",
    "plate_placed_final": true,
    "fork_placed_final": true,
@@ -193,30 +206,35 @@
     {
      "skill": "open_drawer",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": false
-    },
-    {
-     "skill": "pick_place",
-     "arm": "b",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     }
    ],
-   "wall_s": 164.4
+   "anomaly_flagged_after_knock": null,
+   "anomaly_false_alarm_before_knock": null,
+   "wall_s": 99.0
   },
   {
    "seed": 3,
@@ -251,7 +269,7 @@
      ]
     }
    ],
-   "replans": 2,
+   "replans": 1,
    "state": "DONE",
    "plate_placed_final": true,
    "fork_placed_final": true,
@@ -261,30 +279,35 @@
     {
      "skill": "open_drawer",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     },
     {
      "skill": "pick_place",
      "arm": "a",
-     "oracle_ok": false
-    },
-    {
-     "skill": "pick_place",
-     "arm": "b",
-     "oracle_ok": true
+     "oracle_ok": true,
+     "table_ok": null,
+     "table_score": null
     }
    ],
-   "wall_s": 166.2
+   "anomaly_flagged_after_knock": null,
+   "anomaly_false_alarm_before_knock": null,
+   "wall_s": 104.0
   }
  ]
 }

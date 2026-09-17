@@ -13,18 +13,18 @@
    "command": "open the top drawer with arm A and put the mug on its spot with arm B",
    "summary": {
     "sequential": {
-     "successes": 5,
+     "successes": 4,
      "total": 5,
-     "mean_sim_steps": 1065.0,
-     "mean_wall_s": 106.9
+     "mean_sim_steps": 1484.4,
+     "mean_wall_s": 53.5
     },
     "concurrent": {
      "successes": 5,
      "total": 5,
-     "mean_sim_steps": 590.6,
-     "mean_wall_s": 29.8
+     "mean_sim_steps": 686.8,
+     "mean_wall_s": 12.5
     },
-    "sim_step_reduction": 0.445,
+    "sim_step_reduction": 0.537,
     "pairs_run_concurrently": 5
    },
    "rows": {
@@ -34,8 +34,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1115,
-      "wall_s": 116.3,
+      "sim_steps": 1169,
+      "wall_s": 42.9,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -55,8 +55,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1051,
-      "wall_s": 104.2,
+      "sim_steps": 1133,
+      "wall_s": 44.7,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -76,8 +76,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1058,
-      "wall_s": 117.2,
+      "sim_steps": 1139,
+      "wall_s": 42.1,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -97,8 +97,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1037,
-      "wall_s": 107.0,
+      "sim_steps": 1117,
+      "wall_s": 45.2,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -116,10 +116,10 @@
      {
       "seed": 4,
       "concurrent": false,
-      "success": true,
-      "state": "DONE",
-      "sim_steps": 1064,
-      "wall_s": 89.9,
+      "success": false,
+      "state": "BLOCKED",
+      "sim_steps": 2864,
+      "wall_s": 92.4,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -130,7 +130,17 @@
        [
         "pick_place",
         "b",
-        true
+        false
+       ],
+       [
+        "pick_place",
+        "b",
+        false
+       ],
+       [
+        "pick_place",
+        "b",
+        false
        ]
       ]
      }
@@ -141,8 +151,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 642,
-      "wall_s": 32.6,
+      "sim_steps": 716,
+      "wall_s": 12.0,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -162,8 +172,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 575,
-      "wall_s": 27.7,
+      "sim_steps": 679,
+      "wall_s": 12.7,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -183,8 +193,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 585,
-      "wall_s": 30.7,
+      "sim_steps": 685,
+      "wall_s": 12.9,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -204,8 +214,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 561,
-      "wall_s": 29.2,
+      "sim_steps": 664,
+      "wall_s": 14.0,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -225,8 +235,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 590,
-      "wall_s": 28.8,
+      "sim_steps": 690,
+      "wall_s": 10.8,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -248,18 +258,18 @@
    "command": "put the plate on its spot with arm A and put the mug on its spot with arm B",
    "summary": {
     "sequential": {
-     "successes": 4,
+     "successes": 5,
      "total": 5,
-     "mean_sim_steps": 994.0,
-     "mean_wall_s": 84.9
+     "mean_sim_steps": 1263.4,
+     "mean_wall_s": 48.2
     },
     "concurrent": {
-     "successes": 4,
+     "successes": 5,
      "total": 5,
-     "mean_sim_steps": 695.4,
-     "mean_wall_s": 34.9
+     "mean_sim_steps": 964.6,
+     "mean_wall_s": 28.1
     },
-    "sim_step_reduction": 0.3,
+    "sim_step_reduction": 0.237,
     "pairs_run_concurrently": 3
    },
    "rows": {
@@ -269,8 +279,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1140,
-      "wall_s": 110.1,
+      "sim_steps": 1194,
+      "wall_s": 44.0,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -290,8 +300,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1045,
-      "wall_s": 91.9,
+      "sim_steps": 1128,
+      "wall_s": 45.0,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -311,8 +321,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1098,
-      "wall_s": 109.3,
+      "sim_steps": 1179,
+      "wall_s": 44.7,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -332,8 +342,8 @@
       "concurrent": false,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1086,
-      "wall_s": 80.7,
+      "sim_steps": 1166,
+      "wall_s": 48.4,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -351,16 +361,21 @@
      {
       "seed": 4,
       "concurrent": false,
-      "success": false,
-      "state": "BLOCKED",
-      "sim_steps": 601,
-      "wall_s": 32.5,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1650,
+      "wall_s": 59.1,
       "steps_concurrent": 0,
       "skills": [
        [
         "pick_place",
         "a",
-        false
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
        ]
       ]
      }
@@ -371,8 +386,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 638,
-      "wall_s": 30.4,
+      "sim_steps": 692,
+      "wall_s": 11.5,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -392,8 +407,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 572,
-      "wall_s": 23.3,
+      "sim_steps": 654,
+      "wall_s": 11.7,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -413,8 +428,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 580,
-      "wall_s": 26.1,
+      "sim_steps": 661,
+      "wall_s": 11.5,
       "steps_concurrent": 2,
       "skills": [
        [
@@ -434,8 +449,8 @@
       "concurrent": true,
       "success": true,
       "state": "DONE",
-      "sim_steps": 1086,
-      "wall_s": 68.7,
+      "sim_steps": 1166,
+      "wall_s": 50.8,
       "steps_concurrent": 0,
       "skills": [
        [
@@ -453,16 +468,21 @@
      {
       "seed": 4,
       "concurrent": true,
-      "success": false,
-      "state": "BLOCKED",
-      "sim_steps": 601,
-      "wall_s": 25.9,
+      "success": true,
+      "state": "DONE",
+      "sim_steps": 1650,
+      "wall_s": 55.1,
       "steps_concurrent": 0,
       "skills": [
        [
         "pick_place",
         "a",
-        false
+        true
+       ],
+       [
+        "pick_place",
+        "b",
+        true
        ]
       ]
      }

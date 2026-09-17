@@ -31,6 +31,16 @@ def skill_row(tag: str) -> str:
     return " · ".join(parts)
 
 
+def smolvla_row() -> str:
+    """The newest SmolVLA per-skill result (results/skill_eval_smolvla_<step>.json), labelled with its training step."""
+    files = sorted(R.glob("skill_eval_smolvla_*.json"), key=lambda p: int("".join(ch for ch in p.stem.split("_")[-1] if ch.isdigit()) or 0))
+    if not files:
+        return "pending"
+    tag = files[-1].stem.replace("skill_eval_", "")
+    step = "".join(ch for ch in tag.split("_")[-1] if ch.isdigit())
+    return f"step {int(step) if step else '?'}{'k' if tag.endswith('k') else ''}: " + skill_row(tag)
+
+
 def skill_rows_50k() -> str:
     """Every per-skill result trained at 50k steps (results/skill_eval_act_*50k*.json), merged; 'pending' if none."""
     parts = []
@@ -168,7 +178,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "followups_row": followups_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "smolvla_row": smolvla_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "followups_row": followups_row, "json": json,
 }
 
 

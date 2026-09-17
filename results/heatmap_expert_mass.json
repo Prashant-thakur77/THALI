@@ -23,12 +23,15 @@
     "fork_placed": 1.0,
     "spoon_placed": 1.0,
     "mug_placed": 1.0,
-    "poured": 1.0
+    "poured": 1.0,
+    "fork_stowed": 0.0,
+    "spoon_stowed": 0.0,
+    "drawer_closed": 0.0
   },
   "skill_successes_won_by": {
     "expert": 70
   },
-  "elapsed_s": 524.0,
+  "elapsed_s": 589.9,
   "rows": [
     {
       "seed": 0,
@@ -39,7 +42,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -48,7 +54,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.1096600139270143
+          }
         },
         {
           "skill": "pick_place",
@@ -56,7 +66,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00523134890293475
+          }
         },
         {
           "skill": "handoff",
@@ -64,7 +82,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 975
+          "steps": 975,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007998954707147251
+          }
         },
         {
           "skill": "pick_place",
@@ -72,7 +97,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.0002700269652968271
+          }
         },
         {
           "skill": "hold_mug",
@@ -80,7 +113,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020354246242723054,
+              -0.017617193227208932,
+              0.047536854045799846
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -88,7 +129,42 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1463,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 8,
+            "spheres_before": 0,
+            "spheres_after": 8,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0016,
+            "chunk_err": [
+              0.0009,
+              0.0015,
+              0.0023,
+              0.0031,
+              0.0036,
+              0.0039,
+              0.0031,
+              0.0037,
+              0.0042,
+              0.0035,
+              0.0036,
+              0.0036
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 12
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -96,11 +172,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 244
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.007338606203167189,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4632,
-      "seconds": 54.3,
+      "sim_steps": 4674,
+      "seconds": 59.5,
       "sample": {
         "mass": {
           "plate": 0.519833162634235,
@@ -122,7 +204,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -131,7 +216,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10877212995925722
+          }
         },
         {
           "skill": "pick_place",
@@ -139,7 +228,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005551053743022048
+          }
         },
         {
           "skill": "handoff",
@@ -147,7 +244,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 974
+          "steps": 974,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007365856098127444
+          }
         },
         {
           "skill": "pick_place",
@@ -155,7 +259,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00029686898696353265
+          }
         },
         {
           "skill": "hold_mug",
@@ -163,7 +275,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020400014197191237,
+              -0.01761781282102619,
+              0.047546284674323834
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -171,7 +291,42 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1443
+          "steps": 1506,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0016,
+            "chunk_err": [
+              0.0011,
+              0.0014,
+              0.002,
+              0.0028,
+              0.0033,
+              0.0035,
+              0.0037,
+              0.0042,
+              0.0033,
+              0.0034,
+              0.0037,
+              0.0044
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -179,11 +334,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 243
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.007441532479238411,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4632,
-      "seconds": 48.5,
+      "sim_steps": 4716,
+      "seconds": 58.7,
       "sample": {
         "mass": {
           "plate": 1.6383793365646928,
@@ -205,7 +366,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -214,7 +378,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.109379780372654
+          }
         },
         {
           "skill": "pick_place",
@@ -222,7 +390,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005185151230160029
+          }
         },
         {
           "skill": "handoff",
@@ -230,7 +406,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 973
+          "steps": 973,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007909754633440813
+          }
         },
         {
           "skill": "pick_place",
@@ -238,7 +421,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00025269170245208097
+          }
         },
         {
           "skill": "hold_mug",
@@ -246,7 +437,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020558516141045303,
+              -0.017621796927915455,
+              0.047559856525930824
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -254,7 +453,42 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1443,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0019,
+            "chunk_err": [
+              0.0012,
+              0.0015,
+              0.0023,
+              0.003,
+              0.0036,
+              0.0038,
+              0.004,
+              0.0047,
+              0.003,
+              0.0032,
+              0.0037,
+              0.0046
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -262,11 +496,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 243
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.007168573528009028,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4629,
-      "seconds": 52.8,
+      "sim_steps": 4652,
+      "seconds": 58.6,
       "sample": {
         "mass": {
           "plate": 0.6102991305621163,
@@ -288,7 +528,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -297,7 +540,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10943776448492125
+          }
         },
         {
           "skill": "pick_place",
@@ -305,7 +552,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005193639857524701
+          }
         },
         {
           "skill": "handoff",
@@ -313,7 +568,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 972
+          "steps": 972,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007883732365300935
+          }
         },
         {
           "skill": "pick_place",
@@ -321,7 +583,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.0003001841011593375
+          }
         },
         {
           "skill": "hold_mug",
@@ -329,7 +599,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020590603703513413,
+              -0.017627351229123803,
+              0.04756995782629826
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -337,7 +615,41 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1442
+          "steps": 1468,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0016,
+            "chunk_err": [
+              0.0011,
+              0.0014,
+              0.002,
+              0.0027,
+              0.0032,
+              0.0035,
+              0.0035,
+              0.0036,
+              0.0037,
+              0.0051,
+              0.0032
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -345,11 +657,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006773246356847519,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4662,
-      "seconds": 51.9,
+      "sim_steps": 4676,
+      "seconds": 61.2,
       "sample": {
         "mass": {
           "plate": 1.1985944432772415,
@@ -371,7 +689,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -380,7 +701,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10951379836789506
+          }
         },
         {
           "skill": "pick_place",
@@ -388,7 +713,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005099275345829327
+          }
         },
         {
           "skill": "handoff",
@@ -396,7 +729,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 974
+          "steps": 974,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.00794774091958808
+          }
         },
         {
           "skill": "pick_place",
@@ -404,7 +744,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00025766702122729016
+          }
         },
         {
           "skill": "hold_mug",
@@ -412,7 +760,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020294111146377594,
+              -0.017616692636298815,
+              0.04753436935717718
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -420,7 +776,42 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1463,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 9,
+            "spheres_before": 0,
+            "spheres_after": 9,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0017,
+            "chunk_err": [
+              0.0011,
+              0.0014,
+              0.0024,
+              0.0031,
+              0.0036,
+              0.0039,
+              0.0031,
+              0.0037,
+              0.0042,
+              0.0033,
+              0.0036,
+              0.0036
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 11
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -428,11 +819,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 244
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.007057554006829042,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4631,
-      "seconds": 53.5,
+      "sim_steps": 4673,
+      "seconds": 58.2,
       "sample": {
         "mass": {
           "plate": 0.5970032286747227,
@@ -454,7 +851,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -463,7 +863,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10914607698703872
+          }
         },
         {
           "skill": "pick_place",
@@ -471,7 +875,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005291097248809376
+          }
         },
         {
           "skill": "handoff",
@@ -479,7 +891,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 973
+          "steps": 973,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.008004809568520564
+          }
         },
         {
           "skill": "pick_place",
@@ -487,7 +906,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00025724133786253516
+          }
         },
         {
           "skill": "hold_mug",
@@ -495,7 +922,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020478261166112822,
+              -0.017617346989715146,
+              0.04755265926130918
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -503,7 +938,41 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1468,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0015,
+            "chunk_err": [
+              0.001,
+              0.0014,
+              0.0021,
+              0.0029,
+              0.0034,
+              0.0036,
+              0.0036,
+              0.0036,
+              0.0036,
+              0.0052,
+              0.0034
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -511,11 +980,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006832566794194522,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4662,
-      "seconds": 50.9,
+      "sim_steps": 4677,
+      "seconds": 57.5,
       "sample": {
         "mass": {
           "plate": 0.84296165610577,
@@ -537,7 +1012,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -546,7 +1024,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10958509918313136
+          }
         },
         {
           "skill": "pick_place",
@@ -554,7 +1036,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00549689105676272
+          }
         },
         {
           "skill": "handoff",
@@ -562,7 +1052,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 973
+          "steps": 973,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.008130381380775051
+          }
         },
         {
           "skill": "pick_place",
@@ -570,7 +1067,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00025421501869063386
+          }
         },
         {
           "skill": "hold_mug",
@@ -578,7 +1083,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020726852165405306,
+              -0.017648973539672312,
+              0.04759756437373355
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -586,7 +1099,41 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1443
+          "steps": 1467,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0018,
+            "chunk_err": [
+              0.0011,
+              0.0014,
+              0.0019,
+              0.0025,
+              0.0031,
+              0.0034,
+              0.0035,
+              0.0035,
+              0.004,
+              0.0049,
+              0.003
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -594,11 +1141,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006712615775521051,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4664,
-      "seconds": 51.7,
+      "sim_steps": 4676,
+      "seconds": 57.4,
       "sample": {
         "mass": {
           "plate": 0.9493961187054589,
@@ -620,7 +1173,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -629,7 +1185,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10969271159913396
+          }
         },
         {
           "skill": "pick_place",
@@ -637,7 +1197,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005289831155571115
+          }
         },
         {
           "skill": "handoff",
@@ -645,7 +1213,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 975
+          "steps": 975,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007731556685292249
+          }
         },
         {
           "skill": "pick_place",
@@ -653,7 +1228,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.0002500552764247293
+          }
         },
         {
           "skill": "hold_mug",
@@ -661,7 +1244,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.002069943261603784,
+              -0.017636584494679697,
+              0.04757518974539928
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -669,7 +1260,42 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1463,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 11,
+            "spheres_before": 0,
+            "spheres_after": 11,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0021,
+            "chunk_err": [
+              0.0013,
+              0.0015,
+              0.0022,
+              0.0029,
+              0.0035,
+              0.0038,
+              0.004,
+              0.0049,
+              0.0032,
+              0.0035,
+              0.004,
+              0.0028
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 9
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -677,11 +1303,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.0065378105283358315,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4664,
-      "seconds": 54.2,
+      "sim_steps": 4674,
+      "seconds": 57.9,
       "sample": {
         "mass": {
           "plate": 0.7702486279887103,
@@ -703,7 +1335,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -712,7 +1347,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.1092718943714457
+          }
         },
         {
           "skill": "pick_place",
@@ -720,7 +1359,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.004887322736833516
+          }
         },
         {
           "skill": "handoff",
@@ -728,7 +1375,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 974
+          "steps": 974,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.007861398078760953
+          }
         },
         {
           "skill": "pick_place",
@@ -736,7 +1390,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.00031753441336862705
+          }
         },
         {
           "skill": "hold_mug",
@@ -744,7 +1406,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020697293064382257,
+              -0.017641939932682427,
+              0.047578588651321474
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -752,7 +1422,41 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1443
+          "steps": 1485,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0015,
+            "chunk_err": [
+              0.001,
+              0.0014,
+              0.002,
+              0.0027,
+              0.0033,
+              0.0036,
+              0.0037,
+              0.004,
+              0.0038,
+              0.0039,
+              0.0034
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -760,11 +1464,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006660689334504233,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4665,
-      "seconds": 53.1,
+      "sim_steps": 4695,
+      "seconds": 58.6,
       "sample": {
         "mass": {
           "plate": 1.446258722984035,
@@ -786,7 +1496,10 @@
         "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
-        "poured": true
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -795,7 +1508,11 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 479
+          "steps": 479,
+          "detail": {
+            "arm": "a",
+            "drawer_qpos": 0.10953236969948077
+          }
         },
         {
           "skill": "pick_place",
@@ -803,7 +1520,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 538
+          "steps": 538,
+          "detail": {
+            "obj": "fork_1",
+            "arm": "a",
+            "zone": "fork",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.005562875366588426
+          }
         },
         {
           "skill": "handoff",
@@ -811,7 +1536,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 975
+          "steps": 975,
+          "detail": {
+            "obj": "spoon_1",
+            "from": "a",
+            "to": "b",
+            "zone": "spoon",
+            "place_err": 0.0074096826169305924
+          }
         },
         {
           "skill": "pick_place",
@@ -819,7 +1551,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 501
+          "steps": 501,
+          "detail": {
+            "obj": "plate",
+            "arm": "a",
+            "zone": "plate",
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.0003196216781357519
+          }
         },
         {
           "skill": "hold_mug",
@@ -827,7 +1567,15 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 395
+          "steps": 401,
+          "detail": {
+            "arm": "b",
+            "mug_pos": [
+              -0.0020613600625317423,
+              -0.017624376631878158,
+              0.04756118772934633
+            ]
+          }
         },
         {
           "skill": "pour",
@@ -835,7 +1583,41 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1441
+          "steps": 1469,
+          "detail": {
+            "arm": "a",
+            "amount": "normal",
+            "target_spheres": 6,
+            "poured": 6,
+            "spheres_before": 0,
+            "spheres_after": 6,
+            "phi": 2.303834612632515,
+            "aborted": false,
+            "spout_err": 0.0015,
+            "chunk_err": [
+              0.0011,
+              0.0014,
+              0.002,
+              0.0028,
+              0.0032,
+              0.0035,
+              0.0036,
+              0.0036,
+              0.0036,
+              0.0051,
+              0.0032
+            ],
+            "roll_sign": 1.0,
+            "lateral_down": false,
+            "in_bottle_by_phase": {
+              "start": 20,
+              "after_pick": 20,
+              "after_lift": 20,
+              "after_transit": 20,
+              "at_pour_pose": 20,
+              "after_roll": 14
+            }
+          }
         },
         {
           "skill": "place_mug",
@@ -843,11 +1625,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 276
+          "steps": 261,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006731062512976551,
+            "retried": false
+          }
         }
       ],
-      "sim_steps": 4664,
-      "seconds": 51.6,
+      "sim_steps": 4680,
+      "seconds": 60.9,
       "sample": {
         "mass": {
           "plate": 1.4330408995042148,
