@@ -28,3 +28,5 @@ anomaly/data/
 anomaly/model/
 .venv-anomalib/
 outputs_60ep/
+checkpoints/
+outputs_50k/

@@ -141,11 +141,12 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 
 | precision (CPU) | full-task successes / 10 | Δ vs PyTorch |
 |---|---|---|
+| torch | 0 | 0 |
 | fp32 | 0 | 0 |
 | fp16 | 0 | 0 |
 | int8 | 0 | 0 |
 
-Sub-goal rates through each IR (fp32: drawer_open 100%, plate_placed 20%, fork_placed 10%; fp16: drawer_open 90%, plate_placed 10%, fork_placed 10%, mug_placed 10%; int8: drawer_open 100%, plate_placed 40%, fork_placed 10%) — the same skills succeed at every precision. SmolVLA vision encoder: fp32/CPU 417.0 ms, fp32/GPU 4423.6 ms, fp16/CPU 441.2 ms, fp16/GPU 4437.5 ms. The VLM planner runs on the CPU; on this machine's iGPU it answers once and then the GPU plugin faults (`docs/BLOCKERS.md`). The IRs need no re-export for an NPU (`-d NPU`); none is present here, so it is not measured.
+Sub-goal rates through each IR (fp32: drawer_open 30%, plate_placed 20%, fork_placed 50%; fp16: drawer_open 70%, plate_placed 30%, fork_placed 20%; int8: drawer_open 60%, plate_placed 50%, fork_placed 30%) — the same skills succeed at every precision. SmolVLA vision encoder: fp32/CPU 417.0 ms, fp32/GPU 4423.6 ms, fp16/CPU 441.2 ms, fp16/GPU 4437.5 ms. The VLM planner runs on the CPU; on this machine's iGPU it answers once and then the GPU plugin faults (`docs/BLOCKERS.md`). The IRs need no re-export for an NPU (`-d NPU`); none is present here, so it is not measured.
 
 ## Reproduce
 

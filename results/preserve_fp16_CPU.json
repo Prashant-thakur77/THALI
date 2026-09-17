@@ -15,26 +15,25 @@
   "success_rate": 0.0,
   "per_skill_rate": {
     "0_open_drawer": 1.0,
-    "1_pick_place": 0.1,
+    "1_pick_place": 0.3,
     "2_handoff": 0.0,
-    "3_pick_place": 0.3,
-    "4_hold_mug": 0.1,
+    "3_pick_place": 0.5,
+    "4_hold_mug": 0.0,
     "5_pour": 0.0,
-    "6_place_mug": 0.1
+    "6_place_mug": 0.0
   },
   "per_subgoal_rate": {
-    "drawer_open": 0.9,
-    "plate_placed": 0.1,
-    "fork_placed": 0.1,
+    "drawer_open": 0.7,
+    "plate_placed": 0.3,
+    "fork_placed": 0.2,
     "spoon_placed": 0.0,
-    "mug_placed": 0.1,
+    "mug_placed": 0.0,
     "poured": 0.0
   },
   "skill_successes_won_by": {
-    "policy": 15,
-    "expert": 1
+    "policy": 18
   },
-  "elapsed_s": 5180.9,
+  "elapsed_s": 1913.2,
   "rows": [
     {
       "seed": 0,
@@ -57,11 +56,11 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 25.67
+              "steps": 280,
+              "seconds": 10.64
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
@@ -73,7 +72,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 75.38
+              "seconds": 28.35
             }
           ],
           "steps": 800
@@ -88,7 +87,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 119.99
+              "seconds": 46.31
             }
           ],
           "steps": 1300
@@ -96,17 +95,17 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": true,
-          "won_by": "policy",
+          "ok": false,
+          "won_by": null,
           "stages": [
             {
               "stage": "policy",
-              "ok": true,
-              "steps": 360,
-              "seconds": 29.29
+              "ok": false,
+              "steps": 700,
+              "seconds": 24.76
             }
           ],
-          "steps": 360
+          "steps": 700
         },
         {
           "skill": "hold_mug",
@@ -118,7 +117,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 58.41
+              "seconds": 20.78
             }
           ],
           "steps": 600
@@ -133,7 +132,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 147.15
+              "seconds": 52.45
             }
           ],
           "steps": 1600
@@ -147,8 +146,8 @@
           "steps": 519
         }
       ],
-      "sim_steps": 5724,
-      "seconds": 540.1,
+      "sim_steps": 6034,
+      "seconds": 213.3,
       "sample": {
         "shape": {
           "plate": {
@@ -213,7 +212,7 @@
         "plate_placed": false,
         "fork_placed": false,
         "spoon_placed": false,
-        "mug_placed": true,
+        "mug_placed": false,
         "poured": false
       },
       "skills": [
@@ -227,7 +226,7 @@
               "stage": "policy",
               "ok": true,
               "steps": 290,
-              "seconds": 30.79
+              "seconds": 11.09
             }
           ],
           "steps": 290
@@ -242,7 +241,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 75.77
+              "seconds": 28.74
             }
           ],
           "steps": 800
@@ -257,7 +256,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 107.9
+              "seconds": 45.28
             }
           ],
           "steps": 1300
@@ -265,32 +264,32 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": false,
-              "steps": 700,
-              "seconds": 65.47
-            }
-          ],
-          "steps": 700
-        },
-        {
-          "skill": "hold_mug",
-          "obj": null,
           "ok": true,
           "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
               "ok": true,
-              "steps": 180,
-              "seconds": 17.92
+              "steps": 330,
+              "seconds": 12.12
             }
           ],
-          "steps": 180
+          "steps": 330
+        },
+        {
+          "skill": "hold_mug",
+          "obj": null,
+          "ok": false,
+          "won_by": null,
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": false,
+              "steps": 600,
+              "seconds": 21.53
+            }
+          ],
+          "steps": 600
         },
         {
           "skill": "pour",
@@ -302,7 +301,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 130.82
+              "seconds": 57.48
             }
           ],
           "steps": 1600
@@ -310,14 +309,14 @@
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": true,
+          "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 268
+          "steps": 549
         }
       ],
-      "sim_steps": 5322,
-      "seconds": 487.2,
+      "sim_steps": 5704,
+      "seconds": 208.3,
       "sample": {
         "shape": {
           "plate": {
@@ -395,11 +394,11 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 34.99
+              "steps": 280,
+              "seconds": 11.03
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
@@ -411,7 +410,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 81.76
+              "seconds": 23.79
             }
           ],
           "steps": 800
@@ -426,7 +425,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 125.45
+              "seconds": 41.99
             }
           ],
           "steps": 1300
@@ -440,11 +439,11 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 430,
-              "seconds": 41.74
+              "steps": 330,
+              "seconds": 11.58
             }
           ],
-          "steps": 430
+          "steps": 330
         },
         {
           "skill": "hold_mug",
@@ -456,7 +455,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 53.09
+              "seconds": 19.09
             }
           ],
           "steps": 600
@@ -471,7 +470,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 133.81
+              "seconds": 46.19
             }
           ],
           "steps": 1600
@@ -482,11 +481,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 438
+          "steps": 433
         }
       ],
-      "sim_steps": 5693,
-      "seconds": 543.1,
+      "sim_steps": 5578,
+      "seconds": 177.3,
       "sample": {
         "shape": {
           "plate": {
@@ -549,7 +548,7 @@
       "subgoals": {
         "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": true,
+        "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
         "poured": false
@@ -564,26 +563,26 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 27.13
+              "steps": 280,
+              "seconds": 12.18
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": true,
-          "won_by": "policy",
+          "ok": false,
+          "won_by": null,
           "stages": [
             {
               "stage": "policy",
-              "ok": true,
-              "steps": 510,
-              "seconds": 40.36
+              "ok": false,
+              "steps": 800,
+              "seconds": 27.63
             }
           ],
-          "steps": 510
+          "steps": 800
         },
         {
           "skill": "handoff",
@@ -595,7 +594,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 101.19
+              "seconds": 44.4
             }
           ],
           "steps": 1300
@@ -603,17 +602,17 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 700,
-              "seconds": 53.37
+              "ok": true,
+              "steps": 440,
+              "seconds": 16.49
             }
           ],
-          "steps": 700
+          "steps": 440
         },
         {
           "skill": "hold_mug",
@@ -625,7 +624,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 47.04
+              "seconds": 21.02
             }
           ],
           "steps": 600
@@ -640,7 +639,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 135.47
+              "seconds": 52.91
             }
           ],
           "steps": 1600
@@ -651,11 +650,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 397
+          "steps": 392
         }
       ],
-      "sim_steps": 5632,
-      "seconds": 472.1,
+      "sim_steps": 5647,
+      "seconds": 199.7,
       "sample": {
         "shape": {
           "plate": {
@@ -716,8 +715,8 @@
       "seed": 4,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
-        "plate_placed": false,
+        "drawer_open": true,
+        "plate_placed": true,
         "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
@@ -733,11 +732,11 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 29.06
+              "steps": 280,
+              "seconds": 9.41
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
@@ -749,7 +748,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 49.99
+              "seconds": 23.74
             }
           ],
           "steps": 800
@@ -764,7 +763,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 86.11
+              "seconds": 38.64
             }
           ],
           "steps": 1300
@@ -772,17 +771,17 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 700,
-              "seconds": 60.3
+              "ok": true,
+              "steps": 280,
+              "seconds": 8.49
             }
           ],
-          "steps": 700
+          "steps": 280
         },
         {
           "skill": "hold_mug",
@@ -794,7 +793,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 47.58
+              "seconds": 18.16
             }
           ],
           "steps": 600
@@ -809,7 +808,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 120.15
+              "seconds": 45.54
             }
           ],
           "steps": 1600
@@ -820,11 +819,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 374
+          "steps": 482
         }
       ],
-      "sim_steps": 5899,
-      "seconds": 453.8,
+      "sim_steps": 5577,
+      "seconds": 171.0,
       "sample": {
         "shape": {
           "plate": {
@@ -885,9 +884,9 @@
       "seed": 5,
       "success": false,
       "subgoals": {
-        "drawer_open": true,
+        "drawer_open": false,
         "plate_placed": false,
-        "fork_placed": false,
+        "fork_placed": true,
         "spoon_placed": false,
         "mug_placed": false,
         "poured": false
@@ -903,7 +902,7 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 28.83
+              "seconds": 11.51
             }
           ],
           "steps": 280
@@ -911,17 +910,17 @@
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 71.02
+              "ok": true,
+              "steps": 510,
+              "seconds": 17.85
             }
           ],
-          "steps": 800
+          "steps": 510
         },
         {
           "skill": "handoff",
@@ -933,7 +932,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 109.28
+              "seconds": 44.44
             }
           ],
           "steps": 1300
@@ -948,7 +947,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 700,
-              "seconds": 61.42
+              "seconds": 24.48
             }
           ],
           "steps": 700
@@ -963,7 +962,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 48.35
+              "seconds": 20.74
             }
           ],
           "steps": 600
@@ -978,7 +977,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 149.27
+              "seconds": 56.4
             }
           ],
           "steps": 1600
@@ -989,11 +988,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 458
+          "steps": 452
         }
       ],
-      "sim_steps": 5973,
-      "seconds": 547.6,
+      "sim_steps": 5677,
+      "seconds": 202.0,
       "sample": {
         "shape": {
           "plate": {
@@ -1054,7 +1053,7 @@
       "seed": 6,
       "success": false,
       "subgoals": {
-        "drawer_open": true,
+        "drawer_open": false,
         "plate_placed": false,
         "fork_placed": false,
         "spoon_placed": false,
@@ -1071,11 +1070,11 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 34.0
+              "steps": 280,
+              "seconds": 11.73
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
@@ -1087,7 +1086,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 76.37
+              "seconds": 29.39
             }
           ],
           "steps": 800
@@ -1102,7 +1101,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 132.13
+              "seconds": 47.11
             }
           ],
           "steps": 1300
@@ -1117,7 +1116,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 700,
-              "seconds": 67.05
+              "seconds": 25.57
             }
           ],
           "steps": 700
@@ -1132,7 +1131,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 53.19
+              "seconds": 21.34
             }
           ],
           "steps": 600
@@ -1147,7 +1146,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 154.03
+              "seconds": 58.36
             }
           ],
           "steps": 1600
@@ -1158,11 +1157,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 414
+          "steps": 408
         }
       ],
-      "sim_steps": 5939,
-      "seconds": 603.7,
+      "sim_steps": 5923,
+      "seconds": 222.6,
       "sample": {
         "shape": {
           "plate": {
@@ -1223,9 +1222,9 @@
       "seed": 7,
       "success": false,
       "subgoals": {
-        "drawer_open": true,
-        "plate_placed": false,
-        "fork_placed": false,
+        "drawer_open": false,
+        "plate_placed": true,
+        "fork_placed": true,
         "spoon_placed": false,
         "mug_placed": false,
         "poured": false
@@ -1240,26 +1239,26 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 26.43
+              "steps": 280,
+              "seconds": 9.47
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 66.6
+              "ok": true,
+              "steps": 460,
+              "seconds": 13.73
             }
           ],
-          "steps": 800
+          "steps": 460
         },
         {
           "skill": "handoff",
@@ -1271,7 +1270,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 96.81
+              "seconds": 38.38
             }
           ],
           "steps": 1300
@@ -1279,17 +1278,17 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 700,
-              "seconds": 57.99
+              "ok": true,
+              "steps": 360,
+              "seconds": 11.21
             }
           ],
-          "steps": 700
+          "steps": 360
         },
         {
           "skill": "hold_mug",
@@ -1301,7 +1300,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 45.03
+              "seconds": 17.74
             }
           ],
           "steps": 600
@@ -1316,7 +1315,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 133.52
+              "seconds": 45.97
             }
           ],
           "steps": 1600
@@ -1327,11 +1326,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 505
+          "steps": 425
         }
       ],
-      "sim_steps": 6030,
-      "seconds": 518.8,
+      "sim_steps": 5260,
+      "seconds": 160.5,
       "sample": {
         "shape": {
           "plate": {
@@ -1393,7 +1392,7 @@
       "success": false,
       "subgoals": {
         "drawer_open": true,
-        "plate_placed": true,
+        "plate_placed": false,
         "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
@@ -1409,26 +1408,26 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 290,
-              "seconds": 26.84
+              "steps": 280,
+              "seconds": 9.43
             }
           ],
-          "steps": 290
+          "steps": 280
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 71.19
+              "ok": true,
+              "steps": 630,
+              "seconds": 18.88
             }
           ],
-          "steps": 800
+          "steps": 630
         },
         {
           "skill": "handoff",
@@ -1440,7 +1439,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 98.63
+              "seconds": 37.7
             }
           ],
           "steps": 1300
@@ -1448,17 +1447,17 @@
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": true,
-          "won_by": "policy",
+          "ok": false,
+          "won_by": null,
           "stages": [
             {
               "stage": "policy",
-              "ok": true,
-              "steps": 410,
-              "seconds": 34.02
+              "ok": false,
+              "steps": 700,
+              "seconds": 20.09
             }
           ],
-          "steps": 410
+          "steps": 700
         },
         {
           "skill": "hold_mug",
@@ -1470,7 +1469,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 62.05
+              "seconds": 17.54
             }
           ],
           "steps": 600
@@ -1485,7 +1484,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 127.68
+              "seconds": 50.11
             }
           ],
           "steps": 1600
@@ -1496,11 +1495,11 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 448
+          "steps": 519
         }
       ],
-      "sim_steps": 5683,
-      "seconds": 496.0,
+      "sim_steps": 5864,
+      "seconds": 182.6,
       "sample": {
         "shape": {
           "plate": {
@@ -1562,7 +1561,7 @@
       "success": false,
       "subgoals": {
         "drawer_open": true,
-        "plate_placed": false,
+        "plate_placed": true,
         "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
@@ -1579,7 +1578,7 @@
               "stage": "policy",
               "ok": true,
               "steps": 290,
-              "seconds": 29.19
+              "seconds": 9.84
             }
           ],
           "steps": 290
@@ -1594,7 +1593,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 68.07
+              "seconds": 23.87
             }
           ],
           "steps": 800
@@ -1609,7 +1608,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 114.83
+              "seconds": 39.06
             }
           ],
           "steps": 1300
@@ -1624,7 +1623,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 700,
-              "seconds": 64.32
+              "seconds": 21.62
             }
           ],
           "steps": 700
@@ -1639,7 +1638,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 52.34
+              "seconds": 18.31
             }
           ],
           "steps": 600
@@ -1654,7 +1653,7 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 129.33
+              "seconds": 46.02
             }
           ],
           "steps": 1600
@@ -1669,7 +1668,7 @@
         }
       ],
       "sim_steps": 5492,
-      "seconds": 498.0,
+      "seconds": 170.9,
       "sample": {
         "shape": {
           "plate": {

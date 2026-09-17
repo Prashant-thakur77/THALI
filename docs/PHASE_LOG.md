@@ -309,3 +309,12 @@ as `--anomaly`), README/EVIDENCE rows that render "pending" until each results f
 Running unattended: ACT retrain on 1050 episodes (12k steps/skill) → per-skill eval → full-task ACT evals → bench;
 PatchCore train → score → results/anomaly.json.
 Next: Qwen3-VL-4B planner comparison, SmolVLA on Kaggle (user), heatmap for ACT, HF pushes of new checkpoints/IR.
+
+## 17 Sep — ACT retrain (1050 episodes) evaluated; bench contaminated
+Full-task ACT on the 1050-episode checkpoints: policy-only 0/10, +retry 0/10, +expert fallback 0/10 (per-sub-goal with fallback:
+drawer 70 %, plate 80 %, fork 40 %, spoon 60 %, mug 40 %, pour 0 %). `make bench` re-exported/quantised the new checkpoints but its
+latency run overlapped a 50k-step training and an eval on the same machine (fp32/CPU 110 ms vs 49 ms idle), so
+`results/bench.json` keeps the idle measurement from 16 Sep (same IR architecture and shapes); rerun `python -m bench.run` on an
+idle machine after the 50k runs finish. Preservation at fp32/fp16/int8 is unchanged (Δ 0).
+50k-step ACT per skill: plate 8/20 → 15/20 (median 1.85 cm) — training length, not episode count, was the bottleneck; the other
+skills are training at 50k steps now.
