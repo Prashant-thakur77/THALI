@@ -81,7 +81,7 @@ def run(policy: str, mode: str, seeds: int, split: str, axes: tuple[str, ...], d
             skills.append({"skill": st.skill, "obj": st.obj, "ok": bool(r.ok), "won_by": r.detail.get("won_by", "expert" if policy == "expert" else None),
                            "stages": r.detail.get("stages"), "steps": r.steps})
         sg = oracles.subgoals(env.model, env.data)
-        rows.append({"seed": seed, "success": bool(all(sg.values())), "subgoals": sg, "skills": skills, "sim_steps": ex.steps,
+        rows.append({"seed": seed, "success": bool(all(sg[g] for g in oracles.FULL_TASK)), "subgoals": sg, "skills": skills, "sim_steps": ex.steps,
                      "seconds": round(time.time() - t0, 1), "sample": {k: sample[k] for k in ("shape", "mass", "friction", "background") if sample.get(k)}})
         print(f"[{policy}/{mode}/{split}{'/' + '+'.join(axes) if axes != AXES else ''}] seed {seed}: {'SUCCESS' if rows[-1]['success'] else 'fail'} "
               f"{sum(sg.values())}/6 | " + " ".join(f"{s['skill'][:5]}:{('' if s['ok'] else 'X')}{(s['won_by'] or '-')[:4]}" for s in skills) + f" ({rows[-1]['seconds']}s)", flush=True)
