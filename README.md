@@ -27,7 +27,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Full task, scripted expert** (drawer → fork → spoon handed A→B → plate → hold + pour → mug) | **9/10** held-out seeds · 9/10 train | `results/seeds_expert_*` |
 | **Full task, ACT policies** (policy-only / +retry / +expert fallback) | 0/10 / 0/10 / 0/10 | `results/seeds_act_*` |
 | **Full task, multi-task SmolVLA** | training on Kaggle — pending | `results/seeds.json` |
-| **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 50% | `results/heatmap_expert.json` |
+| **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 90% | `results/heatmap_expert.json` |
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
 | **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | open_drawer **20/20** · pick_place_fork **2/20** (median 29.93 cm from zone) · pick_place_plate **8/20** (median 15.85 cm from zone) · pick_place_mug **1/20** (median 24.45 cm from zone) · handoff_spoon **0/20** (median 39.89 cm from zone) · hold_mug **10/20** · pour **1/20** | `results/skill_eval_act_60ep.json` |
 | **Per-skill ACT, policy only — retrained on 1050 episodes** | open_drawer **20/20** · pick_place_fork **6/20** (median 29.16 cm from zone) · pick_place_plate **8/20** (median 14.12 cm from zone) · pick_place_mug **1/20** (median 26.68 cm from zone) · handoff_spoon **0/20** (median 39.3 cm from zone) · hold_mug **10/20** · pour **1/20** | `results/skill_eval_act_1050ep.json` |
@@ -113,17 +113,17 @@ order swaps: plate_then_mug ✗, mug_then_plate ✗
 
 | seed | placement | mass | friction | shape | lighting | background | all |
 |---|---|---|---|---|---|---|---|
-| 0 | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ |
-| 1 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 0 | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ |
+| 1 | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ |
 | 2 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 3 | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ |
-| 4 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
-| 5 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
-| 6 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 7 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| 3 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 4 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 5 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 6 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| 7 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 8 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 9 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
-| **rate** | 100% | 100% | 100% | 80% | 100% | 100% | 50% |
+| 9 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **rate** | 100% | 100% | 100% | 80% | 100% | 100% | 90% |
 
 ![heatmap](results/heatmap_expert.png)
 
