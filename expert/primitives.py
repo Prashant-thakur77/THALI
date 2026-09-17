@@ -952,7 +952,7 @@ class Expert:
                 return last
 
             got = hold(4.0)
-            if got - n0 < max(2, target // 2) and not enough():
+            if not enough() and self.water_in_bottle() > 0:   # short of the target with water left: tip further and wait again
                 extra = roll_sign * math.radians(20)
                 q_next = float(self.q[arm][4]) + extra
                 if -2.6 < q_next < 2.7:

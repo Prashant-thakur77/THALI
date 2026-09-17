@@ -44,8 +44,16 @@ class Step:
             (zx, zy), _ = C.ZONES["mug"]
             r = ex.place("mug", self.arm, (zx, zy))
             ex.park(self.arm)
+            ok = oracles.object_in_zone(ex.m, ex.d, "mug", "mug")
+            if not ok and oracles.held_by(ex.m, ex.d, "mug") is None and ex.obj_pose("mug")[1][2, 2] > 0.9:
+                # landed just outside the zone, upright: pick it up again (side grasp, as for the hold) and set it down once more
+                r2 = ex.pick_side("mug", self.arm, z_above_base=0.034)
+                if r2.ok:
+                    r = ex.place("mug", self.arm, (zx, zy))
+                    ex.park(self.arm)
+                    ok = oracles.object_in_zone(ex.m, ex.d, "mug", "mug")
             ex.workspace.release(self.arm)
-            return SkillResult("place_mug", oracles.object_in_zone(ex.m, ex.d, "mug", "mug"), r.steps, r.detail)
+            return SkillResult("place_mug", ok, r.steps, {**r.detail, "retried": not ok or "r2" in dir()})
         raise ValueError(self.skill)
 
 
