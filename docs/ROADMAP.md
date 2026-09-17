@@ -25,7 +25,7 @@ How a new skill enters the system (the same five files every time):
 
 | item | what it adds | needs | result row |
 |---|---|---|---|
-| **Follow-ups & corrections** | "a bit more", "no, the other side", "left of the plate" resolved against the last step | dialogue state in the runtime, relative-position parsing, verifier re-check | 20 scripted follow-ups → N correct |
+| **Follow-ups & corrections** — *done 17 Sep* | "again", "a bit more", "no, the other side", "the other arm" resolved against the last executed step (`runtime/followups.py`), verified, presets in both web UIs | done: `results/followups.json` **20/20** resolved to the expected plan, 14/16 verifier-approved (the two refusals are correct: the other arm cannot reach) | next: "left of the plate" relative positions; spoken clarification questions |
 | **Per-person preferences** | two diarised speakers, each with a seat and preferences ("I don't take water") | speaker → seat map, plan per seat | 2-speaker sessions N/10 |
 | **Ask when ambiguous** | "which mug?" when two match; refuse with a reason when an item is missing (already partly there) | clarification state + TTS question, resume on answer | ambiguous commands: N asked, 0 wrong |
 | **Kitchen timer & reminders** | "tell me when the tea has steeped 3 minutes" — voice-only skills mixed with arm skills | scheduler in the state machine | — (demo value) |
@@ -60,6 +60,6 @@ How a new skill enters the system (the same five files every time):
 ## Suggested order for the next two weeks
 1. ~~Difference-image anomaly retrain~~ done (AUROC 0.94); optional: spill sensitivity.
 2. ~~Clear-the-table~~ done (9/10). Live site: done (Hugging Face Docker Space `thali-live`).
-3. Follow-ups/corrections + ask-when-ambiguous (2 days) — the strongest voice-track story.
+3. ~~Follow-ups/corrections~~ done (20/20); ask-when-ambiguous next.
 4. 3 000-episode recording in the background throughout; SmolVLA retrain at the end (1 week wall, mostly unattended).
 5. Two-arm tray carry (3 days) — the first skill that only two arms can do.
