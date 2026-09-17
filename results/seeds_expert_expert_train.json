@@ -11,11 +11,11 @@
     "background"
   ],
   "seeds": 10,
-  "successes": 8,
-  "success_rate": 0.8,
+  "successes": 9,
+  "success_rate": 0.9,
   "per_skill_rate": {
     "0_open_drawer": 1.0,
-    "1_pick_place": 0.9,
+    "1_pick_place": 1.0,
     "2_handoff": 1.0,
     "3_pick_place": 1.0,
     "4_hold_mug": 1.0,
@@ -25,7 +25,7 @@
   "per_subgoal_rate": {
     "drawer_open": 1.0,
     "plate_placed": 1.0,
-    "fork_placed": 0.9,
+    "fork_placed": 1.0,
     "spoon_placed": 1.0,
     "mug_placed": 1.0,
     "poured": 0.9,
@@ -34,9 +34,9 @@
     "drawer_closed": 0.0
   },
   "skill_successes_won_by": {
-    "expert": 68
+    "expert": 69
   },
-  "elapsed_s": 588.2,
+  "elapsed_s": 635.4,
   "rows": [
     {
       "seed": 0,
@@ -62,7 +62,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10949298288119942
+            "drawer_qpos": 0.10977253498067903
           }
         },
         {
@@ -78,7 +78,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.004281657025747177
+            "place_err": 0.0044442333134360225
           }
         },
         {
@@ -87,13 +87,13 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 971,
+          "steps": 970,
           "detail": {
             "obj": "spoon_1",
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.008680875958638342
+            "place_err": 0.008611736180544284
           }
         },
         {
@@ -109,7 +109,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0001767038345144403
+            "place_err": 0.000269893400383562
           }
         },
         {
@@ -118,13 +118,13 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 403,
+          "steps": 402,
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.002151001580251962,
-              -0.017458246510938028,
-              0.04747618658052267
+              -0.002119527519497493,
+              -0.017448338957516102,
+              0.047491899883090494
             ]
           }
         },
@@ -134,28 +134,29 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1451,
+          "steps": 1527,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 11,
+            "poured": 6,
             "spheres_before": 0,
-            "spheres_after": 11,
+            "spheres_after": 6,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0036,
+            "spout_err": 0.0037,
             "chunk_err": [
-              0.0036,
-              0.0026,
-              0.0015,
               0.0029,
+              0.0028,
+              0.0027,
+              0.0018,
+              0.0031,
               0.003,
-              0.0033,
-              0.0038,
-              0.0025,
-              0.003,
-              0.0038
+              0.0032,
+              0.0037,
+              0.0032,
+              0.0035,
+              0.0047
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -165,7 +166,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 9
+              "after_roll": 14
             }
           }
         },
@@ -175,16 +176,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 312,
+          "steps": 282,
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.006692255015191765
+            "err": 0.005832067342898997,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4711,
-      "seconds": 66.7,
+      "sim_steps": 4755,
+      "seconds": 66.2,
       "sample": {
         "shape": {
           "plate": {
@@ -243,11 +245,11 @@
     },
     {
       "seed": 1,
-      "success": false,
+      "success": true,
       "subgoals": {
         "drawer_open": true,
         "plate_placed": true,
-        "fork_placed": false,
+        "fork_placed": true,
         "spoon_placed": true,
         "mug_placed": true,
         "poured": true,
@@ -265,23 +267,23 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10938674775675993
+            "drawer_qpos": 0.10938674776739679
           }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
+          "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 967,
+          "steps": 535,
           "detail": {
             "obj": "fork_1",
             "arm": "a",
             "zone": "fork",
-            "retried": true,
-            "attempts": 2,
-            "place_err": 0.021528324842976527
+            "retried": false,
+            "attempts": 1,
+            "place_err": 0.006076454627371549
           }
         },
         {
@@ -296,7 +298,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.007788158476357338
+            "place_err": 0.007799598926164086
           }
         },
         {
@@ -312,7 +314,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.038265649185839516
+            "place_err": 0.03706750890858588
           }
         },
         {
@@ -325,9 +327,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.001907286241659858,
-              -0.017700143876913935,
-              0.047746759341642894
+              -0.0019076883228326177,
+              -0.017700185469030207,
+              0.047746263263384485
             ]
           }
         },
@@ -337,14 +339,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1318,
+          "steps": 1408,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 9,
+            "poured": 6,
             "spheres_before": 0,
-            "spheres_after": 9,
+            "spheres_after": 6,
             "phi": 2.303834612632515,
             "aborted": false,
             "spout_err": 0.0032,
@@ -352,12 +354,14 @@
               0.0027,
               0.0027,
               0.0027,
-              0.0023,
-              0.0037,
+              0.0024,
+              0.0034,
               0.0019,
               0.0026,
-              0.0035,
-              0.0015
+              0.003,
+              0.0016,
+              0.0029,
+              0.0007
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -367,7 +371,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 10
+              "after_roll": 14
             }
           }
         },
@@ -377,16 +381,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 283,
+          "steps": 287,
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.004108267527771066
+            "err": 0.00454139550341201,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4984,
-      "seconds": 69.8,
+      "sim_steps": 4646,
+      "seconds": 67.4,
       "sample": {
         "shape": {
           "plate": {
@@ -467,7 +472,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10975694470869618
+            "drawer_qpos": 0.10975590069864387
           }
         },
         {
@@ -483,7 +488,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.00588248710194449
+            "place_err": 0.005974995887775533
           }
         },
         {
@@ -498,7 +503,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.008773291234054823
+            "place_err": 0.008967367292670107
           }
         },
         {
@@ -514,7 +519,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0003333408481427165
+            "place_err": 0.0003432056870801791
           }
         },
         {
@@ -523,13 +528,13 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 405,
+          "steps": 404,
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0017920528772339798,
-              -0.018973849676093252,
-              0.04782985396132806
+              -0.0017793226115658547,
+              -0.018989783478203646,
+              0.04784301057842356
             ]
           }
         },
@@ -539,7 +544,7 @@
           "ok": false,
           "won_by": "expert",
           "stages": null,
-          "steps": 1766,
+          "steps": 1560,
           "detail": {
             "arm": "a",
             "amount": "normal",
@@ -549,24 +554,24 @@
             "spheres_after": 0,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0026,
+            "spout_err": 0.0023,
             "chunk_err": [
-              0.0003,
-              0.0013,
-              0.003,
-              0.0001,
-              0.0014,
-              0.0036,
-              0.0004,
-              0.0023,
-              0.0006,
-              0.0029,
-              0.0009,
+              0.0024,
+              0.0028,
+              0.0031,
+              0.0033,
               0.0032,
+              0.0031,
+              0.0029,
+              0.0024,
+              0.0017,
+              0.0034,
+              0.0006,
+              0.003,
               0.001,
               0.0036,
-              0.0012,
-              0.0039
+              0.0011,
+              0.0038
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -590,12 +595,13 @@
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.01145771652395324
+            "err": 0.011170294182231056,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4999,
-      "seconds": 61.0,
+      "sim_steps": 4792,
+      "seconds": 65.3,
       "sample": {
         "shape": {
           "plate": {
@@ -676,7 +682,7 @@
           "steps": 478,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10969857060588188
+            "drawer_qpos": 0.10942657319604972
           }
         },
         {
@@ -685,14 +691,14 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 567,
+          "steps": 536,
           "detail": {
             "obj": "fork_1",
             "arm": "a",
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.006407119210607085
+            "place_err": 0.0072428020893773055
           }
         },
         {
@@ -701,13 +707,13 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 996,
+          "steps": 997,
           "detail": {
             "obj": "spoon_1",
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.008379719292090188
+            "place_err": 0.008285376983451232
           }
         },
         {
@@ -723,7 +729,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.00015615376831935827
+            "place_err": 0.00018786159085367723
           }
         },
         {
@@ -736,9 +742,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0019252485437929515,
-              -0.01774931961805329,
-              0.04771711998438769
+              -0.0019340818063501106,
+              -0.017740640665643855,
+              0.04770774295149475
             ]
           }
         },
@@ -748,27 +754,30 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1447,
+          "steps": 1538,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 19,
+            "poured": 7,
             "spheres_before": 0,
-            "spheres_after": 19,
+            "spheres_after": 7,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.001,
+            "spout_err": 0.002,
             "chunk_err": [
-              0.0007,
-              0.002,
-              0.0059,
-              0.0013,
-              0.0027,
-              0.0005,
-              0.0016,
+              0.0017,
               0.0021,
-              0.0015
+              0.0052,
+              0.0011,
+              0.0007,
+              0.0007,
+              0.0026,
+              0.003,
+              0.0018,
+              0.0065,
+              0.0016,
+              0.0008
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -778,7 +787,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 1
+              "after_roll": 13
             }
           }
         },
@@ -792,12 +801,13 @@
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.0026039522183072036
+            "err": 0.0023917999114177065,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4746,
-      "seconds": 70.3,
+      "sim_steps": 4807,
+      "seconds": 76.8,
       "sample": {
         "shape": {
           "plate": {
@@ -878,7 +888,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10970808959787144
+            "drawer_qpos": 0.10945541204339343
           }
         },
         {
@@ -894,7 +904,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.004603703293157402
+            "place_err": 0.004606939075157541
           }
         },
         {
@@ -909,7 +919,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.007985443984838622
+            "place_err": 0.008120963132179367
           }
         },
         {
@@ -925,7 +935,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 7.46941033204684e-05
+            "place_err": 4.999020607227102e-05
           }
         },
         {
@@ -938,9 +948,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0020502679341031006,
-              -0.01763314435245321,
-              0.04754288862610746
+              -0.002056787217598535,
+              -0.017631867048051014,
+              0.04753737184368879
             ]
           }
         },
@@ -950,27 +960,30 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1421,
+          "steps": 1542,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 6,
+            "poured": 9,
             "spheres_before": 0,
-            "spheres_after": 6,
+            "spheres_after": 9,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0057,
+            "spout_err": 0.0061,
             "chunk_err": [
-              0.0037,
-              0.0016,
+              0.004,
+              0.0017,
               0.0023,
               0.0034,
-              0.0026,
+              0.0027,
               0.0033,
               0.0028,
               0.0037,
-              0.0026
+              0.003,
+              0.0033,
+              0.0018,
+              0.0011
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -980,7 +993,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 14
+              "after_roll": 11
             }
           }
         },
@@ -990,16 +1003,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 259,
+          "steps": 255,
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.006750123262457063
+            "err": 0.008637531549980171,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4628,
-      "seconds": 46.2,
+      "sim_steps": 4745,
+      "seconds": 59.2,
       "sample": {
         "shape": {
           "plate": {
@@ -1080,7 +1094,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10915184599143063
+            "drawer_qpos": 0.10979494265394246
           }
         },
         {
@@ -1096,7 +1110,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.006185876414883073
+            "place_err": 0.005824905337957294
           }
         },
         {
@@ -1111,7 +1125,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.00752561219432776
+            "place_err": 0.007600238790571459
           }
         },
         {
@@ -1127,7 +1141,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0002892508963068001
+            "place_err": 0.00028988850834121854
           }
         },
         {
@@ -1140,9 +1154,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.001734696364954699,
-              -0.01800762957876694,
-              0.047932365049719775
+              -0.0017362873738191859,
+              -0.01801072172608949,
+              0.047930959045193886
             ]
           }
         },
@@ -1152,7 +1166,7 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1365,
+          "steps": 1467,
           "detail": {
             "arm": "a",
             "amount": "normal",
@@ -1164,16 +1178,18 @@
             "aborted": false,
             "spout_err": 0.0023,
             "chunk_err": [
-              0.001,
-              0.0009,
-              0.0017,
-              0.0023,
-              0.0035,
-              0.004,
-              0.0019,
-              0.0016,
+              0.0013,
+              0.0007,
+              0.003,
+              0.003,
+              0.0034,
               0.0024,
-              0.0038
+              0.0033,
+              0.0023,
+              0.0029,
+              0.004,
+              0.0038,
+              0.003
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -1197,12 +1213,13 @@
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.005181798283724033
+            "err": 0.004977256110069817,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4587,
-      "seconds": 57.8,
+      "sim_steps": 4689,
+      "seconds": 63.6,
       "sample": {
         "shape": {
           "plate": {
@@ -1283,7 +1300,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10957028573175007
+            "drawer_qpos": 0.10877617204677181
           }
         },
         {
@@ -1299,7 +1316,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.006145911992280995
+            "place_err": 0.006355213533613509
           }
         },
         {
@@ -1314,7 +1331,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.008636096703634577
+            "place_err": 0.009093914438828241
           }
         },
         {
@@ -1330,7 +1347,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0003489885785643179
+            "place_err": 0.000336731737272463
           }
         },
         {
@@ -1343,9 +1360,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0018676720430068456,
-              -0.017704582538280184,
-              0.047895554180801735
+              -0.0018714204012390432,
+              -0.017702215204363155,
+              0.04788133328568866
             ]
           }
         },
@@ -1355,7 +1372,7 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1412,
+          "steps": 1514,
           "detail": {
             "arm": "a",
             "amount": "normal",
@@ -1365,17 +1382,19 @@
             "spheres_after": 6,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0021,
+            "spout_err": 0.0015,
             "chunk_err": [
-              0.0016,
-              0.0022,
+              0.0011,
+              0.002,
               0.003,
               0.0038,
-              0.0073,
-              0.0044,
-              0.0032,
-              0.0037,
-              0.0033
+              0.0057,
+              0.0033,
+              0.0036,
+              0.0035,
+              0.004,
+              0.0042,
+              0.0042
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -1395,16 +1414,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 260,
+          "steps": 261,
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.0019205207151160514
+            "err": 0.001985103917496908,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4646,
-      "seconds": 67.9,
+      "sim_steps": 4749,
+      "seconds": 87.1,
       "sample": {
         "shape": {
           "plate": {
@@ -1485,7 +1505,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10974121254216722
+            "drawer_qpos": 0.10975073975571896
           }
         },
         {
@@ -1501,7 +1521,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0017513689865763192
+            "place_err": 0.0017502043891733483
           }
         },
         {
@@ -1516,7 +1536,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.008939573952119266
+            "place_err": 0.008926006930772824
           }
         },
         {
@@ -1532,7 +1552,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.00032656744585796214
+            "place_err": 0.0003927820254664381
           }
         },
         {
@@ -1545,9 +1565,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0021424951406725963,
-              -0.017356613783855255,
-              0.04750133885444457
+              -0.0021425340804805625,
+              -0.01735659694433658,
+              0.04750133835413265
             ]
           }
         },
@@ -1557,28 +1577,31 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1399,
+          "steps": 1493,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 6,
+            "poured": 8,
             "spheres_before": 0,
-            "spheres_after": 6,
+            "spheres_after": 8,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0021,
+            "spout_err": 0.002,
             "chunk_err": [
-              0.0017,
               0.0016,
+              0.0016,
+              0.0018,
               0.002,
-              0.0021,
               0.0025,
               0.0029,
+              0.0031,
+              0.0033,
               0.003,
+              0.0036,
+              0.0045,
               0.0041,
-              0.0039,
-              0.0039
+              0.0021
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -1588,7 +1611,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 14
+              "after_roll": 12
             }
           }
         },
@@ -1602,12 +1625,13 @@
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.006776982480274988
+            "err": 0.007137131012988348,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4666,
-      "seconds": 47.4,
+      "sim_steps": 4760,
+      "seconds": 45.5,
       "sample": {
         "shape": {
           "plate": {
@@ -1688,7 +1712,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.10940583273273412
+            "drawer_qpos": 0.10946602739964673
           }
         },
         {
@@ -1704,7 +1728,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.002291635282652508
+            "place_err": 0.002310940460132658
           }
         },
         {
@@ -1719,7 +1743,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.00837939750738464
+            "place_err": 0.008573200789786345
           }
         },
         {
@@ -1735,7 +1759,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0002360066661931703
+            "place_err": 0.00017928700727922812
           }
         },
         {
@@ -1748,9 +1772,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0017289673290606274,
-              -0.017936398578810357,
-              0.04796645439237033
+              -0.0017290743264053883,
+              -0.0179360031258964,
+              0.047966353682881185
             ]
           }
         },
@@ -1760,26 +1784,27 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1384,
+          "steps": 1458,
           "detail": {
             "arm": "a",
             "amount": "normal",
             "target_spheres": 6,
-            "poured": 12,
+            "poured": 6,
             "spheres_before": 0,
-            "spheres_after": 12,
+            "spheres_after": 6,
             "phi": 2.303834612632515,
             "aborted": false,
             "spout_err": 0.0013,
             "chunk_err": [
-              0.0014,
-              0.0025,
-              0.0036,
-              0.0065,
-              0.0043,
-              0.0038,
-              0.0034,
-              0.0024
+              0.0011,
+              0.0022,
+              0.0035,
+              0.0079,
+              0.0046,
+              0.0044,
+              0.0041,
+              0.0048,
+              0.0009
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -1789,7 +1814,7 @@
               "after_lift": 20,
               "after_transit": 20,
               "at_pour_pose": 20,
-              "after_roll": 8
+              "after_roll": 14
             }
           }
         },
@@ -1799,16 +1824,17 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 261,
+          "steps": 260,
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.0067066930293306895
+            "err": 0.006435194664940117,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4610,
-      "seconds": 47.0,
+      "sim_steps": 4683,
+      "seconds": 46.3,
       "sample": {
         "shape": {
           "plate": {
@@ -1889,7 +1915,7 @@
           "steps": 479,
           "detail": {
             "arm": "a",
-            "drawer_qpos": 0.1096775332511893
+            "drawer_qpos": 0.10979614156728223
           }
         },
         {
@@ -1905,7 +1931,7 @@
             "zone": "fork",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0028231018642188833
+            "place_err": 0.003905623759781611
           }
         },
         {
@@ -1920,7 +1946,7 @@
             "from": "a",
             "to": "b",
             "zone": "spoon",
-            "place_err": 0.006730600158084671
+            "place_err": 0.006585350780110711
           }
         },
         {
@@ -1936,7 +1962,7 @@
             "zone": "plate",
             "retried": false,
             "attempts": 1,
-            "place_err": 0.0005247072226945573
+            "place_err": 0.0005598598400108755
           }
         },
         {
@@ -1949,9 +1975,9 @@
           "detail": {
             "arm": "b",
             "mug_pos": [
-              -0.0015644106431472312,
-              -0.017901130268953406,
-              0.048141792631007575
+              -0.001559556168929847,
+              -0.017902269317255474,
+              0.0481481233898081
             ]
           }
         },
@@ -1961,7 +1987,7 @@
           "ok": true,
           "won_by": "expert",
           "stages": null,
-          "steps": 1546,
+          "steps": 1561,
           "detail": {
             "arm": "a",
             "amount": "normal",
@@ -1971,19 +1997,22 @@
             "spheres_after": 6,
             "phi": 2.303834612632515,
             "aborted": false,
-            "spout_err": 0.0105,
+            "spout_err": 0.0088,
             "chunk_err": [
-              0.0073,
-              0.0053,
-              0.0047,
+              0.001,
+              0.0018,
               0.0026,
               0.0031,
-              0.0024,
-              0.0023,
-              0.0025,
-              0.0026,
-              0.0011,
-              0.0014
+              0.0035,
+              0.0038,
+              0.0122,
+              0.0004,
+              0.0002,
+              0.0001,
+              0.0004,
+              0.0004,
+              0.0018,
+              0.0028
             ],
             "roll_sign": 1.0,
             "lateral_down": false,
@@ -2007,12 +2036,13 @@
           "detail": {
             "obj": "mug",
             "arm": "b",
-            "err": 0.007091981337163761
+            "err": 0.006043982260989222,
+            "retried": false
           }
         }
       ],
-      "sim_steps": 4749,
-      "seconds": 52.4,
+      "sim_steps": 4764,
+      "seconds": 56.3,
       "sample": {
         "shape": {
           "plate": {

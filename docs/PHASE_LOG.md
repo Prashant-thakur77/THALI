@@ -338,3 +338,9 @@ contact `solref` from overdamped to critically damped right after setting it (re
 demos; the 1050-episode dataset was recorded with the bouncier water, which only matters for the 150 pour episodes); the pour lip
 now sits at the rim plane; the mug's handle could hook the opening jaw on release (the gripper now slides away from the handle
 before rising); cutlery and the plate are nudged apart inside their zones. 32 fast tests pass; the 10-seed evals are re-running.
+
+## 17 Sep (night) — full task 9/10 held-out, 9/10 training
+With viscous drag on the water spheres (frictionless spheres left the tilted tube at ~0.5 m/s and ricocheted out of the mug;
+`solref` damping alone did not stop it) and a place_mug retry that aims out the measured miss: held-out 9/10 (all sub-goals
+100 % except one mug set-down), training 9/10 (one pour). Pour-amount: little 6/6, normal 6/6, full 5/6 within ±2 spheres,
+target reached 18/18. Follow-ups and corrections added the same evening (`runtime/followups.py`, 20/20).

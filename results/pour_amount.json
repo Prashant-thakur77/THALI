@@ -18,24 +18,24 @@
   "little": {
    "target": 3,
    "n": 6,
-   "mean_poured": 5.0,
-   "mean_abs_error": 2.0,
-   "within_2": 4,
+   "mean_poured": 3.0,
+   "mean_abs_error": 0.0,
+   "within_2": 6,
    "reached_target": 6
   },
   "normal": {
    "target": 6,
    "n": 6,
-   "mean_poured": 7.0,
-   "mean_abs_error": 1.0,
-   "within_2": 5,
+   "mean_poured": 6.3,
+   "mean_abs_error": 0.33,
+   "within_2": 6,
    "reached_target": 6
   },
   "full": {
    "target": 12,
    "n": 6,
-   "mean_poured": 13.3,
-   "mean_abs_error": 1.33,
+   "mean_poured": 12.8,
+   "mean_abs_error": 0.83,
    "within_2": 5,
    "reached_target": 6
   }
@@ -49,20 +49,20 @@
    "target": 3,
    "poured": 3,
    "aborted": false,
+   "sim_steps": 1475
+  },
+  {
+   "amount": "little",
+   "seed": 1,
+   "hold_ok": true,
+   "pour_ok": true,
+   "target": 3,
+   "poured": 3,
+   "aborted": false,
    "sim_steps": 1390
   },
   {
    "amount": "little",
-   "seed": 1,
-   "hold_ok": true,
-   "pour_ok": true,
-   "target": 3,
-   "poured": 11,
-   "aborted": false,
-   "sim_steps": 1318
-  },
-  {
-   "amount": "little",
    "seed": 2,
    "hold_ok": false
   },
@@ -72,9 +72,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 3,
-   "poured": 6,
+   "poured": 3,
    "aborted": false,
-   "sim_steps": 1418
+   "sim_steps": 1521
   },
   {
    "amount": "little",
@@ -84,7 +84,7 @@
    "target": 3,
    "poured": 3,
    "aborted": false,
-   "sim_steps": 1417
+   "sim_steps": 1499
   },
   {
    "amount": "little",
@@ -94,7 +94,7 @@
    "target": 3,
    "poured": 3,
    "aborted": false,
-   "sim_steps": 1366
+   "sim_steps": 1450
   },
   {
    "amount": "little",
@@ -102,9 +102,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 3,
-   "poured": 4,
+   "poured": 3,
    "aborted": false,
-   "sim_steps": 1388
+   "sim_steps": 1514
   },
   {
    "amount": "normal",
@@ -112,9 +112,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 6,
-   "poured": 7,
+   "poured": 6,
    "aborted": false,
-   "sim_steps": 1394
+   "sim_steps": 1485
   },
   {
    "amount": "normal",
@@ -122,9 +122,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 6,
-   "poured": 11,
+   "poured": 6,
    "aborted": false,
-   "sim_steps": 1318
+   "sim_steps": 1408
   },
   {
    "amount": "normal",
@@ -139,7 +139,7 @@
    "target": 6,
    "poured": 6,
    "aborted": false,
-   "sim_steps": 1418
+   "sim_steps": 1537
   },
   {
    "amount": "normal",
@@ -149,7 +149,7 @@
    "target": 6,
    "poured": 6,
    "aborted": false,
-   "sim_steps": 1424
+   "sim_steps": 1524
   },
   {
    "amount": "normal",
@@ -159,7 +159,7 @@
    "target": 6,
    "poured": 6,
    "aborted": false,
-   "sim_steps": 1370
+   "sim_steps": 1467
   },
   {
    "amount": "normal",
@@ -167,9 +167,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 6,
-   "poured": 6,
+   "poured": 8,
    "aborted": false,
-   "sim_steps": 1392
+   "sim_steps": 1531
   },
   {
    "amount": "full",
@@ -177,9 +177,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 12,
-   "poured": 12,
+   "poured": 17,
    "aborted": false,
-   "sim_steps": 1406
+   "sim_steps": 1511
   },
   {
    "amount": "full",
@@ -189,7 +189,7 @@
    "target": 12,
    "poured": 12,
    "aborted": false,
-   "sim_steps": 1321
+   "sim_steps": 1432
   },
   {
    "amount": "full",
@@ -204,7 +204,7 @@
    "target": 12,
    "poured": 12,
    "aborted": false,
-   "sim_steps": 1425
+   "sim_steps": 1560
   },
   {
    "amount": "full",
@@ -212,9 +212,9 @@
    "hold_ok": true,
    "pour_ok": true,
    "target": 12,
-   "poured": 20,
+   "poured": 12,
    "aborted": false,
-   "sim_steps": 1447
+   "sim_steps": 1555
   },
   {
    "amount": "full",
@@ -224,7 +224,7 @@
    "target": 12,
    "poured": 12,
    "aborted": false,
-   "sim_steps": 1375
+   "sim_steps": 1493
   },
   {
    "amount": "full",
@@ -234,7 +234,7 @@
    "target": 12,
    "poured": 12,
    "aborted": false,
-   "sim_steps": 1407
+   "sim_steps": 1543
   }
  ]
 }

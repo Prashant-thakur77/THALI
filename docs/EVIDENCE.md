@@ -4,8 +4,8 @@ Every number below is rendered from the named `results/*.json` file by `python -
 
 | claim | number | produced by | file |
 |---|---|---|---|
-| Expert full task, test split (10 seeds) | 8/10 | `eval/run_seeds.py --policy expert --split test` | results/seeds_expert_expert_test.json |
-| Expert full task, train split | 8/10 | `eval/run_seeds.py --policy expert --split train` | results/seeds_expert_expert_train.json |
+| Expert full task, test split (10 seeds) | 9/10 | `eval/run_seeds.py --policy expert --split test` | results/seeds_expert_expert_test.json |
+| Expert full task, train split | 9/10 | `eval/run_seeds.py --policy expert --split train` | results/seeds_expert_expert_train.json |
 | ACT policy-only, test | 0/10 | `eval/run_seeds.py --policy act --mode policy_only` | results/seeds_act_policy_only_test.json |
 | ACT + retry, test | 0/10 | `eval/run_seeds.py --policy act --mode policy_retry` | results/seeds_act_policy_retry_test.json |
 | ACT + retry + expert fallback, test | 0/10 | `eval/run_seeds.py --policy act --mode policy_fallback` | results/seeds_act_policy_fallback_test.json |
@@ -19,7 +19,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | Table-state anomaly check | abs(frame − reset reference) crop, resnet18, nominal set from real expert runs (post-skill states): image AUROC **0.943** · 72/75 disturbances flagged with 13/57 false alarms (spill 13/15, tipped mug 15/15, knocked plate 15/15, fallen bottle 15/15, dropped cutlery 14/15) · at 10% false alarms 61/75 · IR p50 CPU 70.23 ms — **live, in the loop** (plate knocked mid-task, 10%-FPR threshold): flagged at the next check in 3/4 runs, 1/4 false alarms on clean steps, table nominal again after the redo — ablation full frame, wide_resnet50: AUROC 0.762, 38/60 false alarms — ablation table crop, resnet18: AUROC 0.78, 42/60 false alarms — ablation diff on the synthetic nominal set: AUROC 0.938, 5/60 false alarms | `python -m anomaly.make_data_real …; THALI_ANOMALY_VARIANT=diffreal .venv-anomalib/bin/python -m anomaly.train_patchcore --backbone resnet18 --coreset 0.05; … export_patchcore; python -m anomaly.check --score; python -m eval.recovery --anomaly` | `results/anomaly_diffreal.json`, `results/anomaly*.json`, `results/recovery_anomaly.json` |
 | Follow-ups and corrections | **20/20** corrections resolved to the expected plan; 14/16 resolved plans verifier-approved (the rest are refused with a reason, e.g. the other arm cannot reach) | `python -m eval.followups` | `results/followups.json` |
 | Clear the table | **9/10** held-out seeds fully cleared (fork stowed 90%, spoon stowed 90%, drawer closed 90%) | `python -m eval.clear_table --seeds 10 --split test` | `results/clear_table.json` |
-| Target-volume pour | little (target 3): mean 5.0 spheres, within ±2 in **4/6**, reached 6/6 · normal (target 6): mean 7.0 spheres, within ±2 in **5/6**, reached 6/6 · full (target 12): mean 13.3 spheres, within ±2 in **5/6**, reached 6/6 | `python -m eval.pour_amount` | `results/pour_amount.json` |
+| Target-volume pour | little (target 3): mean 3.0 spheres, within ±2 in **6/6**, reached 6/6 · normal (target 6): mean 6.3 spheres, within ±2 in **6/6**, reached 6/6 · full (target 12): mean 12.8 spheres, within ±2 in **5/6**, reached 6/6 | `python -m eval.pour_amount` | `results/pour_amount.json` |
 | Both arms at once vs sequential | drawer_and_mug: sequential 5/5 in 1065 sim steps → concurrent **5/5 in 591** (44% fewer) · plate_and_mug: sequential 4/5 in 994 sim steps → concurrent **4/5 in 695** (30% fewer) | `python -m eval.concurrency` | `results/concurrency.json` |
 | Mid-task perturbation recovery | 4/4 recovered (4 detected) | `python -m eval.recovery` | `results/recovery.json` |
 | Instruction swap | 7/10 | `eval/instruction_swap.py` | results/instruction_swap.json |
