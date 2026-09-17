@@ -260,6 +260,8 @@ def results():
             d = json.loads(f.read_text())
         except Exception:
             continue
+        if not isinstance(d, dict):   # a few result files are plain lists (event streams)
+            continue
         head = {k: v for k, v in d.items() if isinstance(v, (int, float, str, bool)) and k not in ("caption",)}
         out[f.name] = head
     return out
