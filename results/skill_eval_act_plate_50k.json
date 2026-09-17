@@ -1,0 +1,198 @@
+{
+ "tag": "act_plate_50k",
+ "kind": "act",
+ "act_root": "outputs_50k",
+ "split": "test",
+ "seeds": 20,
+ "skills": {
+  "pick_place_plate": {
+   "successes": 15,
+   "total": 20,
+   "rate": 0.75,
+   "within_1_5cm": 9,
+   "median_zone_error_cm": 1.85,
+   "rows": [
+    {
+     "seed": 500,
+     "ok": true,
+     "steps": 390,
+     "policy_s": 22.4,
+     "zone_error_cm": 3.11,
+     "oracle": true,
+     "wall_s": 22.4
+    },
+    {
+     "seed": 501,
+     "ok": true,
+     "steps": 500,
+     "policy_s": 27.8,
+     "zone_error_cm": 2.09,
+     "oracle": true,
+     "wall_s": 27.9
+    },
+    {
+     "seed": 502,
+     "ok": true,
+     "steps": 460,
+     "policy_s": 24.1,
+     "zone_error_cm": 2.49,
+     "oracle": true,
+     "wall_s": 24.1
+    },
+    {
+     "seed": 503,
+     "ok": true,
+     "steps": 360,
+     "policy_s": 22.0,
+     "zone_error_cm": 0.41,
+     "oracle": true,
+     "wall_s": 22.0
+    },
+    {
+     "seed": 504,
+     "ok": true,
+     "steps": 540,
+     "policy_s": 36.9,
+     "zone_error_cm": 1.18,
+     "oracle": true,
+     "wall_s": 36.9
+    },
+    {
+     "seed": 505,
+     "ok": true,
+     "steps": 350,
+     "policy_s": 16.5,
+     "zone_error_cm": 2.48,
+     "oracle": true,
+     "wall_s": 16.5
+    },
+    {
+     "seed": 506,
+     "ok": false,
+     "steps": 700,
+     "policy_s": 31.7,
+     "zone_error_cm": 20.69,
+     "oracle": false,
+     "wall_s": 31.7
+    },
+    {
+     "seed": 507,
+     "ok": true,
+     "steps": 380,
+     "policy_s": 28.5,
+     "zone_error_cm": 0.05,
+     "oracle": true,
+     "wall_s": 28.5
+    },
+    {
+     "seed": 508,
+     "ok": true,
+     "steps": 360,
+     "policy_s": 13.5,
+     "zone_error_cm": 1.39,
+     "oracle": true,
+     "wall_s": 13.6
+    },
+    {
+     "seed": 509,
+     "ok": false,
+     "steps": 700,
+     "policy_s": 40.1,
+     "zone_error_cm": 16.66,
+     "oracle": false,
+     "wall_s": 40.1
+    },
+    {
+     "seed": 510,
+     "ok": true,
+     "steps": 360,
+     "policy_s": 19.2,
+     "zone_error_cm": 1.2,
+     "oracle": true,
+     "wall_s": 19.2
+    },
+    {
+     "seed": 511,
+     "ok": false,
+     "steps": 700,
+     "policy_s": 39.1,
+     "zone_error_cm": 15.33,
+     "oracle": false,
+     "wall_s": 39.1
+    },
+    {
+     "seed": 512,
+     "ok": false,
+     "steps": 700,
+     "policy_s": 37.4,
+     "zone_error_cm": 13.29,
+     "oracle": false,
+     "wall_s": 37.4
+    },
+    {
+     "seed": 513,
+     "ok": true,
+     "steps": 380,
+     "policy_s": 20.7,
+     "zone_error_cm": 0.97,
+     "oracle": true,
+     "wall_s": 20.7
+    },
+    {
+     "seed": 514,
+     "ok": true,
+     "steps": 510,
+     "policy_s": 24.2,
+     "zone_error_cm": 0.39,
+     "oracle": true,
+     "wall_s": 24.2
+    },
+    {
+     "seed": 515,
+     "ok": true,
+     "steps": 360,
+     "policy_s": 18.8,
+     "zone_error_cm": 1.88,
+     "oracle": true,
+     "wall_s": 18.9
+    },
+    {
+     "seed": 516,
+     "ok": true,
+     "steps": 370,
+     "policy_s": 21.8,
+     "zone_error_cm": 0.76,
+     "oracle": true,
+     "wall_s": 21.8
+    },
+    {
+     "seed": 517,
+     "ok": true,
+     "steps": 360,
+     "policy_s": 20.7,
+     "zone_error_cm": 1.83,
+     "oracle": true,
+     "wall_s": 20.7
+    },
+    {
+     "seed": 518,
+     "ok": false,
+     "steps": 700,
+     "policy_s": 32.7,
+     "zone_error_cm": 17.69,
+     "oracle": false,
+     "wall_s": 32.8
+    },
+    {
+     "seed": 519,
+     "ok": true,
+     "steps": 400,
+     "policy_s": 19.8,
+     "zone_error_cm": 0.95,
+     "oracle": true,
+     "wall_s": 19.9
+    }
+   ]
+  }
+ }
+}

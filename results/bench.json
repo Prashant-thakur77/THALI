@@ -24,487 +24,487 @@
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 166,
-      "p50_ms": 47.63,
-      "p95_ms": 52.42,
-      "mean_ms": 48.19,
-      "throughput_per_s": 20.8
+      "n": 74,
+      "p50_ms": 108.43,
+      "p95_ms": 119.29,
+      "mean_ms": 109.5,
+      "throughput_per_s": 9.1
     },
     {
       "skill": "open_drawer",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 282.97,
-      "p95_ms": 285.06,
-      "mean_ms": 282.67,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 553.14,
+      "p95_ms": 556.99,
+      "mean_ms": 553.78,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "open_drawer",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 161,
-      "p50_ms": 49.46,
-      "p95_ms": 51.48,
-      "mean_ms": 49.73,
-      "throughput_per_s": 20.1
+      "n": 73,
+      "p50_ms": 108.14,
+      "p95_ms": 124.07,
+      "mean_ms": 110.37,
+      "throughput_per_s": 9.1
     },
     {
       "skill": "open_drawer",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 282.76,
-      "p95_ms": 286.5,
-      "mean_ms": 283.32,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 554.16,
+      "p95_ms": 558.49,
+      "mean_ms": 553.33,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "open_drawer",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 473,
-      "p50_ms": 16.88,
-      "p95_ms": 17.59,
-      "mean_ms": 16.94,
-      "throughput_per_s": 59.0
+      "n": 221,
+      "p50_ms": 36.56,
+      "p95_ms": 38.6,
+      "mean_ms": 36.28,
+      "throughput_per_s": 27.6
     },
     {
       "skill": "open_drawer",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 202.16,
-      "p95_ms": 202.53,
-      "mean_ms": 202.2,
-      "throughput_per_s": 4.9
+      "n": 20,
+      "p50_ms": 416.53,
+      "p95_ms": 434.23,
+      "mean_ms": 418.58,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "pick_place_fork",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 163,
-      "p50_ms": 49.09,
-      "p95_ms": 50.4,
-      "mean_ms": 49.26,
-      "throughput_per_s": 20.3
+      "n": 73,
+      "p50_ms": 109.79,
+      "p95_ms": 119.0,
+      "mean_ms": 110.12,
+      "throughput_per_s": 9.1
     },
     {
       "skill": "pick_place_fork",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 284.32,
-      "p95_ms": 287.34,
-      "mean_ms": 283.9,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.62,
+      "p95_ms": 557.33,
+      "mean_ms": 553.21,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_fork",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 162,
-      "p50_ms": 49.23,
-      "p95_ms": 51.04,
-      "mean_ms": 49.49,
-      "throughput_per_s": 20.2
+      "n": 70,
+      "p50_ms": 115.83,
+      "p95_ms": 129.58,
+      "mean_ms": 115.54,
+      "throughput_per_s": 8.7
     },
     {
       "skill": "pick_place_fork",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 282.25,
-      "p95_ms": 286.39,
-      "mean_ms": 282.78,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 554.37,
+      "p95_ms": 558.05,
+      "mean_ms": 554.43,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_fork",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 465,
-      "p50_ms": 17.07,
-      "p95_ms": 17.97,
-      "mean_ms": 17.2,
-      "throughput_per_s": 58.1
+      "n": 219,
+      "p50_ms": 36.57,
+      "p95_ms": 41.91,
+      "mean_ms": 36.64,
+      "throughput_per_s": 27.3
     },
     {
       "skill": "pick_place_fork",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 202.18,
-      "p95_ms": 202.6,
-      "mean_ms": 202.17,
-      "throughput_per_s": 4.9
+      "n": 20,
+      "p50_ms": 415.67,
+      "p95_ms": 434.47,
+      "mean_ms": 418.29,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "pick_place_plate",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 161,
-      "p50_ms": 49.44,
-      "p95_ms": 53.33,
-      "mean_ms": 49.89,
-      "throughput_per_s": 20.0
+      "n": 69,
+      "p50_ms": 114.58,
+      "p95_ms": 132.82,
+      "mean_ms": 116.28,
+      "throughput_per_s": 8.6
     },
     {
       "skill": "pick_place_plate",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 282.22,
-      "p95_ms": 285.61,
-      "mean_ms": 282.33,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.36,
+      "p95_ms": 558.59,
+      "mean_ms": 552.99,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_plate",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 162,
-      "p50_ms": 49.32,
-      "p95_ms": 51.17,
-      "mean_ms": 49.62,
-      "throughput_per_s": 20.2
+      "n": 73,
+      "p50_ms": 109.28,
+      "p95_ms": 119.66,
+      "mean_ms": 110.33,
+      "throughput_per_s": 9.1
     },
     {
       "skill": "pick_place_plate",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 282.24,
-      "p95_ms": 285.09,
-      "mean_ms": 282.35,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 554.47,
+      "p95_ms": 558.41,
+      "mean_ms": 554.51,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_plate",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 466,
-      "p50_ms": 17.09,
-      "p95_ms": 17.95,
-      "mean_ms": 17.18,
-      "throughput_per_s": 58.2
+      "n": 220,
+      "p50_ms": 36.54,
+      "p95_ms": 39.48,
+      "mean_ms": 36.43,
+      "throughput_per_s": 27.5
     },
     {
       "skill": "pick_place_plate",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 202.63,
-      "p95_ms": 203.16,
-      "mean_ms": 202.28,
-      "throughput_per_s": 4.9
+      "n": 20,
+      "p50_ms": 415.01,
+      "p95_ms": 434.47,
+      "mean_ms": 418.13,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "pick_place_mug",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 163,
-      "p50_ms": 49.19,
-      "p95_ms": 50.47,
-      "mean_ms": 49.34,
-      "throughput_per_s": 20.3
+      "n": 72,
+      "p50_ms": 111.58,
+      "p95_ms": 120.22,
+      "mean_ms": 111.27,
+      "throughput_per_s": 9.0
     },
     {
       "skill": "pick_place_mug",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 283.51,
-      "p95_ms": 286.85,
-      "mean_ms": 283.44,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.88,
+      "p95_ms": 558.91,
+      "mean_ms": 553.67,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_mug",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 162,
-      "p50_ms": 49.15,
-      "p95_ms": 50.97,
-      "mean_ms": 49.42,
-      "throughput_per_s": 20.2
+      "n": 73,
+      "p50_ms": 111.02,
+      "p95_ms": 119.26,
+      "mean_ms": 111.03,
+      "throughput_per_s": 9.0
     },
     {
       "skill": "pick_place_mug",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 282.92,
-      "p95_ms": 285.52,
-      "mean_ms": 282.56,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.52,
+      "p95_ms": 559.98,
+      "mean_ms": 553.69,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pick_place_mug",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 470,
-      "p50_ms": 16.92,
-      "p95_ms": 17.71,
-      "mean_ms": 17.02,
-      "throughput_per_s": 58.8
+      "n": 216,
+      "p50_ms": 36.49,
+      "p95_ms": 44.37,
+      "mean_ms": 37.21,
+      "throughput_per_s": 26.9
     },
     {
       "skill": "pick_place_mug",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 201.69,
-      "p95_ms": 203.42,
-      "mean_ms": 202.19,
-      "throughput_per_s": 4.9
+      "n": 20,
+      "p50_ms": 414.79,
+      "p95_ms": 434.84,
+      "mean_ms": 416.98,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "handoff_spoon",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 162,
-      "p50_ms": 49.39,
-      "p95_ms": 51.12,
-      "mean_ms": 49.62,
-      "throughput_per_s": 20.2
+      "n": 72,
+      "p50_ms": 110.91,
+      "p95_ms": 124.45,
+      "mean_ms": 111.67,
+      "throughput_per_s": 9.0
     },
     {
       "skill": "handoff_spoon",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 283.23,
-      "p95_ms": 286.45,
-      "mean_ms": 283.45,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.42,
+      "p95_ms": 559.85,
+      "mean_ms": 554.45,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "handoff_spoon",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 162,
-      "p50_ms": 49.37,
-      "p95_ms": 51.24,
-      "mean_ms": 49.63,
-      "throughput_per_s": 20.1
+      "n": 72,
+      "p50_ms": 110.53,
+      "p95_ms": 126.84,
+      "mean_ms": 112.14,
+      "throughput_per_s": 8.9
     },
     {
       "skill": "handoff_spoon",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 282.93,
-      "p95_ms": 286.09,
-      "mean_ms": 282.9,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 554.15,
+      "p95_ms": 557.59,
+      "mean_ms": 554.2,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "handoff_spoon",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 464,
-      "p50_ms": 17.14,
-      "p95_ms": 18.01,
-      "mean_ms": 17.26,
-      "throughput_per_s": 58.0
+      "n": 211,
+      "p50_ms": 37.12,
+      "p95_ms": 46.98,
+      "mean_ms": 38.08,
+      "throughput_per_s": 26.3
     },
     {
       "skill": "handoff_spoon",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 201.34,
-      "p95_ms": 201.64,
-      "mean_ms": 201.35,
-      "throughput_per_s": 5.0
+      "n": 20,
+      "p50_ms": 416.0,
+      "p95_ms": 434.64,
+      "mean_ms": 418.43,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "hold_mug",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 162,
-      "p50_ms": 49.42,
-      "p95_ms": 51.04,
-      "mean_ms": 49.66,
-      "throughput_per_s": 20.1
+      "n": 72,
+      "p50_ms": 109.34,
+      "p95_ms": 125.87,
+      "mean_ms": 111.99,
+      "throughput_per_s": 8.9
     },
     {
       "skill": "hold_mug",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 283.34,
-      "p95_ms": 286.44,
-      "mean_ms": 283.51,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 553.98,
+      "p95_ms": 558.35,
+      "mean_ms": 553.62,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "hold_mug",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 159,
-      "p50_ms": 49.89,
-      "p95_ms": 54.67,
-      "mean_ms": 50.42,
-      "throughput_per_s": 19.8
+      "n": 73,
+      "p50_ms": 110.13,
+      "p95_ms": 121.6,
+      "mean_ms": 111.07,
+      "throughput_per_s": 9.0
     },
     {
       "skill": "hold_mug",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 283.46,
-      "p95_ms": 286.16,
-      "mean_ms": 283.41,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 555.49,
+      "p95_ms": 558.41,
+      "mean_ms": 553.94,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "hold_mug",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 468,
-      "p50_ms": 17.04,
-      "p95_ms": 17.66,
-      "mean_ms": 17.1,
-      "throughput_per_s": 58.5
+      "n": 216,
+      "p50_ms": 36.96,
+      "p95_ms": 43.45,
+      "mean_ms": 37.14,
+      "throughput_per_s": 26.9
     },
     {
       "skill": "hold_mug",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 201.38,
-      "p95_ms": 201.85,
-      "mean_ms": 201.42,
-      "throughput_per_s": 5.0
+      "n": 20,
+      "p50_ms": 416.5,
+      "p95_ms": 434.28,
+      "mean_ms": 419.56,
+      "throughput_per_s": 2.4
     },
     {
       "skill": "pour",
       "precision": "fp32",
       "device": "CPU",
       "size_mb": 132.7,
-      "n": 160,
-      "p50_ms": 49.75,
-      "p95_ms": 52.67,
-      "mean_ms": 50.07,
-      "throughput_per_s": 20.0
+      "n": 73,
+      "p50_ms": 110.52,
+      "p95_ms": 119.57,
+      "mean_ms": 110.42,
+      "throughput_per_s": 9.1
     },
     {
       "skill": "pour",
       "precision": "fp32",
       "device": "GPU",
       "size_mb": 132.7,
-      "n": 29,
-      "p50_ms": 283.06,
-      "p95_ms": 286.05,
-      "mean_ms": 282.97,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 554.56,
+      "p95_ms": 557.6,
+      "mean_ms": 554.6,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pour",
       "precision": "fp16",
       "device": "CPU",
       "size_mb": 67.1,
-      "n": 157,
-      "p50_ms": 50.16,
-      "p95_ms": 57.04,
-      "mean_ms": 50.95,
-      "throughput_per_s": 19.6
+      "n": 74,
+      "p50_ms": 108.13,
+      "p95_ms": 119.31,
+      "mean_ms": 108.98,
+      "throughput_per_s": 9.2
     },
     {
       "skill": "pour",
       "precision": "fp16",
       "device": "GPU",
       "size_mb": 67.1,
-      "n": 29,
-      "p50_ms": 283.17,
-      "p95_ms": 285.62,
-      "mean_ms": 283.25,
-      "throughput_per_s": 3.5
+      "n": 15,
+      "p50_ms": 556.27,
+      "p95_ms": 557.81,
+      "mean_ms": 554.47,
+      "throughput_per_s": 1.8
     },
     {
       "skill": "pour",
       "precision": "int8",
       "device": "CPU",
       "size_mb": 34.9,
-      "n": 458,
-      "p50_ms": 17.31,
-      "p95_ms": 18.38,
-      "mean_ms": 17.48,
-      "throughput_per_s": 57.2
+      "n": 217,
+      "p50_ms": 37.11,
+      "p95_ms": 40.63,
+      "mean_ms": 36.89,
+      "throughput_per_s": 27.1
     },
     {
       "skill": "pour",
       "precision": "int8",
       "device": "GPU",
       "size_mb": 34.9,
-      "n": 40,
-      "p50_ms": 201.55,
-      "p95_ms": 203.21,
-      "mean_ms": 201.72,
-      "throughput_per_s": 5.0
+      "n": 20,
+      "p50_ms": 414.81,
+      "p95_ms": 434.16,
+      "mean_ms": 417.16,
+      "throughput_per_s": 2.4
     }
   ],
   "summary": {
     "fp32/CPU": {
-      "mean_p50_ms": 49.13,
+      "mean_p50_ms": 110.74,
       "skills": 7
     },
     "fp32/GPU": {
-      "mean_p50_ms": 283.24,
+      "mean_p50_ms": 554.85,
       "skills": 7
     },
     "fp16/CPU": {
-      "mean_p50_ms": 49.51,
+      "mean_p50_ms": 110.44,
       "skills": 7
     },
     "fp16/GPU": {
-      "mean_p50_ms": 282.82,
+      "mean_p50_ms": 554.92,
       "skills": 7
     },
     "int8/CPU": {
-      "mean_p50_ms": 17.06,
+      "mean_p50_ms": 36.76,
       "skills": 7
     },
     "int8/GPU": {
-      "mean_p50_ms": 201.85,
+      "mean_p50_ms": 415.62,
       "skills": 7
     }
   },

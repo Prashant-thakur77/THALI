@@ -31,6 +31,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
 | **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | open_drawer **20/20** · pick_place_fork **2/20** (median 29.93 cm from zone) · pick_place_plate **8/20** (median 15.85 cm from zone) · pick_place_mug **1/20** (median 24.45 cm from zone) · handoff_spoon **0/20** (median 39.89 cm from zone) · hold_mug **10/20** · pour **1/20** | `results/skill_eval_act_60ep.json` |
 | **Per-skill ACT, policy only — retrained on 1050 episodes** | open_drawer **20/20** · pick_place_fork **6/20** (median 29.16 cm from zone) · pick_place_plate **8/20** (median 14.12 cm from zone) · pick_place_mug **1/20** (median 26.68 cm from zone) · handoff_spoon **0/20** (median 39.3 cm from zone) · hold_mug **10/20** · pour **1/20** | `results/skill_eval_act_1050ep.json` |
+| **Per-skill ACT, policy only — 50k training steps** (same 150 episodes; the 12k-step rows above are the baseline) | pick_place_plate **15/20** (median 1.85 cm from zone)  | `results/skill_eval_act_plate_50k.json`, `results/skill_eval_act_50k.json` |
 | **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | abs(frame − reset reference) crop, resnet18, nominal set from real expert runs (post-skill states): image AUROC **0.943** · 72/75 disturbances flagged with 13/57 false alarms (spill 13/15, tipped mug 15/15, knocked plate 15/15, fallen bottle 15/15, dropped cutlery 14/15) · at 10% false alarms 61/75 · IR p50 CPU 70.23 ms — **live, in the loop** (plate knocked mid-task, 10%-FPR threshold): flagged at the next check in 3/4 runs, 1/4 false alarms on clean steps, table nominal again after the redo — ablation full frame, wide_resnet50: AUROC 0.762, 38/60 false alarms — ablation table crop, resnet18: AUROC 0.78, 42/60 false alarms — ablation diff on the synthetic nominal set: AUROC 0.938, 5/60 false alarms | `results/anomaly.json` |
 | **Target-volume pour** ("a little" / normal / "fill it up" → 3 / 6 / 12 water spheres; the roll stops when the oracle counts the target) | little (target 3): mean 5.6 spheres, within ±2 in **2/5**, reached 5/5 · normal (target 6): mean 6.8 spheres, within ±2 in **4/5**, reached 5/5 · full (target 12): mean 10.4 spheres, within ±2 in **2/5**, reached 3/5 | `results/pour_amount.json` |
 | **Both arms at once** (independent steps driven through the expert's step barrier; same seeds, same commands) | drawer_and_mug: sequential 5/5 in 1065 sim steps → concurrent **5/5 in 591** (44% fewer) · plate_and_mug: sequential 4/5 in 994 sim steps → concurrent **4/5 in 695** (30% fewer) | `results/concurrency.json` |
@@ -38,7 +39,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Instruction swap** (arm / object / order) | 7/10 encoded correctly | `results/instruction_swap.json` |
 | **Camera state check vs sim oracle** | 84% agreement (pixels) · 38% (2B VLM) | `results/camera_vs_oracle.json` |
 | **Safety verifier** | **20/20 unsafe plans blocked**, 6/6 sane plans passed, audit chain verified | `results/verifier_injection.json` |
-| **OpenVINO** ACT policy call, CPU | fp32 49.13 ms → **INT8 17.06 ms** p50; success identical at every precision | `results/bench.json`, `results/preserve.json` |
+| **OpenVINO** ACT policy call, CPU | fp32 110.74 ms → **INT8 36.76 ms** p50; success identical at every precision | `results/bench.json`, `results/preserve.json` |
 | **Voice** (4 samples: clear, tired, Hindi, noisy room) | skill sequence recovered on **100%**; background speaker ignored; speech-end → arms moving **10.447 s** | `results/voice_test.json`, `results/demo_seed3.json` |
 | **Barge-in** | "stop" pauses within one 20 ms control step, "continue" resumes | `results/demo_bargein_stop.json` |
 
@@ -99,7 +100,7 @@ object swaps — rows: requested, columns: what the plan encoded
 
 order swaps: plate_then_mug ✗, mug_then_plate ✗
 
-**Policies.** 1050 scripted-expert demonstrations (742837 frames, 3 cameras, 10 instruction paraphrases per skill, 48 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 90%, plate_placed 50%, fork_placed 40%, spoon_placed 30%, mug_placed 40%, poured 10%.
+**Policies.** 1050 scripted-expert demonstrations (742837 frames, 3 cameras, 10 instruction paraphrases per skill, 48 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 70%, plate_placed 80%, fork_placed 40%, spoon_placed 60%, mug_placed 40%, poured 0%.
 
 **Robustness.** Six randomisation axes — placement, mass, friction, shape, lighting, background — with a held-out test split (ranges 1.5× wider, two unseen table textures, one unseen mug shape). Success per seed × axis on the test split:
 
@@ -125,12 +126,12 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 
 | precision / device | mean p50 ms over skills | skills |
 |---|---|---|
-| fp32/CPU | 49.13 | 7 |
-| fp32/GPU | 283.24 | 7 |
-| fp16/CPU | 49.51 | 7 |
-| fp16/GPU | 282.82 | 7 |
-| int8/CPU | 17.06 | 7 |
-| int8/GPU | 201.85 | 7 |
+| fp32/CPU | 110.74 | 7 |
+| fp32/GPU | 554.85 | 7 |
+| fp16/CPU | 110.44 | 7 |
+| fp16/GPU | 554.92 | 7 |
+| int8/CPU | 36.76 | 7 |
+| int8/GPU | 415.62 | 7 |
 
 Per-skill rows in [results/bench.md](results/bench.md). Devices skipped: NPU.
 

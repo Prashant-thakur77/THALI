@@ -8,27 +8,27 @@
       "skill": "open_drawer",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 3.3,
+      "convert_s": 5.4,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 1.1920928955078125e-06,
-          "mean_abs_diff_vs_torch": 2.331535000621443e-07
+          "max_abs_diff_vs_torch": 1.430511474609375e-06,
+          "mean_abs_diff_vs_torch": 2.0610789874808688e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0004048347473144531,
-          "mean_abs_diff_vs_torch": 0.00019388899090699852
+          "max_abs_diff_vs_torch": 0.0003581047058105469,
+          "mean_abs_diff_vs_torch": 0.00011552822979865596
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_open_drawer/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.004761343821883202,
-          "max_mean_abs_diff_vs_fp32": 0.008066339418292046
+          "mean_abs_diff_vs_fp32": 0.00383780337870121,
+          "max_mean_abs_diff_vs_fp32": 0.00618852348998189
         }
       }
     },
@@ -36,27 +36,27 @@
       "skill": "pick_place_fork",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 4.0,
+      "convert_s": 5.6,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 1.3113021850585938e-06,
-          "mean_abs_diff_vs_torch": 2.500352707102138e-07
+          "max_abs_diff_vs_torch": 1.5497207641601562e-06,
+          "mean_abs_diff_vs_torch": 2.2634863228176982e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0005353689193725586,
-          "mean_abs_diff_vs_torch": 0.00019246968440711498
+          "max_abs_diff_vs_torch": 0.0003222227096557617,
+          "mean_abs_diff_vs_torch": 0.000133651468786411
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_fork/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.003912172745913267,
-          "max_mean_abs_diff_vs_fp32": 0.007275220472365618
+          "mean_abs_diff_vs_fp32": 0.004469277802854776,
+          "max_mean_abs_diff_vs_fp32": 0.01033973041921854
         }
       }
     },
@@ -64,27 +64,27 @@
       "skill": "pick_place_plate",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 5.1,
+      "convert_s": 5.9,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 1.430511474609375e-06,
-          "mean_abs_diff_vs_torch": 2.4082760319288354e-07
+          "max_abs_diff_vs_torch": 1.3113021850585938e-06,
+          "mean_abs_diff_vs_torch": 2.4677564169905963e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0003362894058227539,
-          "mean_abs_diff_vs_torch": 0.00016835860151331872
+          "max_abs_diff_vs_torch": 0.0004849433898925781,
+          "mean_abs_diff_vs_torch": 0.0001864466757979244
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_plate/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.006087062414735556,
-          "max_mean_abs_diff_vs_fp32": 0.010434047318994999
+          "mean_abs_diff_vs_fp32": 0.004547114484012127,
+          "max_mean_abs_diff_vs_fp32": 0.008949418552219868
         }
       }
     },
@@ -92,27 +92,27 @@
       "skill": "pick_place_mug",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 4.8,
+      "convert_s": 6.2,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 1.5497207641601562e-06,
-          "mean_abs_diff_vs_torch": 2.343878975352709e-07
+          "max_abs_diff_vs_torch": 1.430511474609375e-06,
+          "mean_abs_diff_vs_torch": 2.262120375462473e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0004514455795288086,
-          "mean_abs_diff_vs_torch": 0.0001224243751494214
+          "max_abs_diff_vs_torch": 0.0004010796546936035,
+          "mean_abs_diff_vs_torch": 0.00012824064469896257
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pick_place_mug/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.005811473820358515,
-          "max_mean_abs_diff_vs_fp32": 0.018305141478776932
+          "mean_abs_diff_vs_fp32": 0.0057312967255711555,
+          "max_mean_abs_diff_vs_fp32": 0.00900404341518879
         }
       }
     },
@@ -120,27 +120,27 @@
       "skill": "handoff_spoon",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 5.5,
+      "convert_s": 6.2,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 1.0728836059570312e-06,
-          "mean_abs_diff_vs_torch": 2.3747483623992593e-07
+          "max_abs_diff_vs_torch": 1.430511474609375e-06,
+          "mean_abs_diff_vs_torch": 2.315640443839584e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0005101487040519714,
-          "mean_abs_diff_vs_torch": 0.00017222767928615212
+          "max_abs_diff_vs_torch": 0.00030219554901123047,
+          "mean_abs_diff_vs_torch": 0.00015972269466146827
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_handoff_spoon/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.008190284483134747,
-          "max_mean_abs_diff_vs_fp32": 0.0272078737616539
+          "mean_abs_diff_vs_fp32": 0.0070218597538769245,
+          "max_mean_abs_diff_vs_fp32": 0.028026746585965157
         }
       }
     },
@@ -148,27 +148,27 @@
       "skill": "hold_mug",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 4.5,
+      "convert_s": 6.0,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 2.1457672119140625e-06,
-          "mean_abs_diff_vs_torch": 2.3563703166473715e-07
+          "max_abs_diff_vs_torch": 1.3113021850585938e-06,
+          "mean_abs_diff_vs_torch": 2.1720926213220082e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.00029414892196655273,
-          "mean_abs_diff_vs_torch": 9.575103467795998e-05
+          "max_abs_diff_vs_torch": 0.00026917457580566406,
+          "mean_abs_diff_vs_torch": 0.00012649261043407023
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_hold_mug/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.004234022460877895,
-          "max_mean_abs_diff_vs_fp32": 0.008908510208129883
+          "mean_abs_diff_vs_fp32": 0.004895111545920372,
+          "max_mean_abs_diff_vs_fp32": 0.010118835605680943
         }
       }
     },
@@ -176,27 +176,27 @@
       "skill": "pour",
       "chunk": 50,
       "action_dim": 12,
-      "convert_s": 5.3,
+      "convert_s": 6.1,
       "precisions": {
         "fp32": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/fp32/model.xml",
           "size_mb": 132.7,
-          "max_abs_diff_vs_torch": 2.1457672119140625e-06,
-          "mean_abs_diff_vs_torch": 2.7890160936294706e-07
+          "max_abs_diff_vs_torch": 1.430511474609375e-06,
+          "mean_abs_diff_vs_torch": 2.52453617122228e-07
         },
         "fp16": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/fp16/model.xml",
           "size_mb": 67.1,
-          "max_abs_diff_vs_torch": 0.0006147325038909912,
-          "mean_abs_diff_vs_torch": 0.0002140789438271895
+          "max_abs_diff_vs_torch": 0.0006786584854125977,
+          "mean_abs_diff_vs_torch": 0.00017695798305794597
         },
         "int8": {
           "path": "/home/prashant/projects/lablabinfra/bench/ir/act_pour/int8/model.xml",
           "size_mb": 34.9,
           "calibration_frames": 300,
           "preset": "MIXED, model_type=TRANSFORMER",
-          "mean_abs_diff_vs_fp32": 0.006265623029321432,
-          "max_mean_abs_diff_vs_fp32": 0.024165427312254906
+          "mean_abs_diff_vs_fp32": 0.004962371662259102,
+          "max_mean_abs_diff_vs_fp32": 0.012436412274837494
         }
       }
     }
