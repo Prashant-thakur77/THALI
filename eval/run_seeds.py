@@ -79,7 +79,8 @@ def run(policy: str, mode: str, seeds: int, split: str, axes: tuple[str, ...], d
             step = {"skill": st.skill, "arm": st.arm, "obj": st.obj, "zone": st.zone, "to_arm": st.arm2}
             r = executor.run(step)
             skills.append({"skill": st.skill, "obj": st.obj, "ok": bool(r.ok), "won_by": r.detail.get("won_by", "expert" if policy == "expert" else None),
-                           "stages": r.detail.get("stages"), "steps": r.steps})
+                           "stages": r.detail.get("stages"), "steps": r.steps,
+                           "detail": {k: v for k, v in r.detail.items() if k not in ("stages",)}})   # why it failed, kept for the diagnostics
         sg = oracles.subgoals(env.model, env.data)
         rows.append({"seed": seed, "success": bool(all(sg[g] for g in oracles.FULL_TASK)), "subgoals": sg, "skills": skills, "sim_steps": ex.steps,
                      "seconds": round(time.time() - t0, 1), "sample": {k: sample[k] for k in ("shape", "mass", "friction", "background") if sample.get(k)}})
