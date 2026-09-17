@@ -1,0 +1,344 @@
+{
+ "split": "test",
+ "seeds": 10,
+ "planner": "rules",
+ "setup_ok": 9,
+ "successes": 9,
+ "success_rate": 0.9,
+ "per_subgoal_rate": {
+  "fork_stowed": 0.9,
+  "spoon_stowed": 0.9,
+  "drawer_closed": 0.9
+ },
+ "rows": [
+  {
+   "seed": 0,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2219,
+   "wall_s": 90.7
+  },
+  {
+   "seed": 1,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2220,
+   "wall_s": 83.0
+  },
+  {
+   "seed": 2,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2217,
+   "wall_s": 91.5
+  },
+  {
+   "seed": 3,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2219,
+   "wall_s": 88.4
+  },
+  {
+   "seed": 4,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2219,
+   "wall_s": 67.7
+  },
+  {
+   "seed": 5,
+   "setup_ok": false,
+   "success": false
+  },
+  {
+   "seed": 6,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2220,
+   "wall_s": 101.3
+  },
+  {
+   "seed": 7,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2220,
+   "wall_s": 73.2
+  },
+  {
+   "seed": 8,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2265,
+   "wall_s": 73.1
+  },
+  {
+   "seed": 9,
+   "setup_ok": true,
+   "success": true,
+   "state": "DONE",
+   "subgoals": {
+    "fork_stowed": true,
+    "spoon_stowed": true,
+    "drawer_closed": true
+   },
+   "plan": [
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "handoff",
+     "b",
+     true
+    ],
+    [
+     "put_in_drawer",
+     "a",
+     true
+    ],
+    [
+     "close_drawer",
+     "a",
+     true
+    ]
+   ],
+   "replans": 0,
+   "sim_steps": 2226,
+   "wall_s": 74.7
+  }
+ ]
+}
