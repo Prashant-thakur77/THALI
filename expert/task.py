@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+import numpy as np
+
 from souschef_env import constants as C
 from souschef_env import oracles
 from expert.primitives import Expert, SkillResult
@@ -47,9 +49,10 @@ class Step:
             ok = oracles.object_in_zone(ex.m, ex.d, "mug", "mug")
             if not ok and oracles.held_by(ex.m, ex.d, "mug") is None and ex.obj_pose("mug")[1][2, 2] > 0.9:
                 # landed just outside the zone, upright: pick it up again (side grasp, as for the hold) and set it down once more
+                err = ex.obj_pose("mug")[0][:2] - np.array([zx, zy])   # the miss is systematic (the hang in a side grasp): aim it out
                 r2 = ex.pick_side("mug", self.arm, z_above_base=0.034)
                 if r2.ok:
-                    r = ex.place("mug", self.arm, (zx, zy))
+                    r = ex.place("mug", self.arm, (zx - float(err[0]), zy - float(err[1])))
                     ex.park(self.arm)
                     ok = oracles.object_in_zone(ex.m, ex.d, "mug", "mug")
             ex.workspace.release(self.arm)

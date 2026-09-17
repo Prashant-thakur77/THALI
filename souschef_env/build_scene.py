@@ -149,7 +149,8 @@ def add_water(spec: mujoco.MjSpec, bottle_pos) -> None:
         y = bottle_pos[1] + 0.0065 * math.sin(ang)
         z = 0.011 + layer * 0.0065
         b = spec.worldbody.add_body(name=f"water_{i}", pos=[x, y, z])
-        b.add_freejoint(name=f"water_{i}_free")
+        # viscous drag (terminal ~0.3 m/s): frictionless spheres otherwise leave a tilted tube at 0.5 m/s and ricochet out of the mug
+        b.add_joint(name=f"water_{i}_free", type=mujoco.mjtJoint.mjJNT_FREE, damping=0.03)
         g = b.add_geom(name=f"water_{i}_geom", type=mujoco.mjtGeom.mjGEOM_SPHERE, size=[0.003, 0, 0],
                        rgba=[0.3, 0.6, 1.0, 0.9], mass=0.001)
         g.condim = 1
