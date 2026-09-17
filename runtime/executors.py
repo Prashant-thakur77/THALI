@@ -16,15 +16,14 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-import torch
 
 from souschef_env import constants as C
 from souschef_env import oracles
 from expert.primitives import Expert, SkillResult
 from expert.task import Step
-from lerobot.envs.utils import preprocess_observation
-from lerobot.policies.factory import make_pre_post_processors, make_policy
-from lerobot.configs.policies import PreTrainedConfig
+
+# torch / lerobot are imported lazily inside LoadedPolicy so the runtime (expert executor, planner, verifier, web UI)
+# works on hosts without them (the 1 GB Streamlit container, for instance)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -87,10 +86,15 @@ SMOLVLA_RENAME = {"observation.images.overhead": "observation.images.camera1",
 
 class LoadedPolicy:
     def __init__(self, path: Path, device: str = "cuda"):
+        global torch, preprocess_observation, make_pre_post_processors, PreTrainedConfig
+        import torch
+        from lerobot.envs.utils import preprocess_observation
+        from lerobot.policies.factory import make_pre_post_processors
+        from lerobot.configs.policies import PreTrainedConfig
         cfg = PreTrainedConfig.from_pretrained(str(path))
         cfg.pretrained_path = path
         cfg.device = device if torch.cuda.is_available() else "cpu"
-        self.policy = make_policy(cfg, ds_meta=None, env_cfg=None) if False else self._load(cfg, path)
+        self.policy = self._load(cfg, path)
         self.policy.eval()
         self.pre, self.post = make_pre_post_processors(policy_cfg=cfg, pretrained_path=str(path),
                                                        preprocessor_overrides={"device_processor": {"device": str(cfg.device)}})
@@ -108,8 +112,11 @@ class LoadedPolicy:
     def reset(self) -> None:
         self.policy.reset()
 
-    @torch.no_grad()
     def act(self, obs: dict, task: str) -> np.ndarray:
+        with torch.no_grad():
+            return self._act(obs, task)
+
+    def _act(self, obs: dict, task: str) -> np.ndarray:
         o = preprocess_observation({"pixels": obs["pixels"], "agent_pos": obs["agent_pos"]})
         for src, dst in self.rename.items():
             if src in o:

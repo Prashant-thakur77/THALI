@@ -303,7 +303,8 @@ class Expert:
                 zs.append(pts[:, 2].min())
         return float(min(zs))
 
-    def grasp_for(self, obj: str, arm: str) -> Grasp:
+    def grasp_for(self, obj: str, arm: str, rim_offset: float = 0.0) -> Grasp:
+        """``rim_offset`` (rad) rotates the plate's rim grasp point away from the nearest-to-arm point (retries)."""
         p, R = self.obj_pose(obj)
         yaw_obj = math.atan2(R[1, 0], R[0, 0])
         base = np.array(C.ARM_BASE_POS[arm])
@@ -312,7 +313,7 @@ class Expert:
             rim_r = self.m.geom_size[self.m.geom("plate_rim_wall0").id][0] + 0.052 * self.m.geom_size[self.m.geom("plate_rim_wall0").id][0] / 0.0015 * 0  # radial centre ~ inner_r + wall/2
             rim_r = float(np.hypot(*self.m.geom_pos[self.m.geom("plate_rim_wall0").id][:2]))
             d = base[:2] - p[:2]
-            ang = math.atan2(d[1], d[0])
+            ang = math.atan2(d[1], d[0]) + rim_offset
             pos = np.array([p[0] + rim_r * math.cos(ang), p[1] + rim_r * math.sin(ang), p[2] + 0.014])
             return Grasp(pos, ang + math.pi / 2, width=0.003)
         if obj == "mug":
@@ -383,10 +384,11 @@ class Expert:
         return best
 
     # ------------------------------------------------------------ skills
-    def pick(self, obj: str, arm: str, miss_offset: float = 0.0) -> SkillResult:
-        """Top-down pick.  ``miss_offset`` shifts the first attempt so it misses (recovery demos)."""
+    def pick(self, obj: str, arm: str, miss_offset: float = 0.0, rim_offset: float = 0.0) -> SkillResult:
+        """Top-down pick.  ``miss_offset`` shifts the first attempt so it misses (recovery demos); ``rim_offset`` picks
+        another point on the plate's rim (a plate at the table edge cannot be gripped at the point nearest the arm)."""
         start = self.steps
-        g = self.grasp_for(obj, arm)
+        g = self.grasp_for(obj, arm, rim_offset=rim_offset)
         z0 = self.obj_pose(obj)[0][2]
         flip = self._choose_flip(arm, g, obj)
         pos, R = self.site_target(g, flip)
@@ -458,6 +460,19 @@ class Expert:
         self.move(arm, p_rel - R_rel[:, 2] * 0.012, R_rel, t=0.4)
         self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + HOVER]), R_level)
         self.settle()
+        # a light piece can ride up on the open jaw instead of staying put: if it is still above the surface, go back down,
+        # open wide, back the jaw off sideways and rise again (twice at most)
+        for _ in range(2):
+            if self.obj_lowest_z(obj) - floor_z > 0.02:
+                self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + 0.006]), R_level, t=0.5)
+                self.open_jaw(arm, width=0.06)
+                self.settle(0.3)
+                p_rel, R_rel = self.site(arm)
+                self.move(arm, p_rel - R_rel[:, 2] * 0.02 + R_rel[:, 1] * 0.01, R_rel, t=0.4)
+                self.move(arm, np.array([target_site_xy[0], target_site_xy[1], floor_z + drop + HOVER]), R_level)
+                self.settle()
+            else:
+                break
         p_final = self.obj_pose(obj)[0]
         err = float(np.hypot(*(p_final[:2] - np.array(xy))))
         return SkillResult("place", err < 0.03 and oracles.held_by(self.m, self.d, obj) is None, self.steps - start,
@@ -474,9 +489,12 @@ class Expert:
             return SkillResult("pick_place", False, 0, {"obj": obj, "arm": arm, "zone": zone, "reason": "zone unreachable for this arm"})
         r1 = self.pick(obj, arm, miss_offset=miss_offset)
         retried = False
-        if not r1.ok:
+        # retries: the same grasp once (a slip), then -- for the plate -- other points on the rim
+        for rim in ([0.0, 0.7, -0.7] if obj == "plate" else [0.0]):
+            if r1.ok:
+                break
             self.open_jaw(arm)
-            r1 = self.pick(obj, arm)
+            r1 = self.pick(obj, arm, rim_offset=rim)
             retried = True
         if not r1.ok:
             self.open_jaw(arm)
