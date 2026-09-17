@@ -56,7 +56,10 @@ Hardware: Dell G15 5530, Intel Core i7-13650HX + UHD iGPU, OpenVINO 2026.3, devi
 
 | what | how | number |
 |---|---|---|
-| full 7-skill task, held-out seeds 0–9 | `eval/run_seeds.py --policy expert` | 5/10 (7/10 train) |
+| full 7-skill task, held-out seeds 0–9 | `eval/run_seeds.py --policy expert` | **9/10** (9/10 train) |
+| clear the table (reverse task), held-out | `eval/clear_table.py` | 9/10 |
+| follow-ups and corrections | `eval/followups.py` | 20/20 |
+| target-volume pour | `eval/pour_amount.py` | 17/18 within ±2 spheres |
 | ACT policy-only / +retry / +fallback | `eval/run_seeds.py --policy act` | 0/10 each (per-sub-goal rates in the file) |
 | seeds × perturbation axis | `eval/heatmap.py` | 100 % on 5 single axes, shape 80 %, all six 50 % |
 | planner | `eval/planner_eval.py` | 4/8 from the VLM, 100 % verifier-approved |
@@ -83,4 +86,4 @@ Workload placement for the additions: the anomaly IR runs on the Intel CPU (70.2
 
 ## Honest limits
 
-Learned policies are weak (60 episodes/skill at submission; a 1050-episode dataset is on the Hub and the multi-task SmolVLA fine-tune is queued); the pour is the hardest skill; one skill executes at a time; no NPU measured; the VLM planner runs on CPU on this driver.
+Learned policies still trail the scripted expert (ACT at 50k steps: plate 15/20, fork 16/20 alone; the multi-task SmolVLA is mid-training on Kaggle); handoff, hold and pour still execute one at a time (independent single-arm steps run concurrently); no NPU measured; the VLM planner runs on CPU on this driver.
