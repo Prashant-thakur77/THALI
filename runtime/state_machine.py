@@ -115,6 +115,7 @@ class Runtime:
         self.on_step: Callable[[], None] | None = None  # e.g. a video recorder; called every control step
         self.after_check: Callable[[int, dict], None] | None = None  # eval hook: called after each step's check (perturbations)
         self.on_event: Callable[[str, dict, Any], None] | None = None  # UI hook: every audit record (kind, payload, record)
+        self.last_steps: list[dict] = []   # executed steps of the previous command, for follow-ups ("again", "a bit more", "other side")
 
     # ------------------------------------------------------------ helpers
     def _log(self, kind: str, payload: dict) -> None:
@@ -164,7 +165,16 @@ class Runtime:
         st, txt = scene_state(self.env.model, self.env.data), describe(self.env.model, self.env.data)
         world = World.from_scene_state(st)
         t_plan0 = time.time()
-        pr = self.planner.plan(command, st, txt, self._frame(), verifier=self.verifier, world=world)
+        from runtime.followups import detect as detect_followup, resolve as resolve_followup
+        fk = detect_followup(command) if (not reset and self.last_steps) else None
+        fplan = resolve_followup(fk, self.last_steps, st) if fk else None
+        if fplan is not None:
+            from planner.plan import PlanResult
+            v = self.verifier.verify(fplan, World.from_scene_state(st))
+            pr = PlanResult(plan=v.plan if v.verdict != BLOCK else fplan, source=f"followup:{fk}", verdict=v.verdict, attempts=[], latency_s=0.0)
+            self._log("followup", {"kind": fk, "resolved_from": self.last_steps[-1], "steps": fplan["steps"]})
+        else:
+            pr = self.planner.plan(command, st, txt, self._frame(), verifier=self.verifier, world=world)
         t_plan_ready = time.time()
         log.plan_source = pr.source
         log.verdicts.append(pr.verdict or "n/a")
@@ -326,6 +336,7 @@ class Runtime:
             "speech_end_to_arm_moves_s": round(t_first_move - t_speech_end, 3) if (t_speech_end and t_first_move) else None,
         }
         log.ignored_speakers = list(self.barge.events)
+        self.last_steps = [dict(s.step) for s in log.steps if s.oracle_ok]
         log.sim_steps = self.ex.steps
         log.wall_s = round(time.time() - t_wall0, 1)
         self._log("result", {"success": log.success, "subgoals": log.subgoals, "latency": log.latency, "replans": log.replans, "sim_steps": log.sim_steps})

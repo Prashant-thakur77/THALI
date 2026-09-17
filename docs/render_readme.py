@@ -66,6 +66,13 @@ def anomaly_row() -> str:
     return " — ".join(parts) if parts else "pending"
 
 
+def followups_row() -> str:
+    d = load("followups.json")
+    if not d:
+        return "pending"
+    return f"**{d['correct']}/{d['cases']}** corrections resolved to the expected plan; {d['verifier_approved']}/{d['resolved']} resolved plans verifier-approved (the rest are refused with a reason, e.g. the other arm cannot reach)"
+
+
 def clear_row() -> str:
     d = load("clear_table.json")
     if not d:
@@ -161,7 +168,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "followups_row": followups_row, "json": json,
 }
 
 

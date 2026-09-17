@@ -1,0 +1,717 @@
+{
+ "cases": 20,
+ "correct": 19,
+ "resolved": 16,
+ "verifier_approved": 14,
+ "rows": [
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "no, the other side",
+   "kind": "other_side",
+   "plan": [
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "fork_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "fork_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "spoon_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "text": "the other side please",
+   "kind": "other_side",
+   "plan": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "again",
+   "kind": "again",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "do that again",
+   "kind": "again",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "normal"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "text": "a bit more",
+   "kind": "more",
+   "plan": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "normal"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "text": "more water",
+   "kind": "more",
+   "plan": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "normal"
+    }
+   ],
+   "text": "some more",
+   "kind": "more",
+   "plan": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "correct": false,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "use the other arm",
+   "kind": "other_arm",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "b",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "BLOCK"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "spoon_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "text": "the other arm",
+   "kind": "other_arm",
+   "plan": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "spoon"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "spoon"
+    }
+   ],
+   "correct": true,
+   "verdict": "BLOCK"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "plate",
+     "zone": "plate"
+    }
+   ],
+   "text": "once more",
+   "kind": "again",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "plate",
+     "zone": "plate"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "plate",
+     "zone": "plate"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "plate",
+     "zone": "plate"
+    }
+   ],
+   "text": "no, the other side",
+   "kind": "other_side",
+   "plan": [
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "fork_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "fork_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    }
+   ],
+   "text": "open the top drawer",
+   "kind": null,
+   "plan": null,
+   "expected": null,
+   "correct": true,
+   "verdict": null
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "put the plate on the table",
+   "kind": null,
+   "plan": null,
+   "expected": null,
+   "correct": true,
+   "verdict": null
+  },
+  {
+   "last": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "normal"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "text": "top me up",
+   "kind": "more",
+   "plan": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "repeat that",
+   "kind": "again",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "plate",
+     "zone": "plate"
+    }
+   ],
+   "text": "other side",
+   "kind": "other_side",
+   "plan": null,
+   "expected": null,
+   "correct": true,
+   "verdict": null
+  },
+  {
+   "last": [],
+   "text": "again",
+   "kind": "again",
+   "plan": null,
+   "expected": null,
+   "correct": true,
+   "verdict": null
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    },
+    {
+     "skill": "handoff",
+     "arm": "a",
+     "obj": "spoon_1",
+     "to_arm": "b",
+     "zone": "spoon"
+    }
+   ],
+   "text": "wrong side",
+   "kind": "other_side",
+   "plan": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "handoff",
+     "arm": "b",
+     "obj": "spoon_1",
+     "to_arm": "a",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "normal"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "text": "keep pouring",
+   "kind": "more",
+   "plan": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "hold_mug",
+     "arm": "b"
+    },
+    {
+     "skill": "pour",
+     "arm": "a",
+     "amount": "little"
+    },
+    {
+     "skill": "place_mug",
+     "arm": "b"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  },
+  {
+   "last": [
+    {
+     "skill": "open_drawer",
+     "arm": "a"
+    },
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "text": "one more time",
+   "kind": "again",
+   "plan": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "expected": [
+    {
+     "skill": "pick_place",
+     "arm": "a",
+     "obj": "fork_1",
+     "zone": "fork"
+    }
+   ],
+   "correct": true,
+   "verdict": "ALLOW"
+  }
+ ]
+}
