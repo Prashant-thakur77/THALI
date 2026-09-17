@@ -49,4 +49,4 @@ def test_scene_description_mentions_everything(model, data):
     assert "CLOSED" in txt and "Arm A" in txt and "Arm B" in txt
     st = scene_state(model, data)
     assert st["objects"]["fork_1"]["in_drawer"] and not st["objects"]["plate"]["in_drawer"]
-    assert set(st["subgoals"]) == set(oracles.FULL_TASK)
+    assert set(oracles.FULL_TASK) <= set(st["subgoals"]) and set(oracles.CLEAR_TASK) <= set(st["subgoals"])

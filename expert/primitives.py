@@ -42,6 +42,8 @@ OPEN_T = 0.5
 SETTLE_T = 0.3
 POUR_ROLL = math.radians(132)
 POUR_EXIT_ROLL = math.radians(110)  # roll at which a straight-tube bottle starts to dump (~92 deg tilt with a 30 deg-pitched axis)
+POUR_LIP_Z = -0.006   # spout lip this far *below* the rim plane, inside the opening: spheres leave the tube at ~0.5 m/s with a
+                      # sideways component and bounce off the rim when dropped onto it from above
 POUR_PITCH = math.radians(30)  # shallower approach for the bottle: the roll axis is closer to horizontal, so 132 deg of roll tips it ~105 deg
 SIDE_PITCH = math.radians(45)  # approach angle below horizontal for side grasps
 HANDOFF_XY = None     # filled from results/reach_envelope.json by Workspace
@@ -747,6 +749,10 @@ class Expert:
                 break
         return applied
 
+    def water_in_bottle(self) -> int:
+        """Spheres inside the bottle tube (diagnostics for the pour)."""
+        return int(oracles.water_in_bottle_mask(self.m, self.d).sum())
+
     def pour(self, arm: str = "a", amount: str | None = None) -> SkillResult:
         """Side-grasp the bottle, carry it beside the held mug, roll the wrist so the spout tips over the rim.
 
@@ -780,7 +786,9 @@ class Expert:
         if chosen is None:
             return SkillResult("pour", False, self.steps - start, {"stage": "no_feasible_roll"})
         lateral_down, roll_sign = chosen
+        phase: dict[str, int] = {"start": self.water_in_bottle()}
         r = self.pick_side("bottle", arm, z_above_base=GZ, pitch=POUR_PITCH, lateral_down=lateral_down)
+        phase["after_pick"] = self.water_in_bottle()
         if not r.ok:
             self.open_jaw(arm)
             self.park(arm)
@@ -816,7 +824,7 @@ class Expert:
             if not (-2.6 < q_end < 2.7):
                 continue
             u_exit = rolled(sign * POUR_EXIT_ROLL)
-            grasp_exit = np.array([mug_p[0], mug_p[1], rim_z + 0.015]) - spout_len * u_exit
+            grasp_exit = np.array([mug_p[0], mug_p[1], rim_z + POUR_LIP_Z]) - spout_len * u_exit
             site_c = grasp_exit - site_to_grasp
             r_ik = self.ik.solve(arm, site_c, R, q_init=self.q[arm], max_iters=80)
             other = "b" if arm == "a" else "a"
@@ -835,16 +843,19 @@ class Expert:
         # transit high: the hanging bottle must clear the other arm's wrist (~0.12 m) on its way over the mug
         z_hi = max(site_target[2], 0.21)
         self.move(arm, np.array([p_site[0], p_site[1], z_hi]), R0)
+        phase["after_lift"] = self.water_in_bottle()
         self.move(arm, np.array([site_target[0], site_target[1], z_hi]), R, t=2.0)
+        phase["after_transit"] = self.water_in_bottle()
         self.move(arm, site_target, R, t=1.0)
         self.settle()
+        phase["at_pour_pose"] = self.water_in_bottle()
 
         # Roll-correct-roll.  The wrist joint does the rolling (exact, no IK orientation fight); between roll
         # chunks the site is moved so the *measured* spout stays over the rim centre, because the spout swings
         # by spout_len * d(u) as the roll proceeds and no single pre-correction tracks that across shapes.
         spout_sid = self.m.site("bottle_spout").id
         r_bottle = float(np.hypot(*self.m.geom_pos[self.m.geom("bottle_body_wall0").id][:2]))
-        want = np.array([mug_p[0], mug_p[1], rim_z + 0.015])
+        want = np.array([mug_p[0], mug_p[1], rim_z + POUR_LIP_Z])
         aborted = False
 
         def exit_point() -> np.ndarray:
@@ -866,12 +877,13 @@ class Expert:
         phi1 = roll_sign * math.radians(70)   # fast to a tilt at which nothing can leave yet
         self._roll_wrist(arm, phi1, 1.2)
         spout_err = correct(3)
+        chunk_err: list[float] = []            # exit-point error after each roll chunk (diagnostics)
         if spout_err > 0.03:
             aborted = True                     # do not dump water on the table
             n1 = oracles.water_in_mug(self.m, self.d)
             self._roll_wrist(arm, -phi1, 1.0)
         else:
-            chunks = 12
+            chunks = 16                      # ~4 deg per chunk: the spheres leave one by one instead of as a slug
             dphi = (phi - phi1) / chunks
             applied = phi1
 
@@ -884,16 +896,36 @@ class Expert:
             for _ in range(chunks):
                 if enough_soon():
                     break
-                applied += self._roll_wrist(arm, dphi, 0.4, stop=enough_soon)
+                applied += self._roll_wrist(arm, dphi, 0.5, stop=enough_soon)
                 if enough_soon():
                     break
-                correct(1)
-            # hold the tilt until the target count is in (water needs time to run out), at most 1.5 s
-            for _ in range(int(1.5 / C.DT)):
-                if enough():
-                    break
-                self.step()
+                chunk_err.append(round(correct(1), 4))
+            # hold the tilt while water keeps arriving: the spheres trickle through the spout, so wait until the count has
+            # not changed for a second (at most 4 s); if the stream never starts, tip a further 20 deg (still inside the
+            # wrist range) and wait again
+            def hold(max_s: float) -> int:
+                last, quiet = oracles.water_in_mug(self.m, self.d), 0
+                for _ in range(int(max_s / C.DT)):
+                    if enough():
+                        break
+                    self.step()
+                    now = oracles.water_in_mug(self.m, self.d)
+                    quiet = quiet + 1 if now == last else 0
+                    last = now
+                    if quiet > int(1.0 / C.DT):
+                        break
+                return last
+
+            got = hold(4.0)
+            if got - n0 < max(2, target // 2) and not enough():
+                extra = roll_sign * math.radians(20)
+                q_next = float(self.q[arm][4]) + extra
+                if -2.6 < q_next < 2.7:
+                    applied += self._roll_wrist(arm, extra, 0.6, stop=enough_soon)
+                    correct(1)
+                    hold(4.0)
             n1 = oracles.water_in_mug(self.m, self.d)
+            phase["after_roll"] = self.water_in_bottle()
             self._roll_wrist(arm, -applied, 1.5)
         self.settle(0.3)
         # put the bottle back where it was and let go
@@ -908,7 +940,9 @@ class Expert:
         self.park(arm)
         ok = (n1 - n0) >= target
         return SkillResult("pour", ok, self.steps - start, {"arm": arm, "amount": amount or "normal", "target_spheres": target, "poured": n1 - n0,
-                                                          "spheres_before": n0, "spheres_after": n1, "phi": phi, "aborted": aborted})
+                                                          "spheres_before": n0, "spheres_after": n1, "phi": phi, "aborted": aborted,
+                                                          "spout_err": round(float(spout_err), 4), "chunk_err": chunk_err, "roll_sign": roll_sign, "lateral_down": lateral_down,
+                                                          "in_bottle_by_phase": phase})
 
 
 def _slerp_mat(R0: np.ndarray, R1: np.ndarray, s: float) -> np.ndarray:

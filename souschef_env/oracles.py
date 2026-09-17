@@ -92,14 +92,31 @@ def any_in_zone(model: mujoco.MjModel, data: mujoco.MjData, objs: tuple[str, ...
     return any(object_in_zone(model, data, o, zone) for o in objs)
 
 
+def water_in_bottle_mask(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
+    """Which water spheres are still inside the bottle tube (the spout can dip into the mug while pouring, so a sphere
+    can be inside the mug's cylinder and inside the bottle at the same time -- it has not been poured yet)."""
+    bid = model.body("bottle").id
+    p0, R = data.xpos[bid], data.xmat[bid].reshape(3, 3)
+    r_tube = float(np.hypot(*model.geom_pos[model.geom("bottle_body_wall0").id][:2])) + 0.004
+    top = float(model.site_pos[model.site("bottle_spout").id][2]) + 0.01
+    out = np.zeros(C.N_WATER, dtype=bool)
+    for i in range(C.N_WATER):
+        q = R.T @ (data.xpos[model.body(f"water_{i}").id] - p0)
+        out[i] = np.hypot(q[0], q[1]) < r_tube and -0.01 < q[2] < top
+    return out
+
+
 def water_in_mug(model: mujoco.MjModel, data: mujoco.MjData) -> int:
-    """Count of water spheres inside the mug's interior cylinder (site ``mug_inside``)."""
+    """Count of water spheres inside the mug's interior cylinder (site ``mug_inside``) and no longer inside the bottle."""
     sid = model.site("mug_inside").id
     centre = data.site_xpos[sid]
     R = data.site_xmat[sid].reshape(3, 3)
     radius, half_h = model.site_size[sid][0], model.site_size[sid][1]
+    in_bottle = water_in_bottle_mask(model, data)
     n = 0
     for i in range(C.N_WATER):
+        if in_bottle[i]:
+            continue
         p = R.T @ (data.xpos[model.body(f"water_{i}").id] - centre)
         if np.hypot(p[0], p[1]) < radius and abs(p[2]) < half_h:
             n += 1
