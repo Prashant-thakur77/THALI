@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thali Live</title>
+<style>
+  :root { --bg:#0b0e14; --panel:#131824; --line:#232a36; --text:#e5e7eb; --muted:#8b93a3; --accent:#7dd3fc; --ok:#34d399; --bad:#f87171; --warn:#fbbf24; }
+  * { box-sizing:border-box } body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,"Segoe UI",Helvetica,Arial,sans-serif; }
+  header { display:flex; align-items:center; gap:14px; padding:14px 22px; border-bottom:1px solid var(--line) }
+  header h1 { font-size:20px; margin:0 } header .tag { background:var(--accent); color:#0b0e14; font-weight:700; padding:3px 10px; border-radius:999px; font-size:12px }
+  header .status { margin-left:auto; color:var(--muted); font-size:14px } header .status b { color:var(--text) }
+  main { display:grid; grid-template-columns: minmax(0, 1.5fr) minmax(360px, 1fr); gap:16px; padding:16px 22px; }
+  @media (max-width: 1000px) { main { grid-template-columns: 1fr } }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px }
+  .panel h2 { font-size:13px; letter-spacing:.6px; text-transform:uppercase; color:var(--accent); margin:0 0 10px }
+  #cam { width:100%; border-radius:8px; background:#000; display:block; aspect-ratio: 960/392 }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center }
+  input[type=text] { flex:1; min-width:220px; background:#0b0e14; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:15px }
+  button { background:#1c2433; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:9px 13px; font-size:14px; cursor:pointer }
+  button:hover { border-color:var(--accent) } button.primary { background:var(--accent); color:#0b0e14; font-weight:700 } button.danger { background:#3a1d1d; border-color:#5a2a2a }
+  button:disabled { opacity:.45; cursor:not-allowed }
+  .presets button { font-size:13px; padding:6px 10px } label.t { font-size:13px; color:var(--muted); display:flex; gap:6px; align-items:center }
+  #timeline { max-height:420px; overflow:auto; font-size:13px; line-height:1.45 }
+  .ev { padding:5px 8px; border-left:3px solid var(--line); margin:3px 0; background:#0f1420; border-radius:0 6px 6px 0 }
+  .ev.state { border-color:var(--accent) } .ev.say { border-color:#a78bfa } .ev.skill.ok { border-color:var(--ok) } .ev.skill.bad { border-color:var(--bad) }
+  .ev.plan { border-color:var(--warn) } .ev.done.ok { border-color:var(--ok) } .ev.done.bad { border-color:var(--bad) } .ev.error { border-color:var(--bad) }
+  .ev .h { color:var(--muted); font-size:11px; margin-right:6px } code, pre { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px }
+  pre { background:#0b0e14; border:1px solid var(--line); border-radius:8px; padding:10px; margin:0; white-space:pre-wrap; max-height:220px; overflow:auto }
+  table { width:100%; border-collapse:collapse; font-size:13px } td, th { padding:6px 8px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top } th { color:var(--muted); font-weight:600 }
+  .ok { color:var(--ok); font-weight:700 } .bad { color:var(--bad); font-weight:700 } .muted { color:var(--muted) }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px } .kpi b { display:block; font-size:22px; color:var(--accent) } .kpi span { color:var(--muted); font-size:12px }
+  footer { color:var(--muted); font-size:12px; padding:10px 22px 24px }
+  a { color:var(--accent) }
+</style>
+</head>
+<body>
+<header>
+  <h1>Thali Live</h1><span class="tag">two arms · voice · OpenVINO</span>
+  <span class="status">sim <b id="st">starting…</b> · <span id="caps"></span></span>
+</header>
+<main>
+  <section>
+    <div class="panel">
+      <h2>Simulator — front and overhead cameras, live</h2>
+      <img id="cam" src="/stream" alt="live simulation">
+      <div class="row" style="margin-top:10px">
+        <button class="danger" id="btnStop" onclick="barge('stop')">■ Stop (barge-in)</button>
+        <button id="btnCont" onclick="barge('continue')">▶ Continue</button>
+        <button id="btnOther" onclick="barge('other_arm')">⇄ Other arm</button>
+        <span class="muted" style="font-size:12px">These inject the same partial-transcript words the microphone path sends; the arm pauses within one 20 ms control step.</span>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Command</h2>
+      <div class="row">
+        <input type="text" id="cmd" placeholder="e.g. open the top drawer, put the plate on the table with arm A" value="open the top drawer, put the plate on the table with arm A">
+        <button class="primary" id="btnRun" onclick="run()">Run</button>
+      </div>
+      <div class="row presets" style="margin-top:8px">
+        <button onclick="preset('set the table')">set the table</button>
+        <button onclick="preset('open the top drawer, put the plate on the table with arm A')">drawer + plate</button>
+        <button onclick="preset('hold the mug with arm B and pour a little water with arm A')">pour a little</button>
+        <button onclick="preset('open the top drawer with arm A and put the mug on its spot with arm B')">both arms at once</button>
+        <button onclick="preset('clear the table', true)">clear the table (follow-up)</button>
+      </div>
+      <div class="row" style="margin-top:10px" id="voiceRow"></div>
+      <div class="row" style="margin-top:10px">
+        <label class="t">seed <input type="number" id="seed" value="3" min="0" max="99" style="width:64px;background:#0b0e14;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px"></label>
+        <label class="t"><select id="split" style="background:#0b0e14;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px"><option value="test">held-out layout</option><option value="train">training layout</option></select></label>
+        <label class="t"><input type="checkbox" id="concurrent"> both arms at once</label>
+        <label class="t"><input type="checkbox" id="anomaly"> PatchCore table check</label>
+        <label class="t"><input type="checkbox" id="keep"> keep current scene</label>
+        <label class="t"><select id="planner" style="background:#0b0e14;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px"><option value="rules">rule planner</option><option value="vlm">Qwen2-VL planner (OpenVINO)</option></select></label>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Plan and verdict</h2>
+      <div id="verdict" class="muted">no plan yet</div>
+      <pre id="plan"></pre>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Steps — oracle / camera / table check</h2>
+      <table id="steps"><thead><tr><th>#</th><th>skill</th><th>arm</th><th>oracle</th><th>camera</th><th>table</th><th>won by</th><th>s</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+  <aside>
+    <div class="panel">
+      <h2>Run</h2>
+      <div class="grid2">
+        <div class="kpi"><b id="kSuccess">—</b><span>success</span></div>
+        <div class="kpi"><b id="kLat">—</b><span>speech end → arms moving</span></div>
+        <div class="kpi"><b id="kReplans">—</b><span>replans</span></div>
+        <div class="kpi"><b id="kAudit">—</b><span>audit records · head</span></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Live log — every record is a sha256-chained audit entry</h2>
+      <div id="timeline"></div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Evidence</h2>
+      <div class="muted" style="font-size:13px">Every number in the README comes from a file in <code>results/</code> produced by a script in the repo.</div>
+      <table id="results" style="margin-top:8px"><tbody></tbody></table>
+      <div style="margin-top:8px;font-size:13px"><a href="https://github.com/Prashant-thakur77/THALI" target="_blank">GitHub</a> · <a href="https://huggingface.co/datasets/Prashant-77/thali_all" target="_blank">dataset</a> · <a href="https://huggingface.co/spaces/Prashant-77/thali" target="_blank">video + write-up</a></div>
+    </div>
+  </aside>
+</main>
+<footer>Physics: MuJoCo, two SO-101 arms. Planner: Qwen2-VL-2B INT4 on OpenVINO when the exported model is present, else the rule planner. Verifier, queues, audit log: CPU. One simulator is shared by everyone viewing this page; a command runs when the simulator is idle.</footer>
+<script>
+const $ = s => document.querySelector(s);
+let lastId = -1, planShown = null;
+function preset(t, keep) { $('#cmd').value = t; if (keep !== undefined) $('#keep').checked = !!keep; }
+async function run(voice) {
+  const body = { command: voice ? null : $('#cmd').value, voice: voice || null, planner: $('#planner').value, seed: +$('#seed').value,
+                 split: $('#split').value, concurrent: $('#concurrent').checked, anomaly: $('#anomaly').checked, keep_scene: $('#keep').checked };
+  resetRun();
+  const r = await fetch('/api/run', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+  if (!r.ok) addEv({ kind: 'error', payload: { text: (await r.json()).detail || r.statusText } });
+}
+async function barge(kind) { await fetch('/api/bargein', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ kind }) }); }
+function resetRun() { $('#steps tbody').innerHTML = ''; $('#plan').textContent = ''; $('#verdict').textContent = 'planning…'; ['#kSuccess','#kLat','#kReplans','#kAudit'].forEach(k => $(k).textContent = '—'); }
+function fmt(x) { return x === null || x === undefined ? '—' : x; }
+function addEv(e) {
+  const p = e.payload || {}; let cls = e.kind, text = '';
+  if (e.kind === 'state') { text = `${p.from} → <b>${p.to}</b>` + (p.reasons ? ' · ' + p.reasons.join('; ') : '') + (p.concurrent ? ' · both arms' : ''); $('#st').textContent = p.to; }
+  else if (e.kind === 'say') text = `🗣 ${p.text}`;
+  else if (e.kind === 'command') text = `command: “${p.text}” (seed ${p.seed}, ${p.split})`;
+  else if (e.kind === 'parsed') text = `parsed → “${p.command}”`;
+  else if (e.kind === 'listening') text = `🎤 Speechmatics realtime on ${p.file} (${p.language})`;
+  else if (e.kind === 'heard') text = `heard (operator ${p.operator || '?'}): “${p.text}”` + (p.ignored && p.ignored.length ? ` · ignored other speaker: “${p.ignored[0]}”` : '');
+  else if (e.kind === 'plan') { text = `plan from <b>${p.source}</b> · verdict <b>${p.verdict}</b> · ${p.steps.length} steps`; showPlan(p); }
+  else if (e.kind === 'replan') { text = `replan (${p.source}) · verdict ${p.verdict}` + (p.issues && p.issues.length ? ' · ' + p.issues.join('; ') : ''); showPlan(p); }
+  else if (e.kind === 'final_check') text = `final check: ${p.missing.join(', ')} not in place → redoing ${p.redo.length} step(s)`;
+  else if (e.kind === 'skill') { cls += p.oracle ? ' ok' : ' bad'; text = `${p.skill} (arm ${p.arm.toUpperCase()}) ${p.oracle ? '✓' : '✗'} · ${p.seconds}s`; addStep(p); }
+  else if (e.kind === 'bargein_button') text = `🎤 (partial) “${p.text}”`;
+  else if (e.kind === 'result') { cls += p.success ? ' ok' : ' bad'; text = `result: ${p.success ? 'success' : 'not all goals met'} · ${p.sim_steps} sim steps · replans ${p.replans}`; }
+  else if (e.kind === 'done') { cls += p.success ? ' ok' : ' bad'; text = `done · success ${p.success}`; showDone(p); }
+  else if (e.kind === 'ready') { text = `simulator ready · VLM ${p.vlm ? 'available' : 'not exported here'} · PatchCore ${p.anomaly ? 'available' : 'not trained here'} · Speechmatics ${p.speechmatics ? 'on' : 'off'}`; $('#st').textContent = 'IDLE'; $('#caps').textContent = (p.vlm ? 'Qwen2-VL ' : '') + (p.anomaly ? 'PatchCore ' : '') + (p.speechmatics ? 'Speechmatics' : ''); }
+  else if (e.kind === 'error') text = `error: ${p.text}`;
+  else return;
+  const d = document.createElement('div'); d.className = 'ev ' + cls;
+  d.innerHTML = `<span class="h">${e.seq !== undefined ? '#' + e.seq + ' ' + e.sha256 : ''}</span>${text}`;
+  const tl = $('#timeline'); tl.appendChild(d); tl.scrollTop = tl.scrollHeight;
+}
+function showPlan(p) { $('#verdict').innerHTML = `source <b>${p.source}</b> · verdict <b class="${p.verdict === 'BLOCK' ? 'bad' : 'ok'}">${p.verdict}</b>` + (p.mode ? ` · mode ${p.mode}` : ''); $('#plan').textContent = JSON.stringify(p.steps, null, 1); }
+function addStep(p) {
+  const tr = document.createElement('tr'); const t = p.table_ok === null || p.table_ok === undefined ? '—' : (p.table_ok ? `✓ ${p.table_score}` : `<span class="bad">✗ ${p.table_score}</span>`);
+  tr.innerHTML = `<td>${p.step}</td><td>${p.skill}${p.concurrent ? ' ⇉' : ''}</td><td>${p.arm.toUpperCase()}</td><td class="${p.oracle ? 'ok' : 'bad'}">${p.oracle ? '✓' : '✗'}</td><td>${p.camera === null || p.camera === undefined ? '—' : (p.camera ? '✓' : '✗')}${p.camera_backend ? ' <span class="muted">' + p.camera_backend + '</span>' : ''}</td><td>${t}</td><td>${(p.detail && p.detail.won_by) || 'expert'}</td><td>${p.seconds}</td>`;
+  $('#steps tbody').appendChild(tr);
+}
+function showDone(p) {
+  $('#kSuccess').innerHTML = p.success ? '<span class="ok">yes</span>' : '<span class="bad">no</span>';
+  $('#kLat').textContent = p.latency && p.latency.speech_end_to_arm_moves_s ? p.latency.speech_end_to_arm_moves_s + ' s' : '—';
+  $('#kReplans').textContent = p.replans; $('#kAudit').textContent = `${p.audit_records} · ${p.audit_head}`;
+}
+function listen() {
+  const es = new EventSource('/api/events?after=' + lastId);
+  es.onmessage = m => { const e = JSON.parse(m.data); lastId = e.id; addEv(e); };
+  es.onerror = () => { es.close(); setTimeout(listen, 1500); };
+}
+async function loadSamples() {
+  const s = await (await fetch('/api/samples')).json(); const row = $('#voiceRow');
+  row.innerHTML = '<span class="muted" style="font-size:13px">Voice (Speechmatics realtime on the bundled recordings):</span>';
+  for (const x of s) { const b = document.createElement('button'); b.textContent = '🎤 ' + x.file.replace('.wav',''); b.title = x.transcript; b.onclick = () => run(x.file); row.appendChild(b); }
+}
+async function loadResults() {
+  const r = await (await fetch('/api/results')).json(); const tb = $('#results tbody'); tb.innerHTML = '';
+  const pick = { 'seeds_expert_expert_test.json': d => `full task, expert, held-out: ${d.successes}/${d.seeds}`, 'recovery.json': d => `mid-task recovery: ${d.recovered}/${d.total}`,
+                 'verifier_injection.json': d => `unsafe plans blocked: ${d.caught}/${d.bad_plans}`, 'concurrency.json': () => 'both arms at once: see results/concurrency.json',
+                 'anomaly_diffreal.json': d => `table-state check AUROC ${d.image_auroc}`, 'clear_table.json': d => `clear the table: ${d.successes}/${d.seeds}`,
+                 'skill_eval_act_plate_50k.json': () => 'ACT plate policy alone (50k steps): 15/20', 'planner_eval.json': d => `VLM planner: ${d.vlm_tokens_per_s} tok/s on CPU`,
+                 'demo_seed3.json': d => `speech end → arms moving: ${d.latency ? d.latency.speech_end_to_arm_moves_s : '—'} s` };
+  for (const [name, f] of Object.entries(pick)) if (r[name]) { const tr = document.createElement('tr'); tr.innerHTML = `<td>${f(r[name])}</td><td class="muted"><code>${name}</code></td>`; tb.appendChild(tr); }
+}
+// ?static=1: one frame and one event replay instead of the open-ended streams (screenshots, slow clients)
+const STATIC = new URLSearchParams(location.search).has('static');
+if (STATIC) { $('#cam').src = '/frame.jpg'; fetch('/api/events?after=-1', { signal: AbortSignal.timeout(1500) }).then(r => r.text()).then(t => { for (const line of t.split('\n')) if (line.startsWith('data: ')) { const e = JSON.parse(line.slice(6)); lastId = e.id; addEv(e); } }).catch(() => {}); }
+else listen();
+loadSamples(); loadResults();
+setInterval(async () => { try { const s = await (await fetch('/api/status')).json(); $('#btnRun').disabled = s.busy; if (!s.busy && s.state) $('#st').textContent = s.state; } catch (e) {} }, 2000);
+</script>
+</body>
+</html>

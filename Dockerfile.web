@@ -1,0 +1,19 @@
+# Thali Live — the interactive site (Hugging Face Docker Space or any container host).
+#   docker build -f Dockerfile.web -t thali-web . && docker run --rm -p 7860:7860 -e SPEECHMATICS_API_KEY=... thali-web
+FROM python:3.11-slim
+ENV DEBIAN_FRONTEND=noninteractive PIP_NO_CACHE_DIR=1 MUJOCO_GL=egl PYOPENGL_PLATFORM=egl PYTHONUNBUFFERED=1 THALI_STREAM_EVERY=5
+# Mesa's software EGL/OSMesa render MuJoCo's cameras headless on a CPU-only host
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      git ffmpeg libegl1 libgl1 libgl1-mesa-dri libglib2.0-0 libgomp1 libosmesa6 make ocl-icd-libopencl1 \
+    && rm -rf /var/lib/apt/lists/*
+RUN useradd -m -u 1000 user
+WORKDIR /app
+COPY requirements.txt pyproject.toml ./
+RUN pip install uv && uv pip install --system -r requirements.txt
+COPY web/requirements.txt web/requirements.txt
+RUN uv pip install --system -r web/requirements.txt
+COPY . .
+RUN uv pip install --system -e . && python -m souschef_env.build_scene && chown -R user /app
+USER user
+EXPOSE 7860
+CMD ["uvicorn", "web.server:app", "--host", "0.0.0.0", "--port", "7860"]

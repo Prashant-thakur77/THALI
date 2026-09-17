@@ -114,10 +114,16 @@ class Runtime:
         self.queues = ArmQueues()
         self.on_step: Callable[[], None] | None = None  # e.g. a video recorder; called every control step
         self.after_check: Callable[[int, dict], None] | None = None  # eval hook: called after each step's check (perturbations)
+        self.on_event: Callable[[str, dict, Any], None] | None = None  # UI hook: every audit record (kind, payload, record)
 
     # ------------------------------------------------------------ helpers
     def _log(self, kind: str, payload: dict) -> None:
-        self.audit.append(kind, payload)
+        rec = self.audit.append(kind, payload)
+        if self.on_event is not None:
+            try:
+                self.on_event(kind, payload, rec)
+            except Exception:  # a UI listener must never break the control loop
+                pass
 
     def _transition(self, new: str, log: RunLog, **why) -> None:
         self._log("state", {"from": self.state, "to": new, **why})
