@@ -329,3 +329,12 @@ plate pick retries two other rim points (plate at the table edge on seed 4). A s
 `run_seeds` required *every* subgoal key to be true, including fork_stowed / drawer_closed — it now scores `oracles.FULL_TASK`
 and the saved rows were re-scored. Pour-amount after the fix: normal 5/5, full 5/5, little 4/5 within ±2 spheres.
 Remaining misses: place_mug after the pour (3 seeds), pour (3), one fork and one plate pick.
+
+## 17 Sep (later) — hold, pour and set-down fixes
+Per-seed traces of the remaining full-task misses: the mug's base was held 3 cm up, 6 mm over a placed plate's rim 8 cm away
+(`POUR_POSE` z → 5 cm); the side grasp 2 cm above the mug base let the mug tilt 15–20° in the jaw (grasp now at mid-body,
+`MUG_GRASP_Z` 3.4 cm); water spheres that entered the mug bounced back out because a leftover line in `build_scene.py` reset their
+contact `solref` from overdamped to critically damped right after setting it (removed — this changes the physics for future
+demos; the 1050-episode dataset was recorded with the bouncier water, which only matters for the 150 pour episodes); the pour lip
+now sits at the rim plane; the mug's handle could hook the opening jaw on release (the gripper now slides away from the handle
+before rising); cutlery and the plate are nudged apart inside their zones. 32 fast tests pass; the 10-seed evals are re-running.
