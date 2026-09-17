@@ -32,6 +32,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | {{ skill_row("act_60ep") }} | `results/skill_eval_act_60ep.json` |
 | **Per-skill ACT, policy only — retrained on 1050 episodes** | {{ skill_row("act_1050ep") }} | `results/skill_eval_act_1050ep.json` |
 | **Per-skill ACT, policy only — 50k training steps** (same 150 episodes; the 12k-step rows above are the baseline) | {{ skill_row("act_plate_50k") }} {{ skill_row("act_50k") if load("skill_eval_act_50k.json") else "" }} | `results/skill_eval_act_plate_50k.json`, `results/skill_eval_act_50k.json` |
+| **Per-skill SmolVLA, policy only** (multi-task, language-conditioned; Kaggle T4 fine-tune in 4 500-step sessions — this row is the **step-5 000 checkpoint of 20 000**, re-evaluated as sessions land) | {{ skill_row("smolvla_5k") }} | `results/skill_eval_smolvla_5k.json` |
 | **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | {{ anomaly_row() }} | `results/anomaly.json` |
 | **Target-volume pour** ("a little" / normal / "fill it up" → 3 / 6 / 12 water spheres; the roll stops when the oracle counts the target) | {{ pour_amount_row() }} | `results/pour_amount.json` |
 | **Both arms at once** (independent steps driven through the expert's step barrier; same seeds, same commands) | {{ concurrency_row() }} | `results/concurrency.json` |
