@@ -1,6 +1,6 @@
 # Thali roadmap — beyond the dinner table
 
-Status on 17 Sep 2026: submission in; post-deadline work running (ACT retrain on 1050 episodes, SmolVLA on Kaggle,
+Status on 17 Sep 2026: Phase 11 work running (ACT retrain on 1050 episodes, SmolVLA on Kaggle,
 per-skill evals, PatchCore table check, concurrent two-arm execution). This is the plan for what comes next, ranked by
 how much it moves the project versus what it costs. Every item ends with the number it would put in the README.
 

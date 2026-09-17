@@ -68,7 +68,7 @@ Hardware: Dell G15 5530, Intel Core i7-13650HX + UHD iGPU, OpenVINO 2026.3, devi
 
 Reproduce: `make test · scene · demos · train · eval · bench · demo · verify-log` (README "Reproduce"). 75 tests, CI workflow, Dockerfile.
 
-## Added after the submission (17 Sep 2026)
+## Phase 11 additions (17 Sep 2026)
 
 | capability | evidence |
 |---|---|

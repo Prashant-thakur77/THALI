@@ -5,7 +5,7 @@
 <p>Say what you want and two SO-101 arms open the drawer, lay out cutlery and plate, hold the mug and pour — for people who can speak but can't reach. Speechmatics realtime speech · local Qwen2-VL planner on Intel OpenVINO · deterministic safety verifier with a hash-chained audit log · learned skills with a scripted-IK fallback. Everything except speech recognition runs on an Intel Core i7-13650HX laptop (no NPU).</p>
 <h2>Demo (4:23) — the full closed loop</h2><video controls src="thali_demo.mp4" poster="architecture.png"></video>
 <h2>Architecture</h2><img src="architecture.png">
-<h2>Results at a glance <span style='font-size:14px;color:#8b93a3'>(updated 17 Sep — post-submission additions included)</span></h2><div class=grid>
+<h2>Results at a glance <span style='font-size:14px;color:#8b93a3'>(updated 17 Sep 2026)</span></h2><div class=grid>
 <div class=card><b>5/10</b>full 7-skill task on held-out seeds (via-table handoff + hold-while-pour)</div>
 <div class=card><b>20/20</b>injected unsafe plans blocked; audit chain verified</div>
 <div class=card><b>49.13 → 17.06 ms</b>ACT policy call, OpenVINO fp32 → NNCF INT8 on the CPU, behaviour preserved</div>

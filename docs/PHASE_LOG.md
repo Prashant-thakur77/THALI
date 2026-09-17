@@ -296,8 +296,8 @@ montage, `docs/PITCH.md` (pitch, scale slide, shot list).
 **Pending on the user:** HF token (dataset + checkpoints + IR push), Kaggle SmolVLA run, Space deployment, the
 video recording itself, and the lablab submission (docs/KAGGLE_TODO.md).
 
-## Post-deadline programme (started 16 Sep 2026, 23:00 IST)
-Submission is in (video 4:23, deck, HF Space). The user asked to keep improving to beat the field; competitor READMEs
+## Phase 11 — beyond the baseline (started 16 Sep 2026, 23:00 IST)
+With the demo video (4:23), deck and HF Space done, the goal became measurable leads over comparable projects; their READMEs
 (TableMind, duet, so101-AI-Infra, AuraManip, PegBit, intel-bimanual-vla, ai-packing-assistant) were reviewed. Gaps they
 lead on: NPU/Core Ultra numbers (hardware we do not have), per-skill learned-policy success (PegBit 19/20 mug within
 1.5 cm), concurrent two-arm execution (duet), headline success on short scripted tasks. None uses Anomalib.

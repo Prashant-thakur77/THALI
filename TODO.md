@@ -67,7 +67,7 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [ ] 10.4 Submit a draft early; update until deadline
 - [ ] 10.5 Business slide: hospitality/kitchen automation, assistive dining, why local inference
 
-## Post-deadline (beat the field)
+## Phase 11 — beyond the baseline
 - [x] Mid-task perturbation recovery eval (results/recovery.json 4/4) + final-state verification in runtime
 - [x] Per-skill policy-only eval script (eval/skill_eval.py); 60-ep run in progress → results/skill_eval_act_60ep.json
 - [ ] ACT retrain on 1050 episodes (running) → skill_eval_act_1050ep, seeds_act_*, bench
