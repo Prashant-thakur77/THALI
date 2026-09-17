@@ -68,6 +68,19 @@ Hardware: Dell G15 5530, Intel Core i7-13650HX + UHD iGPU, OpenVINO 2026.3, devi
 
 Reproduce: `make test · scene · demos · train · eval · bench · demo · verify-log` (README "Reproduce"). 75 tests, CI workflow, Dockerfile.
 
+## Added after the submission (17 Sep 2026)
+
+| capability | evidence |
+|---|---|
+| **Mid-task recovery** — after the plate step passed its check the plate is knocked 10 cm off its zone; the final-state verification notices and redoes exactly that step | 4/4 detected, 4/4 recovered (`results/recovery.json`) |
+| **Both arms at once** — independent single-arm steps run simultaneously through a step barrier in the expert (one simulator, two skill threads); a safety rule pairs only steps whose objects/targets are ≥ 15 cm apart and outside the shared zone | drawer+mug: 1065 → 591 sim steps (44 % fewer), plate+mug 30 % fewer, success unchanged (`results/concurrency.json`) |
+| **Anomalib table-state check** — PatchCore on the difference between the live overhead frame and the reset reference, nominal set from real expert runs, exported to OpenVINO IR, wired into the loop as `--anomaly` | held-out image AUROC 0.943, 72/75 disturbances flagged, 13/57 false alarms; live: knocked plate flagged in 3/4 runs; 70.23 ms CPU (`results/anomaly_diffreal.json`, `results/recovery_anomaly.json`) |
+| **Target-volume pour** — "a little" / normal / "fill it up" → 3 / 6 / 12 water spheres; the wrist roll stops per control step when the oracle counts the target | normal within ±2 on 4/5, little 2/5, full 2/5 (`results/pour_amount.json`) |
+| **Per-skill learned-policy evaluation** — each ACT policy alone from task-consistent start states, 20 held-out seeds | 60 ep / 12k steps: drawer 20, plate 8, hold 10 /20 · 1050 ep / 12k steps: fork 6, plate 8 /20 · **50k steps: plate 15/20**, median 1.85 cm — training length, not episode count, was the bottleneck (`results/skill_eval_*.json`) |
+| **SmolVLA fine-tune** | running on Kaggle in 12 h T4 sessions (~8 s/step); the step-5000 checkpoint is being evaluated |
+
+Workload placement for the additions: the anomaly IR runs on the Intel CPU (70.23 ms/frame; the iGPU plugin fails on this driver, reported as such); the step barrier and queues are CPU threads; nothing new leaves the device.
+
 ## Honest limits
 
 Learned policies are weak (60 episodes/skill at submission; a 1050-episode dataset is on the Hub and the multi-task SmolVLA fine-tune is queued); the pour is the hardest skill; one skill executes at a time; no NPU measured; the VLM planner runs on CPU on this driver.

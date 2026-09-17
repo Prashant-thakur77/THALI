@@ -5,12 +5,15 @@
 <p>Say what you want and two SO-101 arms open the drawer, lay out cutlery and plate, hold the mug and pour — for people who can speak but can't reach. Speechmatics realtime speech · local Qwen2-VL planner on Intel OpenVINO · deterministic safety verifier with a hash-chained audit log · learned skills with a scripted-IK fallback. Everything except speech recognition runs on an Intel Core i7-13650HX laptop (no NPU).</p>
 <h2>Demo (4:23) — the full closed loop</h2><video controls src="thali_demo.mp4" poster="architecture.png"></video>
 <h2>Architecture</h2><img src="architecture.png">
-<h2>Results at a glance</h2><div class=grid>
+<h2>Results at a glance <span style='font-size:14px;color:#8b93a3'>(updated 17 Sep — post-submission additions included)</span></h2><div class=grid>
 <div class=card><b>5/10</b>full 7-skill task on held-out seeds (via-table handoff + hold-while-pour)</div>
 <div class=card><b>20/20</b>injected unsafe plans blocked; audit chain verified</div>
 <div class=card><b>49.13 → 17.06 ms</b>ACT policy call, OpenVINO fp32 → NNCF INT8 on the CPU, behaviour preserved</div>
 <div class=card><b>44.6 tok/s</b>Qwen2-VL-2B INT4 planner on the Intel CPU, 100% verifier-approved plans</div>
 <div class=card><b>4/4</b>mid-task recovery: plate knocked 10 cm off its zone after its step passed; final-state check noticed and re-placed it</div>
+<div class=card><b>44%</b>fewer sim steps with both arms moving at once (drawer + mug), success unchanged</div>
+<div class=card><b>15/20</b>ACT plate policy alone at 50k training steps (median 1.85 cm); 8/20 at 12k — training length was the bottleneck</div>
+<div class=card><b>AUROC 0.943</b>Anomalib PatchCore table-state check on OpenVINO (70.23 ms CPU); knocked plate flagged live 3/4</div>
 <div class=card><b>4/4</b>voice samples (clear, tired, Hindi, noisy room) with the skill sequence recovered; background speaker ignored</div>
 <div class=card><b>10.447 s</b>speech end → arms moving, end to end</div></div>
 <h2>Robustness — seeds × perturbation axis (held-out split)</h2><img src="heatmap_expert.png" style="max-width:760px">
