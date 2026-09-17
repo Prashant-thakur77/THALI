@@ -43,7 +43,8 @@ How a new skill enters the system (the same five files every time):
 
 | item | what it adds | needs | result row |
 |---|---|---|---|
-| **3 000 episodes/skill + augmentation** | ACT/SmolVLA that beat the expert's speed and match its success | 5 h recording (4 shards), Kaggle runs | per-skill policy-only ≥ 18/20 |
+| **Longer training before more data** | finding 17 Sep: 60 → 1050 episodes (and 8k → 12k steps) moved per-skill ACT only on the fork (2 → 6/20); drawer 20/20, plate 8/20, mug 1/20, hold 10/20, handoff 0/20, pour 1/20 are unchanged, so the bottleneck is not the episode count. ACT normally needs 50k–100k steps; a 50k-step plate run is the test | 3 h GPU per skill at 50k steps; then temporal ensembling, larger chunk, 2× image resolution | plate ≥ 16/20 |
+| **3 000 episodes/skill + augmentation** | after the above: ACT/SmolVLA that beat the expert's speed and match its success | 5 h recording (4 shards), Kaggle runs | per-skill policy-only ≥ 18/20 |
 | **Policy-first execution** | run the learned policy by default and the expert only as fallback in the demo video | after the row above | full task policy-only N/10 |
 | **Core Ultra / NPU** | ACT + PatchCore IR timed on NPU with `-d NPU`; the export is already static-shape | access to a Core Ultra machine (or Intel DevCloud) | NPU ms per call |
 | **Real SO-101 arms** | sim-to-real of drawer + plate skills with the same LeRobot dataset format | 2 arms (~$220), camera mounts, 200 real demos | real-world drawer N/10 |
