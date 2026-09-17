@@ -31,6 +31,19 @@ def skill_row(tag: str) -> str:
     return " · ".join(parts)
 
 
+def skill_rows_50k() -> str:
+    """Every per-skill result trained at 50k steps (results/skill_eval_act_*50k*.json), merged; 'pending' if none."""
+    parts = []
+    for p in sorted(R.glob("skill_eval_act_*50k*.json")):
+        d = json.loads(p.read_text())
+        for k, v in d["skills"].items():
+            if v.get("no_policy"):
+                continue
+            cm = f" (median {v['median_zone_error_cm']} cm from zone)" if v.get("median_zone_error_cm") is not None else ""
+            parts.append(f"{k} **{v['successes']}/{v['total']}**{cm}")
+    return " · ".join(dict.fromkeys(parts)) if parts else "pending"
+
+
 def anomaly_row() -> str:
     """Headline = the difference-image variant; the full-frame and crop variants are the ablation that motivated it."""
     d = load("anomaly_diffreal.json") or load("anomaly_diff.json")
@@ -148,7 +161,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "json": json,
 }
 
 
