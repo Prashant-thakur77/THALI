@@ -39,7 +39,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | **Instruction swap** (arm / object / order) | 7/10 encoded correctly | `results/instruction_swap.json` |
 | **Camera state check vs sim oracle** | 84% agreement (pixels) · 38% (2B VLM) | `results/camera_vs_oracle.json` |
 | **Safety verifier** | **20/20 unsafe plans blocked**, 6/6 sane plans passed, audit chain verified | `results/verifier_injection.json` |
-| **OpenVINO** ACT policy call, CPU | fp32 110.74 ms → **INT8 36.76 ms** p50; success identical at every precision | `results/bench.json`, `results/preserve.json` |
+| **OpenVINO** ACT policy call, CPU | fp32 49.13 ms → **INT8 17.06 ms** p50; success identical at every precision | `results/bench.json`, `results/preserve.json` |
 | **Voice** (4 samples: clear, tired, Hindi, noisy room) | skill sequence recovered on **100%**; background speaker ignored; speech-end → arms moving **10.447 s** | `results/voice_test.json`, `results/demo_seed3.json` |
 | **Barge-in** | "stop" pauses within one 20 ms control step, "continue" resumes | `results/demo_bargein_stop.json` |
 
@@ -126,12 +126,12 @@ _measured on i7-13650HX CPU + UHD iGPU; same IR runs on Core Ultra NPU with -d N
 
 | precision / device | mean p50 ms over skills | skills |
 |---|---|---|
-| fp32/CPU | 110.74 | 7 |
-| fp32/GPU | 554.85 | 7 |
-| fp16/CPU | 110.44 | 7 |
-| fp16/GPU | 554.92 | 7 |
-| int8/CPU | 36.76 | 7 |
-| int8/GPU | 415.62 | 7 |
+| fp32/CPU | 49.13 | 7 |
+| fp32/GPU | 283.24 | 7 |
+| fp16/CPU | 49.51 | 7 |
+| fp16/GPU | 282.82 | 7 |
+| int8/CPU | 17.06 | 7 |
+| int8/GPU | 201.85 | 7 |
 
 Per-skill rows in [results/bench.md](results/bench.md). Devices skipped: NPU.
 

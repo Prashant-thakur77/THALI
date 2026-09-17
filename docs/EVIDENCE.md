@@ -27,7 +27,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | Voice test (4 samples) | mean WER 0.438, normalised 0.295, skills 100% | `eval/voice_test.py` | results/voice_test.json |
 | Voice → arm latency | 10.447 s (seed 3, noisy.wav) | `runtime/demo.py --voice` | results/demo_seed3.json |
 | Barge-in | 1 stop/resume, step completed: True | `runtime/demo.py --barge-in stop@3` | results/demo_bargein_stop.json |
-| OpenVINO latency | fp32/CPU 110.74 ms, fp32/GPU 554.85 ms, fp16/CPU 110.44 ms, fp16/GPU 554.92 ms, int8/CPU 36.76 ms, int8/GPU 415.62 ms | `bench/run.py` | results/bench.json / bench.md |
+| OpenVINO latency | fp32/CPU 49.13 ms, fp32/GPU 283.24 ms, fp16/CPU 49.51 ms, fp16/GPU 282.82 ms, int8/CPU 17.06 ms, int8/GPU 201.85 ms | `bench/run.py` | results/bench.json / bench.md |
 | Precision preservation | torch 0, fp32 0, fp16 0, int8 0 | `bench/preserve.py` | results/preserve.json |
 | IR sizes / max Δ | open_drawer: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_fork: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_plate: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pick_place_mug: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, handoff_spoon: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, hold_mug: fp32 132.7MB/fp16 67.1MB/int8 34.9MB, pour: fp32 132.7MB/fp16 67.1MB/int8 34.9MB | `bench/export_ir.py`, `bench/quantize.py` | results/ir_export.json |
 | Dataset | 1050 episodes, 742837 frames | `expert/make_demos.py` | results/demos.json |
