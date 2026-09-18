@@ -56,8 +56,17 @@ def sim():
     return SIM
 
 
-S = sim()
+try:
+    S = sim()
+except Exception as e:   # show the real reason on the page instead of Streamlit's generic error screen
+    import traceback
+    st.error(f"Thali Live could not start: {type(e).__name__}: {e}")
+    st.code(traceback.format_exc())
+    st.stop()
 ready = S.rt is not None
+for _e in S.events:
+    if _e["kind"] == "error":
+        st.error(_e["payload"]["text"])
 speech_on = bool(os.environ.get("SPEECHMATICS_API_KEY"))
 
 # ----------------------------------------------------------------------------- header
@@ -145,6 +154,8 @@ def event_line(e: dict) -> tuple[str, str]:
 def render_run(cam, kpi, plan_box, steps_box, log_box, scene_box) -> None:
     if S.frame_jpeg:
         cam.image(S.frame_jpeg, use_container_width=True)
+    else:
+        cam.caption("the cameras appear as soon as the simulator has built the scene…")
     run = last_run_events()
     plan = next((e["payload"] for e in reversed(run) if e["kind"] in ("plan", "replan")), None)
     if plan:
@@ -180,10 +191,13 @@ def render_run(cam, kpi, plan_box, steps_box, log_box, scene_box) -> None:
             sg = oracles.subgoals(S.env.model, S.env.data)
             objs = [{"object": n, "x cm": o["x_cm"], "y cm": o["y_cm"], "z cm": o["z_cm"], "held by": o["held_by"] or "—", "in drawer": "yes" if o["in_drawer"] else ""} for n, o in stt["objects"].items()]
             goals = " · ".join(f"{'✅' if sg[g] else '⬜'} {g.replace('_', ' ')}" for g in FULL)
-            scene_box.markdown(f"**drawer** {'open' if stt['drawer']['open'] else 'closed'} ({stt['drawer']['travel_cm']} cm) · **water in mug** {stt['water_in_mug']}/20  \n{goals}")
-            scene_box.dataframe(objs, hide_index=True, use_container_width=True, height=250)
+            scene_box[0].markdown(f"**drawer** {'open' if stt['drawer']['open'] else 'closed'} ({stt['drawer']['travel_cm']} cm) · **water in mug** {stt['water_in_mug']}/20  \n{goals}")
+            scene_box[1].dataframe(objs, hide_index=True, use_container_width=True, height=250)
         except Exception as e:  # pragma: no cover
-            scene_box.caption(f"scene inspector unavailable: {e}")
+            scene_box[0].caption(f"scene inspector unavailable: {e}")
+    else:
+        scene_box[0].caption("simulator starting…")
+        scene_box[1].empty()
 
 
 # ----------------------------------------------------------------------------- Live
@@ -231,7 +245,7 @@ with tab_live:
         if not S.vlm_available:
             st.caption("This host runs the rule planner; the OpenVINO Qwen2-VL planner and the PatchCore table check need the exported models and run on the lab machine (see the README).")
         st.markdown("#### What the robot's state says right now")
-        scene_box = st.container()
+        scene_box = (st.empty(), st.empty())   # goals line + object table, refreshed from the fragment
     with right:
         st.markdown("#### Run")
         kpi = st.empty()
@@ -244,6 +258,9 @@ with tab_live:
         audit_path = R / "audit_web.jsonl"
         if audit_path.exists():
             st.download_button("⬇ download this site's audit log (JSONL, hash-chained)", audit_path.read_bytes(), file_name="thali_audit_web.jsonl", mime="application/json")
+
+    # write every placeholder once during the full run (Streamlit reserves their slots), then keep them fresh from a fragment
+    render_run(cam, kpi, plan_box, steps_box, log_box, scene_box)
 
     @st.fragment(run_every=0.7)
     def live():
