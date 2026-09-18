@@ -43,15 +43,15 @@ def smolvla_row() -> str:
 
 def skill_rows_50k() -> str:
     """Every per-skill result trained at 50k steps (results/skill_eval_act_*50k*.json), merged; 'pending' if none."""
-    parts = []
-    for p in sorted(R.glob("skill_eval_act_*50k*.json")):
+    best: dict[str, str] = {}
+    for p in sorted(R.glob("skill_eval_act_*50k*.json"), key=lambda p: p.stat().st_mtime):   # newest measurement per skill wins
         d = json.loads(p.read_text())
         for k, v in d["skills"].items():
-            if v.get("no_policy"):
+            if v.get("no_policy") or not v.get("total"):
                 continue
             cm = f" (median {v['median_zone_error_cm']} cm from zone)" if v.get("median_zone_error_cm") is not None else ""
-            parts.append(f"{k} **{v['successes']}/{v['total']}**{cm}")
-    return " · ".join(dict.fromkeys(parts)) if parts else "pending"
+            best[k] = f"{k} **{v['successes']}/{v['total']}**{cm}"
+    return " · ".join(best.values()) if best else "pending"
 
 
 def anomaly_row() -> str:
