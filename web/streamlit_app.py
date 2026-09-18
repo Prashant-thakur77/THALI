@@ -271,7 +271,7 @@ with tab_live:
     # write every placeholder once during the full run (Streamlit reserves their slots), then keep them fresh from a fragment
     render_run(cam, kpi, plan_box, steps_box, log_box, scene_box)
 
-    @st.fragment(run_every=0.4)
+    @st.fragment(run_every=0.25)   # ≤4 page refreshes/s; the worker captures a frame every THALI_STREAM_EVERY control steps
     def live():
         render_run(cam, kpi, plan_box, steps_box, log_box, scene_box)
 

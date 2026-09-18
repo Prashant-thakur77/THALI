@@ -21,6 +21,7 @@ def main() -> int:
     ap.add_argument("url")
     ap.add_argument("--out", type=Path, default=Path("video/selftest"))
     ap.add_argument("--timeout", type=int, default=420, help="seconds to wait for the run to finish")
+    ap.add_argument("--verbose", action="store_true", help="print the page state while waiting")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     from playwright.sync_api import sync_playwright
@@ -42,23 +43,42 @@ def main() -> int:
         app.wait_for_selector("text=simulator ready", timeout=240_000)
         page.screenshot(path=str(a.out / "1_ready.png"), full_page=True)
         report["ready_s"] = round(time.time() - report["t0"], 1)
-        report["renderer"] = (re.search(r"renderer: ([a-z]+)", app.inner_text("body")) or [None, None])[1]
+        report["renderer"] = (re.search(r"renderer:? ([a-z]+)", app.inner_text("body")) or [None, None])[1]
         if "RUNNING" in app.inner_text("body"):   # someone else's run: wait for it to finish first
             app.wait_for_selector("text=IDLE", timeout=a.timeout * 1000)
+        before = (re.search(r"head ([0-9a-f]{8,16})", app.inner_text("body")) or [None, None])[1]   # last run's audit head
         app.get_by_role("button", name="Run", exact=True).first.click(timeout=30_000)
         report["clicked_run"] = True
         deadline = time.time() + a.timeout
         outcome = None
+        frames: list[str] = []          # stream frames seen (distinct = the page really refreshes during the run)
+        t_run = None
         while time.time() < deadline:
             body = app.inner_text("body")
+            running = "RUNNING" in body or bool(re.search(r"^state (?!DONE|IDLE)[A-Z_]+", body, re.M))   # header KPI or the live state line
+            if running and t_run is None:
+                t_run = time.time()
+            try:
+                src = app.locator('[data-testid="stImage"] img').first.get_attribute("src", timeout=1000) or ""   # the camera frame
+                if src and (not frames or frames[-1] != src):
+                    frames.append(src)
+            except Exception:
+                pass
             m = re.search(r"done · success (True|False)", body)
-            if m:
+            head = (re.search(r"head ([0-9a-f]{8,16})", body) or [None, None])[1]
+            if a.verbose:
+                print(f"t+{time.time() - report['t0']:.0f}s running={running} head={head} done={m.group(0) if m else None} frames={len(frames)}", flush=True)
+            if m and not running and head != before:      # a new run finished (not the previous run's status)
                 outcome = m.group(1) == "True"
                 break
             if "⚠️" in body and "simulator failed" in body:
                 outcome = False
                 break
-            time.sleep(5)
+            time.sleep(0.5)
+        run_s = round(time.time() - t_run, 1) if t_run else None
+        report["run_s"] = run_s
+        report["distinct_frames"] = len(frames)
+        report["frames_per_s"] = round(len(frames) / run_s, 2) if run_s else None
         page.screenshot(path=str(a.out / "2_after_run.png"), full_page=True)
         body = app.inner_text("body")
         report.update({"success": outcome, "elapsed_s": round(time.time() - report["t0"], 1),
