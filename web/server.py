@@ -52,6 +52,7 @@ class Sim:
         self.frame_id = 0
         self.busy = False
         self.current: dict[str, Any] = {}
+        self.last_log = None
         self.said: str = ""
         self.env = None
         self.rt = None
@@ -120,6 +121,11 @@ class Sim:
             raise HTTPException(409, "a command is already running")
         self.jobs.put(job)
 
+    def enqueue(self, jobs: list[dict]) -> None:
+        """Queue several commands back to back (a guided tour); follow-ups keep the scene."""
+        for j in jobs:
+            self.jobs.put(j)
+
     def _worker(self) -> None:
         try:
             self._build()
@@ -145,10 +151,15 @@ class Sim:
         from voice.parser import intents_to_command, parse
 
         command, t_speech_end = job.get("command"), None
-        if job.get("voice"):
+        if job.get("voice") or job.get("voice_path"):
             from voice.listen import transcribe_file
-            path = ROOT / "voice" / "test_samples" / job["voice"]
-            lang = "hi" if job["voice"].startswith("hindi") else "en"
+            if job.get("voice_path"):                      # a recording uploaded from the visitor's microphone
+                path = Path(job["voice_path"])
+                lang = job.get("language", "en")
+                job["voice"] = path.name
+            else:
+                path = ROOT / "voice" / "test_samples" / job["voice"]
+                lang = "hi" if job["voice"].startswith("hindi") else "en"
             self._push({"kind": "listening", "payload": {"file": job["voice"], "language": lang}})
             utts, lst = asyncio.run(transcribe_file(path, lang, focus="first"))
             ops = [u for u in utts if u.is_operator]
@@ -177,6 +188,7 @@ class Sim:
         self.planner.vlm = self._vlm if (job.get("planner") == "vlm" and self._vlm is not None) else None
         log = self.rt.run_command(command, seed=int(job.get("seed", 0)), split=job.get("split", "test"),
                                   t_speech_end=t_speech_end, reset=not job.get("keep_scene", False))
+        self.last_log = log
         self._push({"kind": "done", "payload": _jsonable({"success": log.success, "subgoals": log.subgoals, "latency": log.latency,
                                                           "replans": log.replans, "sim_steps": log.sim_steps, "wall_s": log.wall_s,
                                                           "audit_records": self.rt.audit.seq, "audit_head": self.rt.audit.prev_hash[:16]})})
