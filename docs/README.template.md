@@ -55,6 +55,8 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 
 [![Thali Live](docs/site.png)](https://thali-live.streamlit.app)
 
+A real-browser check of the public site (`python -m web.selftest https://thali-live.streamlit.app`, Playwright: load, wait for the simulator, press Run, wait for the result) {{ ("last passed: ready in " + str(load("selftest_cloud.json")["ready_s"]) + " s, the run took " + str(load("selftest_cloud.json")["run_s"]) + " s, " + str(load("selftest_cloud.json")["frames_per_s"]) + " stream frames/s on the free 1-CPU host; `results/selftest_cloud.json`") if load("selftest_cloud.json") else "is in `web/selftest.py`" }}. The lab-machine tunnel streams at the simulator's own rate.
+
 ## How it works
 
 ![architecture](docs/architecture.png)

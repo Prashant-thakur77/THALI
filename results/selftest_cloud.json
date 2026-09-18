@@ -1,0 +1,15 @@
+{
+ "url": "https://thali-live.streamlit.app",
+ "t0": 1789744683.8784673,
+ "ready_s": 18.7,
+ "renderer": "osmesa",
+ "clicked_run": true,
+ "run_s": 64.1,
+ "distinct_frames": 87,
+ "frames_per_s": 1.36,
+ "success": true,
+ "elapsed_s": 86.0,
+ "steps_seen": 2,
+ "plan_verdict": "ALLOW",
+ "audit_head": "23fecb9c70dc70b0"
+}
