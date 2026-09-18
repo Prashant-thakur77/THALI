@@ -46,11 +46,11 @@ def smolvla_path() -> Path | None:
         return None
 
 
-def make_executor(policy: str, mode: str, device: str):
+def make_executor(policy: str, mode: str, device: str, act_root: Path | None = None):
     if policy == "expert":
         return lambda ex: ExpertExecutor(ex)
     if policy == "act":
-        return lambda ex: PolicyExecutor(ex, kind="act", mode=mode, device=device)
+        return lambda ex: PolicyExecutor(ex, kind="act", mode=mode, device=device, act_root=act_root or ROOT / "outputs")
     if policy == "smolvla":
         p = smolvla_path()
         if p is None:
@@ -59,8 +59,9 @@ def make_executor(policy: str, mode: str, device: str):
     raise ValueError(policy)
 
 
-def run(policy: str, mode: str, seeds: int, split: str, axes: tuple[str, ...], device: str, tag: str | None = None) -> dict | None:
-    factory = make_executor(policy, mode, device)
+def run(policy: str, mode: str, seeds: int, split: str, axes: tuple[str, ...], device: str, tag: str | None = None,
+        act_root: Path | None = None) -> dict | None:
+    factory = make_executor(policy, mode, device, act_root)
     if factory is None:
         return None
     env = gym.make("souschef_env/Thali-v0", disable_env_checker=True, obs_type="pixels_agent_pos" if policy != "expert" else "state").unwrapped
@@ -138,10 +139,11 @@ def main() -> None:
     ap.add_argument("--axes", nargs="*", default=None)
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--tag", default=None)
+    ap.add_argument("--act-root", type=Path, default=None, help="checkpoint root for the ACT policies (default outputs/)")
     args = ap.parse_args()
     axes = tuple(args.axes) if args.axes else AXES
     mode = "expert" if args.policy == "expert" else args.mode
-    out = run(args.policy, mode, args.seeds, args.split, axes, args.device, args.tag)
+    out = run(args.policy, mode, args.seeds, args.split, axes, args.device, args.tag, args.act_root)
     if out is None:
         print(f"{args.policy}: checkpoint not available -> rows stay 'pending' (see docs/KAGGLE_TODO.md)")
     aggregate()
