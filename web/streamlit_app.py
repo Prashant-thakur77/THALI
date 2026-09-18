@@ -27,7 +27,11 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 os.environ.setdefault("MUJOCO_GL", "osmesa" if not os.environ.get("DISPLAY") and "MUJOCO_GL" not in os.environ else os.environ.get("MUJOCO_GL", "glfw"))
-os.environ.setdefault("THALI_STREAM_EVERY", "8")
+# a 1-CPU cloud host renders with software GL: small frames, every 10th control step, light JPEG (~5 fps, physics keeps pace)
+os.environ.setdefault("THALI_STREAM_EVERY", "10")
+os.environ.setdefault("THALI_STREAM_W", "320")
+os.environ.setdefault("THALI_STREAM_H", "240")
+os.environ.setdefault("THALI_STREAM_Q", "70")
 try:  # Streamlit Cloud secrets -> environment (no secrets file locally: .env is read by web.server)
     if "SPEECHMATICS_API_KEY" in st.secrets:
         os.environ["SPEECHMATICS_API_KEY"] = st.secrets["SPEECHMATICS_API_KEY"]
@@ -264,7 +268,7 @@ with tab_live:
     # write every placeholder once during the full run (Streamlit reserves their slots), then keep them fresh from a fragment
     render_run(cam, kpi, plan_box, steps_box, log_box, scene_box)
 
-    @st.fragment(run_every=0.7)
+    @st.fragment(run_every=0.4)
     def live():
         render_run(cam, kpi, plan_box, steps_box, log_box, scene_box)
 

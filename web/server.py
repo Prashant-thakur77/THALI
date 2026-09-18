@@ -110,19 +110,21 @@ class Sim:
             return
         was = self.env.render_enabled
         self.env.render_enabled = True
-        front = self.env.render_camera("front", 480, 360)
-        over = self.env.render_camera("overhead", 480, 360)
+        # frame size / rate are tunable per host: software GL on a 1-CPU cloud box needs small, infrequent frames
+        w, h = int(os.environ.get("THALI_STREAM_W", "480")), int(os.environ.get("THALI_STREAM_H", "360"))
+        front = self.env.render_camera("front", w, h)
+        over = self.env.render_camera("overhead", w, h)
         self.env.render_enabled = was
-        canvas = Image.new("RGB", (960, 392), (11, 14, 20))
+        canvas = Image.new("RGB", (2 * w, h + 32), (11, 14, 20))
         canvas.paste(Image.fromarray(front), (0, 32))
-        canvas.paste(Image.fromarray(over), (480, 32))
+        canvas.paste(Image.fromarray(over), (w, 32))
         d = ImageDraw.Draw(canvas)
         state = self.rt.state if self.rt else "IDLE"
         d.text((10, 9), f"Thali  |  {state}  |  {self.said}"[:120], fill=(235, 235, 240))
-        d.text((10, 372), "front", fill=(150, 160, 175))
-        d.text((490, 372), "overhead", fill=(150, 160, 175))
+        d.text((10, h + 12), "front", fill=(150, 160, 175))
+        d.text((w + 10, h + 12), "overhead", fill=(150, 160, 175))
         buf = io.BytesIO()
-        canvas.save(buf, format="JPEG", quality=80)
+        canvas.save(buf, format="JPEG", quality=int(os.environ.get("THALI_STREAM_Q", "80")))
         self.frame_jpeg = buf.getvalue()
 
     # -- jobs
