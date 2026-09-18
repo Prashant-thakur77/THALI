@@ -69,7 +69,7 @@ Hardware: Dell G15 5530, Intel Core i7-13650HX + UHD iGPU, OpenVINO 2026.3, devi
 | OpenVINO latency / preservation | `bench/run.py`, `bench/preserve.py` | 49 → 17 ms; Δ 0 |
 | voice | `eval/voice_test.py` | 4/4 skill sequences recovered |
 
-Reproduce: `make test · scene · demos · train · eval · bench · demo · verify-log` (README "Reproduce"). 75 tests, CI workflow, Dockerfile.
+Reproduce: `make test · scene · demos · train · eval · bench · demo · verify-log` (README "Reproduce"). 90 tests, CI workflow, Dockerfile.
 
 ## Beyond the dinner task
 

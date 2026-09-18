@@ -110,7 +110,7 @@ git clone https://github.com/Prashant-thakur77/THALI && cd THALI
 uv venv .venv --python 3.11 && uv pip install -r requirements.txt && uv pip install -e .    # or: docker build -t thali .
 cp .env.example .env            # SPEECHMATICS_API_KEY, HF_TOKEN
 
-make test                       # unit + simulation tests
+make test                       # 90 tests (unit + simulation)
 make scene                      # rebuild the MuJoCo scene + reach/handoff envelope
 make demos EPISODES=150         # scripted-expert demonstrations → LeRobot dataset (4 parallel shards), pushed to the Hub
 make train                      # per-skill ACT on the local GPU · SmolVLA: policies/kaggle_smolvla.ipynb
