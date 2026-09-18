@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Thali: voice-controlled bimanual table setting on an Intel laptop"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Thakur
+    given-names: Prashant
+repository-code: "https://github.com/Prashant-thakur77/THALI"
+url: "https://huggingface.co/spaces/Prashant-77/thali"
+license: Apache-2.0
+keywords:
+  - bimanual manipulation
+  - vision-language-action
+  - OpenVINO
+  - MuJoCo
+  - SO-101
+  - Speechmatics
+abstract: >-
+  Two simulated SO-101 arms set and clear a dinner table from spoken commands. Speechmatics realtime speech,
+  a local Qwen2-VL planner on OpenVINO, a deterministic safety verifier with a sha256-chained audit log,
+  learned ACT / SmolVLA skills with a scripted inverse-kinematics fallback, camera and Anomalib checks,
+  follow-up corrections and concurrent two-arm execution. Every number in the README is rendered from results files.
