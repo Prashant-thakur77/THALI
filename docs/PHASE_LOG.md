@@ -87,7 +87,7 @@ was wrong or infeasible, and which rubric rows (plan §4) are satisfied with evi
 **Plan deviations / infeasible:**
 - 60 episodes per skill instead of 150–300: recording runs at ~20 frames/s per process on this laptop (glfw
   rendering, no EGL), so 420 episodes already took ~2 h on 4 parallel shards; 300/skill would be ~15 h.
-- The dataset is not on the Hub yet (no `HF_TOKEN` on this machine) — `docs/KAGGLE_TODO.md` item 1.
+- The dataset is not on the Hub yet (no `HF_TOKEN` on this machine) — `docs/KAGGLE.md` item 1.
 - Pour is the weak skill (spheres need ≥ 92° tilt from a 30°-pitched roll axis; the exit lip swings ~5 cm during the
   roll). Left at 0.6–0.8 rather than sinking more time; the runtime's retry/fallback covers it.
 - The mug is set down at the end by a separate `place_mug` step (not in the plan's 5-skill list) so the "mug in zone"
@@ -215,7 +215,7 @@ focus (S2's "stop" ignored, S1's honoured, resume), audit chain of the runs, dem
   skill, final L1 losses 0.09–0.12 (`results/act_training.json`).
 - **Multi-task SmolVLA**: `policies/kaggle_smolvla.ipynb` (streams `Prashant-77/thali_all`, fine-tunes
   `lerobot/smolvla_base`, batch 16, 20 k steps, pushes `Prashant-77/thali_smolvla`), `policies/smolvla_multitask.yaml`,
-  step-by-step in `docs/KAGGLE_TODO.md`. **Not run here** (no HF token to push the dataset, no Kaggle access from this
+  step-by-step in `docs/KAGGLE.md`. **Not run here** (no HF token to push the dataset, no Kaggle access from this
   session); every SmolVLA row in the results is "pending SmolVLA run" and `eval/run_seeds.py --policy smolvla`
   fills them in the moment the Hub checkpoint exists.
 - `runtime/executors.py`: `PolicyExecutor` — plan step → dataset skill → checkpoint (per-skill ACT, or the multi-task
@@ -294,7 +294,7 @@ playground, evidence tab) with its own `hosting/requirements.txt`, `runtime/demo
 montage, `docs/PITCH.md` (pitch, scale slide, shot list).
 
 **Pending on the user:** HF token (dataset + checkpoints + IR push), Kaggle SmolVLA run, Space deployment, the
-video recording itself, and the lablab submission (docs/KAGGLE_TODO.md).
+video recording itself, and the lablab submission (docs/KAGGLE.md).
 
 ## Phase 11 — extended capabilities
 With the demo video, deck and HF Space done, the goal became measurable leads over comparable projects; their READMEs

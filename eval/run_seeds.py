@@ -126,7 +126,7 @@ def aggregate() -> None:
                 rows.append({"policy": policy, "mode": mode, "split": split, "successes": d["successes"], "seeds": d["seeds"],
                              "success_rate": d["success_rate"], "per_subgoal_rate": d["per_subgoal_rate"], "file": f.name})
             elif policy == "smolvla" and split == "test":
-                rows.append({"policy": policy, "mode": mode, "split": split, "status": "pending SmolVLA run (docs/KAGGLE_TODO.md)"})
+                rows.append({"policy": policy, "mode": mode, "split": split, "status": "pending SmolVLA run (docs/KAGGLE.md)"})
     (ROOT / "results" / "seeds.json").write_text(json.dumps({"rows": rows}, indent=2))
 
 
@@ -145,7 +145,7 @@ def main() -> None:
     mode = "expert" if args.policy == "expert" else args.mode
     out = run(args.policy, mode, args.seeds, args.split, axes, args.device, args.tag, args.act_root)
     if out is None:
-        print(f"{args.policy}: checkpoint not available -> rows stay 'pending' (see docs/KAGGLE_TODO.md)")
+        print(f"{args.policy}: checkpoint not available -> rows stay 'pending' (see docs/KAGGLE.md)")
     aggregate()
 
 

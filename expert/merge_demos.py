@@ -51,7 +51,7 @@ def main() -> None:
     print(f"merged {ds.num_episodes} episodes / {ds.num_frames} frames -> {args.out}")
     if args.push:
         if not (os.environ.get("HF_TOKEN") or (Path.home() / ".cache" / "huggingface" / "token").exists()):
-            print("No HF token: dataset NOT pushed (see docs/KAGGLE_TODO.md)")
+            print("No HF token: dataset NOT pushed (see docs/KAGGLE.md)")
         else:
             ds.push_to_hub(tags=["thali", "so101", "bimanual", "mujoco"], private=False)
             print("pushed", args.repo_id)

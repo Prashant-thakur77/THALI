@@ -18,10 +18,10 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 ## Phase 2 — Scripted expert + demos
 - [x] 2.1 (`expert/primitives.py`: open_drawer, pick/place, via-table handoff, hold_mug, pour with roll-correct-roll; grasp-assist weld after a physical two-pad grasp) mink primitives: `open_drawer`, `pick_place`, `handoff`, `hold_mug`, `pour` (position weight high, orientation low; start from inzuppato `primitives/`, VectorForge `control/primitives.py`)
 - [x] 2.2 (`Workspace` reservation in primitives.py) Shared-workspace rule in the expert: handoff zone is a reservation
-- [x] 2.3 (**60/skill = 420 episodes, not 150–300/skill**: ~2 h wall on 4 shards; push pending HF_TOKEN → docs/KAGGLE_TODO.md) `expert/make_demos.py` → LeRobotDataset v3.0 (3 cams + state + action + instruction); 150–300 eps/skill, 10 paraphrases × arm swaps, 10% missed-grasp-with-retry demos; push to HF Hub
+- [x] 2.3 (**60/skill = 420 episodes, not 150–300/skill**: ~2 h wall on 4 shards; push pending HF_TOKEN → docs/KAGGLE.md) `expert/make_demos.py` → LeRobotDataset v3.0 (3 cams + state + action + instruction); 150–300 eps/skill, 10 paraphrases × arm swaps, 10% missed-grasp-with-retry demos; push to HF Hub
 
 ## Phase 3 — Policies
-- [ ] 3.1 (**pending Kaggle run** — notebook `policies/kaggle_smolvla.ipynb` + `docs/KAGGLE_TODO.md`; rows in results marked pending; needs HF token to push the dataset first) One multi-task SmolVLA on all skills (Kaggle via `policies/kaggle_smolvla.ipynb`, checkpoints synced through HF Hub)
+- [ ] 3.1 (**pending Kaggle run** — notebook `policies/kaggle_smolvla.ipynb` + `docs/KAGGLE.md`; rows in results marked pending; needs HF token to push the dataset first) One multi-task SmolVLA on all skills (Kaggle via `policies/kaggle_smolvla.ipynb`, checkpoints synced through HF Hub)
 - [x] 3.2 (7 per-skill ACT, batch 8, AMP, 8k steps each; **MiniLM text conditioning not done** — each per-skill dataset has one instruction class, the plan step selects the skill) Per-skill ACT baselines locally on RTX 3050 (batch ≤ 8), language-conditioned via MiniLM (VoiceSort `policy/text_embed.py`)
 - [x] 3.3 (`runtime/executors.py` PolicyExecutor; rows in `results/seeds.json`) Runtime order SmolVLA → oracle → retry with expert; report policy-only / policy+retry / policy+fallback
 
