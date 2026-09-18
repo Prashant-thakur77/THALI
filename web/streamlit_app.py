@@ -93,7 +93,7 @@ with hr:
     k1.markdown(f"<div class=kpi><b>{exp.get('successes', '–')}/10</b><span>full task, held-out</span></div>", unsafe_allow_html=True)
     k2.markdown(f"<div class=kpi><b>{cl.get('successes', '–')}/10</b><span>clear the table</span></div>", unsafe_allow_html=True)
     k3.markdown(f"<div class=kpi><b>{int(100 * hm.get('per_axis_success_rate', {}).get('all', 0))}%</b><span>all 6 perturbations</span></div>", unsafe_allow_html=True)
-    k4.markdown(f"<div class=kpi><b>{'RUNNING' if S.busy else 'IDLE'}</b><span>simulator {'ready' if ready else 'starting'}</span></div>", unsafe_allow_html=True)
+    k4.markdown(f"<div class=kpi><b>{'RUNNING' if S.busy else 'IDLE'}</b><span>simulator {'ready' if ready else 'starting'} · renderer {getattr(S, 'gl_backend', '?')}</span></div>", unsafe_allow_html=True)
 
 tab_live, tab_speak, tab_plan, tab_verify, tab_audit, tab_results, tab_replay, tab_about = st.tabs(
     ["▶ Live", "🎤 Speak", "🧠 Plan sandbox", "🛡 Verifier", "🔗 Audit log", "📊 Results", "🎬 Replay", "ℹ About"])
@@ -160,6 +160,9 @@ def event_line(e: dict) -> tuple[str, str]:
 def render_run(cam, kpi, plan_box, steps_box, log_box, scene_box) -> None:
     if S.frame_jpeg:
         cam.image(S.frame_jpeg, use_container_width=True)
+    elif ready and not getattr(S, "cameras", True):
+        cam.info("No headless GL renderer is available on this host, so the camera views are off here; the scene inspector below is live and the "
+                 "lab-machine site (landing page, first button) streams the cameras.")
     else:
         cam.caption("the cameras appear as soon as the simulator has built the scene…")
     run = last_run_events()

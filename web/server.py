@@ -53,6 +53,8 @@ class Sim:
         self.busy = False
         self.current: dict[str, Any] = {}
         self.last_log = None
+        self.gl_backend = "probing"
+        self.cameras = True
         self.said: str = ""
         self.env = None
         self.rt = None
@@ -72,6 +74,7 @@ class Sim:
 
         from web.glprobe import pick
         backend = pick()
+        self.gl_backend = backend or "none"
         self.cameras = backend is not None
         if backend:
             os.environ["MUJOCO_GL"] = backend
