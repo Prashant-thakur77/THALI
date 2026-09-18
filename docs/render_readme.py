@@ -95,6 +95,46 @@ def followups_row() -> str:
     return f"**{d['correct']}/{d['cases']}** corrections resolved to the expected plan; {d['verifier_approved']}/{d['resolved']} resolved plans verifier-approved (the rest are refused with a reason, e.g. the other arm cannot reach)"
 
 
+def anomaly_short() -> str:
+    d = load("anomaly_diffreal.json") or load("anomaly_diff.json")
+    if not d:
+        return "pending"
+    live = load("recovery_anomaly.json")
+    lat = d["latency_ms"].get("CPU", {}).get("p50", "?")
+    s = f"image AUROC **{d['image_auroc']}** on held-out layouts · {d['detected']}/{d['test_bad_total']} disturbances flagged, {d['false_positives']}/{d['test_good']} false alarms · {lat} ms per frame on the CPU"
+    if live:
+        s += f" · in the loop: a knocked plate flagged at the next check in {live['anomaly_flagged_after_knock']}/{live['total']} runs"
+    return s
+
+
+def act_ablation_row() -> str:
+    a, b = load("skill_eval_act_60ep.json"), load("skill_eval_act_1050ep.json")
+    if not (a and b):
+        return "pending"
+    g = lambda d, k: d["skills"][k]["successes"]
+    return (f"12k steps, 60 episodes/skill: drawer {g(a,'open_drawer')}/20 · plate {g(a,'pick_place_plate')}/20 · fork {g(a,'pick_place_fork')}/20 · hold {g(a,'hold_mug')}/20 — "
+            f"12k steps, 150 episodes/skill: drawer {g(b,'open_drawer')}/20 · plate {g(b,'pick_place_plate')}/20 · fork {g(b,'pick_place_fork')}/20 · hold {g(b,'hold_mug')}/20 — "
+            "2.5× the data barely moved it; 4× the steps did (row above)")
+
+
+def smolvla_short() -> str:
+    files = sorted(R.glob("skill_eval_smolvla_*.json"))
+    if not files:
+        return "pending"
+    def total(p): return sum(v.get("successes", 0) for v in json.loads(p.read_text())["skills"].values())
+    best = max(files, key=total); d = json.loads(best.read_text()); tag = best.stem.split("_")[-1]
+    g = lambda k: d["skills"][k]["successes"]
+    return f"best checkpoint (step {tag}): drawer **{g('open_drawer')}/20** · hold {g('hold_mug')}/20 · plate {g('pick_place_plate')}/20 · other skills 0/20 — still far from the expert; every checkpoint's full row is in the evidence index"
+
+
+def fulltask_subgoals(policy: str = "act", mode: str = "policy_fallback") -> str:
+    d = load(f"seeds_{policy}_{mode}_test.json")
+    if not d:
+        return "pending"
+    keys = ("drawer_open", "plate_placed", "fork_placed", "spoon_placed", "mug_placed", "poured")
+    return ", ".join(f"{k.replace('_', ' ')} {pct(d['per_subgoal_rate'].get(k))}" for k in keys)
+
+
 def clear_row() -> str:
     d = load("clear_table.json")
     if not d:
@@ -134,7 +174,7 @@ def frac(d: dict | None, k1: str = "successes", k2: str = "seeds") -> str:
 def seeds_row(policy: str, mode: str, split: str = "test") -> str:
     d = load(f"seeds_{policy}_{mode}_{split}.json")
     if not d:
-        return "pending SmolVLA run (docs/KAGGLE_TODO.md)" if policy == "smolvla" else "pending"
+        return "pending" 
     won = d.get("skill_successes_won_by", {})
     return f"**{d['successes']}/{d['seeds']}** ({pct(d['success_rate'])}) — skills won by " + ", ".join(f"{k} {v}" for k, v in won.items())
 
@@ -190,7 +230,7 @@ def swap_table() -> str:
 
 CTX = {
     "load": load, "pct": pct, "frac": frac, "seeds_row": seeds_row, "bench_table": bench_table, "preserve_table": preserve_table,
-    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "smolvla_row": smolvla_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "followups_row": followups_row, "json": json,
+    "heat_table": heat_table, "swap_table": swap_table, "skill_row": skill_row, "skill_rows_50k": skill_rows_50k, "smolvla_row": smolvla_row, "anomaly_row": anomaly_row, "concurrency_row": concurrency_row, "pour_amount_row": pour_amount_row, "clear_row": clear_row, "anomaly_short": anomaly_short, "act_ablation_row": act_ablation_row, "smolvla_short": smolvla_short, "fulltask_subgoals": fulltask_subgoals, "followups_row": followups_row, "json": json,
 }
 
 

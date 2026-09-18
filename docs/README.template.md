@@ -8,7 +8,9 @@
 
 Speechmatics realtime speech · local Qwen2-VL planner on OpenVINO · deterministic safety verifier with a tamper-evident audit log · learned SmolVLA / ACT skills with a scripted-IK fallback · two SO-101 arms in MuJoCo
 
-[Results](#results-at-a-glance) · [How it works](#how-it-works) · [Reproduce](#reproduce) · [Evidence index](docs/EVIDENCE.md) · [Rubric checklist](docs/CHALLENGE_CHECKLIST.md)
+[![CI](https://github.com/Prashant-thakur77/THALI/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-thakur77/THALI/actions/workflows/ci.yml) [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) [![Live demo](https://img.shields.io/badge/live%20demo-Thali%20Live-7dd3fc.svg)](https://huggingface.co/spaces/Prashant-77/thali) [![Dataset](https://img.shields.io/badge/dataset-1050%20episodes-yellow.svg)](https://huggingface.co/datasets/Prashant-77/thali_all)
+
+**[▶ Watch the demo (5:36)](video/thali_demo.mp4)** · **[Drive it yourself](https://huggingface.co/spaces/Prashant-77/thali)** · [Slides](docs/Thali_slides.pdf) · [Write-up](docs/WRITEUP.md) · [Evidence index](docs/EVIDENCE.md) · [Rubric checklist](docs/CHALLENGE_CHECKLIST.md)
 
 </div>
 
@@ -26,14 +28,13 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 |---|---|---|
 | **Full task, scripted expert** (drawer → fork → spoon handed A→B → plate → hold + pour → mug) | **{{ frac(load("seeds_expert_expert_test.json")) }}** held-out seeds · {{ frac(load("seeds_expert_expert_train.json")) }} train | `results/seeds_expert_*` |
 | **Full task, ACT policies** (policy-only / +retry / +expert fallback; the 50k-step per-skill policies, drawer 12k) | {{ frac(load("seeds_act_policy_only_test.json")) }} / {{ frac(load("seeds_act_policy_retry_test.json")) }} / {{ frac(load("seeds_act_policy_fallback_test.json")) }} | `results/seeds_act_*` |
-| **Full task, multi-task SmolVLA** | {{ frac(load("seeds_smolvla_policy_fallback_test.json")) if load("seeds_smolvla_policy_fallback_test.json") else "training on Kaggle — pending" }} | `results/seeds.json` |
+| **Full task, multi-task SmolVLA** (policy-only / +retry / +expert fallback; best checkpoint) | {{ frac(load("seeds_smolvla_policy_only_test.json")) }} / {{ frac(load("seeds_smolvla_policy_retry_test.json")) }} / {{ frac(load("seeds_smolvla_policy_fallback_test.json")) }} | `results/seeds_smolvla_*` |
 | **Robustness**, one perturbation axis at a time (10 seeds each) | placement {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["placement"]) }} · mass {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["mass"]) }} · friction {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["friction"]) }} · shape {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["shape"]) }} · lighting {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["lighting"]) }} · background {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["background"]) }} · all six {{ pct(load("heatmap_expert.json")["per_axis_success_rate"]["all"]) }} | `results/heatmap_expert.json` |
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | {{ load("planner_eval.json")["accepted_from_vlm"] }}/8 plans straight from the model, **{{ pct(load("planner_eval.json")["verifier_approved_rate"]) }} verifier-approved**, {{ load("planner_eval.json")["vlm_tokens_per_s"] }} tok/s, {{ load("planner_eval.json")["vlm_ttft_ms"] }} ms to first token | `results/planner_eval.json` |
-| **Per-skill ACT, policy only** (20 held-out seeds each, from task-consistent start states; 60-episode checkpoints) | {{ skill_row("act_60ep") }} | `results/skill_eval_act_60ep.json` |
-| **Per-skill ACT, policy only — retrained on 1050 episodes** | {{ skill_row("act_1050ep") }} | `results/skill_eval_act_1050ep.json` |
-| **Per-skill ACT, policy only — 50k training steps** (same 150 episodes; the 12k-step rows above are the baseline) | {{ skill_rows_50k() }} | `results/skill_eval_act_plate_50k.json`, `results/skill_eval_act_50k.json` |
-| **Per-skill SmolVLA, policy only** (multi-task, language-conditioned; 20 000-step fine-tune of `lerobot/smolvla_base`, evaluated per checkpoint) | {{ smolvla_row() }} | `results/skill_eval_smolvla_*.json` |
-| **Table-state anomaly check** (Anomalib PatchCore → OpenVINO IR, overhead camera, held-out layouts) | {{ anomaly_row() }} | `results/anomaly.json` |
+| **ACT: data vs training length** (per skill, policy only, 20 held-out seeds) | {{ act_ablation_row() }} | `results/skill_eval_act_60ep.json`, `results/skill_eval_act_1050ep.json` |
+| **Per-skill ACT, policy only, 50k training steps** (each skill from its task-consistent start state, 20 held-out seeds) | {{ skill_rows_50k() }} | `results/skill_eval_act_plate_50k.json`, `results/skill_eval_act_50k.json` |
+| **Per-skill SmolVLA, policy only** (multi-task, language-conditioned fine-tune of `lerobot/smolvla_base`, 20 000 steps) | {{ smolvla_short() }} | `results/skill_eval_smolvla_*.json` |
+| **Table-state anomaly check** (Anomalib PatchCore on the difference between the live overhead frame and the reset reference, exported to OpenVINO IR) | {{ anomaly_short() }} | `results/anomaly.json` |
 | **Follow-ups and corrections** ("again", "a bit more", "no, the other side", "the other arm" resolved against the last executed step, then verified) | {{ followups_row() }} | `results/followups.json` |
 | **Clear the table** (reverse task on a set table: fork back to the drawer, spoon handed B→A and back, drawer closed — two new skills `put_in_drawer` / `close_drawer` through planner, verifier, queues and expert) | {{ clear_row() }} | `results/clear_table.json` |
 | **Target-volume pour** ("a little" / normal / "fill it up" → 3 / 6 / 12 water spheres; the roll stops when the oracle counts the target) | {{ pour_amount_row() }} | `results/pour_amount.json` |
@@ -70,7 +71,7 @@ Full write-up (architecture, workload placement, optimisation choices): [docs/WR
 
 **The task.** *"Open the top drawer, pick up the plate with arm A, place it on the table, pick up the mug with arm B, pour water into the mug with arm A"* → seven skills: open drawer (A) · fork to the left of the plate (A) · **spoon handed from A to B via the table** (the spoon's spot is out of A's reach) · plate (A) · **B lifts and holds the mug while A pours** · B sets the mug down. Success = all six sub-goals true in the simulator's ground truth. Handoff pose and both arms' reach envelopes are measured, not assumed (`results/reach_envelope.json`: {{ load("reach_envelope.json")["overlap"]["0.03"]["ik_feasible_cells"] }} table cells reachable top-down by *both* arms).
 
-**Bimanual coordination.** Each verified step is queued to the arm that performs it with dependencies (drawer before cutlery, hold before pour, receiver free before a handoff); the idle arm's runnable step is dispatched first. The shared centre of the table is a reservation one arm holds at a time. Skills execute one at a time.
+**Bimanual coordination.** Each verified step is queued to the arm that performs it with dependencies (drawer before cutlery, hold before pour, receiver free before a handoff); the idle arm's runnable step is dispatched first. The shared centre of the table is a reservation one arm holds at a time. Independent single-arm steps run **simultaneously**: each skill is a thread and one step barrier advances the physics once per control step for both (`expert/primitives.py: StepBarrier`).
 
 **Verifier.** Before anything moves, the plan is simulated step by step against the scene: reachability (IK on the arm model), grasp preconditions, workspace reservation, drawer-before-cutlery, pour-only-if-the-other-arm-holds-the-mug, joint-velocity limits (halved in **gentle mode** — "gently", "dheere"). Fixable ordering mistakes are repaired and returned (REORDER); anything else is refused with the reason spoken back. Every plan, verdict and skill outcome is a sha256-chained JSON line — edit, delete or reorder one and `make verify-log` names the first bad record.
 
@@ -84,7 +85,7 @@ In hindi.wav the service heard *"arm A se"* as *"आराम से"* ("gently"
 
 **Planner.** Qwen2-VL-2B-Instruct exported to OpenVINO INT4 (`planner/export.sh`) receives the overhead frame, a structured scene description and the transcript, and must answer with JSON that passes the schema *and* the verifier; a rejected answer gets one retry with the reasons, then a deterministic rule planner takes over. Replanning after a failed skill re-enters the same loop with the failure reason. {{ swap_table() }}
 
-**Policies.** {{ load("demos.json")["total_episodes"] }} scripted-expert demonstrations ({{ load("demos.json")["total_frames"] }} frames, 3 cameras, 10 instruction paraphrases per skill, {{ sum(v["recovery"] for v in load("demos.json")["skills"].values()) }} deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches {{ ", ".join(f"{k} {pct(v)}" for k, v in load("seeds_act_policy_fallback_test.json")["per_subgoal_rate"].items()) }}.
+**Policies.** {{ load("demos.json")["total_episodes"] }} scripted-expert demonstrations ({{ load("demos.json")["total_frames"] }} frames, 3 cameras, 10 instruction paraphrases per skill, {{ sum(v["recovery"] for v in load("demos.json")["skills"].values()) }} deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches {{ fulltask_subgoals("act", "policy_fallback") }}; policy only: {{ fulltask_subgoals("act", "policy_only") }}.
 
 **Robustness.** Six randomisation axes — placement, mass, friction, shape, lighting, background — with a held-out test split (ranges 1.5× wider, two unseen table textures, one unseen mug shape). Success per seed × axis on the test split:
 
@@ -109,7 +110,7 @@ git clone https://github.com/Prashant-thakur77/THALI && cd THALI
 uv venv .venv --python 3.11 && uv pip install -r requirements.txt && uv pip install -e .    # or: docker build -t thali .
 cp .env.example .env            # SPEECHMATICS_API_KEY, HF_TOKEN
 
-make test                       # 75 tests
+make test                       # unit + simulation tests
 make scene                      # rebuild the MuJoCo scene + reach/handoff envelope
 make demos EPISODES=150         # scripted-expert demonstrations → LeRobot dataset (4 parallel shards), pushed to the Hub
 make train                      # per-skill ACT on the local GPU · SmolVLA: policies/kaggle_smolvla.ipynb
@@ -120,15 +121,15 @@ make verify-log LOG=results/audit.jsonl                  # recompute the audit h
 python -m docs.render_readme    # regenerate this page and docs/ from results/
 ```
 
-`planner/export.sh` exports the VLM (~6 GB free disk). Every `reset(seed)` is byte-identical per seed; training seed 1000. Datasets and checkpoints: `Prashant-77/thali_all`, `Prashant-77/thali_smolvla` on the Hub. Hosted demo: `hosting/app.py` (Gradio — replay recorded runs, live planner + verifier).
+`planner/export.sh` exports the VLM (~6 GB free disk). Every `reset(seed)` is byte-identical per seed; training seed 1000. Datasets and checkpoints: [`Prashant-77/thali_all`](https://huggingface.co/datasets/Prashant-77/thali_all), [`Prashant-77/thali_smolvla`](https://huggingface.co/Prashant-77/thali_smolvla) on the Hub. Interactive site: `web/server.py` (FastAPI, `web/serve.sh`) or `web/streamlit_app.py` (Streamlit Community Cloud, `requirements-streamlit.txt` + `packages.txt`).
 
 ## Limitations
 
-- Pouring is the hardest skill (expert {{ pct(load("expert_full_task_test.json")["per_skill_rate"]["5_pour"]) }} on the held-out split): water is 20 free spheres and the spout must tip past ~92°.
-- The per-skill ACT baselines do not transfer beyond `open_drawer`; the multi-task SmolVLA is the intended policy and its rows fill in when the Kaggle run lands.
-- The 2B planner needs the verifier and rule fallback for about half of the commands.
-- Both arms move at once only for independent single-arm steps whose objects and targets are ≥ 15 cm apart and outside the shared handoff/pour zone (`ArmQueues.ready_pair`); handoff, hold and pour are still one skill at a time, and the learned-policy executors run sequentially.
-- Measured on a Raptor Lake laptop: no NPU rows, VLM on CPU.
+- The scripted expert, not the learned policies, delivers the headline numbers. ACT policies alone reach the drawer, hold, plate and fork skills (20, 18, 15, 14 of 20) but not the handoff or the pour; the multi-task SmolVLA is still far behind. Both are honest rows above, not hidden.
+- The pour is the most sensitive skill: water is 20 free spheres, so the lip must sit at the rim and the tilt is held until the flow stops.
+- The 2B planner needs the verifier and rule fallback for about half of the commands; a 4B model is a drop-in (`THALI_PLANNER_MODEL`).
+- Both arms move at once only for independent single-arm steps ≥ 15 cm apart and outside the shared handoff/pour zone; handoff, hold and pour are still one skill at a time, and the learned-policy executors run sequentially.
+- Measured on a Raptor Lake laptop: no NPU rows, VLM planner on the CPU (the iGPU plugin faults on this driver).
 
 ## License
 
