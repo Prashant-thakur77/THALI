@@ -124,7 +124,21 @@
       "policy": "smolvla",
       "mode": "policy_retry",
       "split": "test",
-      "status": "pending SmolVLA run (docs/KAGGLE_TODO.md)"
+      "successes": 0,
+      "seeds": 10,
+      "success_rate": 0.0,
+      "per_subgoal_rate": {
+        "drawer_open": 0.9,
+        "plate_placed": 0.0,
+        "fork_placed": 0.0,
+        "spoon_placed": 0.0,
+        "mug_placed": 0.0,
+        "poured": 0.0,
+        "fork_stowed": 0.8,
+        "spoon_stowed": 0.8,
+        "drawer_closed": 0.0
+      },
+      "file": "seeds_smolvla_policy_retry_test.json"
     },
     {
       "policy": "smolvla",

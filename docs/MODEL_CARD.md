@@ -14,7 +14,7 @@
 ## Multi-task SmolVLA (`Prashant-77/thali_smolvla`)
 - Base `lerobot/smolvla_base`, fine-tuned on all 1050 episodes with language conditioning (10 paraphrases per skill), batch 16, 20 000 steps; camera keys renamed overhead/wrist_a/wrist_b → camera1/2/3 at train and inference time.
 - Per skill, policy only, 20 held-out seeds: best, step 14000: open_drawer **14/20** · pick_place_fork **0/20** (median 31.07 cm from zone) · pick_place_plate **2/20** (median 18.38 cm from zone) · pick_place_mug **0/20** (median 25.91 cm from zone) · handoff_spoon **0/20** (median 39.63 cm from zone) · hold_mug **8/20** · pour **0/20** — latest, step 20000: open_drawer **11/20** · pick_place_fork **0/20** (median 30.66 cm from zone) · pick_place_plate **0/20** (median 20.43 cm from zone) · pick_place_mug **0/20** (median 25.41 cm from zone) · handoff_spoon **0/20** (median 39.58 cm from zone) · hold_mug **3/20** · pour **0/20** (the last 6 000 steps ran at batch 4 with a fresh optimizer on a smaller GPU and lost ground; the step-14 000 checkpoint is kept on the Hub under `step_14000/`).
-- Full task through the runtime (`results/seeds_smolvla_*_test.json`): policy-only 0/10, +retry pending, +expert fallback pending.
+- Full task through the runtime (`results/seeds_smolvla_*_test.json`): policy-only 0/10, +retry 0/10, +expert fallback pending.
 - Notebook: `policies/kaggle_smolvla.ipynb`; the best checkpoint is kept under `step_14000/` in the Hub repo.
 
 ## Planner: Qwen2-VL-2B-Instruct, OpenVINO INT4 (`planner/qwen2vl_int4`, not in git)

@@ -28,7 +28,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 |---|---|---|
 | **Full task, scripted expert** (drawer → fork → spoon handed A→B → plate → hold + pour → mug) | **9/10** held-out seeds · 9/10 train | `results/seeds_expert_*` |
 | **Full task, ACT policies** (policy-only / +retry / +expert fallback; the 50k-step per-skill policies, drawer 12k) | 0/10 / 0/10 / 0/10 | `results/seeds_act_*` |
-| **Full task, multi-task SmolVLA** (policy-only / +retry / +expert fallback; best checkpoint) | 0/10 / pending / pending | `results/seeds_smolvla_*` |
+| **Full task, multi-task SmolVLA** (policy-only / +retry / +expert fallback; best checkpoint) | 0/10 / 0/10 / pending | `results/seeds_smolvla_*` |
 | **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 90% | `results/heatmap_expert.json` |
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
 | **ACT: data vs training length** (per skill, policy only, 20 held-out seeds) | 12k steps, 60 episodes/skill: drawer 20/20 · plate 8/20 · fork 2/20 · hold 10/20 — 12k steps, 150 episodes/skill: drawer 20/20 · plate 8/20 · fork 6/20 · hold 10/20 — 2.5× the data barely moved it; 4× the steps did (row above) | `results/skill_eval_act_60ep.json`, `results/skill_eval_act_1050ep.json` |
