@@ -32,13 +32,25 @@ def skill_row(tag: str) -> str:
 
 
 def smolvla_row() -> str:
-    """The newest SmolVLA per-skill result (results/skill_eval_smolvla_<step>.json), labelled with its training step."""
+    """Best and latest SmolVLA checkpoints (results/skill_eval_smolvla_<step>.json), each labelled with its training step."""
     files = sorted(R.glob("skill_eval_smolvla_*.json"), key=lambda p: int("".join(ch for ch in p.stem.split("_")[-1] if ch.isdigit()) or 0))
     if not files:
         return "pending"
-    tag = files[-1].stem.replace("skill_eval_", "")
-    step = "".join(ch for ch in tag.split("_")[-1] if ch.isdigit())
-    return f"step {int(step) if step else '?'}{'k' if tag.endswith('k') else ''}: " + skill_row(tag)
+
+    def step_of(p):
+        tag = p.stem.split("_")[-1]
+        n = int("".join(ch for ch in tag if ch.isdigit()) or 0)
+        return n * 1000 if tag.endswith("k") else n
+
+    def total(p):
+        return sum(v.get("successes", 0) for v in json.loads(p.read_text())["skills"].values())
+
+    best = max(files, key=total)
+    latest = files[-1]
+    out = f"best, step {step_of(best)}: " + skill_row(best.stem.replace("skill_eval_", ""))
+    if latest != best:
+        out += f" — latest, step {step_of(latest)}: " + skill_row(latest.stem.replace("skill_eval_", "")) + " (the last 6 000 steps ran on the RTX 3050 at batch 4 with a fresh optimizer after Kaggle's weekly GPU quota ran out, and lost ground; the step-14 000 checkpoint is kept on the Hub under `step_14000/`)"
+    return out
 
 
 def skill_rows_50k() -> str:
