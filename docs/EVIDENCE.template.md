@@ -15,7 +15,7 @@ Every number below is rendered from the named `results/*.json` file by `python -
 | Per-skill ACT policy-only (60 ep) | {{ skill_row("act_60ep") }} | `python -m eval.skill_eval --act-root outputs_60ep --tag act_60ep` | `results/skill_eval_act_60ep.json` |
 | Per-skill ACT policy-only (1050 ep) | {{ skill_row("act_1050ep") }} | `python -m eval.skill_eval --tag act_1050ep` | `results/skill_eval_act_1050ep.json` |
 | Per-skill ACT policy-only (50k steps) | {{ skill_rows_50k() }} | `lerobot-train … --steps=50000 --output_dir=outputs_50k/act_<skill>`; `python -m eval.skill_eval --act-root outputs_50k --tag act_50k` | `results/skill_eval_act_*50k.json` |
-| Per-skill SmolVLA policy-only (newest checkpoint) | {{ smolvla_row() }} | `python -m eval.skill_eval --kind smolvla --smolvla-path <Prashant-77/thali_smolvla> --tag smolvla_5k` | `results/skill_eval_smolvla_5k.json` |
+| Per-skill SmolVLA policy-only | {{ smolvla_row() }} | `python -m eval.skill_eval --kind smolvla --smolvla-path <Prashant-77/thali_smolvla> --tag smolvla_5k` | `results/skill_eval_smolvla_5k.json` |
 | Table-state anomaly check | {{ anomaly_row() }} | `python -m anomaly.make_data_real …; THALI_ANOMALY_VARIANT=diffreal .venv-anomalib/bin/python -m anomaly.train_patchcore --backbone resnet18 --coreset 0.05; … export_patchcore; python -m anomaly.check --score; python -m eval.recovery --anomaly` | `results/anomaly_diffreal.json`, `results/anomaly*.json`, `results/recovery_anomaly.json` |
 | Follow-ups and corrections | {{ followups_row() }} | `python -m eval.followups` | `results/followups.json` |
 | Clear the table | {{ clear_row() }} | `python -m eval.clear_table --seeds 10 --split test` | `results/clear_table.json` |

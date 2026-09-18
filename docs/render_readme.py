@@ -49,7 +49,7 @@ def smolvla_row() -> str:
     latest = files[-1]
     out = f"best, step {step_of(best)}: " + skill_row(best.stem.replace("skill_eval_", ""))
     if latest != best:
-        out += f" — latest, step {step_of(latest)}: " + skill_row(latest.stem.replace("skill_eval_", "")) + " (the last 6 000 steps ran on the RTX 3050 at batch 4 with a fresh optimizer after Kaggle's weekly GPU quota ran out, and lost ground; the step-14 000 checkpoint is kept on the Hub under `step_14000/`)"
+        out += f" — latest, step {step_of(latest)}: " + skill_row(latest.stem.replace("skill_eval_", "")) + " (the last 6 000 steps ran at batch 4 with a fresh optimizer on a smaller GPU and lost ground; the step-14 000 checkpoint is kept on the Hub under `step_14000/`)"
     return out
 
 

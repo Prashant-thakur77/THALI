@@ -64,10 +64,10 @@ Hardware note for every phase: i7-13650HX, OpenVINO `['CPU','GPU']`, **no NPU** 
 - [ ] 10.1 Dockerfile, `environment.yml`, Makefile, `docs/CHALLENGE_CHECKLIST.md`, `docs/MODEL_CARD.md`, pytest for verifier/oracles/parser/schema, CI
 - [ ] 10.2 Hosted demo: Gradio Space or Streamlit with pre-recorded seeds + live planner
 - [ ] 10.3 Datasets + checkpoints + IR on HF Hub (`Prashant-77`)
-- [ ] 10.4 Submit a draft early; update until deadline
+- [x] 10.4 Submission draft, updated to the final version
 - [ ] 10.5 Business slide: hospitality/kitchen automation, assistive dining, why local inference
 
-## Phase 11 — beyond the baseline
+## Phase 11 — extended capabilities
 - [x] Mid-task perturbation recovery eval (results/recovery.json 4/4) + final-state verification in runtime
 - [x] Per-skill policy-only eval script (eval/skill_eval.py); 60-ep run in progress → results/skill_eval_act_60ep.json
 - [ ] ACT retrain on 1050 episodes (running) → skill_eval_act_1050ep, seeds_act_*, bench

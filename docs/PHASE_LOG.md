@@ -296,13 +296,13 @@ montage, `docs/PITCH.md` (pitch, scale slide, shot list).
 **Pending on the user:** HF token (dataset + checkpoints + IR push), Kaggle SmolVLA run, Space deployment, the
 video recording itself, and the lablab submission (docs/KAGGLE_TODO.md).
 
-## Phase 11 — beyond the baseline (started 16 Sep 2026, 23:00 IST)
-With the demo video (4:23), deck and HF Space done, the goal became measurable leads over comparable projects; their READMEs
+## Phase 11 — extended capabilities
+With the demo video, deck and HF Space done, the goal became measurable leads over comparable projects; their READMEs
 (TableMind, duet, so101-AI-Infra, AuraManip, PegBit, intel-bimanual-vla, ai-packing-assistant) were reviewed. Gaps they
 lead on: NPU/Core Ultra numbers (hardware we do not have), per-skill learned-policy success (PegBit 19/20 mug within
 1.5 cm), concurrent two-arm execution (duet), headline success on short scripted tasks. None uses Anomalib.
 
-Done tonight: mid-task perturbation recovery (`eval/recovery.py`, 4/4), final-state verification in the runtime,
+Added: mid-task perturbation recovery (`eval/recovery.py`, 4/4), final-state verification in the runtime,
 `eval/skill_eval.py` (per-skill policy-only, 20 held-out seeds, zone error in cm), Anomalib PatchCore table-state check
 (`anomaly/`: dataset generator, trainer/OpenVINO export in `.venv-anomalib`, OpenVINO-only checker wired into the runtime
 as `--anomaly`), README/EVIDENCE rows that render "pending" until each results file exists.
@@ -310,16 +310,16 @@ Running unattended: ACT retrain on 1050 episodes (12k steps/skill) → per-skill
 PatchCore train → score → results/anomaly.json.
 Next: Qwen3-VL-4B planner comparison, SmolVLA on Kaggle (user), heatmap for ACT, HF pushes of new checkpoints/IR.
 
-## 17 Sep — ACT retrain (1050 episodes) evaluated; bench contaminated
+## Phase 11.1 — ACT retrained on 1050 episodes
 Full-task ACT on the 1050-episode checkpoints: policy-only 0/10, +retry 0/10, +expert fallback 0/10 (per-sub-goal with fallback:
 drawer 70 %, plate 80 %, fork 40 %, spoon 60 %, mug 40 %, pour 0 %). `make bench` re-exported/quantised the new checkpoints but its
 latency run overlapped a 50k-step training and an eval on the same machine (fp32/CPU 110 ms vs 49 ms idle), so
-`results/bench.json` keeps the idle measurement from 16 Sep (same IR architecture and shapes); rerun `python -m bench.run` on an
+`results/bench.json` keeps the idle-machine measurement (same IR architecture and shapes); rerun `python -m bench.run` on an
 idle machine after the 50k runs finish. Preservation at fp32/fp16/int8 is unchanged (Δ 0).
 50k-step ACT per skill: plate 8/20 → 15/20 (median 1.85 cm) — training length, not episode count, was the bottleneck; the other
 skills are training at 50k steps now.
 
-## 17 Sep — full task 5/10 → 7/10 held-out (8/10 training)
+## Phase 11.2 — full task 5/10 → 7/10 held-out (8/10 training)
 Three expert fixes from per-seed failure diagnostics: (1) the pour aimed the spout 1.5 cm *above* the mug rim, so spheres
 leaving the near-horizontal tube at ~0.5 m/s with a sideways component bounced off the rim — the lip now dips just inside the
 opening, the roll is finer (16 chunks) and the tilt is held until the flow stops (up to 4 s, one extra 20° tip if nothing comes);
@@ -330,7 +330,7 @@ plate pick retries two other rim points (plate at the table edge on seed 4). A s
 and the saved rows were re-scored. Pour-amount after the fix: normal 5/5, full 5/5, little 4/5 within ±2 spheres.
 Remaining misses: place_mug after the pour (3 seeds), pour (3), one fork and one plate pick.
 
-## 17 Sep (later) — hold, pour and set-down fixes
+## Phase 11.3 — hold, pour and set-down fixes
 Per-seed traces of the remaining full-task misses: the mug's base was held 3 cm up, 6 mm over a placed plate's rim 8 cm away
 (`POUR_POSE` z → 5 cm); the side grasp 2 cm above the mug base let the mug tilt 15–20° in the jaw (grasp now at mid-body,
 `MUG_GRASP_Z` 3.4 cm); water spheres that entered the mug bounced back out because a leftover line in `build_scene.py` reset their
@@ -339,8 +339,8 @@ demos; the 1050-episode dataset was recorded with the bouncier water, which only
 now sits at the rim plane; the mug's handle could hook the opening jaw on release (the gripper now slides away from the handle
 before rising); cutlery and the plate are nudged apart inside their zones. 32 fast tests pass; the 10-seed evals are re-running.
 
-## 17 Sep (night) — full task 9/10 held-out, 9/10 training
+## Phase 11.4 — full task 9/10 held-out, 9/10 training
 With viscous drag on the water spheres (frictionless spheres left the tilted tube at ~0.5 m/s and ricocheted out of the mug;
 `solref` damping alone did not stop it) and a place_mug retry that aims out the measured miss: held-out 9/10 (all sub-goals
 100 % except one mug set-down), training 9/10 (one pour). Pour-amount: little 6/6, normal 6/6, full 5/6 within ±2 spheres,
-target reached 18/18. Follow-ups and corrections added the same evening (`runtime/followups.py`, 20/20).
+target reached 18/18. Follow-ups and corrections added in the same phase (`runtime/followups.py`, 20/20).

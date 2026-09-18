@@ -29,7 +29,7 @@ Back-to-back realtime sessions hit `4005 quota_exceeded` when a session is opene
 previous one closing. `voice/listen.transcribe_file` retries with backoff and `eval/voice_test.py` pauses 5 s
 between files.
 
-## Audit log written by parallel runs (Sep 16, submission night)
+## Audit log written by parallel runs
 Several demo/eval runs (video clips, recovery eval) were launched in parallel and all appended to `results/audit.jsonl`; their
 records interleaved, so the sha256 chain broke at seq 77. Resolution: the intact prefix (76 records) stays in `results/audit.jsonl`
 (`make verify-log` passes); the interleaved tail is preserved unmodified in `results/audit_unchained_parallel_runs.jsonl`.
