@@ -1,7 +1,7 @@
 """Thali Live for Streamlit Community Cloud (free, ~1 GB): the same simulator + runtime as web/server.py, in a Streamlit page.
 
 Deploy: share.streamlit.io -> New app -> repo Prashant-thakur77/THALI, branch main, main file web/streamlit_app.py
-(requirements-streamlit.txt and packages.txt are picked up automatically; add SPEECHMATICS_API_KEY under Secrets).
+(web/requirements.txt and web/packages.txt are picked up automatically; add SPEECHMATICS_API_KEY under Secrets).
 Runs locally too:  MUJOCO_GL=glfw streamlit run web/streamlit_app.py
 
 What this host cannot do: the OpenVINO Qwen2-VL planner and the PatchCore table check (no exported models, no openvino

@@ -1,4 +1,16 @@
+# Dependencies for the web front ends (Streamlit Community Cloud installs the requirements file next to the main file).
+# Simulator + expert + rule planner + verifier + queues + audit log + Speechmatics; no torch / lerobot / openvino here
+# (the VLM planner and the PatchCore check need the exported models and are not available on a 1 GB host).
+streamlit>=1.38
 fastapi>=0.115
 uvicorn[standard]>=0.30
 python-multipart>=0.0.9
+pydantic>=2
+mujoco==3.13.0
+mink==1.3.0
+gymnasium==1.3.0
+numpy==2.4.6
 pillow
+jsonschema
+python-dotenv
+speechmatics-rt==1.1.1
