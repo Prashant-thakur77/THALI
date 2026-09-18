@@ -148,6 +148,8 @@ def event_line(e: dict) -> tuple[str, str]:
         return "bad", f"⚠️ {p['text']}"
     if k == "ready":
         return "state", "simulator ready"
+    if k == "gl":
+        return "state", f"renderer: {p.get('backend')}" + ("" if p.get("cameras") else " — no headless GL on this host, cameras off (scene state still live)")
     return "", ""
 
 

@@ -70,9 +70,17 @@ class Sim:
         from runtime.state_machine import Runtime
         from verifier.rules import Verifier
 
+        from web.glprobe import pick
+        backend = pick()
+        self.cameras = backend is not None
+        if backend:
+            os.environ["MUJOCO_GL"] = backend
+        self._push({"kind": "gl", "payload": {"backend": backend or "none", "cameras": self.cameras}})
         self.env = gym.make("souschef_env/Thali-v0", disable_env_checker=True).unwrapped
+        if not self.cameras:
+            self.env.render_enabled = False
         self.planner = Planner(backend="auto" if self.vlm_available else "rules", device="CPU")
-        self.rt = Runtime(self.env, self.planner, Verifier(), say=self._say, camera_check=True,
+        self.rt = Runtime(self.env, self.planner, Verifier(), say=self._say, camera_check=self.cameras,
                           audit_path=RESULTS / "audit_web.jsonl")
         self.rt.on_step = self._tick
         self.rt.on_event = self._on_event
@@ -98,6 +106,8 @@ class Sim:
             self._capture()
 
     def _capture(self) -> None:
+        if not getattr(self, "cameras", True):
+            return
         was = self.env.render_enabled
         self.env.render_enabled = True
         front = self.env.render_camera("front", 480, 360)

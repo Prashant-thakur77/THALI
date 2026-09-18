@@ -1,4 +1,6 @@
 libosmesa6
 libgl1
-libglib2.0-0
+libgl1-mesa-dri
 libegl1
+libegl-mesa0
+libglib2.0-0
