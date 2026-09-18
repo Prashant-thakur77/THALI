@@ -25,7 +25,7 @@ Millions of people can talk perfectly well but can't lay a table or pour a glass
 | | measured | evidence |
 |---|---|---|
 | **Full task, scripted expert** (drawer → fork → spoon handed A→B → plate → hold + pour → mug) | **9/10** held-out seeds · 9/10 train | `results/seeds_expert_*` |
-| **Full task, ACT policies** (policy-only / +retry / +expert fallback) | 0/10 / 0/10 / 0/10 | `results/seeds_act_*` |
+| **Full task, ACT policies** (policy-only / +retry / +expert fallback; the 50k-step per-skill policies, drawer 12k) | 0/10 / 0/10 / 0/10 | `results/seeds_act_*` |
 | **Full task, multi-task SmolVLA** | training on Kaggle — pending | `results/seeds.json` |
 | **Robustness**, one perturbation axis at a time (10 seeds each) | placement 100% · mass 100% · friction 100% · shape 80% · lighting 100% · background 100% · all six 90% | `results/heatmap_expert.json` |
 | **Local VLM planner** (Qwen2-VL-2B, INT4, OpenVINO CPU) | 4/8 plans straight from the model, **100% verifier-approved**, 44.6 tok/s, 1130 ms to first token | `results/planner_eval.json` |
@@ -107,7 +107,7 @@ object swaps — rows: requested, columns: what the plan encoded
 
 order swaps: plate_then_mug ✗, mug_then_plate ✗
 
-**Policies.** 1050 scripted-expert demonstrations (742837 frames, 3 cameras, 10 instruction paraphrases per skill, 48 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 70%, plate_placed 80%, fork_placed 40%, spoon_placed 60%, mug_placed 40%, poured 0%.
+**Policies.** 1050 scripted-expert demonstrations (742837 frames, 3 cameras, 10 instruction paraphrases per skill, 48 deliberate-miss recovery episodes) recorded as a LeRobot v3 dataset. Per-skill ACT baselines train on the laptop; the multi-task, language-conditioned SmolVLA fine-tunes on Kaggle (`policies/kaggle_smolvla.ipynb`). At run time: learned policy → retry → scripted expert, and the table above reports each stage separately. Per-sub-goal, ACT + fallback reaches drawer_open 90%, plate_placed 30%, fork_placed 50%, spoon_placed 10%, mug_placed 90%, poured 10%, fork_stowed 20%, spoon_stowed 50%, drawer_closed 0%.
 
 **Robustness.** Six randomisation axes — placement, mass, friction, shape, lighting, background — with a held-out test split (ranges 1.5× wider, two unseen table textures, one unseen mug shape). Success per seed × axis on the test split:
 

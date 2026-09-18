@@ -15,27 +15,30 @@
   "success_rate": 0.0,
   "per_skill_rate": {
     "0_open_drawer": 1.0,
-    "1_pick_place": 0.4,
-    "2_handoff": 0.0,
-    "3_pick_place": 0.8,
-    "4_hold_mug": 0.7,
-    "5_pour": 0.0,
-    "6_place_mug": 0.3
+    "1_pick_place": 0.6,
+    "2_handoff": 0.1,
+    "3_pick_place": 1.0,
+    "4_hold_mug": 0.8,
+    "5_pour": 0.2,
+    "6_place_mug": 0.7
   },
   "per_subgoal_rate": {
-    "drawer_open": 0.5,
-    "plate_placed": 0.3,
+    "drawer_open": 1.0,
+    "plate_placed": 0.4,
     "fork_placed": 0.4,
     "spoon_placed": 0.0,
-    "mug_placed": 0.3,
-    "poured": 0.0
+    "mug_placed": 0.7,
+    "poured": 0.2,
+    "fork_stowed": 0.4,
+    "spoon_stowed": 0.8,
+    "drawer_closed": 0.0
   },
   "skill_successes_won_by": {
-    "policy": 21,
-    "retry": 8,
-    "expert": 3
+    "policy": 24,
+    "retry": 13,
+    "expert": 7
   },
-  "elapsed_s": 3996.3,
+  "elapsed_s": 4457.9,
   "rows": [
     {
       "seed": 0,
@@ -43,10 +46,13 @@
       "subgoals": {
         "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": true,
+        "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
-        "poured": false
+        "poured": false,
+        "fork_stowed": true,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -59,25 +65,41 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 11.37
+              "seconds": 15.41
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": true,
-          "won_by": "policy",
+          "ok": false,
+          "won_by": null,
           "stages": [
             {
               "stage": "policy",
-              "ok": true,
-              "steps": 510,
-              "seconds": 19.9
+              "ok": false,
+              "steps": 800,
+              "seconds": 41.08
+            },
+            {
+              "stage": "retry",
+              "ok": false,
+              "steps": 800,
+              "seconds": 40.16
             }
           ],
-          "steps": 510
+          "steps": 1600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -89,37 +111,41 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 46.43
+              "seconds": 66.53
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 44.81
+              "seconds": 65.78
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 700,
-              "seconds": 25.21
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 700,
-              "seconds": 33.74
+              "ok": true,
+              "steps": 530,
+              "seconds": 27.14
             }
           ],
-          "steps": 1400
+          "steps": 530,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -131,16 +157,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 25.85
+              "seconds": 31.42
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 210,
-              "seconds": 8.41
+              "steps": 220,
+              "seconds": 12.26
             }
           ],
-          "steps": 810
+          "steps": 820,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -152,16 +183,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 64.99
+              "seconds": 87.68
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 58.93
+              "seconds": 85.49
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
@@ -169,11 +205,19 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 274
+          "steps": 334,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.15967036612635913,
+            "retried": true,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 9771,
-      "seconds": 377.7,
+      "sim_steps": 10044,
+      "seconds": 512.8,
       "sample": {
         "shape": {
           "plate": {
@@ -234,12 +278,15 @@
       "seed": 1,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
+        "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": false,
+        "fork_placed": true,
         "spoon_placed": false,
-        "mug_placed": false,
-        "poured": false
+        "mug_placed": true,
+        "poured": false,
+        "fork_stowed": false,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -252,31 +299,35 @@
               "stage": "policy",
               "ok": true,
               "steps": 290,
-              "seconds": 11.31
+              "seconds": 16.12
             }
           ],
-          "steps": 290
+          "steps": 290,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 27.2
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 800,
-              "seconds": 28.12
+              "ok": true,
+              "steps": 710,
+              "seconds": 38.0
             }
           ],
-          "steps": 1600
+          "steps": 710,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -288,16 +339,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 49.38
+              "seconds": 69.1
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 49.55
+              "seconds": 70.52
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
@@ -309,10 +365,15 @@
               "stage": "policy",
               "ok": true,
               "steps": 660,
-              "seconds": 25.06
+              "seconds": 34.97
             }
           ],
-          "steps": 660
+          "steps": 660,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -324,16 +385,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 22.01
+              "seconds": 31.59
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 220,
-              "seconds": 7.25
+              "steps": 230,
+              "seconds": 11.83
             }
           ],
-          "steps": 820
+          "steps": 830,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -345,28 +411,41 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 62.21
+              "seconds": 80.87
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 59.84
+              "seconds": 70.78
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": false,
+          "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 264
+          "steps": 346,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.006827983763950656,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 10173,
-      "seconds": 378.5,
+      "sim_steps": 9139,
+      "seconds": 455.3,
       "sample": {
         "shape": {
           "plate": {
@@ -429,10 +508,13 @@
       "subgoals": {
         "drawer_open": true,
         "plate_placed": true,
-        "fork_placed": true,
+        "fork_placed": false,
         "spoon_placed": false,
-        "mug_placed": false,
-        "poured": false
+        "mug_placed": true,
+        "poured": false,
+        "fork_stowed": false,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -444,11 +526,16 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 280,
-              "seconds": 10.84
+              "steps": 290,
+              "seconds": 16.73
             }
           ],
-          "steps": 280
+          "steps": 290,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
@@ -459,11 +546,16 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 560,
-              "seconds": 21.89
+              "steps": 510,
+              "seconds": 26.96
             }
           ],
-          "steps": 560
+          "steps": 510,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -475,52 +567,67 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 48.11
+              "seconds": 67.77
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 48.36
+              "seconds": 66.75
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
+          "ok": true,
+          "won_by": "retry",
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": false,
+              "steps": 700,
+              "seconds": 34.92
+            },
+            {
+              "stage": "retry",
+              "ok": true,
+              "steps": 10,
+              "seconds": 0.46
+            }
+          ],
+          "steps": 710,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
+        },
+        {
+          "skill": "hold_mug",
+          "obj": null,
           "ok": true,
           "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
               "ok": true,
-              "steps": 360,
-              "seconds": 13.77
+              "steps": 200,
+              "seconds": 10.44
             }
           ],
-          "steps": 360
-        },
-        {
-          "skill": "hold_mug",
-          "obj": null,
-          "ok": false,
-          "won_by": null,
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": false,
-              "steps": 600,
-              "seconds": 21.71
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 600,
-              "seconds": 21.27
-            }
-          ],
-          "steps": 1200
+          "steps": 200,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -532,28 +639,41 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 55.79
+              "seconds": 83.76
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 63.17
+              "seconds": 85.73
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": false,
+          "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 0
+          "steps": 290,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.013998080234745096,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 8806,
-      "seconds": 330.1,
+      "sim_steps": 8254,
+      "seconds": 422.5,
       "sample": {
         "shape": {
           "plate": {
@@ -615,11 +735,14 @@
       "success": false,
       "subgoals": {
         "drawer_open": true,
-        "plate_placed": false,
-        "fork_placed": false,
+        "plate_placed": true,
+        "fork_placed": true,
         "spoon_placed": false,
-        "mug_placed": false,
-        "poured": false
+        "mug_placed": true,
+        "poured": true,
+        "fork_stowed": false,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -632,31 +755,35 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 13.4
+              "seconds": 15.81
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 34.23
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 800,
-              "seconds": 32.27
+              "ok": true,
+              "steps": 510,
+              "seconds": 26.64
             }
           ],
-          "steps": 1600
+          "steps": 510,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -668,16 +795,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 53.06
+              "seconds": 68.19
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 52.39
+              "seconds": 68.2
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
@@ -688,11 +820,16 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 390,
-              "seconds": 16.52
+              "steps": 560,
+              "seconds": 28.95
             }
           ],
-          "steps": 390
+          "steps": 560,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -704,49 +841,61 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 26.42
+              "seconds": 32.15
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 180,
-              "seconds": 6.96
+              "steps": 220,
+              "seconds": 11.17
             }
           ],
-          "steps": 780
+          "steps": 820,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
           "obj": null,
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 1600,
-              "seconds": 70.76
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 1600,
-              "seconds": 56.34
+              "ok": true,
+              "steps": 850,
+              "seconds": 45.63
             }
           ],
-          "steps": 3200
+          "steps": 850,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": false,
+          "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 0
+          "steps": 349,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.004706608282522687,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 9515,
-      "seconds": 390.2,
+      "sim_steps": 6382,
+      "seconds": 325.6,
       "sample": {
         "shape": {
           "plate": {
@@ -807,12 +956,15 @@
       "seed": 4,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
+        "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": false,
+        "fork_placed": true,
         "spoon_placed": false,
         "mug_placed": true,
-        "poured": false
+        "poured": false,
+        "fork_stowed": false,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -825,31 +977,35 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 11.28
+              "seconds": 13.97
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 30.1
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 800,
-              "seconds": 31.47
+              "ok": true,
+              "steps": 510,
+              "seconds": 23.59
             }
           ],
-          "steps": 1600
+          "steps": 510,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -861,16 +1017,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 48.31
+              "seconds": 59.74
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 48.27
+              "seconds": 58.25
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
@@ -881,11 +1042,16 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 480,
-              "seconds": 18.22
+              "steps": 460,
+              "seconds": 19.91
             }
           ],
-          "steps": 480
+          "steps": 460,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -897,16 +1063,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 22.5
+              "seconds": 27.53
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 220,
-              "seconds": 8.15
+              "steps": 230,
+              "seconds": 10.42
             }
           ],
-          "steps": 820
+          "steps": 830,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -918,16 +1089,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 73.83
+              "seconds": 75.54
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 71.91
+              "seconds": 76.89
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
@@ -935,11 +1111,19 @@
           "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 275
+          "steps": 322,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.029254747297343772,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 10010,
-      "seconds": 401.0,
+      "sim_steps": 8728,
+      "seconds": 397.4,
       "sample": {
         "shape": {
           "plate": {
@@ -1000,12 +1184,15 @@
       "seed": 5,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
-        "plate_placed": false,
+        "drawer_open": true,
+        "plate_placed": true,
         "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": false,
-        "poured": false
+        "poured": false,
+        "fork_stowed": false,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -1017,32 +1204,36 @@
             {
               "stage": "policy",
               "ok": true,
-              "steps": 280,
-              "seconds": 20.93
+              "steps": 290,
+              "seconds": 15.53
             }
           ],
-          "steps": 280
+          "steps": 290,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 35.27
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 800,
-              "seconds": 33.0
+              "ok": true,
+              "steps": 690,
+              "seconds": 36.83
             }
           ],
-          "steps": 1600
+          "steps": 690,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -1054,37 +1245,47 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 53.51
+              "seconds": 68.74
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 53.32
+              "seconds": 68.05
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "retry",
           "stages": [
             {
               "stage": "policy",
               "ok": false,
               "steps": 700,
-              "seconds": 29.64
+              "seconds": 38.47
             },
             {
               "stage": "retry",
-              "ok": false,
-              "steps": 700,
-              "seconds": 29.03
+              "ok": true,
+              "steps": 390,
+              "seconds": 20.44
             }
           ],
-          "steps": 1400
+          "steps": 1090,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -1096,16 +1297,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 25.78
+              "seconds": 32.22
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 600,
-              "seconds": 24.65
+              "seconds": 31.91
             }
           ],
-          "steps": 1200
+          "steps": 1200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -1117,16 +1323,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 68.65
+              "seconds": 84.62
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 68.13
+              "seconds": 84.35
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
@@ -1134,11 +1345,19 @@
           "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 452
+          "steps": 0,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "reason": "no policy for this step",
+            "err": 1.0,
+            "retried": true,
+            "stage": "expert_only"
+          }
         }
       ],
-      "sim_steps": 11632,
-      "seconds": 501.5,
+      "sim_steps": 10756,
+      "seconds": 545.0,
       "sample": {
         "shape": {
           "plate": {
@@ -1199,12 +1418,15 @@
       "seed": 6,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
-        "plate_placed": true,
+        "drawer_open": true,
+        "plate_placed": false,
         "fork_placed": false,
         "spoon_placed": false,
-        "mug_placed": false,
-        "poured": false
+        "mug_placed": true,
+        "poured": true,
+        "fork_stowed": true,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -1217,10 +1439,15 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 22.41
+              "seconds": 16.44
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
@@ -1232,16 +1459,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 800,
-              "seconds": 35.69
+              "seconds": 44.34
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 800,
-              "seconds": 41.17
+              "seconds": 43.04
             }
           ],
-          "steps": 1600
+          "steps": 1600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -1253,85 +1485,113 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 75.94
+              "seconds": 68.57
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 65.94
+              "seconds": 68.89
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
+          "ok": true,
+          "won_by": "retry",
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": false,
+              "steps": 700,
+              "seconds": 37.2
+            },
+            {
+              "stage": "retry",
+              "ok": true,
+              "steps": 370,
+              "seconds": 21.29
+            }
+          ],
+          "steps": 1070,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
+        },
+        {
+          "skill": "hold_mug",
+          "obj": null,
+          "ok": true,
+          "won_by": "retry",
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": false,
+              "steps": 600,
+              "seconds": 32.5
+            },
+            {
+              "stage": "retry",
+              "ok": true,
+              "steps": 250,
+              "seconds": 13.2
+            }
+          ],
+          "steps": 850,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
+        },
+        {
+          "skill": "pour",
+          "obj": null,
           "ok": true,
           "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
               "ok": true,
-              "steps": 310,
-              "seconds": 13.97
+              "steps": 870,
+              "seconds": 48.39
             }
           ],
-          "steps": 310
-        },
-        {
-          "skill": "hold_mug",
-          "obj": null,
-          "ok": false,
-          "won_by": null,
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": false,
-              "steps": 600,
-              "seconds": 40.0
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 600,
-              "seconds": 26.77
-            }
-          ],
-          "steps": 1200
-        },
-        {
-          "skill": "pour",
-          "obj": null,
-          "ok": false,
-          "won_by": null,
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": false,
-              "steps": 1600,
-              "seconds": 84.34
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 1600,
-              "seconds": 74.95
-            }
-          ],
-          "steps": 3200
+          "steps": 870,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": false,
+          "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 392
+          "steps": 299,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.005500966967560213,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 10307,
-      "seconds": 529.4,
+      "sim_steps": 8165,
+      "seconds": 430.4,
       "sample": {
         "shape": {
           "plate": {
@@ -1392,12 +1652,15 @@
       "seed": 7,
       "success": false,
       "subgoals": {
-        "drawer_open": false,
+        "drawer_open": true,
         "plate_placed": true,
-        "fork_placed": true,
+        "fork_placed": false,
         "spoon_placed": false,
         "mug_placed": true,
-        "poured": false
+        "poured": false,
+        "fork_stowed": true,
+        "spoon_stowed": false,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -1410,67 +1673,87 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 11.88
+              "seconds": 13.14
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": true,
-          "won_by": "policy",
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": true,
-              "steps": 460,
-              "seconds": 17.18
-            }
-          ],
-          "steps": 460
-        },
-        {
-          "skill": "handoff",
-          "obj": "spoon_1",
           "ok": false,
           "won_by": null,
           "stages": [
             {
               "stage": "policy",
               "ok": false,
-              "steps": 1300,
-              "seconds": 48.19
+              "steps": 800,
+              "seconds": 37.34
             },
             {
               "stage": "retry",
               "ok": false,
-              "steps": 1300,
-              "seconds": 49.33
+              "steps": 800,
+              "seconds": 34.59
             }
           ],
-          "steps": 2600
+          "steps": 1600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
-          "skill": "pick_place",
-          "obj": "plate",
+          "skill": "handoff",
+          "obj": "spoon_1",
           "ok": true,
           "won_by": "retry",
           "stages": [
             {
               "stage": "policy",
               "ok": false,
-              "steps": 700,
-              "seconds": 25.9
+              "steps": 1300,
+              "seconds": 57.29
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 460,
-              "seconds": 16.89
+              "steps": 40,
+              "seconds": 1.68
             }
           ],
-          "steps": 1160
+          "steps": 1340,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
+        },
+        {
+          "skill": "pick_place",
+          "obj": "plate",
+          "ok": true,
+          "won_by": "policy",
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": true,
+              "steps": 510,
+              "seconds": 22.96
+            }
+          ],
+          "steps": 510,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -1482,16 +1765,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 22.53
+              "seconds": 27.07
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 200,
-              "seconds": 7.1
+              "steps": 220,
+              "seconds": 9.51
             }
           ],
-          "steps": 800
+          "steps": 820,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -1503,16 +1791,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 62.75
+              "seconds": 79.12
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 62.06
+              "seconds": 80.74
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
@@ -1520,11 +1813,19 @@
           "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 184
+          "steps": 329,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.008105652961374525,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 9398,
-      "seconds": 356.5,
+      "sim_steps": 8658,
+      "seconds": 396.4,
       "sample": {
         "shape": {
           "plate": {
@@ -1587,10 +1888,13 @@
       "subgoals": {
         "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": true,
+        "fork_placed": false,
         "spoon_placed": false,
-        "mug_placed": false,
-        "poured": false
+        "mug_placed": true,
+        "poured": false,
+        "fork_stowed": true,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -1603,25 +1907,41 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 11.23
+              "seconds": 13.54
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": true,
-          "won_by": "policy",
+          "ok": false,
+          "won_by": null,
           "stages": [
             {
               "stage": "policy",
-              "ok": true,
-              "steps": 520,
-              "seconds": 20.08
+              "ok": false,
+              "steps": 800,
+              "seconds": 36.62
+            },
+            {
+              "stage": "retry",
+              "ok": false,
+              "steps": 800,
+              "seconds": 37.78
             }
           ],
-          "steps": 520
+          "steps": 1600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -1633,31 +1953,47 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 48.14
+              "seconds": 59.1
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 47.35
+              "seconds": 58.25
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
           "ok": true,
-          "won_by": "policy",
+          "won_by": "retry",
           "stages": [
             {
               "stage": "policy",
+              "ok": false,
+              "steps": 700,
+              "seconds": 32.25
+            },
+            {
+              "stage": "retry",
               "ok": true,
-              "steps": 510,
-              "seconds": 19.68
+              "steps": 560,
+              "seconds": 26.32
             }
           ],
-          "steps": 510
+          "steps": 1260,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "hold_mug",
@@ -1669,16 +2005,21 @@
               "stage": "policy",
               "ok": false,
               "steps": 600,
-              "seconds": 24.04
+              "seconds": 26.9
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 210,
-              "seconds": 7.97
+              "steps": 240,
+              "seconds": 11.16
             }
           ],
-          "steps": 810
+          "steps": 840,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -1690,28 +2031,41 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 62.71
+              "seconds": 86.38
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 60.71
+              "seconds": 87.26
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": false,
+          "ok": true,
           "won_by": null,
           "stages": [],
-          "steps": 269
+          "steps": 271,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "err": 0.013200182677805948,
+            "retried": false,
+            "stage": "expert_only",
+            "reason": "no policy for this step"
+          }
         }
       ],
-      "sim_steps": 8759,
-      "seconds": 333.2,
+      "sim_steps": 10777,
+      "seconds": 512.1,
       "sample": {
         "shape": {
           "plate": {
@@ -1774,10 +2128,13 @@
       "subgoals": {
         "drawer_open": true,
         "plate_placed": false,
-        "fork_placed": false,
+        "fork_placed": true,
         "spoon_placed": false,
-        "mug_placed": true,
-        "poured": false
+        "mug_placed": false,
+        "poured": false,
+        "fork_stowed": false,
+        "spoon_stowed": true,
+        "drawer_closed": false
       },
       "skills": [
         {
@@ -1790,31 +2147,35 @@
               "stage": "policy",
               "ok": true,
               "steps": 280,
-              "seconds": 11.95
+              "seconds": 13.78
             }
           ],
-          "steps": 280
+          "steps": 280,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "fork_1",
-          "ok": false,
-          "won_by": null,
+          "ok": true,
+          "won_by": "policy",
           "stages": [
             {
               "stage": "policy",
-              "ok": false,
-              "steps": 800,
-              "seconds": 30.27
-            },
-            {
-              "stage": "retry",
-              "ok": false,
-              "steps": 800,
-              "seconds": 30.88
+              "ok": true,
+              "steps": 510,
+              "seconds": 24.26
             }
           ],
-          "steps": 1600
+          "steps": 510,
+          "detail": {
+            "policy": "act",
+            "won_by": "policy",
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "handoff",
@@ -1826,52 +2187,73 @@
               "stage": "policy",
               "ok": false,
               "steps": 1300,
-              "seconds": 49.51
+              "seconds": 58.93
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1300,
-              "seconds": 49.61
+              "seconds": 58.53
             }
           ],
-          "steps": 2600
+          "steps": 2600,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pick_place",
           "obj": "plate",
-          "ok": true,
-          "won_by": "policy",
-          "stages": [
-            {
-              "stage": "policy",
-              "ok": true,
-              "steps": 660,
-              "seconds": 24.66
-            }
-          ],
-          "steps": 660
-        },
-        {
-          "skill": "hold_mug",
-          "obj": null,
           "ok": true,
           "won_by": "retry",
           "stages": [
             {
               "stage": "policy",
               "ok": false,
-              "steps": 600,
-              "seconds": 23.65
+              "steps": 700,
+              "seconds": 31.34
             },
             {
               "stage": "retry",
               "ok": true,
-              "steps": 250,
-              "seconds": 10.14
+              "steps": 360,
+              "seconds": 16.85
             }
           ],
-          "steps": 850
+          "steps": 1060,
+          "detail": {
+            "policy": "act",
+            "won_by": "retry",
+            "mode": "policy_retry"
+          }
+        },
+        {
+          "skill": "hold_mug",
+          "obj": null,
+          "ok": false,
+          "won_by": null,
+          "stages": [
+            {
+              "stage": "policy",
+              "ok": false,
+              "steps": 600,
+              "seconds": 27.65
+            },
+            {
+              "stage": "retry",
+              "ok": false,
+              "steps": 600,
+              "seconds": 28.25
+            }
+          ],
+          "steps": 1200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "pour",
@@ -1883,28 +2265,41 @@
               "stage": "policy",
               "ok": false,
               "steps": 1600,
-              "seconds": 63.57
+              "seconds": 82.14
             },
             {
               "stage": "retry",
               "ok": false,
               "steps": 1600,
-              "seconds": 62.08
+              "seconds": 79.44
             }
           ],
-          "steps": 3200
+          "steps": 3200,
+          "detail": {
+            "policy": "act",
+            "won_by": null,
+            "mode": "policy_retry"
+          }
         },
         {
           "skill": "place_mug",
           "obj": null,
-          "ok": true,
+          "ok": false,
           "won_by": null,
           "stages": [],
-          "steps": 293
+          "steps": 0,
+          "detail": {
+            "obj": "mug",
+            "arm": "b",
+            "reason": "no policy for this step",
+            "err": 1.0,
+            "retried": true,
+            "stage": "expert_only"
+          }
         }
       ],
-      "sim_steps": 10176,
-      "seconds": 392.1,
+      "sim_steps": 9873,
+      "seconds": 457.9,
       "sample": {
         "shape": {
           "plate": {
