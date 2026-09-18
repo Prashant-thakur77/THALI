@@ -30,3 +30,4 @@ anomaly/model/
 outputs_60ep/
 checkpoints/
 outputs_50k/
+*.mjb

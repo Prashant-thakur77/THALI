@@ -50,7 +50,7 @@ def top_down_rotation(yaw: float, tilt: float = 0.0) -> np.ndarray:
 
 class ArmIK:
     def __init__(self, model: mujoco.MjModel | None = None):
-        self.model = model or mujoco.MjModel.from_xml_path(str(C.ARMS_XML))
+        self.model = model or C.load_model(C.ARMS_XML)
         self.configuration = mink.Configuration(self.model)
         self.tasks = {
             a: mink.FrameTask(frame_name=f"{C.ARM_PREFIX[a]}gripperframe", frame_type="site",

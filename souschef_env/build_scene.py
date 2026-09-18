@@ -354,8 +354,11 @@ def build(out_path: Path = C.SCENE_XML, report_path: Path | None = None) -> mujo
         report_path.write_text(json.dumps(report, indent=2))
     arms = build_arms_only_spec()
     arms.compile()
+    # precompiled binaries: loading them needs a fraction of the memory of compiling the meshes (see constants.load_model)
+    mujoco.mj_saveModel(model, str(out_path.with_suffix('.mjb')), None)
     arms.meshdir = "so101/assets"
     C.ARMS_XML.write_text(arms.to_xml())
+    mujoco.mj_saveModel(mujoco.MjModel.from_xml_path(str(C.ARMS_XML)), str(C.ARMS_XML.with_suffix('.mjb')), None)
     return model
 
 

@@ -263,6 +263,7 @@ class Runtime:
                     self._transition("EXECUTING", log, steps=[b.idx for b in batch], resumed=True)
                     continue
             t1 = time.time()
+            render_was = self.env.render_enabled
             self.env.render_enabled = True
             # ---- checks: sim oracle (ground truth) and camera-based judgement, per step
             self._transition("CHECKING", log, steps=[b.idx for b in batch])
@@ -302,6 +303,7 @@ class Runtime:
                 else:
                     self.queues.mark(b, "failed")
                     failed = failed or b
+            self.env.render_enabled = render_was   # per-step 3-camera rendering is only for policies; the expert runs blind
             if failed is not None:
                 result = results[failed.idx]
                 if replan_round >= MAX_REPLANS:

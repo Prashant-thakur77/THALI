@@ -57,7 +57,7 @@ class ThaliEnv(gym.Env):
         # demo recording turns this off while it runs unrecorded prerequisite skills (rendering is 3/4 of step time)
         self.render_enabled = True
 
-        self.model = mujoco.MjModel.from_xml_path(str(C.SCENE_XML))
+        self.model = C.load_model(C.SCENE_XML)
         self.data = mujoco.MjData(self.model)
         self.randomizer = Randomizer(self.model)
         self.last_sample = None

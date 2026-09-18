@@ -79,3 +79,20 @@ ZONES = {
 }
 # Where the mug is held while the other arm pours (x, y, z of the mug base).
 POUR_POSE = (0.0, -0.02, 0.05)   # base 5 cm up: 2.6 cm above a placed plate's rim 8 cm away (3 cm left the mug resting on it on some layouts)  # 13 cm from the bottle (+y), clear of the plate zone (-y)
+
+
+def load_model(xml_path):
+    """MjModel from ``xml_path``, preferring the precompiled ``.mjb`` beside it when it is at least as new as the XML.
+
+    Compiling the SO-101 meshes (645k faces) needs ~600 MB of transient memory; the binary model loads in ~120 MB.
+    ``python -m souschef_env.build_scene`` writes both files; hosts without the .mjb fall back to the XML."""
+    import os
+    import mujoco
+    xml_path = str(xml_path)
+    mjb = os.path.splitext(xml_path)[0] + ".mjb"
+    if os.path.exists(mjb) and os.path.getmtime(mjb) >= os.path.getmtime(xml_path):
+        try:
+            return mujoco.MjModel.from_binary_path(mjb)
+        except Exception:
+            pass
+    return mujoco.MjModel.from_xml_path(xml_path)

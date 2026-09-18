@@ -79,9 +79,17 @@ class Sim:
         if backend:
             os.environ["MUJOCO_GL"] = backend
         self._push({"kind": "gl", "payload": {"backend": backend or "none", "cameras": self.cameras}})
+        from souschef_env import constants as C
+        for xml in (C.SCENE_XML, C.ARMS_XML):   # precompiled models: ~120 MB to load instead of ~600 MB to compile (1 GB hosts)
+            mjb = xml.with_suffix(".mjb")
+            if not mjb.exists():
+                try:
+                    from huggingface_hub import hf_hub_download
+                    hf_hub_download("Prashant-77/thali-assets", mjb.name, local_dir=str(mjb.parent))
+                except Exception as e:
+                    self._push({"kind": "note", "payload": {"text": f"no precompiled {mjb.name} ({type(e).__name__}); compiling the XML"}})
         self.env = gym.make("souschef_env/Thali-v0", disable_env_checker=True).unwrapped
-        if not self.cameras:
-            self.env.render_enabled = False
+        self.env.render_enabled = False   # the expert runs blind; frames are rendered only for the stream and the checks
         self.planner = Planner(backend="auto" if self.vlm_available else "rules", device="CPU")
         self.rt = Runtime(self.env, self.planner, Verifier(), say=self._say, camera_check=self.cameras,
                           audit_path=RESULTS / "audit_web.jsonl")

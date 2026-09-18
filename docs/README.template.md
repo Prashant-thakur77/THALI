@@ -123,7 +123,7 @@ make verify-log LOG=results/audit.jsonl                  # recompute the audit h
 python -m docs.render_readme    # regenerate this page and docs/ from results/
 ```
 
-`planner/export.sh` exports the VLM (~6 GB free disk). Every `reset(seed)` is byte-identical per seed; training seed 1000. Datasets and checkpoints: [`Prashant-77/thali_all`](https://huggingface.co/datasets/Prashant-77/thali_all), [`Prashant-77/thali_smolvla`](https://huggingface.co/Prashant-77/thali_smolvla) on the Hub. Interactive site: `web/server.py` (FastAPI, `web/serve.sh`) or `web/streamlit_app.py` (Streamlit Community Cloud, `requirements-streamlit.txt` + `packages.txt`).
+`planner/export.sh` exports the VLM (~6 GB free disk). Every `reset(seed)` is byte-identical per seed; training seed 1000. Datasets and checkpoints: [`Prashant-77/thali_all`](https://huggingface.co/datasets/Prashant-77/thali_all), [`Prashant-77/thali_smolvla`](https://huggingface.co/Prashant-77/thali_smolvla) on the Hub. Interactive site: `web/server.py` (FastAPI, `web/serve.sh`) or `web/streamlit_app.py` (Streamlit Community Cloud, `web/requirements.txt` + `web/packages.txt`). `build_scene` also writes precompiled `.mjb` models (loaded in ~120 MB instead of ~600 MB to compile the meshes); small hosts fetch them from [`Prashant-77/thali-assets`](https://huggingface.co/Prashant-77/thali-assets).
 
 ## Limitations
 

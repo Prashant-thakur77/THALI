@@ -449,10 +449,8 @@ with tab_results:
 
 # ----------------------------------------------------------------------------- Replay
 with tab_replay:
-    vid = ROOT / "video" / "thali_demo.mp4"
-    if vid.exists():
-        st.video(str(vid))
-        st.caption("The demo: the problem, the closed loop, a real noisy-room recording, Hindi, the full task, the pour, blocked plans, barge-in, clearing the table, corrections, both arms at once, the learned policies, OpenVINO, both track scorecards.")
+    st.video("https://huggingface.co/spaces/Prashant-77/thali/resolve/main/thali_demo.mp4")   # streamed, not served from this 1 GB host
+    st.caption("The demo: the problem, the closed loop, a real noisy-room recording, Hindi, the full task, the pour, blocked plans, barge-in, clearing the table, corrections, both arms at once, the learned policies, OpenVINO, both track scorecards.")
     st.markdown("#### Recorded runs")
     for name in ("demo_seed3.json", "demo_seed0.json", "demo_bargein_stop.json"):
         d = load(name)
